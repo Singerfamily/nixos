@@ -8,9 +8,6 @@
 	    ./git.nix
     ];
 
-    networking.networkmanager.enable = true;
-    time.timeZone = "America/Edmonton";
-
     nixpkgs.config.allowUnfree = true;
 
     virtualisation.docker.enable = true;
