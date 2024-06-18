@@ -5,7 +5,7 @@
         ./zsh.nix
         ./users.nix
         ./sound.nix
-	./git.nix
+	    ./git.nix
     ];
 
     networking.networkmanager.enable = true;
