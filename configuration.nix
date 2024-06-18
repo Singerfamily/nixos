@@ -35,10 +35,8 @@
 
   services.xserver.enable = true;
 
-  services.displayManager = {
-    sddm.enable = true;
-    plasma6.enable = true;
-  };
+  services.displayManager.sddm.enable = true;
+  services.displayManager.plasma6.enable = true;
 
   services.xserver = {
     layout = "us";
