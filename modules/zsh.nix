@@ -18,9 +18,7 @@
             update = "sudo nixos-rebuild switch";
         };
 
-        shellInit = [
-            "eval '$(zoxide init zsh)'"
-        ];
+        shellInit = "eval '$(zoxide init zsh)'";
 
         ohMyZsh = {
          enable = true;
