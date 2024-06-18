@@ -9,8 +9,7 @@
     [
       <nixos-hardware/lenovo/thinkpad/p53>
       ./hardware-configuration.nix
-      ../modules/default.nix
-      ../modules/nvidia.nix
+      ../modules/nixos/default.nix
     ];
 
   # Bootloader.
