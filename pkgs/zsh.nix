@@ -17,10 +17,6 @@
             la = "ls -la";
             update = "sudo nixos-rebuild switch";
         };
-        history = {
-            size = 10000;
-            path = "${config.xdg.dataHome}/zsh/history";
-        };
 
         shellInit = [
             "eval '$(zoxide init zsh)'"
