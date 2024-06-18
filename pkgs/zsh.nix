@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }: 
 
 {
-    environment.systemPackages = [
-        pkgs.zoxide
-        pkgs.fzf
+    environment.systemPackages = with pkgs; [
+        zoxide
+        fzf
     ];
 
     programs.zsh = {
