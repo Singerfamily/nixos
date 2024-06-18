@@ -2,8 +2,8 @@
 
 {
     environment.systemPackages = [
-        nixpkgs.zoxide
-        nixpkgs.fzf
+        pkgs.zoxide
+        pkgs.fzf
     ];
 
     programs.zsh = {
