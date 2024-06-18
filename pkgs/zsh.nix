@@ -2,8 +2,8 @@
 
 {
     environment.systemPackages = [
-        zoxide
-        fzf
+        nixpkgs.zoxide
+        nixpkgs.fzf
     ];
 
     programs.zsh = {
@@ -23,7 +23,7 @@
         };
 
         shellInit = [
-            "eval(zoxide init --cmd cd zsh)"
+            "eval '$(zoxide init zsh)'"
         ];
 
         ohMyZsh = {
