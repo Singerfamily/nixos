@@ -2,21 +2,35 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ 
+  inputs,
+  config, 
+  pkgs, 
+  ... 
+}:
 
 {
   imports =
     [
-      <nixos-hardware/lenovo/thinkpad/p53>
+      inputs.hardware.nixosModules.lenovo-thinkpad-p53
+      inputs.nix-gaming.nixosModules.default
       ./hardware-configuration.nix
       ../modules/nixos/default.nix
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
-  networking.hostName = "thinkpad-p53";
+    # Enable networking
+  networking = {
+    networkmanager = {
+      enable = true;
+    };
+    hostName = "thinkpad-p53";
+  };
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
