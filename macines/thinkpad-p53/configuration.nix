@@ -6,73 +6,49 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       <nixos-hardware/lenovo/thinkpad/p53>
       ./hardware-configuration.nix
-      ./common/nvidia.nix
-      ./pkgs/default.nix
+      ../../modules/default.nix
+      ../../modules/nvidia.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "thinkpad-p53"; # Define your hostname.
+  networking.hostName = "thinkpad-p53";
 
-  environment.sessionVariables = {
-	  NIXOS_OZONE_WL = "1";
-  };
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  time.hardwareClockInLocalTime = true;
-
-  networking.networkmanager.enable = true;
-
-  time.timeZone = "America/Edmonton";
-
+  # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
+  # Enable the X11 windowing system.
+  # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
+  # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-  services.displayManager.plasma6.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
+  # Configure keymap in X11
   services.xserver = {
     layout = "us";
     xkbVariant = "";
   };
 
+  # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-
-  users.users.esinger = {
-    isNormalUser = true;
-    description = "Eric Singer";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    uid = 1000;
-    shell = pkgs.zsh;
-    packages = with pkgs; [
-      kdePackages.kate
-      microsoft-edge
-    ];
-  };
-
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
   environment.systemPackages = with pkgs; [
     pciutils
     fprintd
     usbutils
     lshw
   ];
+
+  services.tailscale.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -81,5 +57,11 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
+
+  environment.sessionVariables = {
+	  NIXOS_OZONE_WL = "1";
+  };
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 }
