@@ -20,7 +20,7 @@
     environment.systemPackages = with pkgs; [
         vscode
         tailscale
-	vscode
-	microsoft-edge
+	    vscode
+	    microsoft-edge
     ];
 }
