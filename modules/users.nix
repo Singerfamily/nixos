@@ -16,8 +16,6 @@
     uid = 1000;
     packages = with pkgs; [
       kdePackages.kate
-      microsoft-edge
-      vscode
     ];
   };
 }

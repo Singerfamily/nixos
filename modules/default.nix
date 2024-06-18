@@ -5,6 +5,7 @@
         ./zsh.nix
         ./users.nix
         ./sound.nix
+	./git.nix
     ];
 
     networking.networkmanager.enable = true;
@@ -19,5 +20,7 @@
     environment.systemPackages = with pkgs; [
         vscode
         tailscale
+	vscode
+	microsoft-edge
     ];
 }
