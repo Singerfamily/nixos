@@ -4,7 +4,7 @@
 	# NVIDIA services
 	services.xserver.videoDrivers = [ "nvidia" ];
 
-	hardware {
+	hardware = {
 		opengl = {
 			enable = true;
 			driSupport = true;
