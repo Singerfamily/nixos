@@ -4,13 +4,12 @@
     imports = [
         ./docker.nix
         ./git.nix
-        ./locale.nix
         ./nvidia.nix
+        ./locale.nix
         ./pipewire.nix
         ./tailscale.nix
         ./zsh.nix
         ./nix.nix
-        ./browser.nix
     ];
 
     nixpkgs.config.allowUnfree = true;

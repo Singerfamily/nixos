@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  imports = [./packages.nix];
+  # imports = [./packages.nix];
 
   users.mutableUsers = false;
   users.users.esinger = {
