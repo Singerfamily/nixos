@@ -2,15 +2,26 @@
 
 {
     environment.systemPackages = with pkgs; [
-        zoxide
         fzf
+    ];
+
+    programs.zoxide = {
+        enable = true;
+        enableZshIntegration = true;
+    };
+
+    programs.fzf = {
+        enable = true;
+        enableZshIntegration = true;
+    };
+
+    environment.systemPackages = with pkgs; [
+        zsh-autosuggestions
+        zsh-autocomplete
     ];
 
     programs.zsh = {
         enable = true;
-        # enableCompletion = true;
-        # autosuggestion.enable = true;
-        # syntaxHighlighting.enable = true;
 
         shellAliases = {
             ll = "ls -l";
@@ -20,16 +31,15 @@
 
         shellInit = "eval '$(zoxide init zsh)'";
 
+        promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+
         ohMyZsh = {
          enable = true;
-         theme = "romkatv/powerlevel10k";
          plugins = [
            "git"
            "npm"
            "history"
            "node"
-           "zsh-users/zsh-autosuggestions"
-           "marlonrichert/zsh-autocomplete"
          ];
       };
 
