@@ -40,16 +40,17 @@
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-  services.blueman.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-#  environment.systemPackages = with pkgs; [
-#    pciutils
-#    fprintd
-#    usbutils
-#    lshw
-#  ];
+  services.fprintd.enable = true;
+
+  services.fprintd.tod.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    pciutils
+    fprintd
+    usbutils
+    lshw
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

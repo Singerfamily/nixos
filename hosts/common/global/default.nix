@@ -9,7 +9,6 @@
         ./dns.nix
         ./pipewire.nix
         ./tailscale.nix
-        # ./docker.nix
         ./podman.nix
         ../desktop/plasma
         
