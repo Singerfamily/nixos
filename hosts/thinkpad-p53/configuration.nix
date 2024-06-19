@@ -16,6 +16,7 @@
 
       ../common/global
       ../common/users/esinger
+      ../common/optional/fingerprint.nix
     ];
 
   # Bootloader.
@@ -41,13 +42,8 @@
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
-  services.fprintd.enable = true;
-
-  services.fprintd.tod.enable = true;
-
   environment.systemPackages = with pkgs; [
     pciutils
-    fprintd
     usbutils
     lshw
   ];
