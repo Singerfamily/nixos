@@ -14,7 +14,7 @@
     # };
   };
 
-  outputs = { self, nixpkgs, home-manager, lanzaboote } @ inputs:
+  outputs = { self, nixpkgs, home-manager } @ inputs:
     let
       lib = nixpkgs.lib;
     in
