@@ -19,6 +19,8 @@
 
       ../common/global
       ../common/users/esinger
+      
+      ../common/optional/hyprland.nix
     ];
 
   # Bootloader.
