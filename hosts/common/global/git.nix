@@ -4,8 +4,10 @@
 	programs.git = {
 		enable = true;
 
-		confit = {
-			initBranch = "main";
+		config = {
+			init = {
+				defaultBranch = "main";
+			};
 		};
 
 		# userName = "LeaderbotX400";
