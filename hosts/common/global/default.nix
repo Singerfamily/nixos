@@ -2,17 +2,20 @@
 
 {
     imports = [
-        ./git.nix
-        ./pipewire.nix
-        ./tailscale.nix
-        ./zsh.nix
-        ./nvidia.nix
-        ./docker.nix
+        # System Config
         ./locale.nix
         ./nix.nix
         ./auto-upgrade.nix
         ./dns.nix
-        # ./mac-randomize.nix
+        ./pipewire.nix
+        ./tailscale.nix
+        ./docker.nix
+        ../desktop/plasma
+        
+        # User Config
+        ./git.nix
+        ./zsh.nix
+        ./nvidia.nix
     ];
 
     environment.sessionVariables = {
@@ -24,8 +27,8 @@
     programs.firefox.enable = true;
 
     environment.systemPackages = with pkgs; [
-	vscode
-	microsoft-edge-dev
+	    vscode
+	    microsoft-edge-dev
         kdeconnect
         niv
         tpm2-tss
