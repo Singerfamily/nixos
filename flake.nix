@@ -5,39 +5,49 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-  };
 
-  outputs = { self, nixpkgs, home-manager, ...}:
-    let 
-      lib = nixpkgs.lib;
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
 
-      # ---- SYSTEM SETTINGS ---- #
-      systemSettings = {
-        system = "x86_64-linux"; # system arch
-        hostname = "thinkpad-p53"; # hostname
-      };
-
-      # ----- USER SETTINGS ----- #
-      userSettings = rec {
-        username = "esinger"; # username
-        name = "Eric Singer"; # name/identifier
-        email = "eric@singerfamily.ca"; # email (used for certain configurations)
-        dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
-      };
-    in {
-    nixosConfigurations = {
-      thinkpad-p53 = lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./machines/thinkpad-p53/configuration.nix
-        ];
-
-        home-manager.nixosModules.home-manager =
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-          };
-      };
+      # Optional but recommended to limit the size of your system closure.
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
+  outputs = { self, nixpkgs, home-manager, lanzaboote } @ inputs:
+    let
+      lib = nixpkgs.lib;
+    in
+    {
+      nixosConfigurations = {
+        thinkpad-p53 = lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; }; # this is the important part
+          modules = [ 
+            ./hosts/thinkpad-p53/configuration.nix
+
+             lanzaboote.nixosModules.lanzaboote
+
+              ({ pkgs, lib, ... }: {
+
+                environment.systemPackages = [
+                  # For debugging and troubleshooting Secure Boot.
+                  pkgs.sbctl
+                ];
+
+                # Lanzaboote currently replaces the systemd-boot module.
+                # This setting is usually set to true in configuration.nix
+                # generated at installation time. So we force it to false
+                # for now.
+                boot.loader.systemd-boot.enable = lib.mkForce false;
+
+                boot.lanzaboote = {
+                  enable = true;
+                  pkiBundle = "/etc/secureboot";
+                };
+              })
+          ];
+        };
+      };
+    };
 }
