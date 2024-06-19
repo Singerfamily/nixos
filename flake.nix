@@ -20,18 +20,18 @@
       nixosConfigurations = {
         # Personal laptop
         thinkpad-p53 = lib.nixosSystem {
-          modules = [ ./hosts/thinkpad-p53/configuration.nix ];
+          modules = [ ./hosts/thinkpad-p53 ];
           specialArgs = { inherit inputs outputs; };
         };
       };
 
-      homeConfigurations = {
-        # Laptops
-        thinkpad-p53 = lib.homeManagerConfiguration {
-          modules = [ ./hosts/thinkpad-p53/home.nix ];
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs outputs; };
-        };
-      };
+      # homeConfigurations = {
+      #   # Laptops
+      #   thinkpad-p53 = lib.homeManagerConfiguration {
+      #     modules = [ ./hosts/thinkpad-p53/home.nix ];
+      #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      #     extraSpecialArgs = { inherit inputs outputs; };
+      #   };
+      # };
     };
 }

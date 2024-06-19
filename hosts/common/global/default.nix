@@ -6,9 +6,10 @@
         ./git.nix
         ./locale.nix
         ./nvidia.nix
-        ./sound.nix
+        ./pipewire.nix
         ./tailscale.nix
         ./zsh.nix
+        ./nix.nix
     ];
 
     nixpkgs.config.allowUnfree = true;
