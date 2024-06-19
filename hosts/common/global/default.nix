@@ -21,9 +21,11 @@
 
     nixpkgs.config.allowUnfree = true;
 
+    packages.firefox.enable = true;
+
     environment.systemPackages = with pkgs; [
         vscode
-	    microsoft-edge
+	    microsoft-edge-dev
         kdeconnect
         niv
         tpm2-tss
