@@ -10,6 +10,7 @@
         ./pipewire.nix
         ./tailscale.nix
         ./docker.nix
+        # ./podman.nix
         ../desktop/plasma
         
         # User Config
