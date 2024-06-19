@@ -10,15 +10,7 @@
     home-manager.url = "github:nix-community/home-manager";
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , ...
-    } @ inputs:
-    let
-      lib = nixpkgs.lib;
-    in
+  outputs = inputs @ { self, nixpkgs, home-manager, lib, ...}:
     {
       nixosConfigurations = {
         # Personal laptop
@@ -27,14 +19,5 @@
           specialArgs = { inherit inputs outputs; };
         };
       };
-
-      # homeConfigurations = {
-      #   # Laptops
-      #   thinkpad-p53 = lib.homeManagerConfiguration {
-      #     modules = [ ./hosts/thinkpad-p53/home.nix ];
-      #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      #     extraSpecialArgs = { inherit inputs outputs; };
-      #   };
-      # };
     };
 }
