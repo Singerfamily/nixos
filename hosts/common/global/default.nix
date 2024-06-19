@@ -2,22 +2,20 @@
 
 {
     imports = [
-        ./zsh.nix
-        ./users.nix
+        ./docker.nix
+        ./git.nix
+        ./locale.nix
+        ./nvidia.nix
         ./sound.nix
-	    ./git.nix
+        ./tailscale.nix
+        ./zsh.nix
     ];
 
     nixpkgs.config.allowUnfree = true;
 
-    virtualisation.docker.enable = true;
-
-    programs.firefox.enable = true;
-
     environment.systemPackages = with pkgs; [
         vscode
-        tailscale
-	    vscode
 	    microsoft-edge
+        kdeconnect
     ];
 }

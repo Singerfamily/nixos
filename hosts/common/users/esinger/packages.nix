@@ -15,9 +15,9 @@
       ];
   };
 in {
-  users.users.layla.packages = with pkgs; [
+  users.users.esinger.packages = with pkgs; [
     firefox
-
+    kdePackages.kate
     steam-with-pkgs
     gamescope
     protontricks
