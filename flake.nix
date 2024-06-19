@@ -1,22 +1,21 @@
 {
-  description = "My Nix Config";
-
-  nixConfig = {
-    experimental-features = [ "nix-command" "flakes" ];
-  };
+  description = "NixOS Configurations";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, lib, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager }:
+    let
+      lib = nixpkgs.lib;
+    in
     {
       nixosConfigurations = {
-        # Personal laptop
         thinkpad-p53 = lib.nixosSystem {
-          modules = [ ./hosts/thinkpad-p53 ];
-          specialArgs = { inherit inputs outputs; };
+          system = "x86_64-linux";
+          modules = [ ./hosts/thinkpad-p53/configuration.nix ];
         };
       };
     };

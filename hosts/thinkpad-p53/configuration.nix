@@ -3,7 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { 
-  inputs,
+  hardware,
   config, 
   pkgs, 
   ... 
@@ -12,10 +12,9 @@
 {
   imports =
     [
-      inputs.hardware.nixosModules.lenovo-thinkpad-p53
-      inputs.hardware.nixosModules.common-gpu-nvidia
-      inputs.nix-gaming.nixosModules.default
-
+      # hardware.nixosModules.lenovo-thinkpad-p53
+      # hardware.nixosModules.common-gpu-nvidia
+      # inputs.nix-gaming.nixosModules.default
       ./hardware-configuration.nix
 
       ../common/global
