@@ -10,7 +10,7 @@
     home-manager.url = "github:nix-community/home-manager";
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, lib, ...}:
+  outputs = { self, nixpkgs, home-manager, lib, ... } @ inputs:
     {
       nixosConfigurations = {
         # Personal laptop
