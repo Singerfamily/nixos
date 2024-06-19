@@ -26,7 +26,7 @@
         shellAliases = {
             ll = "ls -l";
             la = "ls -la";
-            update = "sudo nixos-rebuild switch";
+            update = "sudo nixos-rebuild switch --flake $HOME/nixos";
         };
 
         shellInit = "eval '$(zoxide init zsh)'";
