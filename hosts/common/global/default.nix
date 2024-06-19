@@ -10,6 +10,7 @@
         ./tailscale.nix
         ./zsh.nix
         ./nix.nix
+        ./browser.nix
     ];
 
     nixpkgs.config.allowUnfree = true;
