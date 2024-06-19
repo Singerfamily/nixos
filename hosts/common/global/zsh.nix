@@ -2,6 +2,7 @@
 
 {
     environment.systemPackages = with pkgs; [
+        fzf
         zsh-autosuggestions
         zsh-autocomplete
     ];
@@ -11,10 +12,10 @@
         enableZshIntegration = true;
     };
 
-    programs.fzf = {
-        enable = true;
-        enableZshIntegration = true;
-    };
+    # programs.fzf = {
+    #     enable = true;
+    #     enableZshIntegration = true;
+    # };
 
     programs.zsh = {
         enable = true;
