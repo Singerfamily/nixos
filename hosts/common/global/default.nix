@@ -17,6 +17,8 @@
         ./git.nix
         ./zsh.nix
         ./nvidia.nix
+
+        ./firefox.nix
     ];
 
     environment.sessionVariables = {
@@ -24,8 +26,6 @@
     };
 
     nixpkgs.config.allowUnfree = true;
-
-    programs.firefox.enable = true;
 
     environment.systemPackages = with pkgs; [
         fira-code-nerdfont
