@@ -27,6 +27,7 @@
     programs.firefox.enable = true;
 
     environment.systemPackages = with pkgs; [
+        fira-code-nerdfont
 	    vscode
 	    microsoft-edge-dev
         kdeconnect
