@@ -2,16 +2,16 @@
 
 {
     imports = [
-        ./docker.nix
         ./git.nix
-        ./nvidia.nix
-        ./locale.nix
         ./pipewire.nix
         ./tailscale.nix
         ./zsh.nix
-        ./nix.nix
-        ./auto-upgrade.nix
-        ./dns.nix
+        ./nvidia.nix
+        # ./docker.nix
+        # ./locale.nix
+        # ./nix.nix
+        # ./auto-upgrade.nix
+        # ./dns.nix
         # ./mac-randomize.nix
     ];
 
