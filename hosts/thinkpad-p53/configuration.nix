@@ -18,9 +18,7 @@
       ./hardware-configuration.nix
 
       ../common/global
-      ../common/users/esinger
-      
-      ../common/optional/hyprland.nix
+      ../common/users/esinger      
     ];
 
   # Bootloader.
@@ -75,10 +73,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
-  environment.sessionVariables = {
-	  NIXOS_OZONE_WL = "1";
-  };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
