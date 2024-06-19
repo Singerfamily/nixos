@@ -16,6 +16,9 @@
     , home-manager
     , ...
     } @ inputs:
+    let
+      lib = nixpkgs.lib;
+    in
     {
       nixosConfigurations = {
         # Personal laptop

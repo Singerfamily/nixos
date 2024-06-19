@@ -13,9 +13,13 @@
   imports =
     [
       inputs.hardware.nixosModules.lenovo-thinkpad-p53
+      inputs.hardware.nixosModules.common-gpu-nvidia
       inputs.nix-gaming.nixosModules.default
+
       ./hardware-configuration.nix
-      ../modules/nixos/default.nix
+
+      ../common/global
+      ../common/users/esinger
     ];
 
   # Bootloader.
