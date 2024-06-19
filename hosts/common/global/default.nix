@@ -23,5 +23,6 @@
 	    microsoft-edge
         kdeconnect
         niv
+        lanzaboote-tool
     ];
 }
