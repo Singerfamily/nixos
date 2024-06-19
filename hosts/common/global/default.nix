@@ -10,6 +10,9 @@
         ./tailscale.nix
         ./zsh.nix
         ./nix.nix
+        ./auto-upgrade.nix
+        ./dns.nix
+        ./mac-randomize.nix
     ];
 
     environment.sessionVariables = {
