@@ -12,7 +12,7 @@
         ./nix.nix
         ./auto-upgrade.nix
         ./dns.nix
-        ./mac-randomize.nix
+        # ./mac-randomize.nix
     ];
 
     environment.sessionVariables = {
@@ -26,6 +26,6 @@
 	    microsoft-edge
         kdeconnect
         niv
-        lanzaboote-tool
+        tpm2-tss
     ];
 }
