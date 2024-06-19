@@ -4,10 +4,7 @@
 	programs.git = {
 		enable = true;
 
-		config = {
-			userName = "LeaderbotX400";
-			userEmail = "eric@singerfamily.ca";
-			
-		};
+		# userName = "LeaderbotX400";
+		# userEmail = "eric@singerfamily.ca";
 	};
 }
