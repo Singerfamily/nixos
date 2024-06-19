@@ -22,12 +22,14 @@
 
         ohMyZsh = {
          enable = true;
-         theme = "robbyrussell";
+         theme = "romkatv/powerlevel10k";
          plugins = [
            "git"
            "npm"
            "history"
            "node"
+           "zsh-users/zsh-autosuggestions"
+           "marlonrichert/zsh-autocomplete"
          ];
       };
 
