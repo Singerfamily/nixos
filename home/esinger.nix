@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: {
+{config, pkgs, ...}: {
   users.mutableUsers = false;
   users.users.esinger = {
     isNormalUser = true;
