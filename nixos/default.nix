@@ -13,6 +13,8 @@
         ./plasma.nix
         ./boot.nix
         ./nvidia.nix
+
+        ./firefox.nix
     ];
 
     environment.sessionVariables = {

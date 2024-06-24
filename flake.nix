@@ -27,15 +27,14 @@
           specialArgs = { inherit inputs; };
           modules = [ 
             ./hosts/thinkpad-p53/configuration.nix
+            ./home
             
             home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.users = {
-                  esinger = import ./home/esinger;
-                };
+                home-manager.users.esinger = import ./home/esinger;
               }
 
             ./nixos
