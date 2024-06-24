@@ -10,7 +10,8 @@
         ./pipewire.nix
         ./tailscale.nix
         ./podman.nix
-        ../desktop/plasma
+        # ../desktop/plasma
+        ../desktop/hyprland
         
         # User Config
         ./git.nix
