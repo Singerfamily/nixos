@@ -19,10 +19,5 @@
 
     starship
     helix
-
-    qutebrowser
-    zathura
-    mpv
-    imv
   ];
 }
