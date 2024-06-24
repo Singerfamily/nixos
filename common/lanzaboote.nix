@@ -1,4 +1,4 @@
-{pkgs, lib, lanzaboote, ...}:
+{config, pkgs, lib, lanzaboote, ...}:
 
 {
   environment.systemPackages = [
