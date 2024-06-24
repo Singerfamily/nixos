@@ -6,6 +6,8 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-hardware.url = github:NixOS/nixos-hardware/master;
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
 
@@ -48,6 +50,12 @@
               })
           ];
         };
+      };
+      homeConfigurations = {
+        "" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs extraSpecialArgs;
+        modules = [ ./modules/home.nix ];
+      };
       };
     };
 }

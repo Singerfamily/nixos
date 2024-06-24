@@ -21,8 +21,12 @@
         "big-parallel"
         "nixos-test"
       ];
+      auto-optimise-store = true;
     };
-    optimise.automatic = true;
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
     gc = {
       automatic = true;
       dates = "weekly";
