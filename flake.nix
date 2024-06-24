@@ -22,7 +22,6 @@
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
-      pkgs = nixpkgs.legacyPackages.${system};
     in {
       nixosConfigurations = {
         thinkpad-p53 = lib.nixosSystem {
@@ -31,18 +30,17 @@
           modules = [
             lanzaboote.nixosModules.lanzaboote
             ./hosts/thinkpad-p53/configuration.nix
-            ./home/esinger.nix
+            ./home/esinger
 
             ./modules
-          ];
-        };
-      };
 
-      homeConfigurations = {
-        esinger = home-manager.buildHomeConfiguration {
-          inherit self inputs pkgs;
-          modules= [
-            ./modules/home-manager
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useUserPackages = true;
+              home-manager.useGlobalPkgs = true;
+
+              home-manager.users.esinger = import ./home/esinger/home.nix;
+            }
           ];
         };
       };
