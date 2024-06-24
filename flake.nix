@@ -18,36 +18,32 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, lanzaboote, vscode-server , ...} @ inputs:
+  outputs = { self, nixpkgs, home-manager, lanzaboote, vscode-server, ... } @ inputs:
     let
       lib = nixpkgs.lib;
     in
     with myLib; {
       nixosConfigurations = {
+        default = lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            lanzaboote.nixosModules.lanzaboote
+            ./hosts/default/configuration.nix
+          ];
+        };
+
         thinkpad-p53 = lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit self inputs; };
-          modules = [ 
+          modules = [
             ./hosts/thinkpad-p53/configuration.nix
             ./home/esinger.nix
-            
-            home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-              }
 
-            ./nixos
-            ./nixos/optional/fingerprint.nix
-
-            vscode-server.nixosModules.default
-            ({ config, pkgs, ... }: {
-              services.vscode-server.enable = true;
-            })
-
-            lanzaboote.nixosModules.lanzaboote
+            ./modules
           ];
         };
       };
+
+      homeManagerModules.default = ./modules/home-manager;
     };
 }

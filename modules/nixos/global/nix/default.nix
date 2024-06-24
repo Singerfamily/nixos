@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./cachix.nix
+    ./gc.nix
   ];
   nix = {
     settings = {
@@ -28,11 +29,6 @@
     optimise = {
       automatic = true;
       dates = [ "weekly" ];
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 14d";
     };
   };
 }

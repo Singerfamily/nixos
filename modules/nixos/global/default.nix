@@ -3,18 +3,16 @@
 {
     imports = [
         # System Config
-        ./locale.nix
-        ./nix.nix
-        ./auto-upgrade.nix
-        ./dns.nix
-        ./pipewire.nix
-        ./tailscale.nix
-        ./podman.nix
-        ./plasma.nix
+        ./nix
         ./boot.nix
-        ./nvidia.nix
 
-        ./firefox.nix
+        ./auto-upgrade.nix
+        ./cachix.nix
+        ./dns.nix
+        ./locale.nix
+        ./mac-randomize.nix
+        ./pipewire.nix
+        ./podman.nix
     ];
 
     environment.sessionVariables = {
