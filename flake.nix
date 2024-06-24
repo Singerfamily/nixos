@@ -44,53 +44,53 @@
                   boot.lanzaboote = {
                     enable = true;
                     pkiBundle = "/etc/secureboot";
-                    package = lib.mkForce (pkgs.writeShellApplication {
-                      name = "lzbt";
-                      runtimeInputs = with pkgs; [ coreutils binutils vim openssl jq ];
-                      text = let
-                        systemd-pcr-value = pkgs.systemd.overrideAttrs (old: {
-                          patches = old.patches ++ [
-                            (pkgs.fetchpatch {
-                              url = "https://github.com/systemd/systemd/pull/28398.patch";
-                              hash = "sha256-VCDB8tdkBiG0eOlSN5PS4cYkOxl0BtiORxmrfpRKoKo=";
-                            })
-                            (pkgs.fetchpatch {
-                              url = "https://github.com/systemd/systemd/pull/28916.patch";
-                              hash = "sha256-G/cx9RsVhah18rNqtmy2fzkfvBFGLXUCuDIby5vaZZ4=";
-                            })
-                          ];
-                        });
-                      in ''
-                        set -o pipefail
+                    # package = lib.mkForce (pkgs.writeShellApplication {
+                    #   name = "lzbt";
+                    #   runtimeInputs = with pkgs; [ coreutils binutils vim openssl jq ];
+                    #   text = let
+                    #     systemd-pcr-value = pkgs.systemd.overrideAttrs (old: {
+                    #       patches = old.patches ++ [
+                    #         (pkgs.fetchpatch {
+                    #           url = "https://github.com/systemd/systemd/pull/28398.patch";
+                    #           hash = "sha256-VCDB8tdkBiG0eOlSN5PS4cYkOxl0BtiORxmrfpRKoKo=";
+                    #         })
+                    #         (pkgs.fetchpatch {
+                    #           url = "https://github.com/systemd/systemd/pull/28916.patch";
+                    #           hash = "sha256-G/cx9RsVhah18rNqtmy2fzkfvBFGLXUCuDIby5vaZZ4=";
+                    #         })
+                    #       ];
+                    #     });
+                    #   in ''
+                    #     set -o pipefail
 
-                        "${lanzaboote.packages."${pkgs.system}".tool}/bin/lzbt" "$@"
+                    #     "${lanzaboote.packages."${pkgs.system}".tool}/bin/lzbt" "$@"
 
-                        work_dir="$(mktemp -d)"
-                        pushd "$work_dir" > /dev/null
+                    #     work_dir="$(mktemp -d)"
+                    #     pushd "$work_dir" > /dev/null
 
-                        hash_algo=sha256
-                        hash_len="$(openssl "$hash_algo" -binary /dev/null | wc -c)"
-                        stub_path="$(bootctl list --json pretty | jq -r '.[] | select(.isDefault) | .path')"
-                        section_names=".linux .osrel .cmdline .initrd .splash .dtb .pcrsig .pcrpkey"
-                        head -c "$hash_len" /dev/zero > pcr
-                        for section_name in $section_names; do
-                          objcopy -O binary --dump-section "$section_name=section$section_name" "$stub_path" /dev/null
-                          if [ ! -f "section$section_name" ]; then
-                            continue
-                          fi
-                          cat pcr <(openssl "$hash_algo" -binary "section$section_name") | openssl "$hash_algo" -binary -out pcr_new
-                          echo "pcr old=$(xxd -p -c0 pcr) new=$(xxd -p -c0 pcr_new)"
-                          mv pcr_new pcr
-                        done
-                        "${systemd-pcr-value}/bin/systemd-cryptenroll" \
-                          "${config.boot.initrd.luks.devices."cryptroot".device}" \
-                          --wipe-slot tpm2 --tpm2-device auto --tpm2-pcrs "7+11:$hash_algo=$(xxd -p -c0 pcr)" \
-                          --unlock-key-file /etc/nixos/credentials/luks/root
+                    #     hash_algo=sha256
+                    #     hash_len="$(openssl "$hash_algo" -binary /dev/null | wc -c)"
+                    #     stub_path="$(bootctl list --json pretty | jq -r '.[] | select(.isDefault) | .path')"
+                    #     section_names=".linux .osrel .cmdline .initrd .splash .dtb .pcrsig .pcrpkey"
+                    #     head -c "$hash_len" /dev/zero > pcr
+                    #     for section_name in $section_names; do
+                    #       objcopy -O binary --dump-section "$section_name=section$section_name" "$stub_path" /dev/null
+                    #       if [ ! -f "section$section_name" ]; then
+                    #         continue
+                    #       fi
+                    #       cat pcr <(openssl "$hash_algo" -binary "section$section_name") | openssl "$hash_algo" -binary -out pcr_new
+                    #       echo "pcr old=$(xxd -p -c0 pcr) new=$(xxd -p -c0 pcr_new)"
+                    #       mv pcr_new pcr
+                    #     done
+                    #     "${systemd-pcr-value}/bin/systemd-cryptenroll" \
+                    #       "${config.boot.initrd.luks.devices."cryptroot".device}" \
+                    #       --wipe-slot tpm2 --tpm2-device auto --tpm2-pcrs "7+11:$hash_algo=$(xxd -p -c0 pcr)" \
+                    #       --unlock-key-file /etc/nixos/credentials/luks/root
 
-                        popd > /dev/null
-                        rm -rf "$work_dir"
-                      '';
-                    });
+                    #     popd > /dev/null
+                    #     rm -rf "$work_dir"
+                    #   '';
+                    # });
                   };
                               
               })
