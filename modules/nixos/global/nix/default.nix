@@ -5,7 +5,6 @@
 }: {
   imports = [
     ./cachix.nix
-    ./gc.nix
   ];
   nix = {
     settings = {

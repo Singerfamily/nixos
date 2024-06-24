@@ -7,12 +7,13 @@
         ./boot.nix
 
         ./auto-upgrade.nix
-        ./cachix.nix
         ./dns.nix
         ./locale.nix
         ./mac-randomize.nix
         ./pipewire.nix
         ./podman.nix
+
+        ./zsh.nix
     ];
 
     environment.sessionVariables = {

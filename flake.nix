@@ -21,21 +21,13 @@
   outputs = { self, nixpkgs, home-manager, lanzaboote, vscode-server, ... } @ inputs:
     let
       lib = nixpkgs.lib;
-    in
-    with myLib; {
+    in {
       nixosConfigurations = {
-        default = lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = [
-            lanzaboote.nixosModules.lanzaboote
-            ./hosts/default/configuration.nix
-          ];
-        };
-
         thinkpad-p53 = lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit self inputs; };
           modules = [
+            lanzaboote.nixosModules.lanzaboote
             ./hosts/thinkpad-p53/configuration.nix
             ./home/esinger.nix
 
