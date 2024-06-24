@@ -16,7 +16,7 @@
       update = "sudo nixos-rebuild switch --flake $HOME/nixos";
     };
 
-    shellInit = "eval '$(zoxide init zsh)'";
+    shellInit = "eval '$(zoxide init --cmd cd zsh)'";
 
     promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
 
