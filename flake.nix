@@ -33,5 +33,14 @@
           ];
         };
       };
+
+      homeConfigurations = {
+        esinger = home-manager.buildConfiguration {
+          inherit inputs;
+          modules = [
+            ./home/esinger/home.nix
+          ];
+        };
+      };
     };
 }
