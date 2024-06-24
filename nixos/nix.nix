@@ -3,6 +3,9 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ./cachix.nix
+  ];
   nix = {
     settings = {
       trusted-users = [

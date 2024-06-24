@@ -26,6 +26,8 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [ 
+            ./hosts/thinkpad-p53/configuration.nix
+            
             home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
@@ -36,7 +38,6 @@
                 };
               }
 
-            ./hosts/thinkpad-p53/configuration.nix
             ./nixos
             ./nixos/optional/fingerprint.nix
 

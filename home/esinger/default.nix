@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ../modules/firefox.nix
     ../modules/git.nix
     ../modules/zsh.nix
   ];

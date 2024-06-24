@@ -13,11 +13,6 @@
         ./plasma.nix
         ./boot.nix
         ./nvidia.nix
-
-        # User Config
-        ./git.nix
-        ./zsh.nix
-        ./firefox.nix
     ];
 
     environment.sessionVariables = {
