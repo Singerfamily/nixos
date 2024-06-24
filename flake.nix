@@ -39,6 +39,8 @@
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
 
+              home-manager.backupFileExtension = "backup";
+
               home-manager.users.esinger = import ./home/esinger/home.nix;
             }
           ];

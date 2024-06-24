@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, lib, ...}: {
   home.username = "esinger";
   home.homeDirectory = "/home/esinger";
 
@@ -34,19 +34,28 @@
         update = "sudo nixos-rebuild switch --flake $HOME/nixos";
       };
 
-      # initExtra = ''
-      #   source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme"
-      # '';
+      plugins = [
+        {
+          name = "powerlevel10k";
+          src = pkgs.zsh-powerlevel10k;
+          file = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        }
+        {
+          name = "powerlevel10k-config";
+          src = lib.cleanSource ./config/zsh;
+          file = "p10k.zsh";
+        }
+      ];
 
       oh-my-zsh = {
         enable = true;
         theme = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
         plugins = [
           "git"
-          "zsh-autosuggestions"
-          "zsh-syntax-highlighting"
         ];
       };
     };
   };
+
+  home.stateVersion = "24.05";
 }
