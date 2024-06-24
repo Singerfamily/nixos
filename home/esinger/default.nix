@@ -4,7 +4,11 @@
   config,
   ...
 }: {
-  # imports = [./packages.nix];
+  imports = [
+    ../modules/firefox.nix
+    ../modules/git.nix
+    ../modules/zsh.nix
+  ];
 
   users.mutableUsers = false;
   users.users.esinger = {

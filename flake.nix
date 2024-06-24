@@ -6,6 +6,8 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
 
@@ -14,7 +16,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, lanzaboote } @ inputs:
+  outputs = { self, nixpkgs, home-manager, lanzaboote, vscode-server } @ inputs:
     let
       lib = nixpkgs.lib;
     in
@@ -24,21 +26,26 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [ 
+            home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.users = {
+                  esinger = import ./home/esinger;
+                };
+              }
+
             ./hosts/thinkpad-p53/configuration.nix
-            ./common
-            ./home/esinger
-            ./common/optional/fingerprint.nix
+            ./nixos
+            ./nixos/optional/fingerprint.nix
+
+            vscode-server.nixosModules.default
+            ({ config, pkgs, ... }: {
+              services.vscode-server.enable = true;
+            })
 
             lanzaboote.nixosModules.lanzaboote
-          ];
-        };
-      };
-
-      homeConfigurations = {
-        esinger = home-manager.buildConfiguration {
-          inherit inputs;
-          modules = [
-            ./home/esinger/home.nix
           ];
         };
       };
