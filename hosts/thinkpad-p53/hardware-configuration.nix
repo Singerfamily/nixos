@@ -19,6 +19,7 @@
     };
 
   boot.initrd.luks.devices."luks-43a3f133-b164-41cc-aafe-e6344035184b".device = "/dev/disk/by-uuid/43a3f133-b164-41cc-aafe-e6344035184b";
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/43a3f133-b164-41cc-aafe-e6344035184b";
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/9981-7378";
