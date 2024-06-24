@@ -38,7 +38,7 @@
         {
           name = "powerlevel10k";
           src = pkgs.zsh-powerlevel10k;
-          file = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+          file = "/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
         }
         {
           name = "powerlevel10k-config";
@@ -49,7 +49,6 @@
 
       oh-my-zsh = {
         enable = true;
-        theme = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
         plugins = [
           "git"
         ];
