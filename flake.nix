@@ -20,11 +20,13 @@
 
   outputs = { self, nixpkgs, home-manager, lanzaboote, vscode-server, ... } @ inputs:
     let
+      system = "x86_64-linux";
       lib = nixpkgs.lib;
+      pkgs = nixpkgs.legacyPackages.${system};
     in {
       nixosConfigurations = {
         thinkpad-p53 = lib.nixosSystem {
-          system = "x86_64-linux";
+          inherit system;
           specialArgs = { inherit self inputs; };
           modules = [
             lanzaboote.nixosModules.lanzaboote
@@ -36,6 +38,13 @@
         };
       };
 
-      homeManagerModules.default = ./modules/home-manager;
+      homeConfigurations = {
+        esinger = home-manager.buildHomeConfiguration {
+          inherit self inputs pkgs;
+          modules= [
+            ./modules/home-manager
+          ];
+        };
+      };
     };
 }

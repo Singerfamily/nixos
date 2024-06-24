@@ -1,4 +1,4 @@
-{config, pkgs, ...}: {
+{ pkgs, ... }: {
   programs = {
     git = {
       enable = true;
@@ -31,7 +31,19 @@
         update = "sudo nixos-rebuild switch --flake $HOME/nixos";
       };
 
-      promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      # initExtra = ''
+      #   source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme"
+      # '';
+
+      oh-my-zsh = {
+        enable = true;
+        theme = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        plugins = [
+          "git"
+          "zsh-autosuggestions"
+          "zsh-syntax-highlighting"
+        ];
+      };
     };
   };
 }

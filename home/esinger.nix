@@ -1,8 +1,7 @@
-{config, pkgs, ...}: {
+{ ... }: {
   users.mutableUsers = false;
   users.users.esinger = {
     isNormalUser = true;
-    shell = pkgs.zsh;
     name = "esinger";
     description = "Eric Singer";
     extraGroups = [

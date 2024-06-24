@@ -9,11 +9,9 @@
         ./auto-upgrade.nix
         ./dns.nix
         ./locale.nix
-        ./mac-randomize.nix
+        # ./mac-randomize.nix
         ./pipewire.nix
         ./podman.nix
-
-        ./zsh.nix
     ];
 
     environment.sessionVariables = {
@@ -21,6 +19,9 @@
     };
 
     nixpkgs.config.allowUnfree = true;
+
+    programs.git.enable = true;
+    programs.zsh.enable = true;
 
     environment.systemPackages = with pkgs; [
         fira-code-nerdfont
