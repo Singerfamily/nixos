@@ -14,9 +14,9 @@
     [
       ./hardware-configuration.nix
 
-      ../common/global
-      ../common/users/esinger
-      ../common/optional/fingerprint.nix
+      ../../common
+      ../../home/esinger
+      ../../common/optional/fingerprint.nix
     ];
 
   # Bootloader.
