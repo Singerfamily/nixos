@@ -11,6 +11,7 @@
         ./tailscale.nix
         ./podman.nix
         ./plasma.nix
+        ./boot.nix
         
         # User Config
         ./git.nix

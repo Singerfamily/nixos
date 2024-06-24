@@ -1,4 +1,4 @@
-{ pkgs, pconf, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./secureboot.nix
   ];

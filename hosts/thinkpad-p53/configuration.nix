@@ -2,56 +2,46 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ 
-  hardware,
-  config, 
-  pkgs, 
-  ... 
-}:
+{ config, pkgs, ... }:
 
 {
   imports =
-    [
+    [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-
-      ../../common
-      ../../home/esinger
-      ../../common/optional/fingerprint.nix
     ];
 
   # Bootloader.
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-    # Enable networking
-  networking = {
-    networkmanager = {
-      enable = true;
-    };
-    hostName = "thinkpad-p53";
-  };
+  boot.initrd.luks.devices."luks-f7c58c17-6d7c-4992-bb1c-d18f766b6880".device = "/dev/disk/by-uuid/f7c58c17-6d7c-4992-bb1c-d18f766b6880";
+  networking.hostName = "thinkpad-p53"; # Define your hostname.
+
+  # Enable networking
+  networking.networkmanager.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "America/Edmonton";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "";
+  };
 
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.esinger = {
+    isNormalUser = true;
+    description = "Eric Singer";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [];
+  };
 
-  # TPM2 Support
-  security.tpm2.enable = true;
-  security.tpm2.pkcs11.enable = true;  # expose /run/current-system/sw/lib/libtpm2_pkcs11.so
-  security.tpm2.tctiEnvironment.enable = true;  # TPM2TOOLS_TCTI and TPM2_PKCS11_TCTI env variables
-
-  environment.systemPackages = with pkgs; [
-    pciutils
-    usbutils
-    lshw
-  ];
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -62,5 +52,4 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
 }
