@@ -28,7 +28,7 @@
 
              lanzaboote.nixosModules.lanzaboote
 
-              ({ pkgs, lib, ... }: {
+              ({ config, pkgs, lib, ... }: {
 
                 environment.systemPackages = [
                   # For debugging and troubleshooting Secure Boot.
@@ -70,7 +70,7 @@
                       mv pcr_new pcr
                     done
                     "/run/current-system/sw/bin/systemd-cryptenroll" \
-                      "${boot.initrd.luks.devices."cryptroot".device}" \
+                      "${config.boot.initrd.luks.devices."cryptroot".device}" \
                       --wipe-slot tpm2 --tpm2-device auto --tpm2-pcrs "7+11:$hash_algo=$(xxd -p -c0 pcr)" \
                       --unlock-key-file /etc/nixos/credentials/luks/root
 
