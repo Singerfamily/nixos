@@ -2,10 +2,9 @@
 
 {
     imports = [
-        # System Config
         ./nix
         ./boot.nix
-
+        ./env-vars.nix
         ./auto-upgrade.nix
         ./dns.nix
         ./locale.nix
@@ -13,10 +12,6 @@
         ./pipewire.nix
         ./podman.nix
     ];
-
-    environment.sessionVariables = {
-	  NIXOS_OZONE_WL = "1";
-    };
 
     nixpkgs.config.allowUnfree = true;
 
