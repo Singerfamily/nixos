@@ -4,7 +4,7 @@
 
   imports = [
     ./config/zsh.nix
-    # ./hypr
+    # ./config/hypr
   ];
 
   programs = {
