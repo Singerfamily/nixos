@@ -8,7 +8,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    pyprland.url = "github:hyprland-community/pyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
@@ -26,12 +27,11 @@
 
   outputs = { self, nixpkgs, home-manager, lanzaboote, vscode-server,... } @ inputs:
     let
-      system = "x86_64-linux";
       lib = nixpkgs.lib;
     in {
       nixosConfigurations = {
         thinkpad-p53 = lib.nixosSystem {
-          inherit system;
+          system = "x86_64-linux";
           specialArgs = { inherit inputs; };
 
           modules = [

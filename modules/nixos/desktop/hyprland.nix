@@ -1,13 +1,9 @@
 {inputs, pkgs, ...}: {
-  programs.hyprland.enable = true;
-  # programs = {
-  #   hyprland = {
-  #     enable = true;
-  #     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-  #   };
-    
-  #   hyprlock.enable = true;
-  # };
+  programs = {
+    hyprland.enable = true;
+    waybar.enable = true; 
+    hyprlock.enable = true;
+  };
 
   # xdg.portal = {
   #   enable = true;
@@ -21,5 +17,7 @@
     hyprpaper
 
     rofi-wayland
+
+    inputs.pyprland.packages.${pkgs.system}.pyprland
   ];
 }
