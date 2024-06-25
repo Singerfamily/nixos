@@ -11,8 +11,6 @@
         # ./mac-randomize.nix
         ./pipewire.nix
         ./podman.nix
-
-        ./24.05-compat.nix
     ];
 
     nixpkgs.config.allowUnfree = true;

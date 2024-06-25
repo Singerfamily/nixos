@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Hardware Configuration
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware.url = "git+https://github.com/NixOS/nixos-hardware";
 
     # Home Manager
     home-manager = {
@@ -60,7 +60,7 @@
 
             ./modules
 
-            nixos-hardware.nixosModules.lenovo-thinkpad-p53
+            # nixos-hardware.nixosModules.lenovo-thinkpad-p53
 
             {
               nvidia.prime = true;
