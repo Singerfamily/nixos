@@ -34,7 +34,16 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, lanzaboote, vscode-server, stylix,... } @ inputs:
+  outputs = { 
+    self,
+    nixpkgs,
+    home-manager,
+    lanzaboote,
+    vscode-server,
+    stylix,
+    nixos-hardware,
+    ... 
+  } @ inputs:
     let
       lib = nixpkgs.lib;
     in {
@@ -50,6 +59,8 @@
             ./home/esinger
 
             ./modules
+
+            nixos-hardware.nixosModules.lenovo-thinkpad-p53
 
             {
               nvidia.prime = true;

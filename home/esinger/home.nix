@@ -13,7 +13,6 @@
       userName = "LeaderbotX400";
       userEmail = "eric@singerfamily.ca";
     };
-
   };
 
   home.stateVersion = "24.05";
