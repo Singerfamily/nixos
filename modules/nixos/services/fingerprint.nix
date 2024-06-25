@@ -1,11 +1,7 @@
-{ pkgs, ...}:
+{...}:
 
 {
-  services.fprintd = {
-    enable = true;
-  };
+  services.fprintd.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    fprintd
-  ];
+  security.pam.services.login.fprintAuth = true;
 }

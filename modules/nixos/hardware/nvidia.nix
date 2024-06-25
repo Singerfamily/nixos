@@ -2,11 +2,13 @@
 
 
 	options = {
-		enable = lib.mkEnableOption "Enable NVIDIA Drivers";
-		prime = lib.mkEnableOption "Enable NVIDIA PRIME support";
+		nvidia = {
+			enable = lib.mkEnableOption "Enable NVIDIA Drivers";
+			prime = lib.mkEnableOption "Enable NVIDIA PRIME support";
+		};
 	};
 
-	config = lib.mkIf config.enable {
+	config = lib.mkIf config.nvidia.enable {
 		
 		services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -26,7 +28,7 @@
 				nvidiaSettings = true;
 				package = config.boot.kernelPackages.nvidiaPackages.production;
 				
-				prime = lib.mkIf config.prime {
+				prime = lib.mkIf config.nvidia.prime {
 						sync.enable = true;
 						intelBusId = "PCI:0:2:0";
 						nvidiaBusId = "PCI:1:0:0";
