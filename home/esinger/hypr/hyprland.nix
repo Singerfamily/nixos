@@ -6,9 +6,7 @@
 }: let
   rgb = color: "rgb(${color})";
   inherit (config.stylix.base16Scheme) palette;
-  scripts = import ../../../pkgs/scripts.nix {inherit pkgs lib;};
 in {
-  # FIX: do not anger me; fuck hyprpaper
   services.hyprpaper.enable = lib.mkForce false;
   stylix.targets.hyprpaper.enable = lib.mkForce false;
   wayland.windowManager.hyprland = {
@@ -167,12 +165,12 @@ in {
           "$mod1, e, exec, mpv ytdl://ytsearch:\"$(playerctl metadata --format '{{artist}} {{title}} {{album}}')\""
           "$mod1, g, exec, pkill glava || glava"
           "$mod2, o, exec, rofi -theme preview.rasi -show filebrowser"
-          "$mod1, b, exec, ${scripts.disSend}"
-          "$mod1, o, exec, ${scripts.wlOcr}"
-          "$mod1, p, exec, ${scripts.openMedia}"
-          "$mod1, u, exec, ${scripts.rofiGuard}"
-          "$mod1, i, exec, ${scripts.transLiner}"
-          "$mod1, y, exec, ${scripts.copyTwit}"
+          # "$mod1, b, exec, ${scripts.disSend}"
+          # "$mod1, o, exec, ${scripts.wlOcr}"
+          # "$mod1, p, exec, ${scripts.openMedia}"
+          # "$mod1, u, exec, ${scripts.rofiGuard}"
+          # "$mod1, i, exec, ${scripts.transLiner}"
+          # "$mod1, y, exec, ${scripts.copyTwit}"
 
           "$mod1, q, killactive,"
           "$mod1, t, fullscreen,"

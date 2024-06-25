@@ -8,12 +8,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    pyprland.url = "github:hyprland-community/pyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
+    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    # pyprland.url = "github:hyprland-community/pyprland";
+    # hyprland-plugins = {
+    #   url = "github:hyprwm/hyprland-plugins";
+    #   inputs.hyprland.follows = "hyprland";
+    # };
+
+    stylix.url = "github:danth/stylix";
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
@@ -25,7 +27,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, lanzaboote, vscode-server,... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, lanzaboote, vscode-server, stylix,... } @ inputs:
     let
       lib = nixpkgs.lib;
     in {
@@ -35,6 +37,7 @@
           specialArgs = { inherit inputs; };
 
           modules = [
+            stylix.nixosModules.stylix
             lanzaboote.nixosModules.lanzaboote
             ./hosts/thinkpad-p53/configuration.nix
             ./home/esinger

@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  stylix.targets.rofi.enable = false;
+  # stylix.targets.rofi.enable = false;
   programs.rofi = {
     enable = true;
     cycle = true;
@@ -46,17 +46,17 @@
     theme = let
       inherit (config.lib.formats.rasi) mkLiteral;
     in {
-      "*" = with config.lib.stylix.colors.withHashtag; {
-        font = "${config.stylix.fonts.serif.name} ${toString config.stylix.fonts.sizes.applications}";
-        background = mkLiteral base00;
-        border = mkLiteral base01;
-        background-alt = mkLiteral base01;
-        foreground = mkLiteral base06;
-        foreground-alt = mkLiteral base02;
-        selected = mkLiteral base0C;
-        active = mkLiteral base0B;
-        urgent = mkLiteral base0D;
-      };
+      # "*" = with config.lib.stylix.colors.withHashtag; {
+      #   # font = "${config.stylix.fonts.serif.name} ${toString config.stylix.fonts.sizes.applications}";
+      #   background = mkLiteral base00;
+      #   border = mkLiteral base01;
+      #   background-alt = mkLiteral base01;
+      #   foreground = mkLiteral base06;
+      #   foreground-alt = mkLiteral base02;
+      #   selected = mkLiteral base0C;
+      #   active = mkLiteral base0B;
+      #   urgent = mkLiteral base0D;
+      # };
       "window" = {
         transparency = "real";
         location = mkLiteral "center";

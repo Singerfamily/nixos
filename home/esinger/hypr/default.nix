@@ -2,7 +2,8 @@
 
   imports = [
     ./waybar.nix
-    ./rofi.nix
+    # ./rofi.nix
+    ./hyprland.nix
   ];
 
   # wayland.windowManager.hyprland = {
