@@ -8,6 +8,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland-nix.url = "github:spikespaz/hyprland-nix";
+
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     lanzaboote = {

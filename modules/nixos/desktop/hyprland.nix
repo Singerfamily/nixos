@@ -1,25 +1,13 @@
-{pkgs, ...}: {
+{inputs, pkgs, ...}: {
   programs = {
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    };
+    
     hyprlock.enable = true;
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-    ];
-  };
-
-  environment.systemPackages = with pkgs; [
-    waybar
-    hyprpaper
-    kitty
-    dunst
-    libnotify
-    rofi-wayland
-    (pkgs.waybar.overrideAttrs (oldAttrs: {
-      mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
-    }))
-  ];
+  # environment.systemPackages = with pkgs; [
+  # ];
 }
