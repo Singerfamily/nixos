@@ -1,8 +1,9 @@
-{ ... }: {
+{ pkgs,... }: {
   users.mutableUsers = false;
   users.users.esinger = {
     isNormalUser = true;
     name = "esinger";
+    shell = pkgs.zsh;
     description = "Eric Singer";
     extraGroups = [
       "wheel"
