@@ -3,8 +3,7 @@
   home.homeDirectory = "/home/esinger";
 
   imports = [
-    ./config/zsh
-    ./config/hyprland.nix
+    ./config/zsh.nix
   ];
 
   programs = {

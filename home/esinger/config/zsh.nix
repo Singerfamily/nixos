@@ -1,5 +1,6 @@
-{pkgs, ...}: {
-  
+{pkgs, lib, ...}: {
+  programs = {
+
     zoxide = {
       enable = true;
       enableZshIntegration = true;
@@ -33,6 +34,7 @@
         }
         {
           name = "powerlevel10k-config";
+          src = lib.mkCleanSource "./p10k";
           file = "p10k.zsh";
         }
       ];
@@ -44,4 +46,5 @@
         ];
       };
     };
+  };
 }
