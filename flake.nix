@@ -34,6 +34,10 @@
 
             ./modules
 
+            {
+              nvidia.prime = true;
+            }
+
             home-manager.nixosModules.home-manager
             {
               home-manager.useUserPackages = true;

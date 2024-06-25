@@ -1,0 +1,37 @@
+{ config, pkgs, lib, ... }: {
+
+
+	options = {
+		enable = lib.mkEnableOption "Enable NVIDIA Drivers";
+		prime = lib.mkEnableOption "Enable NVIDIA PRIME support";
+	};
+
+	config = lib.mkIf config.enable {
+		
+		services.xserver.videoDrivers = [ "nvidia" ];
+
+		hardware = {
+			opengl = {
+				enable = true;
+				driSupport = true;
+				driSupport32Bit=true;
+				extraPackages = with pkgs;[ vaapiVdpau nvidia-vaapi-driver intel-media-driver]; 
+			};
+
+			nvidia = {
+				modesetting.enable = true;
+				powerManagement.enable = true;
+				powerManagement.finegrained = false;
+				open = true;
+				nvidiaSettings = true;
+				package = config.boot.kernelPackages.nvidiaPackages.production;
+				
+				prime = lib.mkIf config.prime {
+						sync.enable = true;
+						intelBusId = "PCI:0:2:0";
+						nvidiaBusId = "PCI:1:0:0";
+				};
+			};
+		};
+	};
+}
