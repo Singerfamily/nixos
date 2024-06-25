@@ -8,8 +8,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprland-nix.url = "github:spikespaz/hyprland-nix";
+    hyprland.url = "github:hyprwm/hyprland";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
@@ -21,7 +24,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, lanzaboote, vscode-server, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, lanzaboote, vscode-server,... } @ inputs:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
@@ -29,7 +32,8 @@
       nixosConfigurations = {
         thinkpad-p53 = lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit self inputs; };
+          specialArgs = { inherit inputs; };
+
           modules = [
             lanzaboote.nixosModules.lanzaboote
             ./hosts/thinkpad-p53/configuration.nix
@@ -41,14 +45,14 @@
               nvidia.prime = true;
             }
 
-            home-manager.nixosModules.home-manager
-            {
+            home-manager.nixosModules.home-manager {
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
 
               home-manager.backupFileExtension = "backup";
-
               home-manager.users.esinger = import ./home/esinger/home.nix;
+
+              home-manager.extraSpecialArgs = {inherit inputs;};
             }
           ];
         };
