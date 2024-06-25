@@ -3,11 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # Hardware Configuration
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    # Home Manager
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Hyprland
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     # pyprland.url = "github:hyprland-community/pyprland";
     # hyprland-plugins = {
@@ -15,14 +21,15 @@
     #   inputs.hyprland.follows = "hyprland";
     # };
 
+    # Stylix
     stylix.url = "github:danth/stylix";
 
+    # VSCode Server
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
+    # Secure Boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
-
-      # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
