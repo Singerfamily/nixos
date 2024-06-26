@@ -60,7 +60,7 @@
 
             ./modules
 
-            # nixos-hardware.nixosModules.lenovo-thinkpad-p53
+            nixos-hardware.nixosModules.lenovo-thinkpad-p53
 
             {
               nvidia.prime = true;

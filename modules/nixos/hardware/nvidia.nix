@@ -15,7 +15,6 @@
 		hardware = {
 			opengl = {
 				enable = true;
-				driSupport = true;
 				driSupport32Bit=true;
 				extraPackages = with pkgs;[ vaapiVdpau nvidia-vaapi-driver intel-media-driver]; 
 			};
