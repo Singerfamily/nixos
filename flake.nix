@@ -57,8 +57,6 @@
           user = "esinger";
 
           extraModules = [
-            stylix.nixosModules.stylix
-            lanzaboote.nixosModules.lanzaboote
             nixos-hardware.nixosModules.lenovo-thinkpad-p53
           ];
         };
