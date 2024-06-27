@@ -2,7 +2,7 @@
 
   options = {
     spotify = {
-      enable = "Toggle Spotify client";
+      enable = lib.mkEnableOption "Toggle Spotify client";
     };
   };
 
@@ -12,9 +12,9 @@
     ];
 
     # Spotify Local Discovery
-    networking.firewall.allowedTCPPorts = lib.mkIf config.spotify.discovery.local [ 57621 ];
+    networking.firewall.allowedTCPPorts = [ 57621 ];
 
     # Google Cast
-    networking.firewall.allowedUDPPorts = lib.mkIf config.spotify.discovery.cast [ 5353 ];
+    networking.firewall.allowedUDPPorts = [ 5353 ];
   };
 }

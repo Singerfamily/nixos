@@ -26,6 +26,5 @@
         kdeconnect
         niv
         tpm2-tss
-        aha
     ];
 }

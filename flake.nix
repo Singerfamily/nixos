@@ -45,40 +45,20 @@
     ... 
   } @ inputs:
     let
-      mkSystem = import ./lib/mkSystem.nix {
-        inherit nixpkgs inputs;
-      };
+    mkSystem = import ./lib/mkSystem.nix {
+      inherit nixpkgs inputs;
+    };
     in {
       nixosConfigurations = {
-        thinkpad-p53 = mkSystem {
-          system = "thinkpad-p53";
+        thinkpad-p53 = mkSystem "thinkpad-p53" {
           user = "esinger";
 
-          modules = [
+          extraModules = [
             stylix.nixosModules.stylix
             lanzaboote.nixosModules.lanzaboote
             nixos-hardware.nixosModules.lenovo-thinkpad-p53
-            {
-              nvidia.prime = true;
-            }
           ];
         };
-        # thinkpad-p53 = lib.nixosSystem {
-        #   specialArgs = { inherit inputs system; };
-
-        #   modules = [
-        #     stylix.nixosModules.stylix
-        #     lanzaboote.nixosModules.lanzaboote
-        #     ./hosts/thinkpad-p53/configuration.nix
-        #     ./home/esinger
-        #     ./modules
-        #     nixos-hardware.nixosModules.lenovo-thinkpad-p53
-        #     hm
-        #     {
-        #       nvidia.prime = true;
-        #     }
-        #   ];
-        # };
       };
     };
 }

@@ -1,28 +1,27 @@
-{nixpks, inputs, ...}: 
+{nixpkgs, inputs, ...}: 
+
 name: {
-  system,
   user,
-  modules,
+  extraModules ? [],
 }:
 
 let 
   # The config files for this system.
-  hostConfig = ../hosts/${system}/configuration.nix;
+  hostConfig = ../hosts/${name}/configuration.nix;
   userConfig = ../home/${user};
   userHMConfig = ../home/${user}/home.nix;
 
-  lib = nixpks.lib;
-in lib.nixosSystem rec {
-  inherit system;
-  specialArgs = { inherit inputs system; };
+  lib = nixpkgs.lib;
+in lib.nixosSystem {
+  system = "x86_64-linux";
+  specialArgs = { inherit inputs; };
 
   modules = [
-    modules
     ../modules
 
     hostConfig
     userConfig
-    inputs.home-manager.home-manager {
+    inputs.home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.users.${user} = import userHMConfig {
@@ -37,11 +36,10 @@ in lib.nixosSystem rec {
     # better based on these values.
     {
       config._module.args = {
-        system = system;
-        systemName = name;
+        host = name;
         user = user;
         inputs = inputs;
       };
     }
-  ];
+  ] ++ extraModules;
 }
