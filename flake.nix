@@ -40,24 +40,19 @@
   outputs = { 
     self,
     nixpkgs,
-    home-manager,
-    lanzaboote,
-    vscode-server,
-    stylix,
-    nixos-hardware,
     ... 
   } @ inputs:
     let
-    mkSystem = import ./lib/mkSystem.nix {
-      inherit nixpkgs inputs;
-    };
+      mkSystem = import ./lib/mkSystem.nix {
+        inherit nixpkgs inputs;
+      };
     in {
       nixosConfigurations = {
         thinkpad-p53 = mkSystem "thinkpad-p53" {
           user = "esinger";
 
           extraModules = [
-            nixos-hardware.nixosModules.lenovo-thinkpad-p53
+            inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p53
           ];
         };
       };
