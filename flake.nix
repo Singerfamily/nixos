@@ -45,38 +45,40 @@
     ... 
   } @ inputs:
     let
-      lib = nixpkgs.lib;
+      mkSystem = import ./lib/mkSystem.nix {
+        inherit nixpkgs inputs;
+      };
     in {
       nixosConfigurations = {
-        thinkpad-p53 = lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+        thinkpad-p53 = mkSystem {
+          system = "thinkpad-p53";
+          user = "esinger";
 
           modules = [
             stylix.nixosModules.stylix
             lanzaboote.nixosModules.lanzaboote
-            ./hosts/thinkpad-p53/configuration.nix
-            ./home/esinger
-
-            ./modules
-
             nixos-hardware.nixosModules.lenovo-thinkpad-p53
-
             {
               nvidia.prime = true;
             }
-
-            home-manager.nixosModules.home-manager {
-              home-manager.useUserPackages = true;
-              home-manager.useGlobalPkgs = true;
-
-              home-manager.backupFileExtension = "backup";
-              home-manager.users.esinger = import ./home/esinger/home.nix;
-
-              home-manager.extraSpecialArgs = {inherit inputs;};
-            }
           ];
         };
+        # thinkpad-p53 = lib.nixosSystem {
+        #   specialArgs = { inherit inputs system; };
+
+        #   modules = [
+        #     stylix.nixosModules.stylix
+        #     lanzaboote.nixosModules.lanzaboote
+        #     ./hosts/thinkpad-p53/configuration.nix
+        #     ./home/esinger
+        #     ./modules
+        #     nixos-hardware.nixosModules.lenovo-thinkpad-p53
+        #     hm
+        #     {
+        #       nvidia.prime = true;
+        #     }
+        #   ];
+        # };
       };
     };
 }

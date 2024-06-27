@@ -28,9 +28,13 @@
 				package = config.boot.kernelPackages.nvidiaPackages.production;
 				
 				prime = lib.mkIf config.nvidia.prime {
-						sync.enable = true;
-						intelBusId = "PCI:0:2:0";
-						nvidiaBusId = "PCI:1:0:0";
+					offload = {
+						enable = true;
+						enableOffloadCmd = true;
+					};
+
+					intelBusId = "PCI:0:2:0";
+					nvidiaBusId = "PCI:1:0:0";
 				};
 			};
 		};
