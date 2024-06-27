@@ -20,11 +20,12 @@
     programs.zsh.enable = true;
 
     environment.systemPackages = with pkgs; [
-        fira-code-nerdfont
-	    vscode
-	    microsoft-edge-dev
-        kdeconnect
+        gh
         niv
+	    vscode
         tpm2-tss
+        kdeconnect
+	    microsoft-edge-dev
+        fira-code-nerdfont
     ];
 }
