@@ -6,6 +6,7 @@
     ./services
 
     ./hardware/nvidia.nix
+    ./hardware/bluetooth.nix
   ];
 
   nvidia.enable = lib.mkDefault true;
