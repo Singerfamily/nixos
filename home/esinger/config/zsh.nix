@@ -23,7 +23,7 @@
       shellAliases = {
         ll = "ls -l";
         la = "ls -la";
-        update = "sudo nixos-rebuild switch --flake $HOME/nixos";
+        update = "$HOME/nixos/helpers/upgrade.sh";
       };
 
       plugins = [

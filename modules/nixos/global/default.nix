@@ -14,6 +14,7 @@
     ];
 
     nixpkgs.config.allowUnfree = true;
+    hardware.enableAllFirmware = true;
 
     programs.git.enable = true;
     programs.zsh.enable = true;
