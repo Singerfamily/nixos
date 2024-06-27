@@ -21,6 +21,7 @@ in lib.nixosSystem {
 
     hostConfig
     userConfig
+    inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;

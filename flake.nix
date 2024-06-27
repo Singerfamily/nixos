@@ -13,6 +13,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nix Flatpaks
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
+
     # Hyprland
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     # pyprland.url = "github:hyprland-community/pyprland";
