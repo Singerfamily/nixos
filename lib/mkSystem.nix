@@ -29,26 +29,25 @@ in lib.nixosSystem {
     inputs.lanzaboote.nixosModules.lanzaboote
 
     # inputs.impermanence.nixosModules.home-manager.impermanence
-    inputs.disko.nixosModules.disko
+    # inputs.disko.nixosModules.disko
 
-    # inputs.home-manager.nixosModules.home-manager {
-    #   home-manager.useGlobalPkgs = true;
-    #   home-manager.useUserPackages = true;
-    #   home-manager.users.${user} = import userHMConfig {
-    #     inputs = inputs;
-    #   };
+    inputs.home-manager.nixosModules.home-manager {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.${user} = import userHMConfig {
+        inherit inputs;
+      };
 
-    #   home-manager.backupFileExtension = "backup";
-    #   home-manager.extraSpecialArgs = {inherit inputs;};
-    # }
+      home-manager.backupFileExtension = "backup";
+      home-manager.extraSpecialArgs = {inherit inputs;};
+    }
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
     {
       config._module.args = {
         host = name;
-        user = user;
-        inputs = inputs;
+        inherit user inputs;
       };
     }
   ] ++ extraModules;

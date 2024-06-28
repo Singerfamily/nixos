@@ -3,8 +3,8 @@
   home.homeDirectory = "/home/esinger";
 
   imports = [
-    ./config/zsh.nix
     # ./config/hypr
+    ./config/zsh.nix
     # ./config/impermanence.nix
   ];
 

@@ -29,10 +29,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # disko = {
+    #   url = "github:nix-community/disko";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # impermanence = {
     #   url = "github:nix-community/impermanence";
@@ -56,9 +56,9 @@
           extraModules = [
             inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p53
 
-            (import ./modules/nixos/hardware/disko.nix {
-              device = "/dev/nvme0n1";
-            })
+            # (import ./modules/nixos/hardware/disko.nix {
+            #   device = "/dev/nvme0n1";
+            # })
           ];
         };
       };
