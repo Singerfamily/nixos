@@ -31,16 +31,16 @@ in lib.nixosSystem {
     inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.disko.nixosModules.disko
 
-    inputs.home-manager.nixosModules.home-manager {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.users.${user} = import userHMConfig {
-        inputs = inputs;
-      };
+    # inputs.home-manager.nixosModules.home-manager {
+    #   home-manager.useGlobalPkgs = true;
+    #   home-manager.useUserPackages = true;
+    #   home-manager.users.${user} = import userHMConfig {
+    #     inputs = inputs;
+    #   };
 
-      home-manager.backupFileExtension = "backup";
-      home-manager.extraSpecialArgs = {inherit inputs;};
-    }
+    #   home-manager.backupFileExtension = "backup";
+    #   home-manager.extraSpecialArgs = {inherit inputs;};
+    # }
 
     (import ../hosts/${name}/disko.nix)
 
