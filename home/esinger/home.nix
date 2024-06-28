@@ -5,7 +5,7 @@
   imports = [
     ./config/zsh.nix
     # ./config/hypr
-    ./config/impermanence.nix
+    # ./config/impermanence.nix
   ];
 
   programs = {
