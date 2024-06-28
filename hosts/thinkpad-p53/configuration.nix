@@ -8,7 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./disko.nix
     ];
 
   networking.hostName = "thinkpad-p53"; # Define your hostname.
@@ -39,22 +38,22 @@
   '';
 
   fileSystems."/persist".neededForBoot = true;
-  environment.persistence."/persist/system" = {
-    hideMounts = true;
-    directories = [
-      "/etc/nixos"
-      "/var/log"
-      "/var/lib/bluetooth"
-      "/var/lib/nixos"
-      "/var/lib/systemd/coredump"
-      "/etc/NetworkManager/system-connections"
-      { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
-    ];
-    files = [
-      "/etc/machine-id"
-      { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
-    ];
-  };
+  # environment.persistence."/persist/system" = {
+  #   hideMounts = true;
+  #   directories = [
+  #     "/etc/nixos"
+  #     "/var/log"
+  #     "/var/lib/bluetooth"
+  #     "/var/lib/nixos"
+  #     "/var/lib/systemd/coredump"
+  #     "/etc/NetworkManager/system-connections"
+  #     { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
+  #   ];
+  #   files = [
+  #     "/etc/machine-id"
+  #     { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
+  #   ];
+  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

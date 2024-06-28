@@ -7,7 +7,6 @@
         "Pictures"
         "Documents"
         "Videos"
-        "VirtualBox VMs"
         ".gnupg"
         ".ssh"
         ".nixops"
