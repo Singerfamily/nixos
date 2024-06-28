@@ -28,7 +28,7 @@ in lib.nixosSystem {
 
     inputs.lanzaboote.nixosModules.lanzaboote
 
-    inputs.impermanence.nixosModules.home-manager.impermanence
+    # inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.disko.nixosModules.disko
 
     # inputs.home-manager.nixosModules.home-manager {
