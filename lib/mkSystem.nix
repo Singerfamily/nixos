@@ -28,6 +28,8 @@ in lib.nixosSystem {
 
     inputs.lanzaboote.nixosModules.lanzaboote
 
+    inputs.vscode-server.nixosModules.default {services.vscode-server.enable = true;}
+
     # inputs.impermanence.nixosModules.home-manager.impermanence
     # inputs.disko.nixosModules.disko
 
