@@ -85,17 +85,13 @@
                   mountpoint = "/";
                   mountOptions = [ "compress=zstd" "noatime" ];
                 };
-                "/home" = {
-                  mountpoint = "/home";
+                "/persist" = {
+                  mountpoint = "/persist";
                   mountOptions = [ "compress=zstd" "noatime" ];
                 };
                 "/nix" = {
                   mountpoint = "/nix";
                   mountOptions = [ "compress=zstd" "noatime" ];
-                };
-                "/swap" = {
-                  mountpoint = "/.swapvol";
-                  swap.swapfile.size = "20M";
                 };
               };
             };

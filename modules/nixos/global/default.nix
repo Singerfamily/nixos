@@ -13,6 +13,8 @@
         ./podman.nix
     ];
 
+    networking.networkmanager.enable = true;
+
     nixpkgs.config.allowUnfree = true;
     hardware.enableAllFirmware = true;
 
