@@ -42,8 +42,6 @@ in lib.nixosSystem {
     #   home-manager.extraSpecialArgs = {inherit inputs;};
     # }
 
-    (import ../hosts/${name}/disko.nix)
-
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
     {
