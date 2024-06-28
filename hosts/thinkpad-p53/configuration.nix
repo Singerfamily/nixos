@@ -8,9 +8,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./disko.nix
     ];
 
-  boot.initrd.luks.devices."luks-45600948-6fce-403b-beae-34af213787d0".device = "/dev/disk/by-uuid/45600948-6fce-403b-beae-34af213787d0";
   networking.hostName = "thinkpad-p53"; # Define your hostname.
 
   # Enable networking
