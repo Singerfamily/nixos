@@ -49,12 +49,21 @@
         content = {
           type = "gpt";
           partitions = {
-            root = {
-              name = "root";
+            luks = {
               size = "100%";
               content = {
-                type = "lvm_pv";
-                vg = "root_vg";
+                type = "luks";
+                name = "crypted";
+                # disable settings.keyFile if you want to use interactive password entry
+                #passwordFile = "/tmp/secret.key"; # Interactive
+                settings = {
+                  allowDiscards = true;
+                  # keyFile = "/tmp/secret.key";
+                };
+                content = {
+                  type = "lvm_pv";
+                  vg = "projects_vg";
+                };
               };
             };
           };
