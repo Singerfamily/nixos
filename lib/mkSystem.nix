@@ -21,7 +21,7 @@ in lib.nixosSystem {
 
     hostConfig
     userConfig
-    
+
     inputs.nix-flatpak.nixosModules.nix-flatpak
 
     inputs.stylix.nixosModules.stylix
@@ -29,6 +29,7 @@ in lib.nixosSystem {
     inputs.lanzaboote.nixosModules.lanzaboote
 
     inputs.impermanence.nixosModules.home-manager.impermanence
+    inputs.disko.nixosModules.disko
 
     inputs.home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;
@@ -40,6 +41,8 @@ in lib.nixosSystem {
       home-manager.backupFileExtension = "backup";
       home-manager.extraSpecialArgs = {inherit inputs;};
     }
+
+    (import ../hosts/${name}/disko.nix)
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
