@@ -22,8 +22,8 @@
 			nvidia = {
 				modesetting.enable = true;
 				powerManagement.enable = true;
-				powerManagement.finegrained = false;
-				open = true;
+				powerManagement.finegrained = true;
+				open = false;
 				nvidiaSettings = true;
 				package = config.boot.kernelPackages.nvidiaPackages.production;
 				
