@@ -20,6 +20,11 @@
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
+      initExtra = ''
+        strings ~/.zsh_history > ~/.zsh_history
+        fc -R ~/.zsh_history
+      '';
+
       shellAliases = {
         ll = "ls -l";
         la = "ls -la";
