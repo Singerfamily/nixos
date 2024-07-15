@@ -47,7 +47,6 @@ in lib.nixosSystem {
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
     {
-      networking.hostName = lib.mkDefault ${name};
       config._module.args = {
         host = name;
         inherit user inputs;
