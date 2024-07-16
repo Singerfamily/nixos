@@ -21,7 +21,8 @@
       syntaxHighlighting.enable = true;
 
       initExtra = ''
-        strings ~/.zsh_history > ~/.zsh_history
+        cp ~/.zsh_history ~/.zsh_history.bak
+        strings ~/.zsh_history.bak > ~/.zsh_history
         fc -R ~/.zsh_history
       '';
 
