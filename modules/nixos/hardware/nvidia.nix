@@ -1,6 +1,7 @@
-{ config, pkgs, lib, ... }: {
-
-
+{ config, pkgs, lib, ... }: 
+let 
+	cfg = config.nvidia; 
+in {
 	options = {
 		nvidia = {
 			enable = lib.mkEnableOption "Enable NVIDIA Drivers";
@@ -8,7 +9,7 @@
 		};
 	};
 
-	config = lib.mkIf config.nvidia.enable {
+	config = lib.mkIf cfg.enable {
 		
 		services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -22,7 +23,7 @@
 			nvidia = {
 				modesetting.enable = true;
 				powerManagement.enable = true;
-				powerManagement.finegrained = false;
+				powerManagement.finegrained = cfg.prime;
 				open = false;
 				nvidiaSettings = true;
 				package = config.boot.kernelPackages.nvidiaPackages.production;
