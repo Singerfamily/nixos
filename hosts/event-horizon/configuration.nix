@@ -17,7 +17,7 @@
     packages = with pkgs; [];
   };
 
-  networking.hostName = "thinkpad-p53"; # Define your hostname.
+  networking.hostName = "event-horizon"; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
