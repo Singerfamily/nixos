@@ -1,4 +1,7 @@
-{pkgs, config, lib, ...}: {
+{pkgs, config, lib, ...}: 
+let
+  cfg = config.steam;
+in {
   options = {
     steam = {
       enable = lib.mkEnableOption "Enable Steam";
@@ -7,10 +10,10 @@
     };
   };
 
-  config = lib.mkIf config.steam.enable {
+  config = lib.mkIf cfg.enable {
     programs.steam = {
       enable = true;
-      remotePlay.openFirewall = lib.mkIf config.steam.remotePlay lib.mkDefault true; # Open ports in the firewall for Steam Remote Play
+      remotePlay.openFirewall = lib.mkIf cfg.remotePlay lib.mkDefault true; # Open ports in the firewall for Steam Remote Play
     };
 
     environment.systemPackages = with pkgs; [
