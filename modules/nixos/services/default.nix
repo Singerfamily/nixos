@@ -1,6 +1,6 @@
 {lib, ...}: {
   imports = [
-    ./fingerprint.nix
+    # ./fingerprint.nix
     ./tailscale.nix
     ./flatpak.nix
   ];
