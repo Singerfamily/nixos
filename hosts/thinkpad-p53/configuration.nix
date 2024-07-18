@@ -10,12 +10,11 @@
       ./hardware-configuration.nix
     ];
 
-  config = {
-    bluetooth = true;
-    nvidia = {
-      enable = true;
-      prime = true;
-    };
+  bluetooth.enable = true;
+
+  nvidia = {
+    enable = true;
+    prime = true;
   };
 
   services.fprintd.enable = true;
