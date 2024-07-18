@@ -26,8 +26,9 @@
         niv
 	    vscode
         tpm2-tss
-        kdeconnect
         binutils
+        librewolf
+        kdeconnect
 	    microsoft-edge-dev
         fira-code-nerdfont
     ];
