@@ -5,5 +5,4 @@
   ];
 
   config.spotify.enable = lib.mkDefault true;
-  config.steam.enable = lib.mkDefault false;
 }
