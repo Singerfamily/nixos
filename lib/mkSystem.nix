@@ -23,11 +23,8 @@ in lib.nixosSystem {
     userConfig
 
     inputs.nix-flatpak.nixosModules.nix-flatpak
-
     inputs.stylix.nixosModules.stylix
-
     inputs.lanzaboote.nixosModules.lanzaboote
-
     inputs.vscode-server.nixosModules.default {services.vscode-server.enable = true;}
 
     # inputs.impermanence.nixosModules.home-manager.impermanence
@@ -43,6 +40,13 @@ in lib.nixosSystem {
       home-manager.backupFileExtension = "backup";
       home-manager.extraSpecialArgs = {inherit inputs;};
     }
+
+    ({...}: {
+      networking.hostName = "${name}";
+      networking.networkmanager.enable = true;
+      time.timeZone = "America/Edmonton";
+      i18n.defaultLocale = "en_CA.UTF-8";
+    })
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
