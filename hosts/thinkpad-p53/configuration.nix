@@ -10,19 +10,6 @@
       ./hardware-configuration.nix
     ];
 
-  services.fprintd.enable = true;
-
-  networking.hostName = "thinkpad-p53"; # Define your hostname.
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "America/Edmonton";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_CA.UTF-8";
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.esinger = {
     isNormalUser = true;
@@ -31,8 +18,12 @@
     packages = with pkgs; [];
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  config.nvidia = {
+    enable = true;
+    prime = true;
+  };
+
+  services.fprintd.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
