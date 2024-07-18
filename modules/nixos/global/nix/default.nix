@@ -6,6 +6,9 @@
   imports = [
     ./cachix.nix
   ];
+
+  nixpkgs.config.allowUnfree = true;
+
   nix = {
     settings = {
       trusted-users = [
