@@ -13,7 +13,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.steam = {
       enable = true;
-      remotePlay.openFirewall = lib.mkIf cfg.remotePlay lib.mkDefault true; # Open ports in the firewall for Steam Remote Play
+      remotePlay.openFirewall = cfg.remotePlay; # Open ports in the firewall for Steam Remote Play
     };
 
     environment.systemPackages = with pkgs; [
