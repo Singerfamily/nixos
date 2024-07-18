@@ -20,12 +20,19 @@
 
   boot.initrd.luks.devices."luks-7a6cd24d-f554-4747-a64e-f93b0e0b5d46".device = "/dev/disk/by-uuid/7a6cd24d-f554-4747-a64e-f93b0e0b5d46";
 
+  boot.supportedFilesystems = [ "ntfs" ];
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/FF2B-2808";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
-    };
+   };
 
+  fileSystems."/run/media/games" =
+    { device = "/dev/disk/by-uuid/14A4A219A4A1FD7C";
+      fsType = "ntfs-3g"; 
+      options = [ "uid=1000,gid=100,forceuid,forcegid"];
+    };
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
