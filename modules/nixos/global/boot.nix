@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
   imports = [
-    ./secureboot.nix
+#    ./secureboot.nix
   ];
   boot.initrd.systemd.enable = true;  # For auto unlock
   boot.loader.systemd-boot.enable = true;
