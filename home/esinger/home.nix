@@ -4,6 +4,7 @@
 
   imports = [
     ./config/zsh.nix
+    ./config/librewolf.nix
     # ./config/impermanence.nix
   ];
 
