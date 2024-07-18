@@ -65,10 +65,10 @@
           user = "esinger";
 
           extraModules = [
-	    inputs.disko.nixosModule.default
-            (import ./modules/nixos/hardware/disko.nix {
-              device = "/dev/nvme0n1";
-            })
+	          # inputs.disko.nixosModule.default
+            # (import ./modules/nixos/hardware/disko.nix {
+            #   device = "/dev/nvme0n1";
+            # })
           ];
         };
       };
