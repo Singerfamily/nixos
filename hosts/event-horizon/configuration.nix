@@ -10,24 +10,6 @@
       ./hardware-configuration.nix
     ];
 
-  users.users.esinger = {
-    isNormalUser = true;
-    description = "Eric Singer";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
-  };
-
-  networking.hostName = "event-horizon"; # Define your hostname.
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "America/Edmonton";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_CA.UTF-8";
-
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #

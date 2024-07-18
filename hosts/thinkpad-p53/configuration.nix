@@ -10,14 +10,6 @@
       ./hardware-configuration.nix
     ];
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.esinger = {
-    isNormalUser = true;
-    description = "Eric Singer";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
-  };
-
   config = {
     bluetooth = true;
     nvidia = {
