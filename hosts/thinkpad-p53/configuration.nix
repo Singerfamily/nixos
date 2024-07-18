@@ -18,9 +18,12 @@
     packages = with pkgs; [];
   };
 
-  config.nvidia = {
-    enable = true;
-    prime = true;
+  config = {
+    bluetooth = true;
+    nvidia = {
+      enable = true;
+      prime = true;
+    };
   };
 
   services.fprintd.enable = true;
