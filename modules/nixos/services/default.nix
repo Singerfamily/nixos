@@ -5,5 +5,5 @@
     ./flatpak.nix
   ];
 
-  config.flatpak.enable = lib.mkDefault true;
+  config.flatpak.enable = lib.mkDefault false;
 }
