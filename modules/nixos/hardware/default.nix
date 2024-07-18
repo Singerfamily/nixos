@@ -10,5 +10,5 @@
 
   bluetooth.enable = lib.mkDefault true;
   nvidia.enable = lib.mkDefault true;
-  nvidia.prime = lib.mkDefault true;
+  nvidia.prime = lib.mkDefault false;
 }
