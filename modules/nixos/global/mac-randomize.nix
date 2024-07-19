@@ -15,8 +15,8 @@
     after = [ "network.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.macchanger}/bin/macchanger -r wlp0s20f3";
-      ExecStop = "${pkgs.macchanger}/bin/macchanger -p wlp0s20f3";
+      ExecStart = "${pkgs.macchanger}/bin/macchanger -r <WL DEVICE>";
+      ExecStop = "${pkgs.macchanger}/bin/macchanger -p <WL DEVICE>";
       RemainAfterExit = true;
     };
   };

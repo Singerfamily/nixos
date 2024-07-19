@@ -1,9 +1,7 @@
 {lib, ...}: {
   imports = [
-    # ./fingerprint.nix
     ./tailscale.nix
     ./flatpak.nix
+    ./podman.nix
   ];
-
-  config.flatpak.enable = lib.mkDefault false;
 }

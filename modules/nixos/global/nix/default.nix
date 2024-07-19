@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./cachix.nix
+    ./auto-upgrade.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

@@ -3,19 +3,13 @@
 {
     imports = [
         ./nix
-        ./boot.nix
+        ./boot
+        ./networking
         ./env-vars.nix
-        ./auto-upgrade.nix
-        ./dns.nix
-        ./network.nix
         ./locale.nix
-        # ./mac-randomize.nix
         ./pipewire.nix
-        ./podman.nix
         ./fonts.nix
     ];
-
-    networking.networkmanager.enable = true;
 
     nixpkgs.config.allowUnfree = true;
     hardware.enableAllFirmware = true;
