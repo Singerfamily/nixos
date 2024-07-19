@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: 
+{ config, pkgs, lib, ... }: 
 let 
   cfg = config.secureboot;
 in {
@@ -9,7 +9,7 @@ in {
     };
   };
 
-  config = libMkif cfg.enable {
+  config = lib.mkIf cfg.enable {
     boot.loader.systemd-boot.enable = lib.mkForce false;
     boot.lanzaboote = {
       enable = true;
