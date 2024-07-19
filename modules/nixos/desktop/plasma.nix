@@ -17,5 +17,9 @@
     wayland-utils
     pciutils
     discover
+
+    kdePackages.kaccounts-integration
+    kdePackages.kaccounts-providers
+    kdePackages.plasma-browser-integration
   ];
 }

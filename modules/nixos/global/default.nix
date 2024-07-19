@@ -19,8 +19,15 @@
     nixpkgs.config.allowUnfree = true;
     hardware.enableAllFirmware = true;
 
-    programs.git.enable = true;
-    programs.zsh.enable = true;
+    programs = {
+        git.enable = true;
+        zsh.enable = true;
+        direnv.enable = true;
+        kdeconnect = {
+            enable = true;
+            # package = pkgs.kdePackages.kdeconnect-kde;
+        };
+    };
 
     environment.systemPackages = with pkgs; [
         gh
@@ -30,7 +37,6 @@
         tpm2-tss
         binutils
         librewolf
-        kdeconnect
 	    microsoft-edge-dev
     ];
 }
