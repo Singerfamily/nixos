@@ -7,6 +7,7 @@
         ./env-vars.nix
         ./auto-upgrade.nix
         ./dns.nix
+        ./network.nix
         ./locale.nix
         # ./mac-randomize.nix
         ./pipewire.nix
