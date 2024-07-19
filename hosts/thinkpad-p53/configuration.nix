@@ -10,6 +10,8 @@
       ./hardware-configuration.nix
     ];
 
+  secureboot.enable = true;
+
   bluetooth.enable = true;
 
   nvidia = {
