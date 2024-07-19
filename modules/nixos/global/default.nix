@@ -24,6 +24,7 @@
     environment.systemPackages = with pkgs; [
         gh
         niv
+        krdc
 	    vscode
         tpm2-tss
         binutils
