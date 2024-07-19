@@ -5,6 +5,7 @@
   imports = [
     ./config/zsh.nix
     ./config/librewolf.nix
+    ./config/plasma.nix
     # ./config/impermanence.nix
   ];
 

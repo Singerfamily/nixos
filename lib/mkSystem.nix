@@ -1,13 +1,13 @@
 {nixpkgs, inputs, ...}: 
 
-name: {
+host: {
   user,
   extraModules ? [],
 }:
 
 let 
   # The config files for this system.
-  hostConfig = ../hosts/${name}/configuration.nix;
+  hostConfig = ../hosts/${host}/configuration.nix;
   userConfig = ../home/${user};
   userHMConfig = ../home/${user}/home.nix;
 
@@ -33,6 +33,9 @@ in lib.nixosSystem {
     inputs.home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      home-manager.sharedModules = [
+        inputs.plasma-manager.homeManagerModules.plasma-manager
+      ];
       home-manager.users.${user} = import userHMConfig {
         inherit inputs;
       };
@@ -41,19 +44,18 @@ in lib.nixosSystem {
       home-manager.extraSpecialArgs = {inherit inputs;};
     }
 
-    ({...}: {
-      networking.hostName = "${name}";
+    {
+      networking.hostName = "${host}";
       networking.networkmanager.enable = true;
       time.timeZone = "America/Edmonton";
       i18n.defaultLocale = "en_CA.UTF-8";
-    })
+    }
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
     {
       config._module.args = {
-        host = name;
-        inherit user inputs;
+        inherit user inputs host;
       };
     }
   ] ++ extraModules;
