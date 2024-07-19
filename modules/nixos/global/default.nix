@@ -11,6 +11,7 @@
         # ./mac-randomize.nix
         ./pipewire.nix
         ./podman.nix
+        ./fonts.nix
     ];
 
     networking.networkmanager.enable = true;
@@ -31,6 +32,5 @@
         librewolf
         kdeconnect
 	    microsoft-edge-dev
-        fira-code-nerdfont
     ];
 }
