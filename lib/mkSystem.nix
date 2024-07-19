@@ -1,18 +1,17 @@
 {nixpkgs, inputs, ...}: 
 
 host: {
-  user,
+  user ? "esinger",
   extraModules ? [],
+  ...
 }:
 
-let 
+with nixpkgs.lib; let 
   # The config files for this system.
   hostConfig = ../hosts/${host}/configuration.nix;
   userConfig = ../home/${user};
   userHMConfig = ../home/${user}/home.nix;
-
-  lib = nixpkgs.lib;
-in lib.nixosSystem {
+in nixosSystem {
   system = "x86_64-linux";
   specialArgs = { inherit inputs; };
 
@@ -46,10 +45,16 @@ in lib.nixosSystem {
 
     {
       networking.hostName = "${host}";
-      networking.networkmanager.enable = true;
       time.timeZone = "America/Edmonton";
       i18n.defaultLocale = "en_CA.UTF-8";
     }
+
+    # (mkIf disk {
+    #   inputs.disko.nixosModule.default
+    #   (import "../modules/hardware/disko.nix" {
+    #     device = disk;
+    #   })
+    # })
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.

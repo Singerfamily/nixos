@@ -1,25 +1,31 @@
-{pkgs, ...}: {
-  services.displayManager.sddm ={
-    enable = true;
-    wayland.enable = true;
+{inputs, pkgs, ...}: let
+  cfg = config.plasma;
+in {
+
+  options = {
+    plasma = {
+      enable = pkgs.lib.mkEnableOption "Enable KDE Plasma";
+    };
   };
-  services.desktopManager.plasma6.enable = true;
 
-  # services.xserver.xkb = {
-  #   layout = "us";
-  #   variant = "";
-  # };
+  config = lib.mkIf cfg.enable {
+    services.displayManager.sddm ={
+      enable = true;
+      wayland.enable = true;
+    };
+    services.desktopManager.plasma6.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    aha
-    fwupd
-    vulkan-tools
-    wayland-utils
-    pciutils
-    discover
+    environment.systemPackages = with pkgs; [
+      aha
+      fwupd
+      vulkan-tools
+      wayland-utils
+      pciutils
+      discover
 
-    kdePackages.kaccounts-integration
-    kdePackages.kaccounts-providers
-    kdePackages.plasma-browser-integration
-  ];
+      kdePackages.kaccounts-integration
+      kdePackages.kaccounts-providers
+      kdePackages.plasma-browser-integration
+    ];
+  };
 }

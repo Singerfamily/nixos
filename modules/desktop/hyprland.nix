@@ -1,23 +1,35 @@
-{inputs, pkgs, ...}: {
-  programs = {
-    hyprland.enable = true;
-    waybar.enable = true; 
-    hyprlock.enable = true;
+{inputs, pkgs, ...}: let
+  cfg = config.hyprland;
+in {
+
+  options = {
+    hyprland = {
+      enable = pkgs.lib.mkEnableOption "Enable Hyprland";
+    };
   };
 
-  # xdg.portal = {
-  #   enable = true;
-  #   extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  # };
+  config = lib.mkIf cfg.enable {
 
-  environment.systemPackages = with pkgs; [
-    kitty
-    dunst
-    libnotify
-    hyprpaper
+    programs = {
+      hyprland.enable = true;
+      waybar.enable = true; 
+      hyprlock.enable = true;
+    };
 
-    rofi-wayland
+    # xdg.portal = {
+    #   enable = true;
+    #   extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    # };
 
-    inputs.pyprland.packages.${pkgs.system}.pyprland
-  ];
+    environment.systemPackages = with pkgs; [
+      kitty
+      dunst
+      libnotify
+      hyprpaper
+
+      rofi-wayland
+
+      inputs.pyprland.packages.${pkgs.system}.pyprland
+    ];
+  };
 }

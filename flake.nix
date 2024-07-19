@@ -57,25 +57,11 @@
     in {
       nixosConfigurations = {
         thinkpad-p53 = mkSystem "thinkpad-p53" {
-          user = "esinger";
-
           extraModules = [
             inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p53
-
-            # (import ./modules/nixos/hardware/disko.nix {
-            #   device = "/dev/nvme0n1";
-            # })
           ];
         };
         event-horizon = mkSystem "event-horizon" {
-          user = "esinger";
-
-          extraModules = [
-	          # inputs.disko.nixosModule.default
-            # (import ./modules/nixos/hardware/disko.nix {
-            #   device = "/dev/nvme0n1";
-            # })
-          ];
         };
       };
     };
