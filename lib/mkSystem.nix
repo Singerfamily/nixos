@@ -1,15 +1,14 @@
 {inputs, ...}:
 
 hostName: 
-{
-  userName ? "esinger"
-}:
 
 with inputs;
 with nixpkgs;
 
 let 
   helpers = import ./helpers.nix {inherit inputs;};
+
+  userName = "esinger";
 
   # The config files for this system.
   hostConfig = ../hosts/${hostName}/configuration.nix;
