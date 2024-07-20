@@ -3,10 +3,8 @@ let
   cfg = config.spotify;
 in {
 
-  options = {
-    spotify = {
-      enable = lib.mkEnableOption "Toggle Spotify client";
-    };
+  options.spotify = {
+    enable = lib.mkEnableOption "Toggle Spotify client" true;
   };
 
   config = lib.mkIf config.spotify.enable {

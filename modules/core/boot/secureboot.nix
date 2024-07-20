@@ -2,11 +2,8 @@
 let 
   cfg = config.secureboot;
 in {
-
-  options = {
-    secureboot = {
-      enable = lib.mkEnableOption "Enable Secure Boot";
-    };
+  options.secureboot = {
+    enable = lib.mkEnableOption "Enable Secure Boot";
   };
 
   config = lib.mkIf cfg.enable {

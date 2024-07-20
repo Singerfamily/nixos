@@ -2,10 +2,8 @@
 let
   cfg = config.podman;
 in {
-  options = {
-    podman = {
-      enable = lib.mkEnableOption "Enable Podman";
-    };
+  options.podman = {
+    enable = lib.mkEnableOption "Enable Podman";
   };
 
   config = lib.mkIf cfg.enable {

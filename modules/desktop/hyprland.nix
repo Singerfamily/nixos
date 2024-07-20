@@ -2,12 +2,10 @@
   cfg = config.hyprland;
 in {
 
-  options = {
-    hyprland = {
+  options.hyprland = {
       enable = pkgs.lib.mkEnableOption "Enable Hyprland";
-    };
   };
-
+  
   config = lib.mkIf cfg.enable {
 
     programs = {

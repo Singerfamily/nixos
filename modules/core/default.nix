@@ -5,14 +5,10 @@
         ./nix
         ./boot
         ./networking
-        ./env-vars.nix
         ./locale.nix
         ./pipewire.nix
         ./fonts.nix
     ];
-
-    nixpkgs.config.allowUnfree = true;
-    hardware.enableAllFirmware = true;
 
     programs = {
         git.enable = true;

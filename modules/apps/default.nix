@@ -4,6 +4,4 @@
     ./steam.nix
     ./firefox.nix
   ];
-
-  config.spotify.enable = lib.mkDefault true;
 }

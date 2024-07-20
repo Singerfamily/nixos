@@ -2,12 +2,10 @@
 let
   cfg = config.steam;
 in {
-  options = {
-    steam = {
-      enable = lib.mkEnableOption "Enable Steam";
-      gamescopeSession = lib.mkEnableOption "Enable GameScope session";
-      remotePlay = lib.mkEnableOption "Enable Steam Remote Play";
-    };
+  options.steam = {
+    enable = lib.mkEnableOption "Enable Steam";
+    gamescopeSession = lib.mkEnableOption "Enable GameScope session";
+    remotePlay = lib.mkEnableOption "Enable Steam Remote Play";
   };
 
   config = lib.mkIf cfg.enable {

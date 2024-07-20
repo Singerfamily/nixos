@@ -7,10 +7,6 @@ host: {
 }:
 
 with nixpkgs.lib; let 
-  # The config files for this system.
-  hostConfig = ../hosts/${host}/configuration.nix;
-  userConfig = ../home/${user};
-  userHMConfig = ../home/${user}/home.nix;
 in nixosSystem {
   system = "x86_64-linux";
   specialArgs = { inherit inputs; };
@@ -18,8 +14,8 @@ in nixosSystem {
   modules = [
     ../modules
 
-    hostConfig
-    userConfig
+    ../hosts/${host}/configuration.nix
+    ../home/${user}
 
     inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.stylix.nixosModules.stylix
@@ -35,7 +31,7 @@ in nixosSystem {
       # home-manager.sharedModules = [
       #   inputs.plasma-manager.homeManagerModules.plasma-manager
       # ];
-      home-manager.users.${user} = import userHMConfig {
+      home-manager.users.${user} = import ../home/${user}/home.nix {
         inherit inputs;
       };
 
@@ -49,15 +45,6 @@ in nixosSystem {
       i18n.defaultLocale = "en_CA.UTF-8";
     }
 
-    # (mkIf disk {
-    #   inputs.disko.nixosModule.default
-    #   (import "../modules/hardware/disko.nix" {
-    #     device = disk;
-    #   })
-    # })
-
-    # We expose some extra arguments so that our modules can parameterize
-    # better based on these values.
     {
       config._module.args = {
         inherit user inputs host;

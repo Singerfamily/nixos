@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.drivers.intel;
+  cfg = config.intel;
 in
 {
   options.drivers.intel = {

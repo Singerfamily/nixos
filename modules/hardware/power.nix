@@ -1,12 +1,11 @@
-{ config, lib, ... }:
-
-{
-  options = {
-    tlp = {
-      enable = lib.mkEnableOption "Enable TLP";
-    };
+{ config, lib, ... }: let
+  cfg = config.power;
+in{
+  options.tlp = {
+    enable = lib.mkEnableOption "Enable TLP";
   };
-  config = lib.mkIf config.tlp.enable {
+
+  config = lib.mkIf cfg.enable {
     services.tlp = {
       enable = true;
       settings = {

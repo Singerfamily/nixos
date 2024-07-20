@@ -2,10 +2,8 @@
 let
   cfg = config.flatpak;
 in {
-  options = {
-    flatpak = {
-      enable = lib.mkEnableOption "Enable Flatpak";
-    };
+  options.flatpak = {
+    enable = lib.mkEnableOption "Enable Flatpak";
   };
 
   config = lib.mkIf cfg.enable {

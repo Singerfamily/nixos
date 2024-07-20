@@ -12,10 +12,8 @@
     };
   in
 {
-  options = {
-    firefox = {
-      enable = lib.mkEnableOption "Enable Firefox";
-    };
+  options.firefox = {
+    enable = lib.mkEnableOption "Enable Firefox";
   };
 
   config = lib.mkIf cfg.enable {

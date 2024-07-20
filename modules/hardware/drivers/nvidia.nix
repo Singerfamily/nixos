@@ -1,11 +1,11 @@
 { config, pkgs, lib, ... }: 
-let 
+with lib; let 
 	cfg = config.nvidia; 
 in {
 	options.nvidia = {
-			enable = lib.mkEnableOption "Enable NVIDIA Drivers";
+			enable = mkEnableOption "Enable NVIDIA Drivers";
 			prime = {
-				enable = lib.mkEnableOption "Enable NVIDIA PRIME support";
+				enable = mkEnableOption "Enable NVIDIA PRIME support";
 				intelBusID = mkOption {
 					type = types.str;
 					default = "PCI:1:0:0";
@@ -17,7 +17,7 @@ in {
 			};
 	};
 
-	config = lib.mkIf cfg.enable {
+	config = mkIf cfg.enable {
 		
 		services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -31,12 +31,12 @@ in {
 			nvidia = {
 				modesetting.enable = true;
 				powerManagement.enable = true;
-				powerManagement.finegrained = cfg.prime;
+				powerManagement.finegrained = cfg.prime.enable;
 				open = false;
 				nvidiaSettings = true;
 				package = config.boot.kernelPackages.nvidiaPackages.production;
 
-				prime = lib.mkIf config.nvidia.prime {
+				prime = mkIf cfg.prime.enable {
 					offload = {
 						enable = true;
 						enableOffloadCmd = true;
