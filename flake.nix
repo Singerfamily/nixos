@@ -43,5 +43,5 @@
       thinkpad-p53 = mkSystem "thinkpad-p53";
       event-horizon = mkSystem "event-horizon";
     };
-  }
+  };
 }

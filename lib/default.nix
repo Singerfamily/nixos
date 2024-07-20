@@ -19,7 +19,7 @@ rec {
     inputs.nixpkgs.lib.filterAttrs (name: value: value == "directory")
     (builtins.readDir dir);
 
-  fileNameOf = path: (builtins.head (builtins.split "\\." (baseNameOf path)));\
+  fileNameOf = path: (builtins.head (builtins.split "\\." (baseNameOf path)));
 
 
   # Drill down through all subdirectories and return a list of all files
