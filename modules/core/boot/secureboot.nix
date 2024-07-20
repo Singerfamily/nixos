@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }: 
 let 
-  cfg = config.secureboot;
+  cfg = config.boot.secure;
 in {
-  options.secureboot = {
+  options.boot.secure = {
     enable = lib.mkEnableOption "Enable Secure Boot";
   };
 

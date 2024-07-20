@@ -10,14 +10,16 @@
       ./hardware-configuration.nix
     ];
 
-  # Boot
-  secureboot.enable = true;
+  boot = {
+    secure.enable = true;
+  };
   
-  # Drivers
-  intel.enable = true;
-  nvidia = {
-    enable = true;
-    prime.enable = true;
+  drivers = {
+    intel.enable = true;
+    nvidia = {
+      enable = true;
+      prime.enable = true;
+    };
   };
 
   # Applications
