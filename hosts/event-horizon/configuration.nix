@@ -11,7 +11,7 @@
     ];
 
   # Drivers
-  nvidia.enable = true;
+  drivers.nvidia.enable = true;
 
   # Applications
   steam.enable = true;
