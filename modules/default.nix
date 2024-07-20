@@ -1,5 +1,8 @@
-{myLib, ...}: with myLib; {
+{...}: {
   imports = [
-    filesIn ./apps
+    # Apps
+    ./apps/steam.nix
+    ./apps/firefox.nix
+    ./apps/spotify.nix
   ];
 }

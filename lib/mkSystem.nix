@@ -12,10 +12,9 @@ in lib.nixosSystem rec {
   specialArgs = { inherit inputs; };
 
   modules = [
+    ../modules
     ../hosts/${hostName}/configuration.nix
     ../modules/users/${userName}
-
-    helpers.allIn ../modules
 
     nix-flatpak.nixosModules.nix-flatpak
     stylix.nixosModules.stylix
