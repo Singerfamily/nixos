@@ -13,19 +13,6 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
-    # plasma-manager = {
-    #   url = "github:nix-community/plasma-manager";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.home-manager.follows = "home-manager";
-    # };
-
-    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    # pyprland.url = "github:hyprland-community/pyprland";
-    # hyprland-plugins = {
-    #   url = "github:hyprwm/hyprland-plugins";
-    #   inputs.hyprland.follows = "hyprland";
-    # };
-
     stylix.url = "github:danth/stylix";
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
@@ -49,20 +36,12 @@
     self,
     nixpkgs,
     ... 
-  } @ inputs:
-    let
-      mkSystem = import ./lib/mkSystem.nix {
-        inherit nixpkgs inputs;
-      };
-    in {
-      nixosConfigurations = {
-        thinkpad-p53 = mkSystem "thinkpad-p53" {
-          extraModules = [
-            inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p53
-          ];
-        };
-        event-horizon = mkSystem "event-horizon" {
-        };
-      };
+  } @ inputs: let 
+    myLib = import ./lib/default.nix {inherit inputs;};
+  in with myLib;{
+    nixosConfigurations = {
+      thinkpad-p53 = mkSystem "thinkpad-p53";
+      event-horizon = mkSystem "event-horizon";
     };
+  }
 }

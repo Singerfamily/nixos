@@ -1,37 +1,33 @@
-{nixpkgs, inputs, ...}: 
+{inputs, myLib, ...}: 
 
-host: {
-  user ? "esinger",
-  extraModules ? [],
-  ...
+with inputs;
+with nixpkgs.lib;
+
+hostName: 
+{
+  hostName,
+  userName ? "esinger"
 }:
 
-with nixpkgs.lib; let 
-in nixosSystem {
+nixosSystem {
   system = "x86_64-linux";
   specialArgs = { inherit inputs; };
 
   modules = [
-    ../modules
+    ../hosts/${hostName}/configuration.nix
+    ../modules/users/${userName}
 
-    ../hosts/${host}/configuration.nix
-    ../home/${user}
+    mylib.allIn ../modules
 
-    inputs.nix-flatpak.nixosModules.nix-flatpak
-    inputs.stylix.nixosModules.stylix
-    inputs.lanzaboote.nixosModules.lanzaboote
-    inputs.vscode-server.nixosModules.default {services.vscode-server.enable = true;}
+    nix-flatpak.nixosModules.nix-flatpak
+    stylix.nixosModules.stylix
+    lanzaboote.nixosModules.lanzaboote
+    vscode-server.nixosModules.default {services.vscode-server.enable = true;}
 
-    # inputs.impermanence.nixosModules.home-manager.impermanence
-    # inputs.disko.nixosModules.disko
-
-    inputs.home-manager.nixosModules.home-manager {
+    home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      # home-manager.sharedModules = [
-      #   inputs.plasma-manager.homeManagerModules.plasma-manager
-      # ];
-      home-manager.users.${user} = import ../home/${user}/home.nix {
+      home-manager.users.${userName} = import ../home/${userName}/home.nix {
         inherit inputs;
       };
 
@@ -40,9 +36,7 @@ in nixosSystem {
     }
 
     {
-      networking.hostName = "${host}";
-      time.timeZone = "America/Edmonton";
-      i18n.defaultLocale = "en_CA.UTF-8";
+      networking.hostName = "${hostName}";
     }
 
     {

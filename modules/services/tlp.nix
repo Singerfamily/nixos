@@ -1,5 +1,5 @@
 { config, lib, ... }: let
-  cfg = config.power;
+  cfg = config.tlp;
 in{
   options.tlp = {
     enable = lib.mkEnableOption "Enable TLP";
