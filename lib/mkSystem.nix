@@ -44,5 +44,11 @@ in lib.nixosSystem rec {
     {
       networking.hostName = "${hostName}";
     }
+
+    {
+      config._module.args = {
+        inherit inputs  userName hostName;
+      };
+    }
   ];
 }
