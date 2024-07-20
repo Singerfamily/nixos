@@ -1,7 +1,6 @@
 {lib, ...}: {
   imports = [
-    ./nvidia.nix
-    ./intel.nix
+    ./drivers
     ./bluetooth.nix
   ];
 
