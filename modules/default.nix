@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ./global
+    ./core
     ./desktop/plasma.nix
     ./services
     ./hardware

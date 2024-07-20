@@ -10,12 +10,21 @@
       ./hardware-configuration.nix
     ];
 
+  # Boot
   secureboot.enable = true;
-  bluetooth.enable = true;
+  
+  # Drivers
+  intel.enable = true;
   nvidia = {
     enable = true;
-    prime = true;
+    prime.enable = true;
   };
+
+  # Applications
+  plasma.enable = true;
+
+  # Services
+  bluetooth.enable = true;
 
   services = {
     fprintd.enable = true;

@@ -10,18 +10,22 @@
       ./hardware-configuration.nix
     ];
 
+  # Drivers
   nvidia.enable = true;
 
+  # Applications
   steam.enable = true;
   flatpak.enable = true;
 
-  hardware.openrazer.enable = true;
+  plasma.enable = true;
 
-  hardware.openrazer.users = ["esinger"]; 
-
-  # environment.systemPackages = [
-  #   prismlauncher
-  # ];
+  # Hardware configurations
+  hardware = {
+    openrazer = {
+      enable = true;
+      users = ["esinger"]; 
+    };
+  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

@@ -1,6 +1,11 @@
 {config, pkgs, lib, ...}: let
   cfg = config.plasma;
 in {
+  options.plasma = {
+    enable = lib.mkEnableOption "Enable Plasma Desktop";
+  };
+
+  config = lib.mkIf cfg.enable {
     services.displayManager.sddm ={
       enable = true;
       wayland.enable = true;
@@ -19,4 +24,5 @@ in {
       kdePackages.kaccounts-providers
       kdePackages.plasma-browser-integration
     ];
+  };
 }
