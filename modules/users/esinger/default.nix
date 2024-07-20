@@ -1,4 +1,4 @@
-{ pkgs,... }: {
+{ inputs, pkgs,... }: {
   users.mutableUsers = true;
   users.users.esinger = {
     isNormalUser = true;
