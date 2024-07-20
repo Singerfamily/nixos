@@ -1,35 +1,42 @@
 {inputs, ...}:
 
 hostName: 
+{
+  userName ? "esinger"
+}:
+
 with inputs;
 with nixpkgs;
 
 let 
-  userName = "esinger";
   helpers = import ./helpers.nix {inherit inputs;};
 
-  userConfig = "../users/${userName}";
-  userHMConfig = "${userConfig}/home.nix";
+  # The config files for this system.
+  hostConfig = ../hosts/${hostName}/configuration.nix;
+  userConfig = ../users/${userName};
+  userHMConfig = ../users/${userName}/home.nix;
 in lib.nixosSystem rec {
   system = "x86_64-linux";
   specialArgs = { inherit inputs; };
 
   modules = [
     ../modules
-    ../hosts/${hostName}/configuration.nix
-    # userConfig
+
+    hostConfig
+    userConfig
 
     nix-flatpak.nixosModules.nix-flatpak
-    stylix.nixosModules.stylix
     lanzaboote.nixosModules.lanzaboote
     vscode-server.nixosModules.default {services.vscode-server.enable = true;}
 
     home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      # home-manager.users.${userName} = import userHMConfig {
-      #   inherit inputs;
-      # };
+      home-manager.users.${userName} = import userHMConfig {
+        inherit inputs;
+      };
+
+      home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
 
       home-manager.backupFileExtension = "backup";
       home-manager.extraSpecialArgs = {inherit inputs;};
@@ -40,53 +47,3 @@ in lib.nixosSystem rec {
     }
   ];
 }
-
-
-# {inputs, myLib, ...}: 
-
-# with inputs;
-# with nixpkgs.lib;
-
-# hostName: 
-# {
-#   hostName,
-#   userName ? "esinger"
-# }: 
-
-# nixosSystem rec {
-#   system = "x86_64-linux";
-#   specialArgs = { inherit inputs; };
-
-#   modules = [
-#     ../hosts/${hostName}/configuration.nix
-#     ../modules/users/${userName}
-
-#     # mylib.allIn ../modules
-
-#     nix-flatpak.nixosModules.nix-flatpak
-#     stylix.nixosModules.stylix
-#     lanzaboote.nixosModules.lanzaboote
-#     vscode-server.nixosModules.default {services.vscode-server.enable = true;}
-
-#     home-manager.nixosModules.home-manager {
-#       home-manager.useGlobalPkgs = true;
-#       home-manager.useUserPackages = true;
-#       home-manager.users.${userName} = import ../home/${userName}/home.nix {
-#         inherit inputs;
-#       };
-
-#       home-manager.backupFileExtension = "backup";
-#       home-manager.extraSpecialArgs = {inherit inputs;};
-#     }
-
-#     {
-#       networking.hostName = "${hostName}";
-#     }
-
-#     {
-#       config._module.args = {
-#         inherit user inputs host;
-#       };
-#     }
-#   ] ++ extraModules;
-# }

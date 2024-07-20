@@ -13,8 +13,6 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
-    stylix.url = "github:danth/stylix";
-
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     lanzaboote = {
@@ -22,14 +20,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    disko = {
-      url = "github:nix-community/disko";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
-    impermanence = {
-      url = "github:nix-community/impermanence";
-    };
+    # disko = {
+    #   url = "github:nix-community/disko";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
+    # impermanence = {
+    #   url = "github:nix-community/impermanence";
+    # };
   };
 
   outputs = { 
