@@ -2,11 +2,19 @@
 let 
 	cfg = config.nvidia; 
 in {
-	options = {
-		nvidia = {
+	options.nvidia = {
 			enable = lib.mkEnableOption "Enable NVIDIA Drivers";
-			prime = lib.mkEnableOption "Enable NVIDIA PRIME support";
-		};
+			prime = {
+				enable = lib.mkEnableOption "Enable NVIDIA PRIME support";
+				intelBusID = mkOption {
+					type = types.str;
+					default = "PCI:1:0:0";
+				};
+				nvidiaBusID = mkOption {
+					type = types.str;
+					default = "PCI:0:2:0";
+				};
+			};
 	};
 
 	config = lib.mkIf cfg.enable {
@@ -27,15 +35,15 @@ in {
 				open = false;
 				nvidiaSettings = true;
 				package = config.boot.kernelPackages.nvidiaPackages.production;
-	
+
 				prime = lib.mkIf config.nvidia.prime {
 					offload = {
 						enable = true;
 						enableOffloadCmd = true;
 					};
 
-					intelBusId = "PCI:0:2:0";
-					nvidiaBusId = "PCI:1:0:0";
+					intelBusId = "${cfg.prime.intelBusId}";
+					nvidiaBusId = "${cfg.prime.nvidiaBusId}";
 				};
 			};
 		};
