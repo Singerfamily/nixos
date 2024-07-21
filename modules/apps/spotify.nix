@@ -4,7 +4,8 @@ let
 in {
 
   options.spotify = {
-    enable = lib.mkEnableOption {
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Enable Spotify client";
     };
