@@ -8,6 +8,7 @@
         "DroidSansMono" 
         ]; 
       })
+      corefonts
     ];
 
     fontconfig = {
