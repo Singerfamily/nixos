@@ -8,11 +8,11 @@ in {
 			enable = mkEnableOption "Enable NVIDIA PRIME support";
 			intelBusID = mkOption {
 				type = types.str;
-				default = "PCI:1:0:0";
+				default = "PCI:0:2:0";
 			};
 			nvidiaBusID = mkOption {
 				type = types.str;
-				default = "PCI:0:2:0";
+				default = "PCI:1:0:0";
 			};
 		};
 	};
@@ -42,8 +42,8 @@ in {
 						enableOffloadCmd = true;
 					};
 
-					intelBusId = "${cfg.prime.intelBusId}";
-					nvidiaBusId = "${cfg.prime.nvidiaBusId}";
+					intelBusId = "${cfg.prime.intelBusID}";
+					nvidiaBusId = "${cfg.prime.nvidiaBusID}";
 				};
 			};
 		};
