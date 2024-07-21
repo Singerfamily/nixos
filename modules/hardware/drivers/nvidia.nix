@@ -30,8 +30,10 @@ in {
 
 			nvidia = {
 				modesetting.enable = true;
-				powerManagement.enable = true;
-				powerManagement.finegrained = cfg.prime.enable;
+				powerManagement = {
+					enable = false;
+					finegrained = false;
+				};
 				open = false;
 				nvidiaSettings = true;
 				package = config.boot.kernelPackages.nvidiaPackages.production;
