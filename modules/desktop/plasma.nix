@@ -23,6 +23,9 @@ in {
       kdePackages.kaccounts-integration
       kdePackages.kaccounts-providers
       kdePackages.plasma-browser-integration
+      kdePackages.plasma-disks
+
+      (lib.mkIf config.thunderbolt.enable kdePackages.plasma-thunderbolt)
     ];
   };
 }

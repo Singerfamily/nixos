@@ -27,10 +27,10 @@
 
   # Services
   bluetooth.enable = true;
+  thunderbolt.enable = true;
 
   services = {
     fprintd.enable = true;
-    hardware.bolt.enable = true;
   };
 
   # This value determines the NixOS release from which the default
