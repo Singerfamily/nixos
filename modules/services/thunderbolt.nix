@@ -1,4 +1,4 @@
-{...}: let
+{config, lib, ...}: let
   cfg = config.thunderbolt;
 in{
   options.thunderbolt = {

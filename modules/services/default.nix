@@ -5,5 +5,6 @@
     ./printing.nix
     ./tailscale.nix
     ./tlp.nix
+    ./thunderbolt.nix
   ];
 }
