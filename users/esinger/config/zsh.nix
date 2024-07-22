@@ -24,6 +24,8 @@
         cp ~/.zsh_history ~/.zsh_history.bak
         strings ~/.zsh_history.bak > ~/.zsh_history
         fc -R ~/.zsh_history
+
+        export XDG_DATA_HOME="$HOME/.local/share"
       '';
 
       shellAliases = {
