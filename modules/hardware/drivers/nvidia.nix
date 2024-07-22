@@ -31,8 +31,8 @@ in {
 			nvidia = {
 				modesetting.enable = true;
 				powerManagement = {
-					enable = false;
-					finegrained = false;
+					enable = true;
+					finegrained = true;
 				};
 				open = false;
 				nvidiaSettings = true;
