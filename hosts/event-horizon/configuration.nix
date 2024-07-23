@@ -16,6 +16,7 @@
   # Applications
   steam.enable = true;
   flatpak.enable = true;
+  programs.thunderbird.enable = true;
 
   plasma.enable = true;
 
