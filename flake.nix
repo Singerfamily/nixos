@@ -26,6 +26,8 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    # nix-gaming.url = "github:fufexan/nix-gaming";
+
     # disko = {
     #   url = "github:nix-community/disko";
     #   inputs.nixpkgs.follows = "nixpkgs";
