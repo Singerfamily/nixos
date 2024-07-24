@@ -16,6 +16,7 @@ in {
 
     environment.systemPackages = with pkgs; [
       protonup
+      lutris
     ];
 
     programs.gamemode.enable = true;
