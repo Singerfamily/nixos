@@ -1,9 +1,9 @@
 {pkgs, lib, config, ...}: 
 let
-  cfg = config.spotify;
+  cfg = config.apps.spotify;
 in {
 
-  options.spotify = {
+  options.apps.spotify = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -11,7 +11,7 @@ in {
     };
   };
 
-  config = lib.mkIf config.spotify.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       spotify
     ];

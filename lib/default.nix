@@ -1,15 +1,61 @@
-{inputs}: let
-  myLib = (import ./default.nix) {inherit inputs;};
+{ self
+, inputs
+, stateVersion
+, stateVersionDarwin
+, ...
+}:
+
+let
+  homeConfiguration = "${self}/home";
+  hostConfiguration = "${self}/hosts";
+  homeModules       = "${homeConfiguration}/modules";
+  generalModules    = "${self}/modules";
+
+  libx = import ./default.nix { inherit self inputs stateVersion stateVersionDarwin; };
   outputs = inputs.self.outputs;
-in 
+in {
 
-with outputs;
-
-rec {
   # ========================== Buildables ========================== #
 
-  mkSystem = import ./mkSystem.nix {inherit myLib inputs outputs;};
-  
+  # Helper function for generating home-manager configs
+  mkHome = { username ? "esinger", hostname ? "nixos", isWorkstation ? false, platform ? "x86_64-linux" }:
+    inputs.home-manager.lib.homeManagerConfiguration {
+      pkgs = inputs.nixpkgs.legacyPackages.${platform};
+      extraSpecialArgs = {
+        inherit inputs self homeModules generalModules platform username hostname stateVersion isWorkstation;
+      };
+
+      modules = [
+        "${homeConfiguration}"
+      ];
+    };
+
+  # Helper function for generating host configs
+  mkHost = { hostname ? "nixos", username ? "esinger", isWorkstation ? false, platform ? "x86_64-linux" }:
+    inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs self homeModules generalModules hostname username platform stateVersion isWorkstation libx outputs;
+      };
+
+      modules = [
+        inputs.home-manager.nixosModules.home-manager
+        "${hostConfiguration}"
+        "${homeConfiguration}"
+      ];
+    };
+
+  # Helper function for generating darwin host configs
+  mkHostDarwin = { hostname ? "mac", platform ? "aarch64-darwin" }:
+    inputs.darwin.lib.darwinSystem {
+      specialArgs = {
+        inherit inputs self generalModules hostname platform stateVersionDarwin;
+      };
+
+      modules = [
+        "${hostConfiguration}"
+      ];
+    };
+
   # =========================== Helpers ============================ #
 
   filesIn = dir: (map (fname: dir + "/${fname}")
@@ -22,66 +68,13 @@ rec {
   fileNameOf = path: (builtins.head (builtins.split "\\." (baseNameOf path)));
 
 
-  # Drill down through all subdirectories and return a list of all files
-  allIn = dir:
-    let
-      dirs = dirsIn dir;
-      files = filesIn dir;
-    in
-      files ++ (builtins.concatMap (d: allIn (dir + "/" + d)) dirs);
-
-  # ========================== Extenders =========================== #
-
-  # Evaluates nixos/home-manager module and extends it's options / config
-  extendModule = {path, ...} @ args: {pkgs, ...} @ margs: let
-    eval =
-      if (builtins.isString path) || (builtins.isPath path)
-      then import path margs
-      else path margs;
-    evalNoImports = builtins.removeAttrs eval ["imports" "options"];
-
-    extra =
-      if (builtins.hasAttr "extraOptions" args) || (builtins.hasAttr "extraConfig" args)
-      then [
-        ({...}: {
-          options = args.extraOptions or {};
-          config = args.extraConfig or {};
-        })
-      ]
-      else [];
-  in {
-    imports =
-      (eval.imports or [])
-      ++ extra;
-
-    options =
-      if builtins.hasAttr "optionsExtension" args
-      then (args.optionsExtension (eval.options or {}))
-      else (eval.options or {});
-
-    config =
-      if builtins.hasAttr "configExtension" args
-      then (args.configExtension (eval.config or evalNoImports))
-      else (eval.config or evalNoImports);
-  };
-
-  # Applies extendModules to all modules
-  # modules can be defined in the same way
-  # as regular imports, or taken from "filesIn"
-  extendModules = extension: modules:
-    map
-    (f: let
-      name = fileNameOf f;
-    in (extendModule ((extension name) // {path = f;})))
-    modules;
-
   # ============================ Shell ============================= #
-  forAllSystems = pkgs:
-    inputs.nixpkgs.lib.genAttrs [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ]
-    (system: pkgs inputs.nixpkgs.legacyPackages.${system});
+  
+  forAllSystems = inputs.nixpkgs.lib.genAttrs [
+    "aarch64-linux"
+    "i686-linux"
+    "x86_64-linux"
+    "aarch64-darwin"
+    "x86_64-darwin"
+  ];
 }

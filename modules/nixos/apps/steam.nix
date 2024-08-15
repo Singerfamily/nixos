@@ -1,8 +1,8 @@
 {pkgs, config, lib, ...}: 
 let
-  cfg = config.steam;
+  cfg = config.apps.steam;
 in {
-  options.steam = {
+  options.apps.steam = {
     enable = lib.mkEnableOption "Enable Steam";
     gamescopeSession = lib.mkEnableOption "Enable GameScope session";
     remotePlay = lib.mkEnableOption "Enable Steam Remote Play";

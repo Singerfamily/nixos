@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 
   let
-    cfg = config.firefox;
+    cfg = config.apps.firefox;
     lock-false = {
       Value = false;
       Status = "locked";
@@ -12,7 +12,7 @@
     };
   in
 {
-  options.firefox = {
+  options.apps.firefox = {
     enable = lib.mkEnableOption "Enable Firefox";
   };
 

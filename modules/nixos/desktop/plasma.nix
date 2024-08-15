@@ -1,7 +1,7 @@
 {config, pkgs, lib, ...}: let
-  cfg = config.plasma;
+  cfg = config.modules.plasma;
 in {
-  options.plasma = {
+  options.modules.plasma = {
     enable = lib.mkEnableOption "Enable Plasma Desktop";
   };
 
