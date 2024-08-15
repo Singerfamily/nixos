@@ -29,5 +29,5 @@ in {
         RemainAfterExit = true;
       };
     };
-  }
+  };
 }
