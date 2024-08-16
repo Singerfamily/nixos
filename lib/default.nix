@@ -5,10 +5,10 @@
 }:
 
 let
-  homeConfiguration = "${self}/home";
+  userConfiguration = "${self}/users";
   hostConfiguration = "${self}/hosts";
-  homeModules       = "${homeConfiguration}/modules";
-  generalModules    = "${self}/modules";
+  homeModules       = "${self}/modules/home-manager";
+  systemModules    = "${self}/nixos";
 
   libx = import ./default.nix { inherit self inputs stateVersion; };
   outputs = inputs.self.outputs;
@@ -17,29 +17,29 @@ in {
   # ========================== Buildables ========================== #
 
   # Helper function for generating home-manager configs
-  mkHome = { username ? "esinger", hostname ? "nixos", isWorkstation ? false, platform ? "x86_64-linux" }:
+  mkHome = { username ? "esinger", hostname ? "nixos", platform ? "x86_64-linux" }:
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = inputs.nixpkgs.legacyPackages.${platform};
       extraSpecialArgs = {
-        inherit inputs self homeModules generalModules platform username hostname stateVersion isWorkstation;
+        inherit inputs self homeModules systemModules platform username hostname stateVersion;
       };
 
       modules = [
-        "${homeConfiguration}"
+        "${userConfiguration}/${username}"
       ];
     };
 
   # Helper function for generating host configs
-  mkHost = { hostname ? "nixos", username ? "esinger", isWorkstation ? false, platform ? "x86_64-linux" }:
+  mkHost = { hostname ? "nixos", username ? "esinger", platform ? "x86_64-linux" }:
     inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
-        inherit inputs self homeModules generalModules hostname username platform stateVersion isWorkstation libx outputs;
+        inherit inputs self homeModules systemModules hostname username platform stateVersion libx outputs;
       };
 
       modules = [
         inputs.home-manager.nixosModules.home-manager
-        "${hostConfiguration}"
-        "${homeConfiguration}"
+        "${hostConfiguration}/${hostname}"
+        "${userConfiguration}/${username}"
       ];
     };
 
