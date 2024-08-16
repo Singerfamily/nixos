@@ -44,27 +44,6 @@
     };
 
     # sops-nix.url = "github:Mic92/sops-nix";
-
-    # Zsh plugins
-    powerlevel10k = {
-      url = "github:romkatv/powerlevel10k";
-      flake = false;
-    };
-
-    zsh-autosuggestions = {
-      url = "github:zsh-users/zsh-autosuggestions";
-      flake = false;
-    };
-
-    zsh-syntax-highlighting = {
-      url = "github:zsh-users/zsh-syntax-highlighting";
-      flake = false;
-    };
-
-    fzf-zsh-completions = {
-      url = "github:chitoku-k/fzf-zsh-completions";
-      flake = false;
-    };
   };
 
   outputs = { self, flake-parts, ... } @ inputs:
@@ -73,8 +52,7 @@
     linuxArmArch       = "aarch64-linux";
     darwinArch         = "aarch64-darwin";
     stateVersion       = "24.11";
-    stateVersionDarwin = 4;
-    libx               = import ./lib { inherit self inputs stateVersion stateVersionDarwin; };
+    libx               = import ./lib { inherit self inputs stateVersion; };
 
     hosts = {
       event-horizon = { hostname = "event-horizon"; username = "esinger"; platform = linuxArch; isWorkstation = true; };
@@ -96,23 +74,7 @@
       #   ${hosts."thinkpad-p53".hostname} = libx.mkHost hosts."thinkpad-p53";
       # };
 
-      # darwinConfigurations = {
-      #   ${hosts.macbox.hostname} = libx.mkHostDarwin hosts.macbox;
-      # };
-
       templates = import "${self}/templates" { inherit self; };
     };
   };
-
-  # outputs = { 
-  #   ... 
-  # } @ inputs: let 
-  #   myLib = import ./lib/default.nix {inherit inputs;};
-  # in with myLib;{
-  #   nixosConfigurations = {
-  #     thinkpad-p53 = mkSystem "thinkpad-p53";
-  #     event-horizon = mkSystem "event-horizon";
-  #     default = mkSystem "default";
-  #   };
-  # };
 }

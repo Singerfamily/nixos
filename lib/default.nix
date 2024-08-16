@@ -1,7 +1,6 @@
 { self
 , inputs
 , stateVersion
-, stateVersionDarwin
 , ...
 }:
 
@@ -11,7 +10,7 @@ let
   homeModules       = "${homeConfiguration}/modules";
   generalModules    = "${self}/modules";
 
-  libx = import ./default.nix { inherit self inputs stateVersion stateVersionDarwin; };
+  libx = import ./default.nix { inherit self inputs stateVersion; };
   outputs = inputs.self.outputs;
 in {
 
@@ -41,18 +40,6 @@ in {
         inputs.home-manager.nixosModules.home-manager
         "${hostConfiguration}"
         "${homeConfiguration}"
-      ];
-    };
-
-  # Helper function for generating darwin host configs
-  mkHostDarwin = { hostname ? "mac", platform ? "aarch64-darwin" }:
-    inputs.darwin.lib.darwinSystem {
-      specialArgs = {
-        inherit inputs self generalModules hostname platform stateVersionDarwin;
-      };
-
-      modules = [
-        "${hostConfiguration}"
       ];
     };
 
