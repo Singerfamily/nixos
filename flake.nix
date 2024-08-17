@@ -53,11 +53,6 @@
     darwinArch         = "aarch64-darwin";
     stateVersion       = "24.11";
     libx               = import ./lib { inherit self inputs stateVersion; };
-
-    hosts = {
-      event-horizon = { hostname = "event-horizon"; username = "esinger"; platform = linuxArch; isWorkstation = true; };
-      thinkpad-p53  = { hostname = "thinkpad-p53"; username = "esinger"; platform = linuxArch; isWorkstation = true; };
-    };
   in flake-parts.lib.mkFlake { inherit inputs; } {
     systems = [
       linuxArch
@@ -67,7 +62,10 @@
 
     flake = {
 
-      nixosConfigurations = inputs.nixpkgs.lib.mapAttrsToList (name: host: libx.mkHost host) hosts;
+      nixosConfigurations = {
+        event-horizon = libx.mkHost { hostname = "event-horizon"; };
+        thinkpad-p53  = libx.mkHost { hostname = "thinkpad-p53"; };
+      };
 
       # nixosConfigurations = {
       #   ${hosts."event-horizon".hostname} = libx.mkHost hosts."event-horizon";
