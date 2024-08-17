@@ -61,7 +61,6 @@
     ];
 
     flake = {
-
       nixosConfigurations = {
         event-horizon = libx.mkHost { hostname = "event-horizon"; };
         thinkpad-p53  = libx.mkHost { hostname = "thinkpad-p53"; };
