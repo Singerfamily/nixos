@@ -1,8 +1,8 @@
-{ self, config, lib, pkgs, ... }: let
+{ config, lib, pkgs, homeModules, ... }: let
   cfg = config.programs.zsh;
 in {
-  config = lib.mkIf cfg.enable {
-    home.file.".p10k.zsh".source = "${self}/zsh/p10k.zsh";
+  
+    home.file.".p10k.zsh".source = "${homeModules}/zsh/p10k.zsh";
 
     programs = {
       zoxide = {
@@ -41,12 +41,12 @@ in {
         plugins = [
           {
             name = "powerlevel10k";
-            src = pkgs.zsh-powerlevel10k;
-            file = "/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+            src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
+            file = "powerlevel10k.zsh-theme";
           }
           {
             name = "powerlevel10k-config";
-            src = lib.cleanSource "${self}/zsh";
+            src = lib.cleanSource "${homeModules}/zsh";
             file = "p10k.zsh";
           }
         ];
@@ -59,5 +59,4 @@ in {
         };
       };
     };
-  };
 }

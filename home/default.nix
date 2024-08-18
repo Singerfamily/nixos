@@ -9,6 +9,7 @@
 , isWorkstation
 , username
 , stateVersion
+, libx
 , ...
 }:
 
@@ -33,7 +34,7 @@ in {
     users.${username} = {
       programs.home-manager.enable = true;
 
-      imports = lib.optional userConfigurationPathExist "${userConfigurationPath}/home.nix";
+      imports = (libx.autoImport "${homeModules}") ++ lib.optional userConfigurationPathExist "${userConfigurationPath}/home.nix";
 
       home = {
         inherit username;
