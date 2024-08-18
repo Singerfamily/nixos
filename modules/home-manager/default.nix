@@ -1,11 +1,8 @@
-{ libx
-, username
+{ username
 , inputs
 , self
 , stateVersion
 , ...}: {
-  imports = (libx.autoImport ./.);
-
   home-manager = {
     useGlobalPkgs     = true;
     useUserPackages   = true;

@@ -20,7 +20,6 @@ in {
   # Helper function for generating home-manager configs
   mkHome = { username ? "esinger", hostname ? "nixos", platform ? "x86_64-linux" }:
     inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = inputs.nixpkgs.legacyPackages.${platform};
       extraSpecialArgs = {
         inherit inputs self homeModules systemModules platform username hostname stateVersion;
       };
@@ -38,17 +37,18 @@ in {
       };
 
       modules = [
-        inputs.home-manager.nixosModules.home-manager
+        inputs.home-manager.nixosModules.home-manager 
         inputs.lanzaboote.nixosModules.lanzaboote
         
         "${hostConfiguration}/${hostname}"
         "${userConfiguration}/${username}"
 
+
         ({stateVersion, ...}: {
           system.stateVersion = stateVersion;
         })
 
-        ../modules/nixos
+        ../modules
       ];
     };
 
