@@ -1,6 +1,11 @@
-{ config, lib, userName, pkgs, ... }: let
+{ config, lib, username, pkgs, ... }: let
   cfg = config.services.qemu;
-in{
+in {
+
+  imports = [
+    ./podman.nix
+  ];
+
   options.services.qemu = {
     enable = lib.mkEnableOption "Enable Virtual Machine support";
   };
@@ -18,7 +23,7 @@ in{
     };
 
     # Add user to libvirtd group
-    users.users."${userName}".extraGroups = [ "libvirtd" ];
+    users.users."${username}".extraGroups = [ "libvirtd" ];
 
     # Install necessary packages
     environment.systemPackages = with pkgs; [

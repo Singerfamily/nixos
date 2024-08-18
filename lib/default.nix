@@ -43,46 +43,23 @@ in {
         "${hostConfiguration}/${hostname}"
         "${userConfiguration}/${username}"
 
+        ({stateVersion, ...}: {
+          system.stateVersion = stateVersion;
+        })
+
         ../modules/nixos
       ];
     };
 
   # =========================== Helpers ============================ #
 
-  filesIn = dir: (map (fname: dir + "/${fname}")
-    (builtins.attrNames (builtins.readDir dir)));
+  filesIn = dir: (map (fname: dir + "/${fname}") (builtins.attrNames (builtins.readDir dir)));
 
-  dirsIn = dir:
-    inputs.nixpkgs.lib.filterAttrs (name: value: value == "directory")
-    (builtins.readDir dir);
+  dirsIn = dir: inputs.nixpkgs.lib.filterAttrs (name: value: value == "directory") (builtins.readDir dir);
 
   fileNameOf = path: (builtins.head (builtins.split "\\." (baseNameOf path)));
 
   isDir = path: builtins.pathExists (path + "/.");
-
-  # Drill down into all subdirectories and import all .nix files
-
-  importNixFiles = path:
-    if libx.isDir path then
-      let
-        content = builtins.readDir path;
-        imports = lib.concatMap (name:
-          let
-            fullPath = "${path}/${name}";
-          in
-            if libx.isDir fullPath then
-              libx.importNixFiles fullPath
-            else if libx.isNixFile fullPath then
-              [ (import fullPath) ]
-            else
-              []
-        ) (builtins.attrNames content);
-      in
-        lib.foldl' lib.extend {} imports
-    else if libx.isNixFile path then
-      import path
-    else
-      {};
 
   autoImport = path:
     # check if the path is a directory or a file
@@ -90,9 +67,10 @@ in {
       # it's a directory, so the set of overlays from the directory, ordered lexicographically
       let content = builtins.readDir path; in
       map (n: import (path + ("/" + n)))
+      # only match default.nix files
         (builtins.filter
           (n:
-            (builtins.match ".*\\.nix" n != null &&
+            (builtins.match "default\\.nix" n != null &&
               # ignore Emacs lock files (.#foo.nix)
               builtins.match "\\.#.*" n == null) ||
             builtins.pathExists (path + ("/" + n + "/default.nix")))

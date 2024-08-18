@@ -1,4 +1,4 @@
-{ config, pkgs, lib, userName, ... }: 
+{ config, pkgs, lib, username, ... }: 
 let
   cfg = config.services.podman;
 in {
@@ -9,7 +9,7 @@ in {
   config = lib.mkIf cfg.enable {
     hardware.nvidia-container-toolkit.enable = true;
 
-    users.users.${userName}.extraGroups = [
+    users.users.${username}.extraGroups = [
       "docker"
     ];
     virtualisation = {

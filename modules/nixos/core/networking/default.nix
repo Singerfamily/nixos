@@ -2,7 +2,7 @@
   imports = [
     ./dns.nix
   ];
-
+  
   networking = {
     networkmanager.enable = true;
 

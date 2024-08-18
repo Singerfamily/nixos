@@ -1,3 +1,0 @@
-{libx, ...}: {
-  imports = [ (libx.autoImports ./.) ];
-}

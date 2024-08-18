@@ -1,7 +1,8 @@
 {inputs, ...}: {
+
   imports = [
-    ./cachix.nix
     ./auto-upgrade.nix
+    ./cachix.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

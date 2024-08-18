@@ -6,7 +6,7 @@
 , stateVersion
 , ...}: let 
 in {
-  imports = [(libx.autoImports ./.)];
+  # imports = [(libx.autoImports ./.)];
 
   home-manager = {
     useGlobalPkgs     = true;

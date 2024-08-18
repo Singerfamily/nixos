@@ -1,13 +1,8 @@
 { config, lib, ... }: let
   cfg = config.services.tlp;
 in{
-  options.services.tlp = {
-    enable = lib.mkEnableOption "Enable TLP";
-  };
-
   config = lib.mkIf cfg.enable {
     services.tlp = {
-      enable = true;
       settings = {
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";

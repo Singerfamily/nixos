@@ -2,13 +2,14 @@
 let 
   cfg = config.boot.secure;
 in {
+  imports = [inputs.lanzaboote.nixosModules.lanzaboote];
+  
   options.boot.secure = {
     enable = lib.mkEnableOption "Enable Secure Boot";
   };
 
   config = lib.mkIf cfg.enable {
 
-    imports = [inputs.lanzaboote.nixosModules.lanzaboote];
 
     boot.loader.systemd-boot.enable = lib.mkForce false;
     boot.lanzaboote = {

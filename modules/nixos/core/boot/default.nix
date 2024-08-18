@@ -2,16 +2,28 @@
   imports = [
     ./secureboot.nix
   ];
-  boot.initrd.systemd.enable = true;  # For auto unlock
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  # boot.plymouth.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    # boot.plymouth.enable = true;
 
-  boot.initrd.systemd.enableTpm2 = true;
-  boot.initrd.kernelModules = [ "tpm_crb" ];
-  boot.initrd.availableKernelModules = ["tpm_crb"];
-  security.tpm2.enable = true;
-  security.tpm2.tctiEnvironment.enable = true;
+    kernelPackages = pkgs.linuxPackages_latest;
+
+    initrd = {
+      systemd = {
+        enable = true;  # For auto unlock
+        enableTpm2 = true;
+      };
+      kernelModules = [ "tpm_crb" ];
+      availableKernelModules = ["tpm_crb"];
+    };
+  };
+
+  security.tpm2 = {
+    enable = true;
+    tctiEnvironment.enable = true;
+  };
 }
