@@ -39,32 +39,10 @@ in {
 
       modules = [
         inputs.lanzaboote.nixosModules.lanzaboote
+        inputs.home-manager.nixosModules.home-manager 
         
         hostConfiguration
         homeConfiguration
-
-        inputs.home-manager.nixosModules.home-manager {
-          home-manager = {
-            useGlobalPkgs     = true;
-            useUserPackages   = true;
-
-            extraSpecialArgs  = {
-              inherit inputs self username;
-            };
-
-            users.${username} = (import "${homeConfiguration}/${username}/home.nix" { inherit inputs self stateVersion; }) ++ {
-              programs.home-manager.enable = true;
-
-              home = {
-                homeDirectory = "/home/${username}";
-                
-                inherit username;
-                inherit stateVersion;
-              };
-            };
-          };
-        }
-
       ];
     };
 

@@ -19,6 +19,9 @@ let
   userConfigurationPath      = "${self}/home/users/${username}";
   userConfigurationPathExist = builtins.pathExists userConfigurationPath;
 in {
+
+  imports = lib.optional userConfigurationPathExist userConfigurationPath;
+
   home-manager = {
     useGlobalPkgs     = true;
     useUserPackages   = true;
@@ -30,7 +33,7 @@ in {
     users.${username} = {
       programs.home-manager.enable = true;
 
-      imports = lib.optional userConfigurationPathExist userConfigurationPath;
+      imports = lib.optional userConfigurationPathExist "${userConfigurationPath}/home.nix";
 
       home = {
         inherit username;
