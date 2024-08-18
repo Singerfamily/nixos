@@ -1,7 +1,6 @@
 { pkgs, ... }: {
-  imports = [
-    ./secureboot.nix
-  ];
+
+  imports = [./secureboot.nix ];
 
   boot = {
     loader = {

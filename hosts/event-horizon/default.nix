@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   imports = [ ./hardware-configuration.nix ];
 
-  boot.lanzaboote.enable = true;
-
   drivers = {
     nvidia.enable = true;
     intel.enable = true;

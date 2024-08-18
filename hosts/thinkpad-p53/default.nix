@@ -1,9 +1,7 @@
 {...}:
 {
   imports = [ ./hardware-configuration.nix ];
-
-   boot.secure.enable = true;
-
+  
   drivers = {
     nvidia.enable = true;
     intel.enable = true;
