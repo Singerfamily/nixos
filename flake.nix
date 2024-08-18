@@ -13,12 +13,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # disko = {
+    #   url = "github:nix-community/disko";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
-    impermanence.url = "github:/nix-community/impermanence";
+    # impermanence.url = "github:/nix-community/impermanence";
     # stylix.url = "github:danth/stylix";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
