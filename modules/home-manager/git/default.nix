@@ -1,18 +1,8 @@
 { config, lib, ... }: let
-    cfg = config.module.git;
+    cfg = config.programs.git;
 in {
-  options.module.git = {
-    enable = lib.mkEnableOption "Enable Git";
-  };
-
   config = lib.mkIf cfg.enable {
     programs = {
-      git = {
-        enable = true;
-        userName = "LeaderbotX400";
-        userEmail = "eric@singerfamily.ca";
-      };
-
       gh = {
         enable = true;
 

@@ -1,10 +1,6 @@
 { self, config, lib, pkgs, ... }: let
-  cfg = config.module.zsh;
+  cfg = config.programs.zsh;
 in {
-  options.module.zsh = {
-    enable = lib.mkEnableOption "Enable ZSH";
-  };
-
   config = lib.mkIf cfg.enable {
     home.file.".p10k.zsh".source = "${self}/zsh/p10k.zsh";
 

@@ -1,12 +1,10 @@
-{ lib
-, libx
+{ libx
 , username
 , inputs
 , self
 , stateVersion
-, ...}: let 
-in {
-  # imports = [(libx.autoImports ./.)];
+, ...}: {
+  imports = (libx.autoImport ./.);
 
   home-manager = {
     useGlobalPkgs     = true;
@@ -20,6 +18,8 @@ in {
       programs.home-manager.enable = true;
 
       home = {
+        homeDirectory = "/home/${username}";
+        
         inherit username;
         inherit stateVersion;
       };
