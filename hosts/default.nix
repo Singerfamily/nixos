@@ -14,7 +14,7 @@
 let
   inherit (pkgs.stdenv) isDarwin;
   currentStateVersion = if isDarwin then stateVersionDarwin else stateVersion;
-  machineConfigurationPath = "${self}/${hostname}";
+  machineConfigurationPath = "${self}/hosts/${hostname}";
   machineConfigurationPathExist = builtins.pathExists machineConfigurationPath;
 in
 {

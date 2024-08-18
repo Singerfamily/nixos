@@ -1,11 +1,12 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs = {
     zsh.enable = true;
     git.enable = true;
     direnv.enable = true;
     kdeconnect = {
-        enable = true;
-        # package = pkgs.kdePackages.kdeconnect-kde;
+      enable = true;
+      # package = pkgs.kdePackages.kdeconnect-kde;
     };
   };
 
@@ -25,8 +26,15 @@
         "tss"
       ];
 
-      hashedPassword =
-        "$y$j9T$mboI3SZPrs3PANp77OkRQ1$804/B42apAF5ef7J70Shkw7t3qmYKCZLx2xym1/hUH8";
+      hashedPassword = "$y$j9T$mboI3SZPrs3PANp77OkRQ1$804/B42apAF5ef7J70Shkw7t3qmYKCZLx2xym1/hUH8";
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    gh
+    vscode
+    microsoft-edge-dev
+    zoxide
+    fzf
+  ];
 }
