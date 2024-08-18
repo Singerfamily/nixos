@@ -11,7 +11,6 @@ let
   homeModules       = "${modulesDir}/home-manager";
   systemModules     = "${modulesDir}/nixos";
 
-  lib = inputs.nixpkgs.lib;
   libx = import ./default.nix { inherit self inputs stateVersion; };
   outputs = inputs.self.outputs;
 in {
