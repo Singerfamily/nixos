@@ -1,18 +1,11 @@
 { config, pkgs, lib, ... }: 
 let 
-  cfg = config.boot.secure;
+  cfg = config.boot.lanzaboote;
 in {
-  options.boot.secure = {
-    enable = lib.mkEnableOption "Enable Secure Boot";
-  };
-
   config = lib.mkIf cfg.enable {
     boot = {
       loader.systemd-boot.enable = lib.mkForce false;
-      lanzaboote = {
-        enable = true;
-        pkiBundle = "/etc/secureboot";
-      };
+      lanzaboote.pkiBundle = "/etc/secureboot";
     };
 
     environment.systemPackages = with pkgs; [

@@ -7,8 +7,8 @@
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
+      # plymouth.enable = true;
     };
-    # boot.plymouth.enable = true;
 
     kernelPackages = pkgs.linuxPackages_latest;
 

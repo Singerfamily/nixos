@@ -2,6 +2,13 @@
 
   programs = {
     zsh.enable = true;
+
+    git.enable = true;
+    direnv.enable = true;
+    kdeconnect = {
+        enable = true;
+        # package = pkgs.kdePackages.kdeconnect-kde;
+    };
   };
 
   users = {
