@@ -1,5 +1,4 @@
 { pkgs, ... }: {
-
   programs = {
     zsh.enable = true;
     git.enable = true;
@@ -7,6 +6,20 @@
     kdeconnect = {
         enable = true;
         # package = pkgs.kdePackages.kdeconnect-kde;
+    };
+  };
+
+  home = {
+    programs = {
+      git = {
+        enable = true;
+        userName = "LeaderbotX400";
+        userEmail = "eric@singerfamily.ca";
+      };
+
+      zsh.enable = true;
+      zoxide.enable = true;
+      fzf.enable = true;
     };
   };
 
