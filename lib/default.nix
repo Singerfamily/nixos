@@ -10,6 +10,7 @@ let
   homeModules       = "${self}/modules/home-manager";
   systemModules    = "${self}/nixos";
 
+  lib = inputs.nixpkgs.lib;
   libx = import ./default.nix { inherit self inputs stateVersion; };
   outputs = inputs.self.outputs;
 in {
@@ -56,22 +57,46 @@ in {
 
   isDir = path: builtins.pathExists (path + "/.");
 
+  # Drill down into all subdirectories and import all .nix files
+
+  importNixFiles = path:
+    if libx.isDir path then
+      let
+        content = builtins.readDir path;
+        imports = lib.concatMap (name:
+          let
+            fullPath = "${path}/${name}";
+          in
+            if libx.isDir fullPath then
+              libx.importNixFiles fullPath
+            else if libx.isNixFile fullPath then
+              [ (import fullPath) ]
+            else
+              []
+        ) (builtins.attrNames content);
+      in
+        lib.foldl' lib.extend {} imports
+    else if libx.isNixFile path then
+      import path
+    else
+      {};
+
   autoImports = path:
-        # check if the path is a directory or a file
-        if libx.isDir path then
-          # it's a directory, so the set of overlays from the directory, ordered lexicographically
-          let content = builtins.readDir path; in
-          map (n: import (path + ("/" + n)))
-            (builtins.filter
-              (n:
-                (builtins.match ".*\\.nix" n != null &&
-                 # ignore Emacs lock files (.#foo.nix)
-                 builtins.match "\\.#.*" n == null) ||
-                builtins.pathExists (path + ("/" + n + "/default.nix")))
-              (builtins.attrNames content))
-        else
-          # it's a file, so the result is the contents of the file itself
-          import path;
+    # check if the path is a directory or a file
+    if builtins.pathExists (path + "/.") then
+      # it's a directory, so the set of overlays from the directory, ordered lexicographically
+      let content = builtins.readDir path; in
+      map (n: import (path + ("/" + n)))
+        (builtins.filter
+          (n:
+            (builtins.match ".*\\.nix" n != null &&
+              # ignore Emacs lock files (.#foo.nix)
+              builtins.match "\\.#.*" n == null) ||
+            builtins.pathExists (path + ("/" + n + "/default.nix")))
+          (builtins.attrNames content))
+    else
+      # it's a file, so the result is the contents of the file itself
+      import path;
 
   # ============================ Shell ============================= #
   
