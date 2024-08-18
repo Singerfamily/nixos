@@ -1,0 +1,26 @@
+{ pkgs
+, lib
+, self
+, systemModules
+
+, hostname
+, platform
+, stateVersion ? null
+, stateVersionDarwin ? null
+, ...
+}:
+
+let
+  inherit (pkgs.stdenv) isDarwin;
+  currentStateVersion           = if isDarwin then stateVersionDarwin else stateVersion;
+  machineConfigurationPath      = "${self}/${hostname}";
+  machineConfigurationPathExist = builtins.pathExists machineConfigurationPath;
+in {
+  imports = systemModules
+  ++ lib.optional machineConfigurationPathExist machineConfigurationPath;
+
+  # System version
+  system.stateVersion = currentStateVersion;
+  # HostPlatform
+  nixpkgs.hostPlatform = platform;
+}

@@ -5,10 +5,11 @@
 }:
 
 let
-  userConfiguration = "${self}/users";
+  homeConfiguration = "${self}/home";
   hostConfiguration = "${self}/hosts";
+  homeModules       = "${homeConfiguration}/modules";
+
   modulesDir        = "${self}/modules";
-  homeModules       = "${modulesDir}/home-manager";
   systemModules     = "${modulesDir}/nixos";
 
   libx = import ./default.nix { inherit self inputs stateVersion; };
@@ -25,7 +26,7 @@ in {
       };
 
       modules = [
-        "${userConfiguration}/${username}"
+        "${homeConfiguration}"
       ];
     };
 
@@ -37,18 +38,33 @@ in {
       };
 
       modules = [
-        inputs.home-manager.nixosModules.home-manager 
         inputs.lanzaboote.nixosModules.lanzaboote
         
-        "${hostConfiguration}/${hostname}"
-        "${userConfiguration}/${username}"
+        hostConfiguration
+        homeConfiguration
 
+        inputs.home-manager.nixosModules.home-manager {
+          home-manager = {
+            useGlobalPkgs     = true;
+            useUserPackages   = true;
 
-        ({stateVersion, ...}: {
-          system.stateVersion = stateVersion;
-        })
+            extraSpecialArgs  = {
+              inherit inputs self username;
+            };
 
-        ../modules
+            users.${username} = (import "${homeConfiguration}/${username}/home.nix" { inherit inputs self stateVersion; }) ++ {
+              programs.home-manager.enable = true;
+
+              home = {
+                homeDirectory = "/home/${username}";
+                
+                inherit username;
+                inherit stateVersion;
+              };
+            };
+          };
+        }
+
       ];
     };
 

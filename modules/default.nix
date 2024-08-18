@@ -1,3 +1,3 @@
 {libx, ...}: {
-  imports = (libx.autoImport ./nixos) ++ (libx.autoImport ./home-manager);
+  imports = (libx.autoImport ./nixos);
 }
