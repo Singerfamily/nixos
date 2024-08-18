@@ -2,13 +2,18 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
+  boot.secure.enable = true;
+
   services = {
     hardware = {
       bolt.enable = true;
-      bluetooth = {
-        enable = true;
-        powerOnBoot = true;
-      };
+    };
+  };
+
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
     };
   };
 }

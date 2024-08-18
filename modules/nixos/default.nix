@@ -1,5 +1,7 @@
 {libx, ...}: {
-  imports = [(libx.autoImports ./.)];
+  imports = [
+    libx.autoImport ./.
+  ];
 
   desktop.plasma.enable = libx.mkDefault true;
 }

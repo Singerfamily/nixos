@@ -7,8 +7,9 @@
 let
   userConfiguration = "${self}/users";
   hostConfiguration = "${self}/hosts";
-  homeModules       = "${self}/modules/home-manager";
-  systemModules    = "${self}/nixos";
+  modulesDir        = "${self}/modules";
+  homeModules       = "${modulesDir}/home-manager";
+  systemModules     = "${modulesDir}/nixos";
 
   lib = inputs.nixpkgs.lib;
   libx = import ./default.nix { inherit self inputs stateVersion; };
@@ -41,6 +42,8 @@ in {
         inputs.home-manager.nixosModules.home-manager
         "${hostConfiguration}/${hostname}"
         "${userConfiguration}/${username}"
+
+        ../modules/nixos
       ];
     };
 
@@ -81,7 +84,7 @@ in {
     else
       {};
 
-  autoImports = path:
+  autoImport = path:
     # check if the path is a directory or a file
     if builtins.pathExists (path + "/.") then
       # it's a directory, so the set of overlays from the directory, ordered lexicographically
