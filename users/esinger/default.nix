@@ -2,8 +2,6 @@
 
   programs = {
     zsh.enable = true;
-    zoxide.enable = true;
-    fzf.enable = true;
     git.enable = true;
     direnv.enable = true;
     kdeconnect = {
@@ -37,5 +35,7 @@
     gh
     vscode
     microsoft-edge-dev
+    zoxide
+    fzf
   ];
 }

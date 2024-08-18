@@ -7,5 +7,7 @@
     };
 
     zsh.enable = true;
+    zoxide.enable = true;
+    fzf.enable = true;
   };
 }
