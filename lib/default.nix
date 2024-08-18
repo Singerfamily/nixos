@@ -39,6 +39,8 @@ in {
 
       modules = [
         inputs.home-manager.nixosModules.home-manager
+        inputs.lanzaboote.nixosModules.lanzaboote
+        
         "${hostConfiguration}/${hostname}"
         "${userConfiguration}/${username}"
 
