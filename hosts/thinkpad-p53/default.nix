@@ -19,7 +19,6 @@
     podman.enable = true;
     flatpak.enable = true;
     onedrive.enable = true;
-
     fprintd.enable = true;
 
     hardware = {
