@@ -20,6 +20,8 @@
     flatpak.enable = true;
     onedrive.enable = true;
 
+    fprintd.enable = true;
+
     hardware = {
       bolt.enable = true;
     };
