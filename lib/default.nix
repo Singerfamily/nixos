@@ -39,7 +39,8 @@ in {
 
       modules = [
         inputs.lanzaboote.nixosModules.lanzaboote
-        inputs.home-manager.nixosModules.home-manager 
+        inputs.home-manager.nixosModules.home-manager
+        inputs.nixos-cli.nixosModules.nixos-cli
         
         hostConfiguration
         homeConfiguration
