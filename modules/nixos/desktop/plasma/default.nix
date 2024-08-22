@@ -28,6 +28,7 @@ in {
       kdePackages.plasma-browser-integration
       kdePackages.plasma-disks
       kdePackages.kalk
+      kdePackages.partitionmanager
       krdc
 
       (lib.mkIf config.services.hardware.bolt.enable kdePackages.plasma-thunderbolt)
