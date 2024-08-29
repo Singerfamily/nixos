@@ -19,7 +19,9 @@ in {
           enable = true;
           setSocketVariable = true;
         };
-        autoPrune = true;
+        autoPrune = {
+          enable = true;          
+        };
         enableNvidia = true;
       };
     };
@@ -28,8 +30,6 @@ in {
     environment.systemPackages = with pkgs; [
       distrobox
       dive            # look into docker image layers
-      podman-tui      # status of containers in the terminal
-      podman-compose # start group of containers for dev
     ];
   };
 }
