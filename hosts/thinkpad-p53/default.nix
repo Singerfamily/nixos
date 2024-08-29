@@ -16,7 +16,7 @@
 
   services = {
     qemu.enable = true;
-    podman.enable = true;
+    docker.enable = true;
     flatpak.enable = true;
     onedrive.enable = true;
     fprintd.enable = true;

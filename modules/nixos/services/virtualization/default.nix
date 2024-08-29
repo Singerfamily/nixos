@@ -4,6 +4,7 @@ in {
 
   imports = [
     ./podman.nix
+    ./docker.nix
   ];
 
   options.services.qemu = {
