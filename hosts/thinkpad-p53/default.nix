@@ -15,8 +15,6 @@
   };
 
   services = {
-    qemu.enable = true;
-    docker.enable = true;
     flatpak.enable = true;
     onedrive.enable = true;
     fprintd.enable = true;
@@ -24,6 +22,11 @@
     hardware = {
       bolt.enable = true;
     };
+  };
+
+  virtualisation = {
+    qemu.enable = true;
+    docker.enable = true;
   };
 
   hardware = {

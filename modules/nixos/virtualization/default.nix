@@ -1,5 +1,5 @@
 { config, lib, username, pkgs, ... }: let
-  cfg = config.services.qemu;
+  cfg = config.virtualisation.qemu;
 in {
 
   imports = [
@@ -7,7 +7,7 @@ in {
     ./docker.nix
   ];
 
-  options.services.qemu = {
+  options.virtualisation.qemu = {
     enable = lib.mkEnableOption "Enable Virtual Machine support";
   };
 

@@ -15,10 +15,14 @@
 
   services = {
     qemu.enable = true;
-    docker.enable = true;
     flatpak.enable = true;
     onedrive.enable = true;
     davfs2.enable = true;
+  };
+
+  virtualisation = {
+    qemu.enable = true;
+    docker.enable = true;
   };
 
   hardware = {
