@@ -9,10 +9,6 @@ let
   cfg = config.virtualisation.docker;
 in
 {
-  options.virtualisation.docker = {
-    enable = lib.mkEnableOption "Enable Docker";
-  };
-
   config = lib.mkIf cfg.enable {
     hardware.nvidia-container-toolkit.enable = true;
 

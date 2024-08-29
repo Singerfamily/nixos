@@ -22,6 +22,7 @@
   virtualisation = {
     qemu.enable = true;
     docker.enable = true;
+    podman.enable = true;
   };
 
   hardware = {

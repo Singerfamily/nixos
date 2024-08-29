@@ -1,11 +1,7 @@
 { config, pkgs, lib, username, ... }: 
 let
-  cfg = config.services.podman;
+  cfg = config.virtualisation.podman;
 in {
-  options.services.podman = {
-    enable = lib.mkEnableOption "Enable Podman";
-  };
-
   config = lib.mkIf cfg.enable {
     hardware.nvidia-container-toolkit.enable = true;
 
@@ -14,10 +10,8 @@ in {
     ];
     virtualisation = {
       podman = {
-        enable = true;
-
-        # Create a `docker` alias for podman, to use it as a drop-in replacement
-        dockerCompat = true;
+        # # Create a `docker` alias for podman, to use it as a drop-in replacement
+        # dockerCompat = true;
 
         # Required for containers under podman-compose to be able to talk to each other.
         defaultNetwork.settings.dns_enabled = true;
