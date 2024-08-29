@@ -14,7 +14,6 @@
   };
 
   services = {
-    qemu.enable = true;
     flatpak.enable = true;
     onedrive.enable = true;
     davfs2.enable = true;
