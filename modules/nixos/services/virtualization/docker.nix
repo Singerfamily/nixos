@@ -15,7 +15,10 @@ in {
     virtualisation = {
       docker = {
         enable = true;
-        rootless = true;
+        rootless = {
+          enable = true;
+          setSocketVariable = true;
+        };
         autoPrune = true;
         enableNvidia = true;
       };
