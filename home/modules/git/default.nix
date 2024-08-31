@@ -1,20 +1,20 @@
 { config, lib, ... }: let
     cfg = config.programs.git;
 in {
-    programs = {
-      gh = {
-        enable = true;
+  programs = lib.mkIf cfg.enable {
+    gh = {
+      enable = true;
 
-        gitCredentialHelper.enable = true;
+      gitCredentialHelper.enable = true;
 
-        settings = {
-          git_protocol = "https";
-          prompt = "enabled";
-          aliases = {
-            co = "pr checkout";
-            pv = "pr view";
-          };
+      settings = {
+        git_protocol = "https";
+        prompt = "enabled";
+        aliases = {
+          co = "pr checkout";
+          pv = "pr view";
         };
       };
     };
+  };
 }

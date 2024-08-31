@@ -66,6 +66,7 @@
       nixosConfigurations = {
         event-horizon = libx.mkHost { hostname = "event-horizon"; };
         thinkpad-p53  = libx.mkHost { hostname = "thinkpad-p53"; };
+        nucos = libx.mkHost { hostname = "nucos"; username = "csinger"; };
       };
 
       # nixosConfigurations = {
