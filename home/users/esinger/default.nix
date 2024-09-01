@@ -3,7 +3,11 @@
   programs = {
     zsh.enable = true;
     git.enable = true;
-    direnv.enable = true;
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
     kdeconnect = {
       enable = true;
       # package = pkgs.kdePackages.kdeconnect-kde;
