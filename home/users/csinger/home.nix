@@ -2,8 +2,8 @@
   programs = {
     git = {
       enable = true;
-      # userName = "";
-      # userEmail = "";
+      userName = "clintsinger";
+      userEmail = "clint@singerfamily.ca";
     };
 
     zsh.enable = true;

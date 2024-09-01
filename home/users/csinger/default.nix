@@ -27,6 +27,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    gh
     vscode
     microsoft-edge-dev
     zoxide

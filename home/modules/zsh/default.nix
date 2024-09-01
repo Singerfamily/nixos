@@ -55,6 +55,7 @@ in {
           enable = true;
           plugins = [
             "git"
+            "kubectl"
           ];
         };
       };

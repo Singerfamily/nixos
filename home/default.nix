@@ -24,8 +24,9 @@ in {
   imports = lib.optional userConfigurationPathExist userConfigurationPath;
 
   home-manager = {
-    useGlobalPkgs     = true;
-    useUserPackages   = true;
+    useGlobalPkgs       = true;
+    useUserPackages     = true;
+    backupFileExtension = "backup";
 
     extraSpecialArgs  = {
       inherit inputs self homeModules generalModules hostname username platform stateVersion isWorkstation;
