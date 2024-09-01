@@ -32,5 +32,6 @@
     microsoft-edge-dev
     zoxide
     fzf
+    kubectl
   ];
 }
