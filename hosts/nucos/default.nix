@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [ ./hardware-configuration.nix ];
 
   drivers = {
@@ -25,4 +26,6 @@
     docker.enable = true;
     podman.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [ obs-studio ];
 }
