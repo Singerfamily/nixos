@@ -8,23 +8,24 @@
   };
 
   programs = {
-    # spotify.enable = true;
-    # steam.enable = true;
-    # thunderbird.enable = true;
     firefox.enable = true;
     nix-ld.enable = true;
   };
 
   services = {
-    flatpak.enable = true;
-    # onedrive.enable = true;
-    # davfs2.enable = true;
+    # flatpak.enable = true;
   };
 
   virtualisation = {
-    qemu.enable = true;
+    # qemu.enable = true;
     docker.enable = true;
-    podman.enable = true;
+    # podman.enable = true;
+  };
+
+  hardware = {
+    pulseaudio = {
+      systemWide = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [ obs-studio ];
