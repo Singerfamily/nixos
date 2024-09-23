@@ -29,7 +29,7 @@
   };
 
   virtualisation = {
-    qemu.enable = true;
+    # qemu.enable = true;
     docker.enable = true;
   };
 
