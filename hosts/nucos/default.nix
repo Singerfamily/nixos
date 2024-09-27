@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [ ./hardware-configuration.nix ];
 
@@ -11,6 +11,8 @@
     firefox.enable = true;
     nix-ld.enable = true;
   };
+
+  desktop.plasma.enable = lib.mkForce false;
 
   services = {
     # flatpak.enable = true;
