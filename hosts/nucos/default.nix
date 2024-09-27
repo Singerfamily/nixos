@@ -26,7 +26,12 @@
 
   hardware = {
     pulseaudio = {
+      enable = true;
       systemWide = true;
+      tcp = {
+        enable = true;
+        anonymousClients.allowAll = true;
+      };
     };
   };
 
