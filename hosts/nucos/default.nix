@@ -15,18 +15,17 @@
   desktop.plasma.enable = lib.mkForce false;
 
   services = {
-    # flatpak.enable = true;
+    pipewire.enable = lib.mkForce false;
   };
 
   virtualisation = {
-    # qemu.enable = true;
     docker.enable = true;
-    # podman.enable = true;
   };
 
   hardware = {
     pulseaudio = {
       enable = true;
+
       systemWide = true;
       tcp = {
         enable = true;

@@ -1,13 +1,18 @@
-{...}: {
-  security.rtkit.enable = true;
-  hardware.pulseaudio.enable = false;
-  services.pipewire = {
-    enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
+{ lib, config, ... }:
+let
+  cfg = config.services.pipewire;
+in
+{
+  config = lib.mkIf cfg.enable {
+    security.rtkit.enable = lib.mkForce true;
+    hardware.pulseaudio.enable = lib.mkForce false;
+    services.pipewire = {
+      alsa = {
+        enable = lib.mkForce true;
+        support32Bit = lib.mkForce true;
+      };
+      pulse.enable = lib.mkForce true;
+      jack.enable = lib.mkForce true;
     };
-    pulse.enable = true;
-    jack.enable = true;
   };
 }
