@@ -21,8 +21,9 @@
         pkgs.platformio-core
         pkgs.openocd
       ];
-      extraRules = '' 
-        # ENV{ID_VENDOR_ID}==\"046d\", ENV{ID_MODEL_ID}==\"0825\", ENV{PULSE_IGNORE}=\"1\"\n
+      extraRules = ''
+        # udev rule for ST-LINK/V2 
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", MODE:="0666", SYMLINK+="stlinkv2_%n"
       '';
     };
   };
