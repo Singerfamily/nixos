@@ -8,7 +8,7 @@
   system.autoUpgrade = {
     enable = true;
     operation = "switch"; # If you don't want to apply updates immediately, only after rebooting, use `boot` option in this case
-    flake = "/home/esinger/projects/nixos";
+    flake = "github:singerfamily/nixos";
     flags = [ "--update-input" "nixpkgs" "--commit-lock-file" ];
     dates = "weekly"; # You can also use `weekly` or `monthly` here
     # channel = "https://nixos.org/channels/nixos-unstable";
