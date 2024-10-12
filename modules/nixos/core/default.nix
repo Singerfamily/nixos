@@ -6,5 +6,7 @@
     nixfmt-rfc-style
     tpm2-tss
     nvtopPackages.full
+    usbutils
+    ethtool
   ];
 }

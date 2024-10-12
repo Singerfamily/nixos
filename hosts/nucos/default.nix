@@ -16,7 +16,17 @@
 
   services = {
     pipewire.enable = lib.mkForce false;
+    udev = {
+      packages = [ 
+        pkgs.platformio-core
+        pkgs.openocd
+      ];
+      extraRules = '' 
+        # ENV{ID_VENDOR_ID}==\"046d\", ENV{ID_MODEL_ID}==\"0825\", ENV{PULSE_IGNORE}=\"1\"\n
+      '';
+    };
   };
+  
 
   virtualisation = {
     docker.enable = true;
@@ -25,14 +35,12 @@
   hardware = {
     pulseaudio = {
       enable = true;
-
       systemWide = true;
-      tcp = {
-        enable = true;
-        anonymousClients.allowAll = true;
-      };
     };
   };
 
-  environment.systemPackages = with pkgs; [ obs-studio ];
+  environment.systemPackages = with pkgs; [ 
+    obs-studio 
+    stlink
+  ];
 }
