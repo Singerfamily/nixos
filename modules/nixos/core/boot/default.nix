@@ -14,7 +14,9 @@
     initrd = {
       systemd = {
         enable = true;  # For auto unlock
-        enableTpm2 = true;
+        tpm2 = {
+          enable = true;
+        };
       };
       kernelModules = [ "tpm_crb" ];
       availableKernelModules = ["tpm_crb"];
