@@ -48,33 +48,40 @@
     # sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, flake-parts, ... } @ inputs:
-  let
-    linuxArch          = "x86_64-linux";
-    linuxArmArch       = "aarch64-linux";
-    darwinArch         = "aarch64-darwin";
-    stateVersion       = "24.11";
-    libx               = import ./lib { inherit self inputs stateVersion; };
-  in flake-parts.lib.mkFlake { inherit inputs; } {
-    systems = [
-      linuxArch
-      linuxArmArch
-      darwinArch
-    ];
+  outputs =
+    { self, flake-parts, ... }@inputs:
+    let
+      linuxArch = "x86_64-linux";
+      linuxArmArch = "aarch64-linux";
+      darwinArch = "aarch64-darwin";
+      stateVersion = "24.11";
+      libx = import ./lib { inherit self inputs stateVersion; };
+    in
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        linuxArch
+        linuxArmArch
+        darwinArch
+      ];
 
-    flake = {
-      nixosConfigurations = {
-        event-horizon = libx.mkHost { hostname = "event-horizon"; };
-        thinkpad-p53  = libx.mkHost { hostname = "thinkpad-p53"; };
-        nucos = libx.mkHost { hostname = "nucos"; username = "csinger"; };
+      flake = {
+        nixosConfigurations = {
+          event-horizon = libx.mkHost { hostname = "event-horizon"; };
+          thinkpad-p53 = libx.mkHost { hostname = "thinkpad-p53"; };
+          nucos = libx.mkHost {
+            hostname = "nucos";
+            username = "csinger";
+          };
+
+          roaming = libx.mkHost { hostname = "roaming"; };
+        };
+
+        # nixosConfigurations = {
+        #   ${hosts."event-horizon".hostname} = libx.mkHost hosts."event-horizon";
+        #   ${hosts."thinkpad-p53".hostname} = libx.mkHost hosts."thinkpad-p53";
+        # };
+
+        templates = import "${self}/templates" { inherit self; };
       };
-
-      # nixosConfigurations = {
-      #   ${hosts."event-horizon".hostname} = libx.mkHost hosts."event-horizon";
-      #   ${hosts."thinkpad-p53".hostname} = libx.mkHost hosts."thinkpad-p53";
-      # };
-
-      templates = import "${self}/templates" { inherit self; };
     };
-  };
 }
