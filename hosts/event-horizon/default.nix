@@ -16,6 +16,8 @@
     thunderbird.enable = true;
     firefox.enable = true;
     nix-ld.enable = true;
+
+    snapmaker-luban.enable = true;
   };
 
   services = {
@@ -42,17 +44,9 @@
     fsType = "nfs";
   };
 
-  environment.systemPackages = [
-    (pkgs.snapmaker-luban.overrideAttrs (oldAttrs: {
-      version = "4.13.0";
-      src = pkgs.fetchurl {
-        url = "https://github.com/Snapmaker/Luban/releases/download/v4.13.0/snapmaker-luban-4.13.0-linux-x64.tar.gz";
-        sha256 = "sha256-VNIuOsRTS5qsq4IK1G6NSidNNEgziHGTNGvDKwjPO70=";
-      };
-    }))
-  ];
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "snapmaker-luban-4.13.0"
-  ];
+  powerManagement.powerDownCommands = ''
+    if (grep "GPP0.*enabled" /proc/acpi/wakeup >/dev/null); then
+        echo GPP0 | sudo tee /proc/acpi/wakeup
+    fi
+  '';
 }
