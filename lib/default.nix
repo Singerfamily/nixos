@@ -8,10 +8,10 @@
 let
   homeConfiguration = "${self}/home";
   hostConfiguration = "${self}/hosts";
+  homeModules = "${homeConfiguration}/modules";
 
   modulesDir = "${self}/modules";
   systemModules = "${modulesDir}/nixos";
-  homeModules = "${modulesDir}/home-manager";
 
   libx = import ./default.nix { inherit self inputs stateVersion; };
   outputs = inputs.self.outputs;

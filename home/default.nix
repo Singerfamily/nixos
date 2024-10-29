@@ -19,6 +19,8 @@ let
   homeDirectory              = if isDarwin then "/Users/${username}" else if isRoot then "/root" else "/home/${username}";
   userConfigurationPath      = "${self}/home/users/${username}";
   userConfigurationPathExist = builtins.pathExists userConfigurationPath;
+
+  userCfgPath = userConfigurationPath;
 in {
 
   imports = lib.optional userConfigurationPathExist userConfigurationPath;
@@ -29,7 +31,7 @@ in {
     backupFileExtension = "backup";
 
     extraSpecialArgs  = {
-      inherit inputs self homeModules generalModules hostname username platform stateVersion isWorkstation;
+      inherit inputs self homeModules generalModules hostname username platform stateVersion isWorkstation userCfgPath;
     };
 
     users.${username} = {

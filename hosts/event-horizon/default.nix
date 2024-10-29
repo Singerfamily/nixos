@@ -43,10 +43,4 @@
     device = "10.0.0.3:/mnt/stuff/media";
     fsType = "nfs";
   };
-
-  # powerManagement.powerDownCommands = ''
-  #   if (grep "GPP0.*enabled" /proc/acpi/wakeup >/dev/null); then
-  #       echo GPP0 | sudo tee /proc/acpi/wakeup
-  #   fi
-  # '';
 }
