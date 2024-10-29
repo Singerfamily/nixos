@@ -9,11 +9,7 @@ let
 in
 {
   options.programs.snapmaker-luban = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable Snapmaker Luban";
-    };
+    enable = lib.mkEnableOption "Enable Snapmaker Luban";
   };
 
   config = lib.mkIf {

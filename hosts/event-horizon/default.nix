@@ -17,7 +17,7 @@
     firefox.enable = true;
     nix-ld.enable = true;
 
-    snapmaker-luban.enable = true;
+    # snapmaker-luban.enable = true;
   };
 
   services = {
@@ -44,9 +44,9 @@
     fsType = "nfs";
   };
 
-  powerManagement.powerDownCommands = ''
-    if (grep "GPP0.*enabled" /proc/acpi/wakeup >/dev/null); then
-        echo GPP0 | sudo tee /proc/acpi/wakeup
-    fi
-  '';
+  # powerManagement.powerDownCommands = ''
+  #   if (grep "GPP0.*enabled" /proc/acpi/wakeup >/dev/null); then
+  #       echo GPP0 | sudo tee /proc/acpi/wakeup
+  #   fi
+  # '';
 }
