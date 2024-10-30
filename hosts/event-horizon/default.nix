@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [ ./hardware-configuration.nix ];
 
   boot = {
@@ -35,7 +36,12 @@
   hardware = {
     openrazer = {
       enable = true;
-      users = ["esinger"]; 
+      users = [ "esinger" ];
+    };
+
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
     };
   };
 
