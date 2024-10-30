@@ -47,9 +47,9 @@ in
     };
 
   # Helper function for generating host configs
-  mkHost = hostname:
+  mkHost =
     {
-      # hostname ? "nixos",
+      hostname ? "nixos",
       username ? "esinger",
       platform ? "x86_64-linux",
     }:
