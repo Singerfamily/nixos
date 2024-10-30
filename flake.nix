@@ -66,14 +66,11 @@
 
       flake = {
         nixosConfigurations = {
-          event-horizon = libx.mkHost { hostname = "event-horizon"; };
-          thinkpad-p53 = libx.mkHost { hostname = "thinkpad-p53"; };
-          nucos = libx.mkHost {
-            hostname = "nucos";
-            username = "csinger";
-          };
+          event-horizon = libx.mkHost "event-horizon";
+          thinkpad-p53 = libx.mkHost "thinkpad-p53";
+          nucos = libx.mkHost "nucos" { username = "csinger"; };
 
-          roaming = libx.mkHost { hostname = "roaming"; };
+          roaming = libx.mkHost "roaming";
         };
 
         # nixosConfigurations = {
