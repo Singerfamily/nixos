@@ -40,8 +40,25 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ 
-    obs-studio 
-    stlink
-  ];
+  environment = {    
+    systemPackages = with pkgs; [ 
+      obs-studio 
+      
+      python3
+      python312Packages.pyudev
+
+      platformio-core
+      (pkgs.python3.withPackages (ps: with ps; [ platformio ]))
+      
+      stlink
+      openocd      
+
+      gdb      
+    ];
+
+    variables = {      
+      OPENOCD_PATH="${pkgs.openocd}";
+      OPENOCD_SCRIPTS_PATH="$OPENOCD_PATH/share/openocd/scripts";
+    };
+  };
 }
