@@ -3,9 +3,10 @@
     enableDefaultPackages = true;
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ 
+        "Monaspace"
         "FiraCode"
-        "JetBrainsMono"
-        "DroidSansMono" 
+        # "JetBrainsMono"
+        # "DroidSansMono" 
         ]; 
       })
       corefonts
@@ -13,9 +14,9 @@
 
     fontconfig = {
       defaultFonts = {
-        serif = [  "JetBrainsMono" ];
-        sansSerif = [ "JetBrainsMono" ];
-        monospace = [ "JetBrainsMono" ];
+        serif = [  "Monaspace" ];
+        sansSerif = [ "Monaspace" ];
+        monospace = [ "Monaspace" ];
       };
     };
   };
