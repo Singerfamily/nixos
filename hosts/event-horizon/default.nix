@@ -45,9 +45,9 @@
     };
   };
 
-  # environment.variables = {
-  #   NIXOS_OZONE_WL = "1";
-  # };
+  environment.variables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
   fileSystems."/mnt/media" = {
     device = "10.0.0.3:/mnt/stuff/media";

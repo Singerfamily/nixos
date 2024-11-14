@@ -34,9 +34,9 @@ in {
 					enable = false;
 					finegrained = false;
 				};
-				open = false;
+				open = true;
 				nvidiaSettings = true;
-				package = config.boot.kernelPackages.nvidiaPackages.stable;
+				package = config.boot.kernelPackages.nvidiaPackages.production;
 
 				prime = lib.mkIf cfg.prime.enable {
 					offload = {
