@@ -29,7 +29,6 @@ in {
 			};
 
 			nvidia = {
-				nvidiaPersistenced = true;
 				modesetting.enable = true;
 				powerManagement = {
 					enable = false;
