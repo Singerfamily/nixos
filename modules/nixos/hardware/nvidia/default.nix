@@ -29,6 +29,7 @@ in {
 			};
 
 			nvidia = {
+				nvidiaPersistenced = true;
 				modesetting.enable = true;
 				powerManagement = {
 					enable = false;
@@ -36,7 +37,7 @@ in {
 				};
 				open = false;
 				nvidiaSettings = true;
-				package = config.boot.kernelPackages.nvidiaPackages.production;
+				package = config.boot.kernelPackages.nvidiaPackages.stable;
 
 				prime = lib.mkIf cfg.prime.enable {
 					offload = {
