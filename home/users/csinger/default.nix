@@ -30,7 +30,7 @@
   environment.systemPackages = with pkgs; [
     gh
     vscode
-    microsoft-edge-dev
+    microsoft-edge
     zoxide
     fzf
     kubectl

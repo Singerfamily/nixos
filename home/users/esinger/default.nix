@@ -38,7 +38,6 @@
     gh
     vscode
     vscode-runner
-    microsoft-edge-dev
     microsoft-edge
     zoxide
     fzf
