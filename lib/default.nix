@@ -6,15 +6,17 @@
 }:
 
 let
-  homeConfiguration = "${self}/home";
-  hostConfiguration = "${self}/hosts";
-  homeModules = "${homeConfiguration}/modules";
-
-  modulesDir = "${self}/modules";
-  systemModules = "${modulesDir}/nixos";
+  lib = inputs.nixpkgs.lib;
 
   libx = import ./default.nix { inherit self inputs stateVersion; };
   outputs = inputs.self.outputs;
+
+  homeConfiguration = self + "/home";
+  hostConfiguration = self + "/hosts";
+  homeModules = homeConfiguration + "/modules";
+
+  modulesDir = ../modules;
+  systemModules = (libx.autoImport { path = modulesDir; });
 in
 {
 
@@ -91,30 +93,42 @@ in
   isDir = path: builtins.pathExists (path + "/.");
 
   autoImport =
-    path:
-    # check if the path is a directory or a file
-    if builtins.pathExists (path + "/.") then
-      # it's a directory, so the set of overlays from the directory, ordered lexicographically
-      let
-        content = builtins.readDir path;
-      in
-      map (n: import (path + ("/" + n)))
-        # only match default.nix files
+    {
+      path ? null,
+      paths ? [ ],
+      include ? [ ],
+      exclude ? [ ],
+      recursive ? true,
+    }:
+    with lib;
+    with fileset;
+    let
+      excludedFiles = filter (path: pathIsRegularFile path) exclude;
+      excludedDirs = filter (path: pathIsDirectory path) exclude;
+      isExcluded =
+        path:
+        if elem path excludedFiles then
+          true
+        else
+          (filter (excludedDir: lib.path.hasPrefix excludedDir path) excludedDirs) != [ ];
+    in
+    unique (
+      (filter
+        (file: pathIsRegularFile file && hasSuffix ".nix" (builtins.toString file) && !isExcluded file)
         (
-          builtins.filter (
-            n:
-            (
-              builtins.match "default\\.nix" n != null
-              &&
-                # ignore Emacs lock files (.#foo.nix)
-                builtins.match "\\.#.*" n == null
-            )
-            || builtins.pathExists (path + ("/" + n + "/default.nix"))
-          ) (builtins.attrNames content)
+          concatMap (
+            _path:
+            if recursive then
+              toList _path
+            else
+              mapAttrsToList (
+                name: type: _path + (if type == "directory" then "/${name}/default.nix" else "/${name}")
+              ) (builtins.readDir _path)
+          ) (unique (if path == null then paths else [ path ] ++ paths))
         )
-    else
-      # it's a file, so the result is the contents of the file itself
-      import path;
+      )
+      ++ (if recursive then concatMap (path: toList path) (unique include) else unique include)
+    );
 
   # ============================ Shell ============================= #
 

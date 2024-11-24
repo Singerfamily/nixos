@@ -44,4 +44,6 @@
       powerOnBoot = true;
     };
   };
+
+  security.pam.services.sddm.fprintAuth = true;
 }

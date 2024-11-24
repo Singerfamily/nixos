@@ -18,9 +18,7 @@ let
   machineConfigurationPathExist = builtins.pathExists machineConfigurationPath;
 in
 {
-  imports = [
-    "${systemModules}"
-  ] ++ lib.optional machineConfigurationPathExist machineConfigurationPath;
+  imports = systemModules ++ lib.optional machineConfigurationPathExist machineConfigurationPath;
 
   # System version
   system.stateVersion = currentStateVersion;
