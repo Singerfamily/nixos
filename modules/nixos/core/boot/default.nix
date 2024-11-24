@@ -9,7 +9,7 @@
       # plymouth.enable = true;
     };
 
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_11_hardened;
 
     initrd = {
       systemd = {
