@@ -32,14 +32,14 @@ in
         pciutils
       ]
       ++ (with pkgs.kdePackages; [
-        kdePackages.discover
-        kdePackages.kaccounts-integration
-        kdePackages.kaccounts-providers
-        kdePackages.plasma-browser-integration
-        kdePackages.plasma-disks
-        kdePackages.kalk
-        kdePackages.partitionmanager
-        kdePackages.krdc
+        discover
+        kaccounts-integration
+        kaccounts-providers
+        plasma-browser-integration
+        plasma-disks
+        kalk
+        partitionmanager
+        krdc
         (lib.mkIf config.services.hardware.bolt.enable plasma-thunderbolt)
       ]);
   };
