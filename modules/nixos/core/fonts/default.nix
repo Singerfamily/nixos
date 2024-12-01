@@ -2,13 +2,16 @@
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ 
-        "Monaspace"
-        "FiraCode"
-        # "JetBrainsMono"
-        # "DroidSansMono" 
-        ]; 
-      })
+      nerd-fonts.monaspace
+      # monaspace
+      # fira-code
+      # (nerd-fonts.override { fonts = [ 
+      #   "Monaspace"
+      #   "FiraCode"
+      #   # "JetBrainsMono"
+      #   # "DroidSansMono" 
+      #   ]; 
+      # })
       corefonts
     ];
 
