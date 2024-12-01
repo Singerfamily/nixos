@@ -22,23 +22,25 @@ in
       desktopManager.plasma6.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [
-      aha
-      fwupd
-      vulkan-tools
-      wayland-utils
-      pciutils
-      discover
-
-      kdePackages.kaccounts-integration
-      kdePackages.kaccounts-providers
-      kdePackages.plasma-browser-integration
-      kdePackages.plasma-disks
-      kdePackages.kalk
-      kdePackages.partitionmanager
-      krdc
-
-      (lib.mkIf config.services.hardware.bolt.enable kdePackages.plasma-thunderbolt)
-    ];
+    environment.systemPackages =
+      with pkgs;
+      [
+        aha
+        fwupd
+        vulkan-tools
+        wayland-utils
+        pciutils
+      ]
+      ++ (with pkgs.kdePackages; [
+        kdePackages.discover
+        kdePackages.kaccounts-integration
+        kdePackages.kaccounts-providers
+        kdePackages.plasma-browser-integration
+        kdePackages.plasma-disks
+        kdePackages.kalk
+        kdePackages.partitionmanager
+        kdePackages.krdc
+        (lib.mkIf config.services.hardware.bolt.enable plasma-thunderbolt)
+      ]);
   };
 }
