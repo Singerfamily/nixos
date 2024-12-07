@@ -12,10 +12,10 @@
     nix-ld.enable = true;
   };
 
-  desktop.plasma.enable = lib.mkForce false;
+  # desktop.plasma.enable = lib.mkForce false;
 
   services = {
-    pipewire.enable = lib.mkForce false;
+    # pipewire.enable = lib.mkForce false;
     udev = {
       packages = [
         pkgs.platformio-core
@@ -32,12 +32,12 @@
     docker.enable = true;
   };
 
-  hardware = {
-    pulseaudio = {
-      enable = true;
-      systemWide = true;
-    };
-  };
+  # hardware = {
+  #   pulseaudio = {
+  #     enable = true;
+  #     systemWide = true;
+  #   };
+  # };
 
   environment = {
     systemPackages = with pkgs; [
