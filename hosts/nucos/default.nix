@@ -1,4 +1,54 @@
 { pkgs, lib, ... }:
+let
+
+  pythonDeps =
+    with pkgs.python3Packages;
+    [
+      pandas
+      requests
+      pyudev
+      docker
+      psutil
+      tabulate
+      google-api-python-client
+      google-auth
+      google-auth-oauthlib
+      google-auth-httplib2
+      fastapi
+      pip
+      uvicorn
+      pyinstaller
+    ]
+    ++ (with pkgs.python3Packages; [
+      (buildPythonPackage rec {
+        pname = "linuxpy";
+        version = "0.20.0";
+
+        src = pkgs.fetchFromGitHub {
+          owner = "tiagocoutinho";
+          repo = "linuxpy";
+          rev = "v${version}";
+          sha256 = "sha256-8gJu3WxBAVqr72Hd2UUmsWiNVrFa81Vd/fCPmO/pQcg=";
+        };
+      })
+    ]);
+
+  pbs = pkgs.stdenv.mkDerivation {
+    name = "pbs";
+    src = /home/csinger/Projects/PBS/pbs;
+    buildInputs = [ pkgs.python3 ] ++ pythonDeps;
+    propagatedBuildInputs = pythonDeps;
+
+    buildPhase = ''
+      pyinstaller --distpath ../dist --workpath ../build --log-level TRACE  ./main.py
+    '';
+
+    installPhase = ''
+      mkdir -p $out/bin
+      cp -r ../dist/main $out/bin/pbs
+    '';
+  };
+in
 {
   imports = [ ./hardware-configuration.nix ];
 
@@ -12,10 +62,7 @@
     nix-ld.enable = true;
   };
 
-  desktop.plasma.enable = lib.mkForce false;
-
   services = {
-    pipewire.enable = lib.mkForce false;
     udev = {
       packages = [
         pkgs.platformio-core
@@ -30,13 +77,6 @@
 
   virtualisation = {
     docker.enable = true;
-  };
-
-  hardware = {
-    pulseaudio = {
-      enable = true;
-      systemWide = true;
-    };
   };
 
   environment = {
@@ -59,6 +99,19 @@
       OPENOCD_PATH = "${pkgs.openocd}";
       OPENOCD_SCRIPTS_PATH = "$OPENOCD_PATH/share/openocd/scripts";
     };
+  };
+
+  systemd.services.pbs = {
+    enable = true;
+
+    serviceConfig = {
+      type = "simple";
+      ExecStart = "${pbs}/bin/pbs/main";
+      Restart = "on-failure";
+      RemainAfterExit = "yes";
+    };
+
+    wantedBy = [ "multi-user.target" ];
   };
 
   # TRAEFIK
@@ -109,6 +162,13 @@
         locations."/obs-ws" = {
           proxyPass = "http://127.0.0.1:4455";
           proxyWebsockets = true; # needed if you need to use WebSocket
+        };
+        locations."/api" = {
+          proxyPass = "http://127.0.0.1:4421";
+          proxyWebsockets = true;
+          extraConfig = ''
+            rewrite ^/api/(.*)$ /$1 break;
+          '';
         };
       };
   };
