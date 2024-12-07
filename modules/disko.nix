@@ -1,8 +1,10 @@
 {...}: {}
 
 # {
-#   device ? throw "Set this to your disk device, e.g. /dev/nvme0n1", 
-# ...}: {
+#   device ? throw "Set this to your disk device, e.g. /dev/nvme0n1",
+#   ...
+# }:
+# {
 #   disko.devices = {
 #     disk = {
 #       main = {
@@ -41,15 +43,31 @@
 #                   subvolumes = {
 #                     "/root" = {
 #                       mountpoint = "/";
-#                       mountOptions = [ "compress=zstd" "noatime" ];
+#                       mountOptions = [
+#                         "compress=zstd"
+#                         "noatime"
+#                       ];
+#                     };
+#                     "/projects" = {
+#                       mountpoint = "/projects";
+#                       mountOptions = [
+#                         "compress=zstd"
+#                         "noatime"
+#                       ];
 #                     };
 #                     "/home" = {
 #                       mountpoint = "/home";
-#                       mountOptions = [ "compress=zstd" "noatime" ];
+#                       mountOptions = [
+#                         "compress=zstd"
+#                         "noatime"
+#                       ];
 #                     };
 #                     "/nix" = {
 #                       mountpoint = "/nix";
-#                       mountOptions = [ "compress=zstd" "noatime" ];
+#                       mountOptions = [
+#                         "compress=zstd"
+#                         "noatime"
+#                       ];
 #                     };
 #                     "/swap" = {
 #                       mountpoint = "/.swapvol";
