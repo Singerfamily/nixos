@@ -14,7 +14,7 @@
   programs = {
     spotify.enable = true;
     steam.enable = true;
-    thunderbird.enable = true;
+    # thunderbird.enable = true;
     firefox.enable = true;
     nix-ld.enable = true;
 
