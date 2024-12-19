@@ -112,4 +112,9 @@
         };
       };
   };
+
+  fileSystems."/mnt/media" = {
+    device = "10.0.0.3:/mnt/stuff/media";
+    fsType = "nfs";
+  };
 }
