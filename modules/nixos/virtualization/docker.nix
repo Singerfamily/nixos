@@ -14,10 +14,10 @@ in
 
     users.users.${username}.extraGroups = [ "docker" ];
     virtualisation.docker = {
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
-      };
+      # rootless = {
+      #   enable = true;
+      #   setSocketVariable = true;
+      # };
       autoPrune.enable = true;
     };
 
