@@ -52,6 +52,8 @@
 
     systemPackages = with pkgs; [
       dbeaver-bin
+      r2modman
+      modrinth-app
     ];
   };
 
