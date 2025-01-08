@@ -15,6 +15,11 @@
 
     nixos-cli.url = "github:water-sucks/nixos";
 
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # disko = {
     #   url = "github:nix-community/disko";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -72,6 +77,7 @@
             hostname = "nucos";
             username = "csinger";
           };
+          wsl = libx.mkHost { hostname = "wsl"; };
 
           roaming = libx.mkHost { hostname = "roaming"; };
         };
