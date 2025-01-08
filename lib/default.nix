@@ -28,6 +28,7 @@ in
       username ? "esinger",
       hostname ? "nixos",
       platform ? "x86_64-linux",
+      isWSL ? false,
     }:
     inputs.home-manager.lib.homeManagerConfiguration {
       extraSpecialArgs = {
@@ -75,7 +76,7 @@ in
         inputs.lanzaboote.nixosModules.lanzaboote
         inputs.home-manager.nixosModules.home-manager
         inputs.nixos-cli.nixosModules.nixos-cli
-        (lib.mkIf (hostname == "wsl") inputs.nixos-wsl.nixosModules.default)
+        (lib.mkIf isWSL inputs.nixos-wsl.nixosModules.default)
 
         hostConfiguration
         homeConfiguration
