@@ -75,7 +75,7 @@ in
         inputs.lanzaboote.nixosModules.lanzaboote
         inputs.home-manager.nixosModules.home-manager
         inputs.nixos-cli.nixosModules.nixos-cli
-        inputs.nixos-wsl.nixosModules.default
+        (lib.mkIf (hostname == "wsl") inputs.nixos-wsl.nixosModules.default)
 
         hostConfiguration
         homeConfiguration
