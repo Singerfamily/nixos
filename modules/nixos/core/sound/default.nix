@@ -1,9 +1,9 @@
-{ lib, config, ... }:
+{ lib, config, isWSL, ... }:
 let
   cfg = config.services.pipewire;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && !(isWSL)) {
     security.rtkit.enable = lib.mkForce true;
     hardware.pulseaudio.enable = lib.mkForce false;
     services.pipewire = {
