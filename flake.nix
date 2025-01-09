@@ -77,7 +77,7 @@
             hostname = "nucos";
             username = "csinger";
           };
-          wsl = libx.mkHost { hostname = "wsl"; };
+          wsl = libx.mkHost { hostname = "wsl"; isWSL = true; };
 
           roaming = libx.mkHost { hostname = "roaming"; };
         };

@@ -28,7 +28,6 @@ in
       username ? "esinger",
       hostname ? "nixos",
       platform ? "x86_64-linux",
-      isWSL ? false,
     }:
     inputs.home-manager.lib.homeManagerConfiguration {
       extraSpecialArgs = {
@@ -55,6 +54,7 @@ in
       hostname ? "nixos",
       username ? "esinger",
       platform ? "x86_64-linux",
+      isWSL ? false,
     }:
     inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
@@ -69,6 +69,7 @@ in
           stateVersion
           libx
           outputs
+          isWSL
           ;
       };
 
@@ -76,7 +77,7 @@ in
         inputs.lanzaboote.nixosModules.lanzaboote
         inputs.home-manager.nixosModules.home-manager
         inputs.nixos-cli.nixosModules.nixos-cli
-        (lib.mkIf isWSL inputs.nixos-wsl.nixosModules.default)
+        inputs.nixos-wsl.nixosModules.default
 
         hostConfiguration
         homeConfiguration
