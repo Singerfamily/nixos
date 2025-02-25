@@ -3,9 +3,9 @@ let
   cfg = config.services.pipewire;
 in
 {
-  config = lib.mkIf (cfg.enable && !(isWSL)) {
+  config = lib.mkIf (cfg.enable && !isWSL) {
     security.rtkit.enable = lib.mkForce true;
-    hardware.pulseaudio.enable = lib.mkForce false;
+    # hardware.pulseaudio.enable = lib.mkForce false;
     services.pipewire = {
       alsa = {
         enable = lib.mkForce true;

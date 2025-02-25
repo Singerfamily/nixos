@@ -19,6 +19,7 @@ in
       #   setSocketVariable = true;
       # };
       autoPrune.enable = true;
+      daemon.settings.features.cdi = true;
     };
 
     # Useful other development tools

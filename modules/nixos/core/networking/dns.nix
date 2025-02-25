@@ -1,7 +1,21 @@
-{ lib, isWSL, ... }:
-
 {
-  config = lib.mkIf (!isWSL) {
+  lib,
+  isWSL,
+  config,
+  ...
+}:
+let
+  cfg = config.networking.edns;
+in
+{
+
+  options = {
+    networking.edns = {
+      enable = lib.mkEnableOption "Enable Encrypted DNS";
+    };
+  };
+
+  config = lib.mkIf (!isWSL && cfg.enable) {
     # Enable Encrypted DNS
     networking = {
       nameservers = [

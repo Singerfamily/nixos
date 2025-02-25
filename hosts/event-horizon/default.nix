@@ -58,7 +58,7 @@
   };
 
   fileSystems."/mnt/media" = {
-    device = "10.0.0.3:/mnt/stuff/media";
+    device = "192.168.1.105:/mnt/stuff/media";
     fsType = "nfs";
   };
 }
