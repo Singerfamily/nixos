@@ -3,7 +3,7 @@
     git = {
       enable = true;
       userName = "LeaderbotX400";
-      userEmail = "eric@singerfamily.ca";
+      userEmail = "34589843+LeaderbotX400@users.noreply.github.com";
     };
 
     zsh.enable = true;
