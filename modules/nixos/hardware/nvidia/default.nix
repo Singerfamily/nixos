@@ -14,6 +14,20 @@ in {
 				type = lib.types.str;
 				default = "PCI:1:0:0";
 			};
+
+			mode = lib.mkOption {
+				type = lib.types.enum [ "offload" "sync" ];
+				default = "sync";
+				description = ''
+					Select the PRIME mode to use. The "offload" mode allows
+					for offloading rendering to the NVIDIA GPU, while the
+					"sync" mode allows for synchronizing the display output
+					between the Intel and NVIDIA GPUs.
+					Note that the "offload" mode requires the NVIDIA GPU to
+					be the primary GPU in the system, while the "sync" mode
+					requires the Intel GPU to be the primary GPU.
+				'';
+			};
 		};
 	};
 
@@ -34,14 +48,20 @@ in {
 					enable = false;
 					finegrained = false;
 				};
+				dynamicBoost.enable = lib.mkForce true;
 				open = true;
 				nvidiaSettings = true;
 				package = config.boot.kernelPackages.nvidiaPackages.production;
 
 				prime = lib.mkIf cfg.prime.enable {
-					offload = {
+					offload = lib.mkIf (cfg.prime.mode == "offload") {
 						enable = true;
 						enableOffloadCmd = true;
+					};
+
+					sync = lib.mkIf (cfg.prime.mode == "sync") {
+						enable = true;
+						allowExternalSync = true;
 					};
 
 					intelBusId = "${cfg.prime.intelBusID}";
