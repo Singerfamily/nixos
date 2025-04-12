@@ -17,7 +17,7 @@ in {
 
 			mode = lib.mkOption {
 				type = lib.types.enum [ "offload" "sync" ];
-				default = "sync";
+				default = "offload";
 				description = ''
 					Select the PRIME mode to use. The "offload" mode allows
 					for offloading rendering to the NVIDIA GPU, while the
@@ -61,7 +61,6 @@ in {
 
 					sync = lib.mkIf (cfg.prime.mode == "sync") {
 						enable = true;
-						allowExternalSync = true;
 					};
 
 					intelBusId = "${cfg.prime.intelBusID}";
