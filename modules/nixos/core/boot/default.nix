@@ -16,7 +16,7 @@
         # plymouth.enable = true;
       };
 
-      kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
+      # kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
 
       initrd = {
         systemd = {
