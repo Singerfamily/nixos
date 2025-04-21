@@ -48,7 +48,7 @@ in {
 					enable = false;
 					finegrained = false;
 				};
-				dynamicBoost.enable = lib.mkForce true;
+				# dynamicBoost.enable = lib.mkForce true;
 				open = true;
 				nvidiaSettings = true;
 				package = config.boot.kernelPackages.nvidiaPackages.production;
@@ -59,9 +59,9 @@ in {
 						enableOffloadCmd = true;
 					};
 
-					sync = lib.mkIf (cfg.prime.mode == "sync") {
-						enable = true;
-					};
+					# sync = lib.mkIf (cfg.prime.mode == "sync") {
+					# 	enable = true;
+					# };
 
 					intelBusId = "${cfg.prime.intelBusID}";
 					nvidiaBusId = "${cfg.prime.nvidiaBusID}";
