@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, ... }:
 {
   imports = [ ./hardware-configuration.nix ];
 
@@ -17,6 +17,7 @@
     # thunderbird.enable = true;
     firefox.enable = true;
     nix-ld.enable = true;
+
 
     # snapmaker-luban.enable = true;
   };
@@ -54,6 +55,17 @@
       dbeaver-bin
       r2modman
       modrinth-app
+      appimage-run
+      wine
+
+      # Dotnet
+      jetbrains.rider
+      dotnet-sdk_9
+
+      # JS / TS
+      nodejs
+      nodePackages.pnpm
+      deno
     ];
   };
 

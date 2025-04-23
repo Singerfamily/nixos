@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs = {
     git = {
       enable = true;
@@ -9,5 +10,18 @@
     zsh.enable = true;
     zoxide.enable = true;
     fzf.enable = true;
+
+    atuin = {
+      enable = true;
+
+      settings = {
+        auto_sync = true;
+        sync_frequency = "5m";
+        sync_address = "https://api.atuin.sh";
+        search_mode = "fuzzy";
+      };
+
+      enableZshIntegration = true;
+    };
   };
 }
