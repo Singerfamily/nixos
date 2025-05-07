@@ -18,7 +18,6 @@
     firefox.enable = true;
     nix-ld.enable = true;
 
-
     # snapmaker-luban.enable = true;
   };
 
@@ -60,6 +59,7 @@
 
       # Dotnet
       jetbrains.rider
+      jetbrains.datagrip
       dotnet-sdk_9
 
       # JS / TS
