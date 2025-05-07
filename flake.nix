@@ -26,6 +26,13 @@
     # Persistent state on systems with ephemeral root storage.
     impermanence.url = "github:nix-community/impermanence";
 
+    # Manage KDE Plasma settings declaratively.
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     # Collection of image builders.
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
