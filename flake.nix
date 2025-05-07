@@ -16,7 +16,7 @@
       url = "github:mxxntype/snowfall";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     # Atomic secret provisioning for NixOS.
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -59,13 +59,56 @@
   outputs =
     inputs:
     inputs.snowfall-lib.mkFlake {
-      # You must provide our flake inputs to Snowfall Lib.
       inherit inputs;
-
-      # The `src` must be the root of the flake. See configuration
-      # in the next section for information on how you can move your
-      # Nix files to a separate directory.
       src = ./.;
 
+      # Snowfall Lib configuration.
+      snowfall = {
+        namespace = "aeon";
+        meta = {
+          name = "aeon";
+          title = "Aeon | NixOS flake";
+        };
+      };
+
+      channels-config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [ ];
+      };
+
+      # Global NixOS modules.
+      systems.modules.nixos = with inputs; [
+        home-manager.nixosModules.home-manager
+        sops-nix.nixosModules.sops
+        impermanence.nixosModules.impermanence
+        lanzaboote.nixosModules.lanzaboote
+        disko.nixosModules.disko
+        # nix-topology.nixosModules.default
+      ];
+
+      # Overlays for Nixpkgs.
+      overlays = with inputs; [
+        nuenv.overlays.nuenv
+        fenix.overlays.default
+        rust-overlay.overlays.default
+        swp.overlays."package/swp"
+        # nix-topology.overlays.default
+      ];
+
+      templates = {
+      };
+
+      alias = {
+      };
+
+      # NOTE: An example for future self.
+      # outputs-builder = channels: {
+      #     topology = import inputs.nix-topology {
+      #         pkgs = channels.nixpkgs;
+      #         modules = [
+      #             { inherit (outputs) nixosConfigurations; }
+      #         ];
+      #     };
+      # };
     };
 }
