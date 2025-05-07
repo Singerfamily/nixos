@@ -3,6 +3,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -15,12 +16,69 @@
     };
 
     fs.type = "btrfs";
-    docker.enable = true;
-    hardware.gpu.intel.enable = true;
-    hardware.gpu.nvidia.enable = true;
+    docker = {
+      enable = true;
+      implementation = "both";
+    };
+
+    hardware = {
+      bluetooth.enable = true;
+      gpu = {
+        intel = {
+          enable = true;
+          busId = "PCI:0:2:0";
+        };
+        nvidia = {
+          enable = true;
+          busId = "PCI:1:0:0";
+        };
+      };
+    };
     net = {
       ssh.server = true;
-      tailscale.ACLtags = [ "vm" ];
+    };
+
+    tpm.enable = true;
+  };
+
+  programs = {
+    spotify.enable = true;
+    steam.enable = true;
+    # thunderbird.enable = true;
+    firefox.enable = true;
+    nix-ld.enable = true;
+
+    # snapmaker-luban.enable = true;
+  };
+
+  environment = {
+    variables = {
+      NIXOS_OZONE_WL = "1";
+    };
+
+    systemPackages = with pkgs; [
+      dbeaver-bin
+      r2modman
+      modrinth-app
+      appimage-run
+      wine
+
+      # Dotnet
+      jetbrains.rider
+      jetbrains.datagrip
+      dotnet-sdk_9
+
+      # JS / TS
+      nodejs
+      nodePackages.pnpm
+      deno
+    ];
+  };
+
+  hardware = {
+    openrazer = {
+      enable = true;
+      users = [ "esinger" ];
     };
   };
 
