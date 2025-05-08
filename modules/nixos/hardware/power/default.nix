@@ -36,9 +36,9 @@ with lib;
         ;
     in
     mkMerge [
-      {
-        environment.systemPackages = with pkgs; [ aeon.powerdrain ];
-      }
+      # {
+      #   environment.systemPackages = with pkgs; [ aeon.powerdrain ];
+      # }
 
       (mkIf (service == "auto-cpufreq") {
         services.auto-cpufreq =

@@ -3,8 +3,8 @@
 
   inputs = {
     # SECTION: Core inputs.
-    nixpkgs.url = "github:mxxntype/nixpkgs/nixos-24.11";
-    unstable.url = "github:mxxntype/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,7 +13,7 @@
     # SECTION: Nix libraries.
     # Nix flake framework.
     snowfall-lib = {
-      url = "github:mxxntype/snowfall";
+      url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -94,13 +94,13 @@
       ];
 
       # Overlays for Nixpkgs.
-      overlays = with inputs; [
-        nuenv.overlays.nuenv
-        fenix.overlays.default
-        rust-overlay.overlays.default
-        swp.overlays."package/swp"
-        # nix-topology.overlays.default
-      ];
+      # overlays = with inputs; [
+      #   nuenv.overlays.nuenv
+      #   fenix.overlays.default
+      #   rust-overlay.overlays.default
+      #   swp.overlays."package/swp"
+      #   # nix-topology.overlays.default
+      # ];
 
       templates = {
       };

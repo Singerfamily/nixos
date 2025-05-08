@@ -26,11 +26,11 @@
       gpu = {
         intel = {
           enable = true;
-          busId = "PCI:0:2:0";
+          busID = "PCI:0:2:0";
         };
         nvidia = {
           enable = true;
-          busId = "PCI:1:0:0";
+          busID = "PCI:1:0:0";
         };
       };
     };
@@ -41,15 +41,15 @@
     tpm.enable = true;
   };
 
-  programs = {
-    spotify.enable = true;
-    steam.enable = true;
-    # thunderbird.enable = true;
-    firefox.enable = true;
-    nix-ld.enable = true;
+  # programs = {
+  #   spotify.enable = true;
+  #   steam.enable = true;
+  #   # thunderbird.enable = true;
+  #   firefox.enable = true;
+  #   nix-ld.enable = true;
 
-    # snapmaker-luban.enable = true;
-  };
+  #   # snapmaker-luban.enable = true;
+  # };
 
   environment = {
     variables = {

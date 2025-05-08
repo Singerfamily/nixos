@@ -10,7 +10,7 @@ with lib;
     users.users = {
       ${aeon.user} = {
         hashedPasswordFile = config.sops.secrets."passwords/user".path;
-        openssh.authorizedKeys.keys = aeon.pubKeys;
+        # openssh.authorizedKeys.keys = aeon.pubKeys;
         extraGroups =
           [
             "wheel"

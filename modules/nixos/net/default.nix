@@ -41,7 +41,6 @@ with lib;
 
       environment = {
         systemPackages = with pkgs; [
-          aeon.siren # My Wake-on-LAN tool written in Rust.
           dig
           ethtool
           iperf3
