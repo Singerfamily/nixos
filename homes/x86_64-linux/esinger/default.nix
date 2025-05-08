@@ -3,7 +3,6 @@
   aeon = {
     apps = {
       discord.enable = true;
-      steam.enable = true;
     };
   };
 

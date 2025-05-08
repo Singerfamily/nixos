@@ -9,6 +9,11 @@
 
 {
   aeon = {
+
+    apps = {
+      steam.enable = true;
+    };
+
     boot = {
       type = "lanzaboote";
       # quiet = true;
