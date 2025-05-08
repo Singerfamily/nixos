@@ -30,6 +30,7 @@ with lib;
       sops = {
         age = { inherit keyFile; };
         defaultSopsFile = ../../../lib/secrets.yaml;
+        defaultSopsFormat = "yaml";
         # secrets."keys/age".path = mkIf config.aeon.sops.inheritKeyFile keyFile;
       };
     };
