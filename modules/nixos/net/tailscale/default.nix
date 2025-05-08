@@ -20,7 +20,7 @@ with builtins;
     useAuthKey = mkOption {
       description = "Whether to auto-authenticate using a key";
       type = with types; bool;
-      default = true;
+      default = false;
     };
 
     ACLtags = mkOption {
