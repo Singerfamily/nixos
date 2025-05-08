@@ -54,7 +54,7 @@ with lib;
       # glab
 
       # Basically a git rewrite in Rust.
-      gitoxide
+      # gitoxide
 
       # A git-compatible DVCS that is both simple and powerful.
       # jujutsu

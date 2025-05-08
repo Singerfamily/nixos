@@ -12,9 +12,6 @@ rec {
 
   user = "esinger";
 
-  # I don't store my config in /etc/nixos.
-  flakePath = "/home/${user}/Aeon";
-
   # The name of the persistent volume, so I never mess it up.
   persist = "/persist";
 

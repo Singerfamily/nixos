@@ -9,7 +9,7 @@ with lib;
   config = mkIf (config.home-manager.users |> builtins.hasAttr "${aeon.user}") {
     users.users = {
       ${aeon.user} = {
-        hashedPasswordFile = config.sops.secrets."passwords/user".path;
+        hashedPasswordFile = config.sops.secrets."passwords/${aeon.user}".path;
         # openssh.authorizedKeys.keys = aeon.pubKeys;
         extraGroups =
           [
@@ -31,6 +31,6 @@ with lib;
       };
     };
 
-    sops.secrets."passwords/user".neededForUsers = true;
+    sops.secrets."passwords/${aeon.user}".neededForUsers = true;
   };
 }

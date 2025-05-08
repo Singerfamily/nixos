@@ -74,7 +74,7 @@ with lib;
           }
           {
             name = "powerlevel10k-config";
-            src = lib.cleanSource ".";
+            src = lib.cleanSource "${snowfall.fs.get-file "/"}/modules/home/cli/shell/zsh";
             file = "p10k.zsh";
           }
         ];
