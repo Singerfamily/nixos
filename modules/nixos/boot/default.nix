@@ -37,7 +37,7 @@ with lib;
 
   config =
     let
-      inherit (config.aeon.boot) type quiet encrypted;
+      inherit (config.snowfall.boot) type quiet encrypted;
       # inherit (config.networking) hostName;
     in
     mkMerge [
