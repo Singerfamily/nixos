@@ -24,9 +24,9 @@
         "home-manager": {
           "expr": "(builtins.getFlake \"${workspaceFolder}\").homeConfigurations.\"esinger\".options"
         },
-        "lib": {
-          "expr": "(builtins.getFlake \"${workspaceFolder}\").outputs.lib"
-        }
+        // "lib": {
+        //   "expr": "(builtins.getFlake \"${workspaceFolder}\").outputs.nixosConfigurations.sandbox.lib"
+        // }
       },
       // Control the diagnostic system
       // "diagnostic": {
