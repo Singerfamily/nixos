@@ -74,11 +74,6 @@
 
       # Snowfall Lib configuration.
       snowfall = {
-        namespace = "aeon";
-        meta = {
-          name = "aeon";
-          title = "Aeon | NixOS flake";
-        };
       };
 
       channels-config = {
@@ -97,13 +92,8 @@
       ];
 
       # Overlays for Nixpkgs.
-      # overlays = with inputs; [
-      #   nuenv.overlays.nuenv
-      #   fenix.overlays.default
-      #   rust-overlay.overlays.default
-      #   swp.overlays."package/swp"
-      #   # nix-topology.overlays.default
-      # ];
+      overlays = with inputs; [
+      ];
 
       templates = {
       };
