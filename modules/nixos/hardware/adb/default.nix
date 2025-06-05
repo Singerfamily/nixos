@@ -11,7 +11,7 @@ with lib;
   options.snowfall.hardware.adb = {
     enable = mkOption {
       type = with types; bool;
-      default = true;
+      default = false;
     };
   };
 

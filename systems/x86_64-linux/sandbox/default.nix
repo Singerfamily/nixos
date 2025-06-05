@@ -27,7 +27,6 @@
       # quiet = true; # Enable Plymouth and reduce TTY verbosity
     };
   };
-
   # snowfall.hardware.adb.enable = true;
 
   services = {
