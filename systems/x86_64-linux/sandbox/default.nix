@@ -57,25 +57,7 @@
       krdc
       (lib.mkIf config.services.hardware.bolt.enable plasma-thunderbolt)
     ]);
-
-  users.users."esinger" = {
-    hashedPasswordFile = config.sops.secrets."passwords/esinger".path;
-    # hashedPassword = "$y$j9T$Y9uPcCDrepfHHZkw.r6wM1$5oEosCGb3J2R6024/AGYg/lgekaAiGoEMFk/h6GHXGC";
-    isNormalUser = true;
-    name = "esinger";
-    # shell = pkgs.zsh;
-    description = "Eric Singer";
-    extraGroups = [
-      "video"
-      "audio"
-      "networkmanager"
-      "tss"
-      "builders"
-    ];
-  };
-
-  sops.secrets."passwords/esinger".neededForUsers = true;
-
+    
   services.openssh = {
     enable = true;
     openFirewall = true;

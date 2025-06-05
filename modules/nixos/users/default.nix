@@ -1,12 +1,18 @@
-{ config, lib, ... }:
-let
-  normalUsers = config.users.users |> lib.filterAttrs (_: u: u.isNormalUser);
-  patchUser = u: u // { description = lib.mkForce "test"; };
-  patchedUsers = lib.mapAttrs (_: patchUser) normalUsers;
-in
-{
-  # config.users.users = lib.mkMerge [
-  #   # config.users.users
-  #   patchedUsers
-  # ];
+{ config, lib, ... }: {
+  config = lib.mkMerge [
+    (lib.mkIf (config.home-manager.users |> builtins.hasAttr "esinger") {
+      users.users."esinger" = {
+        hashedPasswordFile = config.sops.secrets."passwords/esinger".path;
+        description = "Eric Singer";
+        extraGroups = [
+          "video"
+          "audio"
+          "networkmanager"
+          "tss"
+          "builders"
+        ];
+      };
+      sops.secrets."passwords/esinger".neededForUsers = true;
+    })
+  ];
 }
