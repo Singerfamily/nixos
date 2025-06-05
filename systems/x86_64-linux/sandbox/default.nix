@@ -20,6 +20,14 @@
     ...
 }:
 {
+  snowfall = {
+    boot = {
+      type = "bios"; # Use UEFI bootloader
+      # encrypted = true; # Enable LUKS2 encryption
+      # quiet = true; # Enable Plymouth and reduce TTY verbosity
+    };
+  };
+
   services = {
     displayManager.sddm = {
       enable = true;
@@ -50,6 +58,21 @@
       (lib.mkIf config.services.hardware.bolt.enable plasma-thunderbolt)
     ]);
 
+  users.users."esinger" = {
+    hashedPassword = "$y$j9T$Y9uPcCDrepfHHZkw.r6wM1$5oEosCGb3J2R6024/AGYg/lgekaAiGoEMFk/h6GHXGC";
+    # isNormalUser = true;
+    # name = "esinger";
+    # shell = pkgs.zsh;
+    # description = "Eric Singer";
+    extraGroups = [
+      "wheel"
+      "video"
+      "audio"
+      "networkmanager"
+      "tss"
+    ];
+  };
+
   disko.devices = 
     let
       inherit (config.networking) hostName;
@@ -58,7 +81,7 @@
     disk = {
       main = {
         type = "disk";
-        device = "/dev/vda";
+        device = "/dev/sda";
         content = {
           type = "gpt";
           partitions = {
@@ -135,5 +158,5 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  stateVersion = "24.11";
+  system.stateVersion = "24.11";
 }
