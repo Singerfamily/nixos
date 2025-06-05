@@ -20,6 +20,36 @@
     ...
 }:
 {
+  services = {
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+      autoNumlock = true;
+    };
+    desktopManager.plasma6.enable = true;
+  };
+
+  environment.systemPackages =
+    with pkgs;
+    [
+      aha
+      fwupd
+      vulkan-tools
+      wayland-utils
+      pciutils
+    ]
+    ++ (with pkgs.kdePackages; [
+      discover
+      kaccounts-integration
+      kaccounts-providers
+      plasma-browser-integration
+      plasma-disks
+      kalk
+      partitionmanager
+      krdc
+      (lib.mkIf config.services.hardware.bolt.enable plasma-thunderbolt)
+    ]);
+
   disko.devices = 
     let
       inherit (config.networking) hostName;
@@ -28,7 +58,7 @@
     disk = {
       main = {
         type = "disk";
-        device = "/dev/sdb";
+        device = "/dev/vda";
         content = {
           type = "gpt";
           partitions = {
