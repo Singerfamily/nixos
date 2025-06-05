@@ -43,7 +43,7 @@
     "nixd": {
       "nixpkgs": {
         // For flake.
-        "expr": "import (builtins.getFlake \"${workspaceFolder}\").inputs.nixpkgs { }   "
+        "expr": "import (builtins.getFlake \"${workspaceFolder}\").inputs.nixpkgs { }"
 
         // This expression will be interpreted as "nixpkgs" toplevel
         // Nixd provides package, lib completion/information from it.

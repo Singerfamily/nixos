@@ -74,6 +74,7 @@
 
       # Snowfall Lib configuration.
       snowfall = {
+        namespace = "snowfall";
       };
 
       channels-config = {
