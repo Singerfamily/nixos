@@ -1,5 +1,18 @@
-{ ... }:
+{ lib, ... }:
 {
+
+  mapUsersToGroup = (
+    { 
+      users ? throw "users must be specified",
+      group ? throw "group must be specified"
+    }: 
+    lib.mkMerge (
+      map (username: {
+        ${username}.extraGroups = lib.mkAfter [ group ];
+      }) users
+    )
+  );
+
   # Common Nix settings.
   #
   # Lives here because it's shared between NixOS and Home-manager.
