@@ -43,13 +43,31 @@ with lib;
     mkMerge [
       # Use GRUB by default.
       {
-        boot.loader.grub.enable = mkDefault true;
-        environment.systemPackages = with pkgs; [ efibootmgr ];
+        boot.loader.systemd-boot.enable = true;
+
+
+        boot.initrd = {
+          systemd = {
+            enable = true; # For auto unlock
+            tpm2 = {
+              enable = true;
+            };
+          };
+          kernelModules = [ "tpm_crb" ];
+          availableKernelModules = [ "tpm_crb" ];
+        };
+
+        security.tpm2 = {
+          enable = true;
+          tctiEnvironment.enable = true;
+        };
+        # boot.loader.grub.enable = mkDefault true;
+        # environment.systemPackages = with pkgs; [ efibootmgr ];
       }
 
       # BIOS:
       (mkIf (type == "bios") {
-          boot.loader.grub.efiSupport = false;
+          # boot.loader.grub.efiSupport = false;
       })
 
       # UEFI: common options.

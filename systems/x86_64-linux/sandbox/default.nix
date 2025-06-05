@@ -22,7 +22,7 @@
 {
   snowfall = {
     boot = {
-      type = "bios"; # Use UEFI bootloader
+      type = "uefi"; # Use UEFI bootloader
       # encrypted = true; # Enable LUKS2 encryption
       # quiet = true; # Enable Plymouth and reduce TTY verbosity
     };
@@ -60,10 +60,10 @@
 
   users.users."esinger" = {
     hashedPassword = "$y$j9T$Y9uPcCDrepfHHZkw.r6wM1$5oEosCGb3J2R6024/AGYg/lgekaAiGoEMFk/h6GHXGC";
-    # isNormalUser = true;
-    # name = "esinger";
+    isNormalUser = true;
+    name = "esinger";
     # shell = pkgs.zsh;
-    # description = "Eric Singer";
+    description = "Eric Singer";
     extraGroups = [
       "wheel"
       "video"
@@ -147,15 +147,25 @@
   };
 
   boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ahci"
-    "nvme"
-    "usbhid"
-    "usb_storage"
+
+    "ata_piix"
+    "uhci_hcd"
+    "virtio_pci"
+    "virtio_scsi"
     "sd_mod"
+    "sr_mod"
+
+    # "xhci_pci"
+    # "ahci"
+    # "nvme"
+    # "usbhid"
+    # "usb_storage"
+    # "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ 
+    # "kvm-intel" 
+  ];
   boot.extraModulePackages = [ ];
 
   system.stateVersion = "24.11";
