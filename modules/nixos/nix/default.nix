@@ -6,6 +6,7 @@
         "root"
         "@wheel"
         "@builders"
+        "esinger"
       ];
       experimental-features = [
         "nix-command"
