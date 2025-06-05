@@ -1,4 +1,4 @@
-{ snowfallorg, ... }:
+{ ... }:
 {
   # Common Nix settings.
   #
@@ -6,7 +6,7 @@
   nix.settings = {
     allowed-users = [
       "@builders"
-    ] ++ snowfallorg.users.allowed-users;
+    ];
     trusted-users = [
       "@builders"
     ];

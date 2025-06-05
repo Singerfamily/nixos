@@ -20,7 +20,5 @@
     ...
 }:
 {
-  # Your configuration.
-  snowfallorg.users 
-  
+  # Your configuration.  
 }
