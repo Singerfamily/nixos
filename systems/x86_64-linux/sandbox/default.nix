@@ -62,18 +62,6 @@
   services.openssh = {
     enable = true;
     openFirewall = true;
-    # settings = {
-    #   PermitRootLogin = "no";
-    #   PasswordAuthentication = "no";
-    #   PubkeyAuthentication = "yes";
-    #   ChallengeResponseAuthentication = "no";
-    #   UsePAM = "yes";
-    #   X11Forwarding = "yes";
-    #   AllowAgentForwarding = "yes";
-    #   AllowTcpForwarding = "yes";
-    #   PrintMotd = "no";
-    #   PrintLastLog = "yes";
-    # };
   };
 
   disko.devices =
@@ -150,25 +138,15 @@
     };
 
   boot.initrd.availableKernelModules = [
-
     "ata_piix"
     "uhci_hcd"
     "virtio_pci"
     "virtio_scsi"
     "sd_mod"
     "sr_mod"
-
-    # "xhci_pci"
-    # "ahci"
-    # "nvme"
-    # "usbhid"
-    # "usb_storage"
-    # "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [
-    # "kvm-intel"
-  ];
+  boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   system.stateVersion = "24.11";
