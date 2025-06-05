@@ -20,7 +20,6 @@ with lib;
       users = builtins.attrNames (config.home-manager.users or {});
     in
       {
-        lib.
         programs.adb.enable = true;
         users.users = snowfall.mapUsersToGroup {
           group = "adbusers";
