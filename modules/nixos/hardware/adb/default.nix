@@ -17,14 +17,14 @@ with lib;
 
   config = mkIf config.snowfall.hardware.adb.enable (
     let
-      users = builtins.attrNames (config.home-manager.users or {});
+      users = builtins.attrNames (config.home-manager.users or { });
     in
-      {
-        programs.adb.enable = true;
-        users.users = snowfall.mapUsersToGroup {
-          group = "adbusers";
-          users = users;
-        };
-      }
+    {
+      programs.adb.enable = true;
+      users.users = snowfall.mapUsersToGroup {
+        group = "adbusers";
+        users = users;
+      };
+    }
   );
 }
