@@ -26,8 +26,8 @@
       # encrypted = true; # Enable LUKS2 encryption
       # quiet = true; # Enable Plymouth and reduce TTY verbosity
     };
+    flatpak.enable = true;
   };
-  # snowfall.hardware.adb.enable = true;
 
   services = {
     displayManager.sddm = {
