@@ -22,7 +22,7 @@ with lib;
       {
         lib.
         programs.adb.enable = true;
-        users.users = mapUsersToGroup {
+        users.users = snowfall.mapUsersToGroup {
           group = "adbusers";
           users = users;
         };
