@@ -26,11 +26,11 @@
       # encrypted = true; # Enable LUKS2 encryption
       # quiet = true; # Enable Plymouth and reduce TTY verbosity
     };
+
     flatpak.enable = true;
 
     desktop.plasma.enable = true; # Enable Plasma desktop environment
   };
-
   services.openssh = {
     enable = true;
     openFirewall = true;
