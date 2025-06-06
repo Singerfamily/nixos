@@ -46,21 +46,22 @@ with lib;
         boot.loader.systemd-boot.enable = true;
 
 
-        boot.initrd = {
-          systemd = {
-            enable = true; # For auto unlock
-            tpm2 = {
-              enable = true;
-            };
-          };
-          kernelModules = [ "tpm_crb" ];
-          availableKernelModules = [ "tpm_crb" ];
-        };
+        # MOVED TO <modules/nixos/hardware/tpm/default.nix>
+        # boot.initrd = {
+        #   systemd = {
+        #     enable = true; # For auto unlock
+        #     tpm2 = {
+        #       enable = true;
+        #     };
+        #   };
+        #   kernelModules = [ "tpm_crb" ];
+        #   availableKernelModules = [ "tpm_crb" ];
+        # };
 
-        security.tpm2 = {
-          enable = true;
-          tctiEnvironment.enable = true;
-        };
+        # security.tpm2 = {
+        #   enable = true;
+        #   tctiEnvironment.enable = true;
+        # };
         # boot.loader.grub.enable = mkDefault true;
         # environment.systemPackages = with pkgs; [ efibootmgr ];
       }
