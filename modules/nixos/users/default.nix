@@ -8,6 +8,17 @@ let
   users = builtins.attrNames (config.home-manager.users or { });
 in
 {
+
+  options.snowfall.cli = {
+    enable = lib.mkEnableOption "CLI support for Snowfall users";
+
+    users = lib.mkOption {
+      type = with lib.types; listOf str;
+      default = [];
+      description = "List of users to enable CLI support for Snowfall.";
+    };
+  };
+
   config = {
     users.users = lib.mkMerge (
       users
@@ -29,27 +40,23 @@ in
                 "builders"
               ];
             }
+            (lib.mkIf (shell.default == "bash") {
+              shell = pkgs.bash;
+            })
 
-            # lib.mkMerge
-            # [
-            #   (lib.mkIf (shell.default == "bash") {
-            #     shell = pkgs.bash;
-            #   })
+            (lib.mkIf (shell.default == "zsh") {
+              shell = pkgs.zsh;
+              programs.zsh.enable = true;
+            })
 
-            #   (lib.mkIf (shell.default == "zsh") {
-            #     shell = pkgs.zsh;
-            #     programs.zsh.enable = true;
-            #   })
+            (lib.mkIf (shell.default == "fish") {
+              shell = pkgs.fish;
+              programs.fish.enable = true;
+            })
 
-            #   (lib.mkIf (shell.default == "fish") {
-            #     shell = pkgs.fish;
-            #     programs.fish.enable = true;
-            #   })
-
-            #   (lib.mkIf (shell.default == "nushell") {
-            #     shell = pkgs.nushell;
-            #   })
-            # ]
+            (lib.mkIf (shell.default == "nushell") {
+              shell = pkgs.nushell;
+            })
           ];
         }
       )
