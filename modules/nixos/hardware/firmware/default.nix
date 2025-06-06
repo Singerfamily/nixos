@@ -8,7 +8,7 @@
 
 with lib;
 {
-  options.aeon.hardware = {
+  options.snowfall.hardware = {
     firmware = mkOption {
       type =
         with types;
@@ -23,7 +23,7 @@ with lib;
 
   config =
     let
-      inherit (config.aeon.hardware)
+      inherit (config.snowfall.hardware)
         firmware
         ;
     in

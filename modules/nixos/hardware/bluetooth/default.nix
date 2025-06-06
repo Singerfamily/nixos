@@ -8,7 +8,7 @@
 }:
 
 with lib; {
-  options.aeon.hardware.bluetooth = {
+  options.snowfall.hardware.bluetooth = {
     # Whether to enable bluetooth support.
     enable = mkOption {
       type = with types; bool;
@@ -16,9 +16,9 @@ with lib; {
     };
   };
 
-  config = mkIf config.aeon.hardware.bluetooth.enable {
+  config = mkIf config.snowfall.hardware.bluetooth.enable {
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
-    # environment.systemPackages = with pkgs; [ aeon.bluetui ];
+    # environment.systemPackages = with pkgs; [ snowfall.bluetui ];
   };
 }

@@ -7,7 +7,7 @@
 
 with lib;
 {
-  options.aeon.cli.shell = {
+  options.snowfall.cli.shell = {
     default = mkOption {
       description = "Which shell to use as default";
       type = types.enum [

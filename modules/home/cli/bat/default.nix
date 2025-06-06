@@ -8,7 +8,7 @@
 
 with lib;
 {
-  options.aeon.cli.bat = {
+  options.snowfall.cli.bat = {
     enable = mkOption {
       description = "Whether to enable `bat`, the `cat(1)` clone with wings";
       type = types.bool;
@@ -16,7 +16,7 @@ with lib;
     };
   };
 
-  config = mkIf config.aeon.cli.bat.enable {
+  config = mkIf config.snowfall.cli.bat.enable {
     programs.bat = {
       enable = true;
       config = {
@@ -27,7 +27,7 @@ with lib;
 
     #   xdg.configFile."bat/themes/nix.tmTheme".text =
     #     let
-    #       inherit (config.aeon.theme)
+    #       inherit (config.snowfall.theme)
     #         colors
     #         ui
     #         code
