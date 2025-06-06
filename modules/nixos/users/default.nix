@@ -46,12 +46,12 @@ in
 
             (lib.mkIf (shell.default == "zsh") {
               shell = pkgs.zsh;
-              programs.zsh.enable = true;
+              # programs.zsh.enable = true;
             })
 
             (lib.mkIf (shell.default == "fish") {
               shell = pkgs.fish;
-              programs.fish.enable = true;
+              # programs.fish.enable = true;
             })
 
             (lib.mkIf (shell.default == "nushell") {
