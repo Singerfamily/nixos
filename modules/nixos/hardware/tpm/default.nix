@@ -24,6 +24,11 @@ with lib;
     mkMerge [
       # TPM2: common options.
       (mkIf enable {
+        environment.systemPackages = with pkgs; [
+          tpm2-tools
+          tpm-luks-unstable
+          tpm-fido
+        ];
         boot.initrd = {
           systemd = {
             enable = true; # For auto unlock

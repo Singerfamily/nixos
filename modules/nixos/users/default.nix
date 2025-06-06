@@ -30,26 +30,26 @@ in
               ];
             }
 
-            lib.mkMerge
-            [
-              (lib.mkIf (shell.default == "bash") {
-                shell = pkgs.bash;
-              })
+            # lib.mkMerge
+            # [
+            #   (lib.mkIf (shell.default == "bash") {
+            #     shell = pkgs.bash;
+            #   })
 
-              (lib.mkIf (shell.default == "zsh") {
-                shell = pkgs.zsh;
-                programs.zsh.enable = true;
-              })
+            #   (lib.mkIf (shell.default == "zsh") {
+            #     shell = pkgs.zsh;
+            #     programs.zsh.enable = true;
+            #   })
 
-              (lib.mkIf (shell.default == "fish") {
-                shell = pkgs.fish;
-                programs.fish.enable = true;
-              })
+            #   (lib.mkIf (shell.default == "fish") {
+            #     shell = pkgs.fish;
+            #     programs.fish.enable = true;
+            #   })
 
-              (lib.mkIf (shell.default == "nushell") {
-                shell = pkgs.nushell;
-              })
-            ]
+            #   (lib.mkIf (shell.default == "nushell") {
+            #     shell = pkgs.nushell;
+            #   })
+            # ]
           ];
         }
       )

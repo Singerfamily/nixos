@@ -9,7 +9,7 @@
 
 with lib;
 {
-  options.snowfall.dev.python = {
+  options.snowfall.dev.js = {
     enable = mkOption {
       type = types.bool;
       default = true;
@@ -18,7 +18,7 @@ with lib;
 
   config =
     let
-      inherit (config.snowfall.dev.python)
+      inherit (config.snowfall.dev.js)
         enable
         ;
     in
