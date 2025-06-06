@@ -14,7 +14,7 @@ in
 
     users = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [];
+      default = [ ];
       description = "List of users to enable CLI support for Snowfall.";
     };
   };
@@ -60,8 +60,37 @@ in
           ];
         }
       )
-
     );
+
+    # Enable global programs if any user uses the shell
+    programs = {
+      zsh.enable =
+        users
+        |> lib.any (
+          username:
+          let
+            shell = config.home-manager.users.${username}.snowfall.cli.shell;
+          in
+          shell.default == "zsh"
+        );
+
+      fish.enable =
+        users
+        |> lib.any (
+          username:
+          let
+            shell = config.home-manager.users.${username}.snowfall.cli.shell;
+          in
+          shell.default == "fish"
+        );
+      # nushell.enable = lib.any (
+      #   username:
+      #   let
+      #     shell = config.home-manager.users.${username}.snowfall.cli.shell;
+      #   in
+      #   shell.default == "nushell"
+      # ) users;
+    };
 
     sops.secrets = lib.mkMerge (
       map (username: {
