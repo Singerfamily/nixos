@@ -25,7 +25,7 @@ with lib;
       busID = mkOption {
         description = "Intel iGPU PCI bus ID";
         type = with types; nullOr str;
-        default = null;
+        default = "PCI:0:2:0";
       };
     };
 
@@ -33,12 +33,12 @@ with lib;
       enable = mkOption {
         description = "Whether to support NVIDIA graphics";
         type = with types; bool;
-        default = false;
+        default = true;
       };
       busID = mkOption {
         description = "NVIDIA dGPU PCI bus ID";
         type = with types; nullOr str;
-        default = null;
+        default = "PCI:1:0:0";
       };
     };
 
