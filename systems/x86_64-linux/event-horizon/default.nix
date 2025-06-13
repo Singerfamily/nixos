@@ -32,6 +32,8 @@
       vulkan-tools
       wayland-utils
       pciutils
+
+      firefox
     ]
     ++ (with pkgs.kdePackages; [
       discover

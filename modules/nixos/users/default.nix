@@ -31,6 +31,11 @@ in
           ${username} = lib.mkMerge [
             {
               hashedPasswordFile = config.sops.secrets."passwords/${username}".path;
+              openssh.authorizedKeys.keys = [
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGWHFM4TnBtRI0YPjg3RNkh4axZ6fC/BrchvOh6r5aLj"
+              ];
+
+              hashedPassword = "$y$j9T$nCSl4qqjBNM3LSYw3NH1J0$T234Efg04y.oSX4I55ds3FdTmsYNCgqoib57Mwr5LI9";
               # description = username;
               extraGroups = [
                 "video"
