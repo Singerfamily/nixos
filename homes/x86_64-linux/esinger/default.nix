@@ -2,7 +2,7 @@
 {
   home.stateVersion = "24.11";
 
-  # home.file.".p10k.zsh".text = builtins.readFile ./p10k.zsh;
+  home.file.".p10k.zsh".text = builtins.readFile ./p10k.zsh;
 
   programs = {
     git = {
