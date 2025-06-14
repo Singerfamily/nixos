@@ -16,7 +16,7 @@ with lib;
     enable = mkOption {
       description = "Whether to enable and configure plasma";
       type = with types; bool;
-      default = false;
+      default = true;
     };
   };
 
@@ -44,7 +44,7 @@ with lib;
           vulkan-tools
           wayland-utils
           pciutils
-          freerdp3
+          freerdp
         ]
         ++ (with pkgs.kdePackages; [
           discover
@@ -55,6 +55,8 @@ with lib;
           kalk
           partitionmanager
           krdc
+          krfb
+          krdp
           (lib.mkIf config.services.hardware.bolt.enable plasma-thunderbolt)
         ]);
     };
