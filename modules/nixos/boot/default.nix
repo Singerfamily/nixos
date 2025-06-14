@@ -44,31 +44,11 @@ with lib;
       # Use GRUB by default.
       {
         boot.loader.systemd-boot.enable = true;
-
-
-        # MOVED TO <modules/nixos/hardware/tpm/default.nix>
-        # boot.initrd = {
-        #   systemd = {
-        #     enable = true; # For auto unlock
-        #     tpm2 = {
-        #       enable = true;
-        #     };
-        #   };
-        #   kernelModules = [ "tpm_crb" ];
-        #   availableKernelModules = [ "tpm_crb" ];
-        # };
-
-        # security.tpm2 = {
-        #   enable = true;
-        #   tctiEnvironment.enable = true;
-        # };
-        # boot.loader.grub.enable = mkDefault true;
-        # environment.systemPackages = with pkgs; [ efibootmgr ];
       }
 
       # BIOS:
       (mkIf (type == "bios") {
-          # boot.loader.grub.efiSupport = false;
+        # boot.loader.grub.efiSupport = false;
       })
 
       # UEFI: common options.
@@ -89,11 +69,12 @@ with lib;
 
       # UEFI: GRUB2 non-secure boot.
       (mkIf (type == "uefi") {
-        boot.loader.grub = {
-          efiSupport = true;
-          efiInstallAsRemovable = mkDefault false;
-          device = "nodev"; # INFO: https://discourse.nixos.org/t/question-about-grub-and-nodev
-        };
+        # boot.loader.systemd-boot.memtest86.enable = true;
+        # boot.loader.grub = {
+        #   efiSupport = true;
+        #   efiInstallAsRemovable = mkDefault false;
+        #   device = "nodev"; # INFO: https://discourse.nixos.org/t/question-about-grub-and-nodev
+        # };
       })
 
       # UEFI: Secure boot.
