@@ -27,7 +27,7 @@ with lib;
         environment.systemPackages = with pkgs; [
           tpm2-tools
           # tpm-luks-unstable
-          tpm-fido
+          # tpm-fido
         ];
         boot.initrd = {
           systemd = {
