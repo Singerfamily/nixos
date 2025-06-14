@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    nixfmt
+    nixfmt-rfc-style
     nixd
+    # kdePackages.kdeConnect
   ];
 }
