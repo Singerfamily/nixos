@@ -17,8 +17,10 @@ with lib; {
   };
 
   config = mkIf config.snowfall.hardware.bluetooth.enable {
-    hardware.bluetooth.enable = true;
-    services.blueman.enable = true;
-    # environment.systemPackages = with pkgs; [ snowfall.bluetui ];
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+    # services.blueman.enable = true;
   };
 }
