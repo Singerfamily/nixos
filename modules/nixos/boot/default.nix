@@ -85,7 +85,8 @@ with lib;
         boot = {
           lanzaboote = {
             enable = true;
-            pkiBundle = "/etc/secureboot";
+            # pkiBundle = "/etc/secureboot";
+            pkiBundle = "/var/lib/sbctl";
           };
           loader = {
             # HACK: Lanzaboote currently replaces systemd-boot, so force it to false for now.
