@@ -2,10 +2,11 @@
 {
   home.stateVersion = "24.11";
 
-  home.file.".p10k.zsh".source = /home/x86_64-linux/esinger/p10k.zsh;
+  home.file.".p10k.zsh".text = builtins.readFile ./p10k.zsh;
 
   programs = {
     git = {
+      enable = true;
       userName = "LeaderbotX400";
       userEmail = "34589843+LeaderbotX400@users.noreply.github.com";
     };
