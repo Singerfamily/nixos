@@ -1,3 +1,94 @@
+# {
+#   config,
+#   pkgs,
+#   lib,
+#   ...
+# }:
+# let
+#   cfg = config.drivers.nvidia;
+# in
+# {
+#   options.drivers.nvidia = {
+#     prime = {
+#       enable = lib.mkEnableOption "Enable NVIDIA PRIME support";
+#       intelBusID = lib.mkOption {
+#         type = lib.types.str;
+#         default = "PCI:0:2:0";
+#       };
+#       nvidiaBusID = lib.mkOption {
+#         type = lib.types.str;
+#         default = "PCI:1:0:0";
+#       };
+
+#       mode = lib.mkOption {
+#         type = lib.types.enum [
+#           "offload"
+#           "sync"
+#         ];
+#         default = "offload";
+#         description = ''
+#           					Select the PRIME mode to use. The "offload" mode allows
+#           					for offloading rendering to the NVIDIA GPU, while the
+#           					"sync" mode allows for synchronizing the display output
+#           					between the Intel and NVIDIA GPUs.
+#           					Note that the "offload" mode requires the NVIDIA GPU to
+#           					be the primary GPU in the system, while the "sync" mode
+#           					requires the Intel GPU to be the primary GPU.
+#           				'';
+#       };
+#     };
+#   };
+
+#   config = {
+#     nixpkgs.config.packageOverrides = pkgs: {
+#       vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+#     };
+#     services.xserver.videoDrivers = [ "nvidia" ];
+
+#     hardware = {
+#       graphics = {
+#         enable = true;
+#         enable32Bit = true;
+#         extraPackages = with pkgs; [
+#           vaapiVdpau
+#           nvidia-vaapi-driver
+#           intel-media-driver
+
+#           vaapiIntel
+#           vaapiVdpau
+#           libvdpau-va-gl
+#         ];
+#       };
+
+#       nvidia = {
+#         modesetting.enable = true;
+#         powerManagement = {
+#           enable = false;
+#           finegrained = false;
+#         };
+#         # dynamicBoost.enable = lib.mkForce true;
+#         open = true;
+#         nvidiaSettings = true;
+#         package = config.boot.kernelPackages.nvidiaPackages.production;
+
+#         prime = lib.mkIf cfg.prime.enable {
+#           offload = lib.mkIf (cfg.prime.mode == "offload") {
+#             enable = true;
+#             enableOffloadCmd = true;
+#           };
+
+#           # sync = lib.mkIf (cfg.prime.mode == "sync") {
+#           # 	enable = true;
+#           # };
+
+#           intelBusId = "${cfg.prime.intelBusID}";
+#           nvidiaBusId = "${cfg.prime.nvidiaBusID}";
+#         };
+#       };
+#     };
+#   };
+# }
+
 # INFO: NixOS GPU module.
 
 {
@@ -53,12 +144,13 @@ with lib;
     let
       nvidiaPackage = config.hardware.nvidia.package;
       nvidiaConfig = {
-        services.xserver.videoDrivers = mkBefore [ "nvidia" ];
+        services.xserver.videoDrivers = [ "nvidia" ];
         hardware.nvidia = {
-          package = config.boot.kernelPackages.nvidiaPackages.production;
+          package = config.boot.kernelPackages.nvidiaPackages.stable;
           modesetting.enable = true;
-          powerManagement.enable = true;
-          open = lib.mkOverride 990 (nvidiaPackage ? open && nvidiaPackage ? firmware);
+          powerManagement.enable = false;
+          open = true;
+          # open = lib.mkOverride 990 (nvidiaPackage ? open && nvidiaPackage ? firmware);
           prime = {
             intelBusId = intel.busID;
             nvidiaBusId = nvidia.busID;
@@ -79,18 +171,18 @@ with lib;
     in
     mkMerge [
       # (mkIf core.enable {
-      #   # Exclude `nvtop` from minimal systems.
-      #   environment.systemPackages =
-      #     with pkgs;
-      #     (
-      #       if
-      #         !(builtins.elem config.networking.hostName [
-      #         ])
-      #       then
-      #         [ (nvtopPackages.intel.override { nvidia = true; }) ]
-      #       else
-      #         [ ]
-      #     );
+        # Exclude `nvtop` from minimal systems.
+        # environment.systemPackages =
+        #   with pkgs;
+        #   (
+        #     if
+        #       !(builtins.elem config.networking.hostName [
+        #       ])
+        #     then
+        #       [ (nvtopPackages.intel.override { nvidia = true; }) ]
+        #     else
+        #       [ ]
+        #   );
       # })
 
       (mkIf intel.enable {

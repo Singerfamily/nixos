@@ -45,17 +45,22 @@
     vscode-server.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    nixd
-    binutils
-    htop
-    nixfmt-rfc-style
-    tpm2-tss
-    nvtopPackages.full
-    usbutils
-    ethtool
-    vscode
-  ];
+  environment = {
+    variables = {
+      NIXOS_OZONE_WL = "1";
+    };
+    systemPackages = with pkgs; [
+      nixd
+      binutils
+      htop
+      nixfmt-rfc-style
+      tpm2-tss
+      nvtopPackages.full
+      usbutils
+      ethtool
+      vscode
+    ];
+  };
 
   services.openssh = {
     enable = true;
