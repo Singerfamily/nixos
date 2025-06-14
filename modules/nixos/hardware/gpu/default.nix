@@ -53,35 +53,19 @@ with lib;
     let
       nvidiaPackage = config.hardware.nvidia.package;
       nvidiaConfig = {
-
         services.xserver.videoDrivers = mkBefore [ "nvidia" ];
-        hardware = {
-          graphics = {
-            enable = true;
-            enable32Bit = true;
-            extraPackages = with pkgs; [
-              vaapiVdpau
-              nvidia-vaapi-driver
-              intel-media-driver
-            ];
-          };
-          nvidia = {
-            package = config.boot.kernelPackages.nvidiaPackages.production;
-            modesetting.enable = true;
-            powerManagement = {
-              enable = false;
-              finegrained = false;
-            };
-            open = true;
-            # open = lib.mkOverride 990 (nvidiaPackage ? open && nvidiaPackage ? firmware);
-            prime = {
-              intelBusId = intel.busID;
-              nvidiaBusId = nvidia.busID;
+        hardware.nvidia = {
+          package = config.boot.kernelPackages.nvidiaPackages.production;
+          modesetting.enable = true;
+          powerManagement.enable = true;
+          open = lib.mkOverride 990 (nvidiaPackage ? open && nvidiaPackage ? firmware);
+          prime = {
+            intelBusId = intel.busID;
+            nvidiaBusId = nvidia.busID;
 
-              offload = {
-                enable = true;
-                enableOffloadCmd = true;
-              };
+            offload = {
+              enable = true;
+              enableOffloadCmd = true;
             };
           };
         };
@@ -94,20 +78,20 @@ with lib;
         ;
     in
     mkMerge [
-      (mkIf core.enable {
-        # Exclude `nvtop` from minimal systems.
-        environment.systemPackages =
-          with pkgs;
-          (
-            if
-              !(builtins.elem config.networking.hostName [
-              ])
-            then
-              [ (nvtopPackages.intel.override { nvidia = true; }) ]
-            else
-              [ ]
-          );
-      })
+      # (mkIf core.enable {
+      #   # Exclude `nvtop` from minimal systems.
+      #   environment.systemPackages =
+      #     with pkgs;
+      #     (
+      #       if
+      #         !(builtins.elem config.networking.hostName [
+      #         ])
+      #       then
+      #         [ (nvtopPackages.intel.override { nvidia = true; }) ]
+      #       else
+      #         [ ]
+      #     );
+      # })
 
       (mkIf intel.enable {
         nixpkgs.config.packageOverrides = pkgs: {
