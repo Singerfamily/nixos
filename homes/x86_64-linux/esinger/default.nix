@@ -12,7 +12,7 @@
 
     vscode = {
       enable = true;
-    }
+    };
   };
 
   snowfall = {
