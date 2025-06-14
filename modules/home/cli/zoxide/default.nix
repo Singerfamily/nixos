@@ -1,4 +1,4 @@
-# NOTE: 
+# INFO: `fzf`, a general-purpose command-line fuzzy finder (Home-manager module).
 
 {
   config,
@@ -7,12 +7,20 @@
   ...
 }:
 
+let
+  inherit (config.snowfall.theme)
+    ui
+    ;
+in
+
 with lib;
 {
-  options.snowfall.cli.zoxide.enable = mkOption {
-    description = "Whether to enable zoxide - a smarter cd command";
-    type = with types; bool;
-    default = true;
+  options.snowfall.cli.zoxide = {
+    enable = mkOption {
+      description = "Whether to enable zoxide, a smarter cd command";
+      type = with types; bool;
+      default = true;
+    };
   };
 
   config =
@@ -22,16 +30,15 @@ with lib;
         ;
     in
     mkIf enable {
-      home = {
-        programs.zoxide = {
-            enableZshIntegration = true;
-            enableBashIntegration = true;
-            enableFishIntegration = true;
-            options = [
-                "--cmd cd"
-            ];
-        };
+      programs.zoxide = {
+        enable = true;
+        enableFishIntegration = true;
+        enableBashIntegration = true;
+        enableZshIntegration = true;
 
+        options = [
+          "--cmd cd"
+        ];
       };
     };
 }

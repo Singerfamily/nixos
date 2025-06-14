@@ -2,7 +2,7 @@
 {
   home.stateVersion = "24.11";
 
-  # home.file.".p10k.zsh".source = ./ + "p10k.zsh";
+  home.file.".p10k.zsh".source = /home/x86_64-linux/esinger/p10k.zsh;
 
   programs = {
     git = {

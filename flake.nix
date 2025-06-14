@@ -70,7 +70,7 @@
   };
 
   outputs =
-    inputs:
+    {...}@inputs:
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
       src = ./.;
