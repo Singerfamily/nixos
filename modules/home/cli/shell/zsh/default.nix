@@ -22,11 +22,11 @@
           src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
           file = "powerlevel10k.zsh-theme";
         }
-        #   {
-        #     name = "powerlevel10k-config";
-        #     src = lib.cleanSource "${userCfgPath}/zsh";
-        #     file = "p10k.zsh";
-        #   }
+        # {
+        #   name = "powerlevel10k-config";
+        #   src = lib.cleanSource "${userCfgPath}/zsh";
+        #   file = "p10k.zsh";
+        # }
       ];
 
       oh-my-zsh = {

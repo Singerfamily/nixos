@@ -1,10 +1,17 @@
-{ ... }:
-{
+{ lib, pkgs, ... }: {
   home.stateVersion = "24.11";
 
-  home.file.".p10k.zsh".text = builtins.readFile ./p10k.zsh;
+  # home.file.".p10k.zsh".text = (builtins.readFile ./p10k.zsh);
 
   programs = {
+    zsh.plugins = [
+      {
+        name = "powerlevel10k-config";
+        src = lib.cleanSource ./dotfiles;
+        file = "p10k.zsh";
+      }
+    ];
+
     git = {
       enable = true;
       userName = "LeaderbotX400";
