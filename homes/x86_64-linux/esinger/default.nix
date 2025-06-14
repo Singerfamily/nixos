@@ -25,6 +25,9 @@
   };
 
   snowfall = {
+    apps = {
+      discord.enable = true;
+    };
     cli = {
       atuin = {
         enable = true;

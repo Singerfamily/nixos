@@ -34,12 +34,12 @@ with lib;
       (mkIf (app == "vencord") {
         home = {
           packages = with pkgs; [ vesktop ];
-          persistence."${lib.snowfall.persist}/home/${lib.snowfall.user}" = {
-            directories = [
-              ".config/vesktop"
-              ".config/VencordDesktop"
-            ];
-          };
+          # persistence."${lib.snowfall.persist}/home/${lib.snowfall.user}" = {
+          #   directories = [
+          #     ".config/vesktop"
+          #     ".config/VencordDesktop"
+          #   ];
+          # };
         };
       })
     ]);
