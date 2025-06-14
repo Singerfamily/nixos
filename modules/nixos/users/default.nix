@@ -41,7 +41,6 @@ in
                 "video"
                 "audio"
                 "networkmanager"
-                "tss"
                 "builders"
               ];
             }
