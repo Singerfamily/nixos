@@ -42,8 +42,8 @@ with lib;
     in
     mkIf enable (mkMerge [
       {
-        hardware.nvidia-container-toolkit.enable = true;
-        virtualisation.docker.daemon.settings.features.cdi = true;
+        # hardware.nvidia-container-toolkit.enable = true;
+        # virtualisation.docker.daemon.settings.features.cdi = true;
 
         users.users = snowfall.mapUsersToGroup {
           group = "docker";
