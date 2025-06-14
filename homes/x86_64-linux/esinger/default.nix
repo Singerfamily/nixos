@@ -8,4 +8,12 @@
       userEmail = "34589843+LeaderbotX400@users.noreply.github.com";
     };
   };
+
+  snowfall = {
+    cli = {
+      atuin = {
+        enable = true;
+      };
+    };
+  };
 }
