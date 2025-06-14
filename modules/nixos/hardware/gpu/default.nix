@@ -62,6 +62,8 @@ with lib;
           prime = {
             intelBusId = intel.busID;
             nvidiaBusId = nvidia.busID;
+#            sync.enable = true;
+
             offload = {
               enable = true;
               enableOffloadCmd = true;
