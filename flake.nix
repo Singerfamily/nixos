@@ -85,6 +85,10 @@
         permittedInsecurePackages = [ ];
       };
 
+      home-manager.sharedModules = [ 
+        inputs.plasma-manager.homeManagerModules.plasma-manager
+      ];
+
       # Global NixOS modules.
       systems.modules.nixos = with inputs; [
         vscode-server.nixosModules.default

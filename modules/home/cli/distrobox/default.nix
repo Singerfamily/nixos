@@ -3,6 +3,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -17,8 +18,12 @@ with lib;
   };
 
   config = mkIf config.snowfall.cli.distrobox.enable {
-    programs.distrobox = {
-      enable = true;
-    };
+    # snowfall.docker = {
+    #   enable = lib.mkDefault true;
+    #   implementation = lib.mkDefault "podman";
+    # };
+    home.packages = with pkgs; [
+      distrobox
+    ];
   };
 }
