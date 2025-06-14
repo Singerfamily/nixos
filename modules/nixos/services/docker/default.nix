@@ -38,13 +38,11 @@ with lib;
         implementation
         ;
 
-        users = builtins.attrNames (config.home-manager.users or { });
+      users = builtins.attrNames (config.home-manager.users or { });
     in
     mkIf enable (mkMerge [
       {
-        # hardware.nvidia-container-toolkit.enable = true;
-        # virtualisation.docker.daemon.settings.features.cdi = true;
-
+        hardware.nvidia-container-toolkit.enable = config.snowfall.hardware.gpu.nvidia.enable;
         users.users = snowfall.mapUsersToGroup {
           group = "docker";
           users = users;
@@ -64,7 +62,11 @@ with lib;
       }
 
       (mkIf (implementation == "docker" || implementation == "both") {
-        virtualisation.docker.enable = true;
+        virtualisation.docker = {
+          enable = true;
+          autoPrune.enable = true;
+          daemon.settings.features.cdi = true;
+        };
         environment.systemPackages = with pkgs; [
           docker-compose # Docker CLI plugin to define and run multi-container applications with Docker.
         ];

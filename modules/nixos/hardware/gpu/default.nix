@@ -144,7 +144,7 @@ with lib;
     let
       # nvidiaPackage = config.hardware.nvidia.package;
       nvidiaConfig = {
-        boot.blacklistedKernelModules = [ "nouveau" ];
+        # boot.blacklistedKernelModules = [ "nouveau" ];
         services.xserver.videoDrivers = [ "nvidia" ];
         hardware.nvidia = {
           package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -174,20 +174,22 @@ with lib;
         ;
     in
     mkMerge [
-      # (mkIf core.enable {
-      # Exclude `nvtop` from minimal systems.
-      # environment.systemPackages =
-      #   with pkgs;
-      #   (
-      #     if
-      #       !(builtins.elem config.networking.hostName [
-      #       ])
-      #     then
-      #       [ (nvtopPackages.intel.override { nvidia = true; }) ]
-      #     else
-      #       [ ]
-      #   );
-      # })
+      (mkIf core.enable {
+        # Exclude `nvtop` from minimal systems.
+        environment.systemPackages =
+          with pkgs;
+          (
+            if
+              !(builtins.elem config.networking.hostName [
+              ])
+            then
+              [ (nvtopPackages.intel.override { nvidia = true; }) ]
+            else
+              [
+                nvtopPackages.full
+              ]
+          );
+      })
 
       (mkIf intel.enable {
         nixpkgs.config.packageOverrides = pkgs: {
