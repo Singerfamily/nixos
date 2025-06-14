@@ -13,7 +13,7 @@ with lib;
     # Whether to use TPM2 for secure boot.
     enable = mkOption {
       type = with types; bool;
-      default = false;
+      default = true;
     };
   };
 
@@ -26,7 +26,7 @@ with lib;
       (mkIf enable {
         environment.systemPackages = with pkgs; [
           tpm2-tools
-          tpm-luks-unstable
+          # tpm-luks-unstable
           tpm-fido
         ];
         boot.initrd = {

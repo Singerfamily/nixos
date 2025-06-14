@@ -11,41 +11,33 @@
       # encrypted = true; # Enable LUKS2 encryption
       # quiet = true; # Enable Plymouth and reduce TTY verbosity
     };
+
+    docker = {
+      enable = true;
+      implementation = "both";
+    };
+
+    flatpak.enable = true;
+
+    hardware = {
+      bluetooth.enable = true;
+    };
   };
 
   # snowfall.hardware.adb.enable = true;
 
-  services = {
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-      autoNumlock = true;
-    };
-    desktopManager.plasma6.enable = true;
+  programs = {
+    kdeconnect.enable = true;
+    # vscode.enable = true;
   };
 
-  environment.systemPackages =
-    with pkgs;
-    [
-      aha
-      fwupd
-      vulkan-tools
-      wayland-utils
-      pciutils
+  services = {
+    vscode-server.enable = true;
+  };
 
-      firefox
-    ]
-    ++ (with pkgs.kdePackages; [
-      discover
-      kaccounts-integration
-      kaccounts-providers
-      plasma-browser-integration
-      plasma-disks
-      kalk
-      partitionmanager
-      krdc
-      (lib.mkIf config.services.hardware.bolt.enable plasma-thunderbolt)
-    ]);
+  environment.systemPackages = with pkgs; [
+    vscode
+  ];
 
   services.openssh = {
     enable = true;
