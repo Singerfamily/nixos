@@ -25,7 +25,7 @@ with lib;
       busID = mkOption {
         description = "Intel iGPU PCI bus ID";
         type = with types; nullOr str;
-        default = "PCI:0:2:0";
+        default = null;
       };
     };
 
@@ -38,7 +38,7 @@ with lib;
       busID = mkOption {
         description = "NVIDIA dGPU PCI bus ID";
         type = with types; nullOr str;
-        default = "PCI:1:0:0";
+        default = null;
       };
     };
 
@@ -62,7 +62,6 @@ with lib;
           prime = {
             intelBusId = intel.busID;
             nvidiaBusId = nvidia.busID;
-#            sync.enable = true;
 
             offload = {
               enable = true;

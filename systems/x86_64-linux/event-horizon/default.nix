@@ -21,6 +21,16 @@
 
     hardware = {
       bluetooth.enable = true;
+      gpu = {
+        intel = {
+          enable = true;
+          busID = "PCI:0:2:0";
+        };
+        nvidia = {
+          enable = true;
+          busID = "PCI:1:0:0";
+        };
+      };
     };
   };
 
@@ -36,6 +46,14 @@
   };
 
   environment.systemPackages = with pkgs; [
+    nixd
+    binutils
+    htop
+    nixfmt-rfc-style
+    tpm2-tss
+    nvtopPackages.full
+    usbutils
+    ethtool
     vscode
   ];
 
