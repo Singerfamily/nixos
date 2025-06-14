@@ -124,7 +124,7 @@ with lib;
       enable = mkOption {
         description = "Whether to support NVIDIA graphics";
         type = with types; bool;
-        default = true;
+        default = false;
       };
       busID = mkOption {
         description = "NVIDIA dGPU PCI bus ID";
@@ -142,13 +142,17 @@ with lib;
 
   config =
     let
-      nvidiaPackage = config.hardware.nvidia.package;
+      # nvidiaPackage = config.hardware.nvidia.package;
       nvidiaConfig = {
+        boot.blacklistedKernelModules = [ "nouveau" ];
         services.xserver.videoDrivers = [ "nvidia" ];
         hardware.nvidia = {
           package = config.boot.kernelPackages.nvidiaPackages.stable;
           modesetting.enable = true;
-          powerManagement.enable = false;
+          powerManagement = {
+            enable = false;
+            finegrained = false;
+          };
           open = true;
           # open = lib.mkOverride 990 (nvidiaPackage ? open && nvidiaPackage ? firmware);
           prime = {
@@ -171,25 +175,28 @@ with lib;
     in
     mkMerge [
       # (mkIf core.enable {
-        # Exclude `nvtop` from minimal systems.
-        # environment.systemPackages =
-        #   with pkgs;
-        #   (
-        #     if
-        #       !(builtins.elem config.networking.hostName [
-        #       ])
-        #     then
-        #       [ (nvtopPackages.intel.override { nvidia = true; }) ]
-        #     else
-        #       [ ]
-        #   );
+      # Exclude `nvtop` from minimal systems.
+      # environment.systemPackages =
+      #   with pkgs;
+      #   (
+      #     if
+      #       !(builtins.elem config.networking.hostName [
+      #       ])
+      #     then
+      #       [ (nvtopPackages.intel.override { nvidia = true; }) ]
+      #     else
+      #       [ ]
+      #   );
       # })
 
       (mkIf intel.enable {
         nixpkgs.config.packageOverrides = pkgs: {
           vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
         };
-        services.xserver.videoDrivers = [ "intel" ];
+        services.xserver.videoDrivers = [
+          "modesetting"
+          "intel"
+        ];
         hardware = {
           graphics = {
             enable = true;
