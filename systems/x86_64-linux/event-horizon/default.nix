@@ -7,7 +7,7 @@
 {
   snowfall = {
     boot = {
-      type = "uefi"; # Use UEFI bootloader
+      type = "lanzaboote"; # Use UEFI bootloader
       # encrypted = true; # Enable LUKS2 encryption
       # quiet = true; # Enable Plymouth and reduce TTY verbosity
     };
