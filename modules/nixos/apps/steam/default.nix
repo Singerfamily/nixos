@@ -6,6 +6,9 @@
   pkgs,
   ...
 }:
+let 
+  cfg = config.snowfall.apps.steam;
+in
 
 with lib;
 {
@@ -22,7 +25,7 @@ with lib;
     };
   };
 
-  config = mkIf config.snowfall.cli.steam.enable {
+  config = mkIf config.snowfall.apps.steam.enable {
     programs = {
       steam = {
         enable = true;
