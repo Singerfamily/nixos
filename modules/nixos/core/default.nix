@@ -3,6 +3,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 with lib;
@@ -19,7 +20,7 @@ with lib;
     fonts = {
       enableDefaultPackages = true;
       packages = with pkgs; [
-        inputs.unstable.nerd-fonts.monaspace
+        nerd-fonts.monaspace
         # monaspace
         # fira-code
         # (nerd-fonts.override { fonts = [
