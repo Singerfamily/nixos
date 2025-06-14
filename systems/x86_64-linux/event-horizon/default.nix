@@ -151,6 +151,78 @@
             };
           };
         };
+        games = {
+          type = "disk";
+          device = "/dev/sdb";
+          content = {
+            type = "gpt";
+            partitions = {
+              luks = {
+                size = "100%";
+                content = {
+                  type = "luks";
+                  name = "${lib.toUpper hostName}_GAMES_LUKS";
+                  # disable settings.keyFile if you want to use interactive password entry
+                  #passwordFile = "/tmp/secret.key"; # Interactive
+                  settings = {
+                    allowDiscards = true;
+                    # keyFile = "/tmp/secret.key";
+                  };
+                  # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
+                  content = {
+                    type = "btrfs";
+                    extraArgs = [ "-f" ];
+                    subvolumes = {
+                      "/" = {
+                        mountpoint = "/mnt/games";
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
+                      };
+                    };
+                  };
+                };
+              };
+            };
+          };
+        };
+        cold-storage = {
+          type = "disk";
+          device = "/dev/sda";
+          content = {
+            type = "gpt";
+            partitions = {
+              luks = {
+                size = "100%";
+                content = {
+                  type = "luks";
+                  name = "${lib.toUpper hostName}_COLD-STORAGE_LUKS";
+                  # disable settings.keyFile if you want to use interactive password entry
+                  #passwordFile = "/tmp/secret.key"; # Interactive
+                  settings = {
+                    allowDiscards = true;
+                    # keyFile = "/tmp/secret.key";
+                  };
+                  # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
+                  content = {
+                    type = "btrfs";
+                    extraArgs = [ "-f" ];
+                    subvolumes = {
+                      "/" = {
+                        mountpoint = "/mnt/cold-storage";
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
+                      };
+                    };
+                  };
+                };
+              };
+            };
+          };
+        };
       };
     };
 
