@@ -32,9 +32,11 @@
         };
       };
     };
-  };
 
-  # snowfall.hardware.adb.enable = true;
+    apps = {
+      steam.enable = true;
+    };
+  };
 
   programs = {
     kdeconnect.enable = true;
