@@ -18,6 +18,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # VSCode server
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
+
     # Standalone library for the Nix language.
     nix-std.url = "github:chessai/nix-std";
 
@@ -84,6 +87,7 @@
 
       # Global NixOS modules.
       systems.modules.nixos = with inputs; [
+        vscode-server.nixosModules.default
         home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
         impermanence.nixosModules.impermanence
