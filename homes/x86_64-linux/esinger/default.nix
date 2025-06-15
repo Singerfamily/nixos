@@ -1,8 +1,8 @@
 { lib, pkgs, ... }:
 {
-  # imports = [
-  #   ./dotfiles/plasma.nix
-  # ];
+  imports = [
+    ./dotfiles/plasma.nix
+  ];
 
   home.stateVersion = "24.11";
 
