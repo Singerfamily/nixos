@@ -71,7 +71,7 @@
   };
 
   outputs =
-    {...}@inputs:
+    { ... }@inputs:
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
       src = ./.;
@@ -85,10 +85,6 @@
         allowUnfree = true;
         permittedInsecurePackages = [ ];
       };
-
-      home-manager.sharedModules = [ 
-        inputs.plasma-manager.homeManagerModules.plasma-manager
-      ];
 
       # Global NixOS modules.
       systems.modules.nixos = with inputs; [

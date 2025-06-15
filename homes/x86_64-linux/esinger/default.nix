@@ -34,4 +34,8 @@
       };
     };
   };
+
+  # programs.plasma = {
+  #   enable = true;
+  # };
 }
