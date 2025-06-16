@@ -10,6 +10,13 @@
 with lib;
 {
   options.snowfall.dev.js = {
+    webstorm = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Enable JetBrains WebStorm for JavaScript development.";
+      };
+    };
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -19,13 +26,14 @@ with lib;
   config =
     let
       inherit (config.snowfall.dev.js)
+        webstorm
         enable
         ;
     in
     mkIf enable {
       home.packages = with pkgs; [
 
-        jetbrains.webstorm
+        (mkIf webstorm.enable jetbrains.webstorm)
 
         node2nix
         nodejs
