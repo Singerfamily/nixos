@@ -9,19 +9,17 @@
 
 with lib;
 {
-  options.snowfall.dev = {
-    dotnet = {
-      rider = {
-        enable = mkOption {
-          type = types.bool;
-          default = true;
-          description = "Enable JetBrains Rider for .NET development.";
-        };
-      };
+  options.snowfall.dev.dotnet = {
+    rider = {
       enable = mkOption {
         type = types.bool;
-        default = false;
+        default = true;
+        description = "Enable JetBrains Rider for .NET development.";
       };
+    };
+    enable = mkOption {
+      type = types.bool;
+      default = false;
     };
   };
 
