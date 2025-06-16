@@ -3,6 +3,7 @@
 
   inputs = {
     # SECTION: Core inputs.
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -11,6 +12,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
 
     # SECTION: Nix libraries.
     # Nix flake framework.
@@ -88,6 +90,7 @@
 
       # Global NixOS modules.
       systems.modules.nixos = with inputs; [
+        determinate.nixosModules.default
         vscode-server.nixosModules.default
         home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
