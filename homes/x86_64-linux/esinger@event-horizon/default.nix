@@ -1,9 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   snowfall = {
     dev = {
       dotnet.enable = true;
       js.enable = true;
+    };
+    flatpak = {
+      enable = true;
+      packages = [
+        "com.microsoft.Edge"
+        "com.spotify.Client"
+      ];
     };
   };
 
