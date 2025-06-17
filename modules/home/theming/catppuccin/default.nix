@@ -5,6 +5,11 @@
   ...
 }:
 with lib;
+
+let
+  inherit (config.snowfall.theming.catppuccin) enable;
+  cfg = config.snowfall.theming.catppuccin;
+in
 {
   imports = with inputs; [
     catppuccin.homeModules.catppuccin
@@ -16,11 +21,17 @@ with lib;
       type = types.bool;
       default = true;
     };
+
+    global = mkOption {
+      description = "Enable Catppuccin theming globally.";
+      type = types.bool;
+      default = false;
+    };
   };
 
-  config = mkIf config.snowfall.theming.catppuccin.enable {
+  config = mkIf enable {
     catppuccin = {
-      enable = true;
+      enable = cfg.global;
       flavor = "mocha"; # Options: latte, frappe, macchiato, mocha
       # accent = "lavender";
     };
