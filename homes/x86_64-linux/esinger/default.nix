@@ -3,7 +3,7 @@
 in 
 {
   imports = [
-    "${dotfiles}/plasma.nix"
+    ./dotfiles/plasma.nix
   ];
 
   home.stateVersion = "24.11";
