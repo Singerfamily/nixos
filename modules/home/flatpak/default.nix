@@ -1,10 +1,16 @@
 {
+  inputs,
   lib,
   config,
   ...
 }:
 with lib;
 {
+
+  imports = with inputs; [
+    nix-flatpak.homeManagerModules.nix-flatpak
+  ];
+
   options.snowfall.flatpak = {
     enable = mkOption {
       type = with types; bool;
@@ -13,7 +19,7 @@ with lib;
     };
 
     packages = mkOption {
-      type = with types; listOf strings;
+      type = with types; listOf str;
       default = [ ];
       description = "List of Flatpak packages to install";
     };
@@ -28,9 +34,12 @@ with lib;
           location = "https://flathub.org/repo/flathub.flatpakrepo";
         }
       ];
-      update.auto.enable = false;
+      update = {
+        auto.enable = true;
+        onActivation = false;
+      };
       uninstallUnmanaged = true;
-      packages = config.snowfall.flatpak.packages;
+      inherit (config.snowfall.flatpak) packages;
     };
   };
 }

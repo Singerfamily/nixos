@@ -61,7 +61,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak.url = "https://github.com/gmodena/nix-flatpak?ref=latest";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
 
     # SECTION: Hardware.
     # Lanzaboote, UEFI secure boot for NixOS.
