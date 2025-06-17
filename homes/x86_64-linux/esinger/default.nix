@@ -1,7 +1,9 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, ... }: let 
+  dotfiles = builtins.path { path = ./dotfiles; name = "dotfiles"; };
+in 
 {
   imports = [
-    ./dotfiles/plasma.nix
+    "${dotfiles}/plasma.nix"
   ];
 
   home.stateVersion = "24.11";
@@ -12,7 +14,7 @@
     zsh.plugins = [
       {
         name = "powerlevel10k-config";
-        src = lib.cleanSource ./dotfiles;
+        src = lib.cleanSource dotfiles;
         file = "p10k.zsh";
       }
     ];
