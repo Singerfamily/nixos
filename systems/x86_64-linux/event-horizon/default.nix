@@ -52,15 +52,17 @@
       NIXOS_OZONE_WL = "1";
     };
     systemPackages = with pkgs; [
-      nixd
-      binutils
-      htop
-      nixfmt-rfc-style
-      tpm2-tss
-      nvtopPackages.full
-      usbutils
-      ethtool
-      vscode
+      # nixd
+      # binutils
+      # htop
+      # nixfmt-rfc-style
+      # tpm2-tss
+      # nvtopPackages.full
+      # usbutils
+      # ethtool
+      # vscode
+
+      # deno
     ];
   };
 
