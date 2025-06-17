@@ -123,9 +123,21 @@ with lib;
         };
       };
 
-      fonts.packages = with pkgs; [
-        nerd-fonts.jetbrains-mono
-      ];
+      # Font management.
+      fonts = {
+        packages = with pkgs; [
+          nerd-fonts.jetbrains-mono
+        ];
+        fontconfig = {
+          defaultFonts = {
+            serif = [ "JetBrainsMono Nerd Font" ];
+            sansSerif = [
+              "JetBrainsMono Nerd Font"
+            ];
+            monospace = [ "JetBrainsMono Nerd Font Mono" ];
+          };
+        };
+      };
 
       # Additional services
       services.locate.enable = true;
