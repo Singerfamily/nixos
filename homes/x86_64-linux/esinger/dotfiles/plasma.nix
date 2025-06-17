@@ -59,31 +59,11 @@
     };
 
     hotkeys.commands = {
-      # launch-alacritty = {
-      #   name = "Launch Alacritty";
-      #   key = "Meta+Shift+Return";
-      #   command = "alacritty";
-      # };
-      # launch-brave = {
-      #   name = "Launch Brave";
-      #   key = "Meta+Shift+B";
-      #   command = "brave";
-      # };
-      # launch-ocr = {
-      #   name = "Launch OCR";
-      #   key = "Alt+@";
-      #   command = "ocr";
-      # };
-      # launch-telegram = {
-      #   name = "Launch Telegram";
-      #   key = "Meta+Shift+T";
-      #   command = "telegram-desktop";
-      # };
-      # launch-ulauncher = {
-      #   name = "Launch ulauncher";
-      #   key = "Ctrl+Space";
-      #   command = "ulauncher-toggle";
-      # };
+      launch-edge = {
+        name = "Launch Edge";
+        key = "Meta+Shift+E";
+        command = "flatpak run --branch=stable --arch=x86_64 --command=/app/bin/edge --file-forwarding com.microsoft.Edge @@u %U @@";
+      };
     };
 
     input = {
@@ -135,20 +115,20 @@
 
     kwin = {
       effects = {
-        blur.enable = false;
-        cube.enable = false;
-        desktopSwitching.animation = "off";
-        dimAdminMode.enable = false;
-        dimInactive.enable = false;
-        fallApart.enable = false;
-        fps.enable = false;
-        minimization.animation = "off";
-        shakeCursor.enable = false;
-        slideBack.enable = false;
-        snapHelper.enable = false;
-        translucency.enable = false;
-        windowOpenClose.animation = "off";
-        wobblyWindows.enable = false;
+        # blur.enable = false;
+        # cube.enable = false;cC
+        # desktopSwitching.animation = "off";
+        # dimAdminMode.enable = false;
+        # dimInactive.enable = false;
+        # fallApart.enable = false;
+        # fps.enable = false;
+        # minimization.animation = "off";
+        # shakeCursor.enable = false;
+        # slideBack.enable = false;
+        # snapHelper.enable = false;
+        # translucency.enable = false;
+        # windowOpenClose.animation = "off";
+        # wobblyWindows.enable = false;
       };
 
       nightLight = {
@@ -175,11 +155,83 @@
         location = "top";
         opacity = "translucent";
         widgets = [
+          # "org.kde.plasma.kickoff"
+          # {
+          #   name = "org.dhruv8sh.kara";
+          #   config = {
+          #     general = {
+          #       # animationDuration = 0;
+          #       spacing = 3;
+          #       type = 1;
+          #     };
+          #     type1 = {
+          #       fixedLen = 3;
+          #       labelSource = 0;
+          #     };
+          #   };
+          # }
+          "org.kde.plasma.panelspacer"
+          {
+            name = "org.kde.plasma.digitalclock";
+            config = {
+              Appearance = {
+                dateDisplayFormat = "BesideTime";
+                dateFormat = "custom";
+                use24hFormat = 2;
+              };
+            };
+          }
+          "org.kde.plasma.panelspacer"
+          {
+            systemTray = {
+              items = {
+                showAll = false;
+                shown = [
+                  "org.kde.plasma.notifications"
+                  "org.kde.plasma.networkmanagement"
+                  "org.kde.plasma.volume"
+                  "org.kde.kdeconnect"
+                  "org.kde.plasma.bluetooth"
+                ];
+                # hidden = [
+                #   "org.kde.plasma.cameraindicator"
+                #   "org.kde.plasma.brightness"
+                #   "org.kde.plasma.clipboard"
+                #   "org.kde.plasma.devicenotifier"
+                #   "plasmashell_microphone"
+                # ];
+                # configs = {
+                #   "org.kde.plasma.notifications".config = {
+                #     Shortcuts = {
+                #       global = "Meta+V";
+                #     };
+                #   };
+                #   "org.kde.plasma.clipboard".config = {
+                #     Shortcuts = {
+                #       global = "Alt+Shift+V";
+                #     };
+                #   };
+                # };
+              };
+            };
+          }
+        ];
+
+        screen = "0";
+      }
+      {
+        floating = false;
+        height = 34;
+        lengthMode = "fill";
+        location = "top";
+        opacity = "translucent";
+        widgets = [
+          "org.kde.plasma.kickoff"
           {
             name = "org.dhruv8sh.kara";
             config = {
               general = {
-                animationDuration = 0;
+                # animationDuration = 0;
                 spacing = 3;
                 type = 1;
               };
@@ -206,37 +258,19 @@
               items = {
                 showAll = false;
                 shown = [
-                  # "org.kde.plasma.battery"
-                  # "org.kde.plasma.keyboardlayout"
-                  # "org.kde.plasma.networkmanagement"
-                  # "org.kde.plasma.notifications"
-                  # "org.kde.plasma.volume"
-
-                  "org.kde.plasma.cameraindicator"
-                  "org.kde.plasma.clipboard"
-                  "org.kde.plasma.devicenotifier"
-                  "org.kde.plasma.manage-inputmethod"
-                  "org.kde.plasma.mediacontroller"
                   "org.kde.plasma.notifications"
-                  "org.kde.kscreen"
-                  "org.kde.plasma.battery"
-                  "org.kde.plasma.brightness"
-                  "org.kde.plasma.keyboardindicator"
-                  "org.kde.plasma.keyboardlayout"
                   "org.kde.plasma.networkmanagement"
                   "org.kde.plasma.volume"
                   "org.kde.kdeconnect"
                   "org.kde.plasma.bluetooth"
-
-                  "org.kde.plasma.weather"
-
                 ];
-                hidden = [
-                  # "org.kde.plasma.brightness"
-                  # "org.kde.plasma.clipboard"
-                  # "org.kde.plasma.devicenotifier"
-                  # "plasmashell_microphone"
-                ];
+                # hidden = [
+                #   "org.kde.plasma.cameraindicator"
+                #   "org.kde.plasma.brightness"
+                #   "org.kde.plasma.clipboard"
+                #   "org.kde.plasma.devicenotifier"
+                #   "plasmashell_microphone"
+                # ];
                 # configs = {
                 #   "org.kde.plasma.notifications".config = {
                 #     Shortcuts = {
@@ -253,6 +287,79 @@
             };
           }
         ];
+
+        screen = "1";
+      }
+      {
+        floating = false;
+        height = 34;
+        lengthMode = "fill";
+        location = "top";
+        opacity = "translucent";
+        widgets = [
+          # "org.kde.plasma.kickoff"
+          # {
+          #   name = "org.dhruv8sh.kara";
+          #   config = {
+          #     general = {
+          #       # animationDuration = 0;
+          #       spacing = 3;
+          #       type = 1;
+          #     };
+          #     type1 = {
+          #       fixedLen = 3;
+          #       labelSource = 0;
+          #     };
+          #   };
+          # }
+          "org.kde.plasma.panelspacer"
+          {
+            name = "org.kde.plasma.digitalclock";
+            config = {
+              Appearance = {
+                dateDisplayFormat = "BesideTime";
+                dateFormat = "custom";
+                use24hFormat = 2;
+              };
+            };
+          }
+          "org.kde.plasma.panelspacer"
+          {
+            systemTray = {
+              items = {
+                showAll = false;
+                shown = [
+                  "org.kde.plasma.notifications"
+                  "org.kde.plasma.networkmanagement"
+                  "org.kde.plasma.volume"
+                  "org.kde.kdeconnect"
+                  "org.kde.plasma.bluetooth"
+                ];
+                # hidden = [
+                #   "org.kde.plasma.cameraindicator"
+                #   "org.kde.plasma.brightness"
+                #   "org.kde.plasma.clipboard"
+                #   "org.kde.plasma.devicenotifier"
+                #   "plasmashell_microphone"
+                # ];
+                # configs = {
+                #   "org.kde.plasma.notifications".config = {
+                #     Shortcuts = {
+                #       global = "Meta+V";
+                #     };
+                #   };
+                #   "org.kde.plasma.clipboard".config = {
+                #     Shortcuts = {
+                #       global = "Alt+Shift+V";
+                #     };
+                #   };
+                # };
+              };
+            };
+          }
+        ];
+
+        screen = "2";
       }
     ];
 
@@ -261,7 +368,7 @@
         autoSuspend.action = "nothing";
         dimDisplay.enable = false;
         powerButtonAction = "shutDown";
-        turnOffDisplay.idleTimeout = "never";
+        turnOffDisplay.idleTimeout = 30;
       };
       # battery = {
       #   autoSuspend.action = "nothing";
@@ -283,7 +390,7 @@
           "Meta+L"
         ];
         "LogOut" = [
-          "Meta+Q"
+          "Meta+Shift+Q"
         ];
       };
 
@@ -310,9 +417,9 @@
         "Window to Desktop 6" = "Meta+^";
       };
 
-      plasmashell = {
-        "show-on-mouse-pos" = "";
-      };
+      # plasmashell = {
+      #   "show-on-mouse-pos" = "";
+      # };
 
       "services/org.kde.dolphin.desktop"."_launch" = "Meta+E";
     };
@@ -448,6 +555,7 @@
       enableMiddleClickPaste = false;
       clickItemTo = "select";
       # colorScheme = "CatppuccinMacchiatoLavender";
+      colorScheme = "BreezeDark";
       # cursor.theme = "Yaru";
       splashScreen.engine = "none";
       splashScreen.theme = "none";
@@ -464,9 +572,9 @@
         # Icons = {
         #   Theme = "Tela-circle-dark";
         # };
-        KDE = {
-          AnimationDurationFactor = 0;
-        };
+        # KDE = {
+        #   AnimationDurationFactor = 0;
+        # };
       };
       klipperrc.General.MaxClipItems = 1000;
       kiorc.Confirmations.ConfirmDelete = false;
