@@ -91,6 +91,11 @@
         permittedInsecurePackages = [ ];
       };
 
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+      };
+
       # Global NixOS modules.
       systems.modules.nixos = with inputs; [
         determinate.nixosModules.default
