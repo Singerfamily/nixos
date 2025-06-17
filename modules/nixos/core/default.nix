@@ -74,11 +74,11 @@ with lib;
           libraries = [ ];
         };
 
-        nh = {
-          enable = true;
-          clean.enable = false;
-          flake = lib.snowfall.self;
-        };
+        # nh = {
+        #   enable = true;
+        #   clean.enable = false;
+        #   flake = lib.snowfall.self;
+        # };
       };
 
       # Populate /usr/bin/ with symlinks to executables in system's $PATH.
@@ -126,61 +126,5 @@ with lib;
       security.sudo.extraConfig = ''
         Defaults env_keep += "EDITOR"
       '';
-
-      # system.activationScripts.linkHelixConfig = ''
-      #   mkdir -pv /root/.config
-      #   ln -sf /home/${lib.snowfall.user}/.config/helix /root/.config/helix
-      # '';
     };
 }
-
-# # INFO: Core NixOS module for the default configuration.
-# {
-#   config,
-#   lib,
-#   pkgs,
-#   inputs,
-#   ...
-# }:
-# with lib;
-# {
-#   options.snowfall.core = {
-#     enable = mkOption {
-#       type = with types; bool;
-#       description = "Whether to enable cryptography support";
-#       default = true;
-#     };
-#   };
-
-#   config = {
-#     fonts = {
-#       enableDefaultPackages = true;
-#       packages = with pkgs; [
-#         nerd-fonts.monaspace
-#         # monaspace
-#         # fira-code
-#         # (nerd-fonts.override { fonts = [
-#         #   "Monaspace"
-#         #   "FiraCode"
-#         #   # "JetBrainsMono"
-#         #   # "DroidSansMono"
-#         #   ];
-#         # })
-#         corefonts
-#       ];
-
-#       fontconfig = {
-#         defaultFonts = {
-#           serif = [ "Monaspace" ];
-#           sansSerif = [ "Monaspace" ];
-#           monospace = [ "Monaspace" ];
-#         };
-#       };
-#     };
-
-#     i18n = {
-#       defaultLocale = lib.mkDefault "en_CA.UTF-8";
-#     };
-#     time.timeZone = lib.mkDefault "America/Edmonton";
-#   };
-# }
