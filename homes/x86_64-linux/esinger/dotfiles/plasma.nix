@@ -117,7 +117,7 @@
       effects = {
         # blur.enable = false;
         # cube.enable = false;cC
-        # desktopSwitching.animation = "off";
+        desktopSwitching.animation = "fade";
         # dimAdminMode.enable = false;
         # dimInactive.enable = false;
         # fallApart.enable = false;
@@ -155,77 +155,6 @@
         location = "top";
         opacity = "translucent";
         widgets = [
-          # "org.kde.plasma.kickoff"
-          # {
-          #   name = "org.dhruv8sh.kara";
-          #   config = {
-          #     general = {
-          #       # animationDuration = 0;
-          #       spacing = 3;
-          #       type = 1;
-          #     };
-          #     type1 = {
-          #       fixedLen = 3;
-          #       labelSource = 0;
-          #     };
-          #   };
-          # }
-          "org.kde.plasma.panelspacer"
-          {
-            name = "org.kde.plasma.digitalclock";
-            config = {
-              Appearance = {
-                dateDisplayFormat = "BesideTime";
-                dateFormat = "custom";
-                use24hFormat = 2;
-              };
-            };
-          }
-          "org.kde.plasma.panelspacer"
-          {
-            systemTray = {
-              items = {
-                showAll = false;
-                shown = [
-                  "org.kde.plasma.notifications"
-                  "org.kde.plasma.networkmanagement"
-                  "org.kde.plasma.volume"
-                  "org.kde.kdeconnect"
-                  "org.kde.plasma.bluetooth"
-                ];
-                # hidden = [
-                #   "org.kde.plasma.cameraindicator"
-                #   "org.kde.plasma.brightness"
-                #   "org.kde.plasma.clipboard"
-                #   "org.kde.plasma.devicenotifier"
-                #   "plasmashell_microphone"
-                # ];
-                # configs = {
-                #   "org.kde.plasma.notifications".config = {
-                #     Shortcuts = {
-                #       global = "Meta+V";
-                #     };
-                #   };
-                #   "org.kde.plasma.clipboard".config = {
-                #     Shortcuts = {
-                #       global = "Alt+Shift+V";
-                #     };
-                #   };
-                # };
-              };
-            };
-          }
-        ];
-
-        screen = "0";
-      }
-      {
-        floating = false;
-        height = 34;
-        lengthMode = "fill";
-        location = "top";
-        opacity = "translucent";
-        widgets = [
           "org.kde.plasma.kickoff"
           {
             name = "org.dhruv8sh.kara";
@@ -241,74 +170,17 @@
               };
             };
           }
-          "org.kde.plasma.panelspacer"
-          {
-            name = "org.kde.plasma.digitalclock";
-            config = {
-              Appearance = {
-                dateDisplayFormat = "BesideTime";
-                dateFormat = "custom";
-                use24hFormat = 2;
-              };
-            };
-          }
-          "org.kde.plasma.panelspacer"
-          {
-            systemTray = {
-              items = {
-                showAll = false;
-                shown = [
-                  "org.kde.plasma.notifications"
-                  "org.kde.plasma.networkmanagement"
-                  "org.kde.plasma.volume"
-                  "org.kde.kdeconnect"
-                  "org.kde.plasma.bluetooth"
-                ];
-                # hidden = [
-                #   "org.kde.plasma.cameraindicator"
-                #   "org.kde.plasma.brightness"
-                #   "org.kde.plasma.clipboard"
-                #   "org.kde.plasma.devicenotifier"
-                #   "plasmashell_microphone"
-                # ];
-                # configs = {
-                #   "org.kde.plasma.notifications".config = {
-                #     Shortcuts = {
-                #       global = "Meta+V";
-                #     };
-                #   };
-                #   "org.kde.plasma.clipboard".config = {
-                #     Shortcuts = {
-                #       global = "Alt+Shift+V";
-                #     };
-                #   };
-                # };
-              };
-            };
-          }
-        ];
-
-        screen = "1";
-      }
-      {
-        floating = false;
-        height = 34;
-        lengthMode = "fill";
-        location = "top";
-        opacity = "translucent";
-        widgets = [
-          # "org.kde.plasma.kickoff"
+          # "org.kde.plasma.taskmanager"
           # {
-          #   name = "org.dhruv8sh.kara";
           #   config = {
-          #     general = {
-          #       # animationDuration = 0;
-          #       spacing = 3;
-          #       type = 1;
+          #     Appearance = {
+          #       showTooltips = false;
           #     };
-          #     type1 = {
-          #       fixedLen = 3;
-          #       labelSource = 0;
+          #     General = {
+          #       showOnlyCurrentDesktop = true;
+          #     };
+          #     Shortcuts = {
+          #       global = "Meta+Tab";
           #     };
           #   };
           # }
@@ -332,8 +204,14 @@
                   "org.kde.plasma.notifications"
                   "org.kde.plasma.networkmanagement"
                   "org.kde.plasma.volume"
-                  "org.kde.kdeconnect"
+                  # "org.kde.kdeconnect"
                   "org.kde.plasma.bluetooth"
+                  # {
+                  #   name = "org.kde.plasma.weather";
+                  #   config = {
+                  #     WeatherStation.source = "Calgary, AB (Environment Canada)";
+                  #   };
+                  # }
                 ];
                 # hidden = [
                 #   "org.kde.plasma.cameraindicator"
@@ -359,7 +237,7 @@
           }
         ];
 
-        screen = "2";
+        screen = "all";
       }
     ];
 
@@ -368,7 +246,7 @@
         autoSuspend.action = "nothing";
         dimDisplay.enable = false;
         powerButtonAction = "shutDown";
-        turnOffDisplay.idleTimeout = 30;
+        turnOffDisplay.idleTimeout = 300;
       };
       # battery = {
       #   autoSuspend.action = "nothing";
