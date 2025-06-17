@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 with lib;
 {
   options.snowfall.cli.k9s = {
