@@ -76,7 +76,10 @@
     { ... }@inputs:
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
-      src = ./.;
+      src = builtins.path {
+        path = ./.;
+        name = "flake-src";
+      };
 
       # Snowfall Lib configuration.
       snowfall = {
