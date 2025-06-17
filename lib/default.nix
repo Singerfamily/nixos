@@ -2,16 +2,21 @@
 {
 
   mapUsersToGroup = (
-    { 
+    {
       users ? throw "users must be specified",
-      group ? throw "group must be specified"
-    }: 
+      group ? throw "group must be specified",
+    }:
     lib.mkMerge (
       map (username: {
         ${username}.extraGroups = lib.mkAfter [ group ];
       }) users
     )
   );
+
+  self = builtins.path {
+    path = ../.;
+    name = "source";
+  };
 
   # Common Nix settings.
   #
