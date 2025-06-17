@@ -11,6 +11,9 @@ let
   inherit (config.snowfall.theme)
     ui
     ;
+
+  batOrCat =
+    if config.programs.bat.enable then "${pkgs.bat}/bin/bat" else "${pkgs.coreutils}/bin/cat";
 in
 
 with lib;
@@ -45,11 +48,12 @@ with lib;
           "--bind=btab:up"
           "--bind=alt-j:down"
           "--bind=alt-k:up"
+          "--preview '${batOrCat} --color=always --style=numbers --line-range=:500 {}'"
         ];
 
         fileWidgetCommand = "${pkgs.fd}/bin/fd --type file --hidden";
         fileWidgetOptions = [
-          "--preview '${pkgs.bat}/bin/bat -nf {}'"
+          "--preview '${batOrCat} --color=always --style=numbers --line-range=:500 {}'"
         ];
 
         changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type directory --hidden";
