@@ -41,9 +41,13 @@ with lib;
       # inherit (config.networking) hostName;
     in
     mkMerge [
-      # Use GRUB by default.
       {
         boot.loader.systemd-boot.enable = true;
+
+        systemd.services = {
+          NetworkManager-wait-online.enable = false;
+          plymouth-quit-wait.enable = false;
+        };
       }
 
       # BIOS:
