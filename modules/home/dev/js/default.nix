@@ -37,7 +37,7 @@ with lib;
 
         node2nix
         nodejs
-        deno
+        # deno
 
         nodePackages.pnpm
       ];
