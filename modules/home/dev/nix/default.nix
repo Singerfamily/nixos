@@ -24,6 +24,8 @@ with lib;
     in
     mkIf enable {
       home.packages = with pkgs; [
+        nixd # Nix language server for IDEs.
+        nixfmt-rfc-style # Nix formatter that follows RFC style.
         statix # Lints and suggestions for the nix programming language.
         deadnix # Find and remove unused code in .nix source files.
       ];
