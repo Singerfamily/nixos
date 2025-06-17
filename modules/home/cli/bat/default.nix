@@ -20,8 +20,8 @@ with lib;
     programs.bat = {
       enable = true;
       config = {
-        theme = "base16";
-        style = "plain,grid,numbers,changes,snip";
+        theme = mkDefault "base16";
+        style = mkDefault "plain,grid,numbers,changes,snip";
       };
     };
 

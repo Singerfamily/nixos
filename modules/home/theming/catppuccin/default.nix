@@ -6,30 +6,23 @@
 }:
 with lib;
 {
+  imports = with inputs; [
+    catppuccin.homeModules.catppuccin
+  ];
+
   options.snowfall.theming.catppuccin = {
-    enable = mkEnableOption "Catppuccin theming";
+    enable = mkOption {
+      description = "Enable Catppuccin theming for various applications.";
+      type = types.bool;
+      default = true;
+    };
   };
 
   config = mkIf config.snowfall.theming.catppuccin.enable {
-    imports = with inputs; [
-      catppuccin.homeModules.catppuccin
-    ];
-
-    # Enable catppuccin theming for various applications
-    programs.catppuccin = {
-      enable = true;
-      style = "mocha"; # Options: latte, frappe, macchiato, mocha
-    };
-
     catppuccin = {
-      flavor = "mocha";
+      enable = true;
+      flavor = "mocha"; # Options: latte, frappe, macchiato, mocha
       # accent = "lavender";
     };
-
-    # # Enable catppuccin theming for k9s
-    # catppuccin.k9s.enable = true;
-
-    # # Enable catppuccin theming for starship
-    # catppuccin.starship.enable = true;
   };
 }

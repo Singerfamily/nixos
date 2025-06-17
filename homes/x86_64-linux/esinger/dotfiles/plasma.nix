@@ -12,7 +12,7 @@
 
   home.packages = with pkgs; [
     (catppuccin-kde.override {
-      flavour = [ "Mocha" ];
+      flavour = [ "mocha" ];
       accents = [ "lavender" ];
     })
     kara
@@ -128,9 +128,9 @@
     krunner.activateWhenTypingOnDesktop = false;
 
     kscreenlocker = {
-      appearance.wallpaper = "${config.wallpaper}";
-      autoLock = false;
-      timeout = 0;
+      # appearance.wallpaper = "${config.wallpaper}";
+      autoLock = true;
+      timeout = 300; # 5 minutes
     };
 
     kwin = {
