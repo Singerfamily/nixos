@@ -25,13 +25,14 @@ with lib;
   };
 
   config = {
-    users.users = lib.mkMerge (
+    users.users = mkMerge (
       users
       |> map (
         username:
         let
           user = config.home-manager.users.${username};
-          inherit (user) shell fullName;
+          shell = user.snowfall.cli.shell;
+          fullName = user.snowfall.user.fullName;
         in
         {
           ${username} = mkMerge [
@@ -50,11 +51,8 @@ with lib;
                 "builders"
               ];
 
-            }
-
-            (mkIf (fullName != "") {
               description = fullName;
-            })
+            }
 
             (mkIf (shell.default == "bash") {
               shell = pkgs.bash;
