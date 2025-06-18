@@ -42,9 +42,6 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    # Global catppuccin theme
-    catppuccin.url = "github:catppuccin/nix";
-
     # Collection of image builders.
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -110,7 +107,6 @@
         lanzaboote.nixosModules.lanzaboote
         disko.nixosModules.disko
         nix-flatpak.nixosModules.nix-flatpak
-        catppuccin.nixosModules.catppuccin
         # nix-topology.nixosModules.default
       ];
 

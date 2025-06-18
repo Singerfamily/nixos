@@ -11,15 +11,10 @@
   ];
 
   home.packages = with pkgs; [
-    (catppuccin-kde.override {
-      flavour = [ "mocha" ];
-      accents = [ "lavender" ];
-    })
     kara
     kde-rounded-corners
     kdePackages.krohnkite
     kdotool
-    # tela-circle-icon-theme
   ];
 
   # Set gpg agent specific to KDE/Kwallet
@@ -418,7 +413,6 @@
     workspace = {
       enableMiddleClickPaste = false;
       clickItemTo = "select";
-      # colorScheme = "CatppuccinMacchiatoLavender";
       colorScheme = "BreezeDark";
       # cursor.theme = "Yaru";
       splashScreen.engine = "none";
