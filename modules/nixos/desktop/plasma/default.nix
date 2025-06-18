@@ -57,8 +57,6 @@ with lib;
           krdc
           krfb
           krdp
-          korganizer
-          (lib.mkIf config.services.hardware.bolt.enable plasma-thunderbolt)
         ]);
     };
 }
