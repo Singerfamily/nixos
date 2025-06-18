@@ -33,7 +33,8 @@ with lib;
     mkIf enable {
       home.packages = with pkgs; [
         (mkIf rider.enable jetbrains.rider)
-        dotnetCorePackages.dotnet_9.sdk
+        dotnet-sdk_9
+        # dotnetCorePackages.dotnet_9.sdk
       ];
     };
 }
