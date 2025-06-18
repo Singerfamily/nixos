@@ -7,13 +7,18 @@
 let
   users = builtins.attrNames (config.home-manager.users or { });
 in
+with lib;
+
 {
-
   options.snowfall.cli = {
-    enable = lib.mkEnableOption "CLI support for Snowfall users";
+    enable = {
+      type = types.bool;
+      default = true;
+      description = "CLI support for Snowfall users";
+    };
 
-    users = lib.mkOption {
-      type = with lib.types; listOf str;
+    users = mkOption {
+      type = with types; listOf str;
       default = [ ];
       description = "List of users to enable CLI support for Snowfall.";
     };
@@ -26,10 +31,10 @@ in
         username:
         let
           user = config.home-manager.users.${username};
-          shell = user.snowfall.cli.shell;
+          inherit (user) shell fullName;
         in
         {
-          ${username} = lib.mkMerge [
+          ${username} = mkMerge [
             {
               # hashedPasswordFile = config.sops.secrets."passwords/${username}".path;
               openssh.authorizedKeys.keys = [
@@ -44,22 +49,28 @@ in
                 "networkmanager"
                 "builders"
               ];
+
             }
-            (lib.mkIf (shell.default == "bash") {
+
+            (mkIf (fullName != "") {
+              description = fullName;
+            })
+
+            (mkIf (shell.default == "bash") {
               shell = pkgs.bash;
             })
 
-            (lib.mkIf (shell.default == "zsh") {
+            (mkIf (shell.default == "zsh") {
               shell = pkgs.zsh;
               # programs.zsh.enable = true;
             })
 
-            (lib.mkIf (shell.default == "fish") {
+            (mkIf (shell.default == "fish") {
               shell = pkgs.fish;
               # programs.fish.enable = true;
             })
 
-            (lib.mkIf (shell.default == "nushell") {
+            (mkIf (shell.default == "nushell") {
               shell = pkgs.nushell;
             })
           ];
@@ -71,7 +82,7 @@ in
     programs = {
       zsh.enable =
         users
-        |> lib.any (
+        |> any (
           username:
           let
             shell = config.home-manager.users.${username}.snowfall.cli.shell;
@@ -81,14 +92,14 @@ in
 
       fish.enable =
         users
-        |> lib.any (
+        |> any (
           username:
           let
             shell = config.home-manager.users.${username}.snowfall.cli.shell;
           in
           shell.default == "fish"
         );
-      # nushell.enable = lib.any (
+      # nushell.enable = any (
       #   username:
       #   let
       #     shell = config.home-manager.users.${username}.snowfall.cli.shell;
@@ -97,7 +108,7 @@ in
       # ) users;
     };
 
-    sops.secrets = lib.mkMerge (
+    sops.secrets = mkMerge (
       map (username: {
         "passwords/${username}" = {
           neededForUsers = true;

@@ -44,7 +44,7 @@ in
 
     user = {
       fullName = "Eric Singer";
-      email = "eric@singerfamily.ca";
+      # email = "eric@singerfamily.ca";
     };
   };
 }
