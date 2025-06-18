@@ -170,20 +170,6 @@
               };
             };
           }
-          # "org.kde.plasma.taskmanager"
-          # {
-          #   config = {
-          #     Appearance = {
-          #       showTooltips = false;
-          #     };
-          #     General = {
-          #       showOnlyCurrentDesktop = true;
-          #     };
-          #     Shortcuts = {
-          #       global = "Meta+Tab";
-          #     };
-          #   };
-          # }
           "org.kde.plasma.panelspacer"
           {
             name = "org.kde.plasma.digitalclock";
