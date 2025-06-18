@@ -25,7 +25,8 @@ in
       |> map (
         username:
         let
-          shell = config.home-manager.users.${username}.snowfall.cli.shell;
+          user = config.home-manager.users.${username};
+          shell = user.snowfall.cli.shell;
         in
         {
           ${username} = lib.mkMerge [

@@ -267,7 +267,7 @@
         "Switch to Desktop 6" = "Meta+6";
         "Switch to Desktop 7" = "Meta+7";
         "Window Move Center" = "Ctrl+Alt+C";
-        "Window Close" = "Meta+Q";
+        "Window Close" = "Alt+F4";
         "Window to Desktop 1" = "Meta+!";
         "Window to Desktop 2" = "Meta+@";
         "Window to Desktop 3" = "Meta+#";

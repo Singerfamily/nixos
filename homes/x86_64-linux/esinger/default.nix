@@ -41,5 +41,10 @@ in
         enable = true;
       };
     };
+
+    user = {
+      fullName = "Eric Singer";
+      email = "eric@singerfamily.ca";
+    };
   };
 }
