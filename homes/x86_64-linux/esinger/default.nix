@@ -28,6 +28,8 @@ in
     vscode = {
       enable = true;
     };
+
+    lazydocker.enable = true;
   };
 
   snowfall = {
