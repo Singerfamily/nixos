@@ -30,6 +30,10 @@ in
     };
 
     lazydocker.enable = true;
+
+    onedrive = {
+      enable = true;
+    };
   };
 
   snowfall = {
