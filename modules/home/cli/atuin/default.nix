@@ -40,7 +40,7 @@ with lib;
       programs = {
         atuin = {
           enable = true;
-          # flags = [ "--disable-up-arrow" ];
+          flags = [ "--disable-up-arrow" ];
 
           # INFO: https://docs.atuin.sh/configuration/config
           settings = {
