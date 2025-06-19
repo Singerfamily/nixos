@@ -36,6 +36,8 @@
     apps = {
       steam.enable = true;
     };
+    
+    qemu.enable = true;
   };
 
   programs = {
