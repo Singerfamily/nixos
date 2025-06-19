@@ -142,19 +142,22 @@ with lib;
 
   config =
     let
-      # nvidiaPackage = config.hardware.nvidia.package;
+      nvidiaPackage = config.hardware.nvidia.package;
       nvidiaConfig = {
-        # boot.blacklistedKernelModules = [ "nouveau" ];
+        boot.blacklistedKernelModules = [ "nouveau" ];
         services.xserver.videoDrivers = [ "nvidia" ];
         hardware.nvidia = {
-          package = config.boot.kernelPackages.nvidiaPackages.stable;
+          package = config.boot.kernelPackages.nvidiaPackages.latest;
           modesetting.enable = true;
           powerManagement = {
             enable = false;
             finegrained = false;
           };
-          open = true;
-          # open = lib.mkOverride 990 (nvidiaPackage ? open && nvidiaPackage ? firmware);
+          # enable the open source drivers if the package supports it
+          open = lib.mkOverride 990 (nvidiaPackage ? open && nvidiaPackage ? firmware);
+
+          gsp.enable = true;
+
           prime = {
             intelBusId = intel.busID;
             nvidiaBusId = nvidia.busID;
@@ -175,6 +178,27 @@ with lib;
     in
     mkMerge [
       (mkIf core.enable {
+
+        environment.variables = {
+          MESA_VK_DEVICE_SELECT_FORCE_DEFAULT_DEVICE = "1";
+          MESA_LOADER_DRIVER_OVERRIDE = "nvidia";
+
+          LIBVA_DRIVER_NAME = "nvidia";
+          ELECTRON_OZONE_PLATFORM_HINT = "auto";
+          GBM_BACKEND = "nvidia-drm";
+          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          NVD_BACKEND = "direct";
+
+          __NV_PRIME_RENDER_OFFLOAD = 1;
+          _NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+          __VK_LAYER_NV_optimus = "NVIDIA_only";
+
+        };
+
+        environment.sessionVariables = {
+          VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
+        };
+
         # Exclude `nvtop` from minimal systems.
         environment.systemPackages =
           with pkgs;
