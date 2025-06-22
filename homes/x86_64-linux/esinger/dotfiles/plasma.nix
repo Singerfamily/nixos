@@ -105,7 +105,7 @@
     kscreenlocker = {
       # appearance.wallpaper = "${config.wallpaper}";
       autoLock = true;
-      timeout = 300; # 5 minutes
+      timeout = 1; # In minutes
     };
 
     kwin = {
@@ -229,12 +229,12 @@
         powerButtonAction = "shutDown";
         turnOffDisplay.idleTimeout = 300;
       };
-      # battery = {
-      #   autoSuspend.action = "nothing";
-      #   dimDisplay.enable = false;
-      #   powerButtonAction = "shutDown";
-      #   turnOffDisplay.idleTimeout = "never";
-      # };
+      battery = {
+        autoSuspend.action = "nothing";
+        dimDisplay.enable = true;
+        powerButtonAction = "shutDown";
+        turnOffDisplay.idleTimeout = 360;
+      };
     };
 
     session = {
@@ -467,10 +467,10 @@
           screenGapRight = 3;
           screenGapTop = 3;
         };
-        # Windows = {
-        #   DelayFocusInterval = 0;
-        #   # FocusPolicy = "FocusFollowsMouse";
-        # };
+        Windows = {
+          DelayFocusInterval = 0;
+          FocusPolicy = "FocusFollowsMouse";
+        };
       };
       spectaclerc = {
         Annotations.annotationToolType = 8;
