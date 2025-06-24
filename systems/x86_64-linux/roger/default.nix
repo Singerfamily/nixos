@@ -7,14 +7,11 @@
 {
   snowfall = {
     boot = {
-      type = "uefi"; # Use UEFI bootloader
-      # encrypted = true; # Enable LUKS2 encryption
-      # quiet = true; # Enable Plymouth and reduce TTY verbosity
+      type = "uefi";
     };
 
     docker = {
       enable = true;
-      # implementation = "both";
     };
 
     flatpak.enable = true;
