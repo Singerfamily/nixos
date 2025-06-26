@@ -68,22 +68,22 @@
     ];
   };
 
-  services.openssh = {
-    enable = true;
-    openFirewall = true;
-    # settings = {
-    #   PermitRootLogin = "no";
-    #   PasswordAuthentication = "no";
-    #   PubkeyAuthentication = "yes";
-    #   ChallengeResponseAuthentication = "no";
-    #   UsePAM = "yes";
-    #   X11Forwarding = "yes";
-    #   AllowAgentForwarding = "yes";
-    #   AllowTcpForwarding = "yes";
-    #   PrintMotd = "no";
-    #   PrintLastLog = "yes";
-    # };
-  };
+  # services.openssh = {
+  #   enable = true;
+  #   openFirewall = true;
+  #   # settings = {
+  #   #   PermitRootLogin = "no";
+  #   #   PasswordAuthentication = "no";
+  #   #   PubkeyAuthentication = "yes";
+  #   #   ChallengeResponseAuthentication = "no";
+  #   #   UsePAM = "yes";
+  #   #   X11Forwarding = "yes";
+  #   #   AllowAgentForwarding = "yes";
+  #   #   AllowTcpForwarding = "yes";
+  #   #   PrintMotd = "no";
+  #   #   PrintLastLog = "yes";
+  #   # };
+  # };
 
   disko.devices =
     let
