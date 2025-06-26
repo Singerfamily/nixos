@@ -31,6 +31,11 @@
     };
 
     qemu.enable = true;
+
+    net.ssh = {
+      enable = true;
+      server = true; # Allow SSH'ing into this machine
+    };
   };
 
   programs = {
@@ -48,22 +53,6 @@
         # udev rule for ST-LINK/V2 
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", MODE:="0666", SYMLINK+="stlinkv2_%n"
       '';
-    };
-    openssh = {
-      enable = true;
-      openFirewall = true;
-      # settings = {
-      #   PermitRootLogin = "no";
-      #   PasswordAuthentication = "no";
-      #   PubkeyAuthentication = "yes";
-      #   ChallengeResponseAuthentication = "no";
-      #   UsePAM = "yes";
-      #   X11Forwarding = "yes";
-      #   AllowAgentForwarding = "yes";
-      #   AllowTcpForwarding = "yes";
-      #   PrintMotd = "no";
-      #   PrintLastLog = "yes";
-      # };
     };
     nginx = {
       enable = true;

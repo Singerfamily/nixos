@@ -33,14 +33,14 @@ with lib;
     mkMerge [
       {
 
-        services.openssh.hostKeys = let 
-          inherit (config.networking) hostName;
-        in [
-          { 
-            path = config.sops.secrets."ssh/${hostName}".path;
-            type = "ed25519";
-          }
-        ];
+        # services.openssh.hostKeys = let 
+        #   inherit (config.networking) hostName;
+        # in [
+        #   { 
+        #     path = config.sops.secrets."ssh/${hostName}".path;
+        #     type = "ed25519";
+        #   }
+        # ];
 
         #   assertions = [
         #     {
