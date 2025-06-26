@@ -39,4 +39,11 @@
     name = "nix/path/${name}";
     value.source = value.flake;
   }) config.nix.registry;
+
+  system.autoUpgrade = {
+    enable = true;
+    dates = "04:00";
+    flake = "github:singerfamily/nixos";
+    allowReboot = true;
+  };
 }
