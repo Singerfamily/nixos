@@ -12,10 +12,12 @@ with lib;
     sops = {
       defaultSopsFile = mkDefault ../../../lib/secrets.yaml;
       age = {
-        # keyFile = "${config.home-manager.users."esinger".xdg.configHome}/sops/age/keys.txt";
         sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-        generateKey = true;
+        # keyFile = "/sops/age/keys.txt";
+        # generateKey = true;
       };
     };
+
+    # fileSystems."/etc/ssh".neededForBoot = true; # Impermanence
   };
 }
