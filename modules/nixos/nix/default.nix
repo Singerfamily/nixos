@@ -42,7 +42,7 @@
 
   system.autoUpgrade = {
     enable = true;
-    dates = "04:00";
+    dates = "0 4 * * 0"; # runs weekly on Sunday at 04:00
     flake = "github:singerfamily/nixos";
     allowReboot = true;
   };
