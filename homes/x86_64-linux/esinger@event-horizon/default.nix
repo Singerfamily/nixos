@@ -36,6 +36,15 @@ in
     onedrive = {
       enable = true;
     };
+
+    nh = {
+      enable = true;
+      flake = "/home/esinger/projects/nixos";
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 4d --keep 3";
+      };
+    };
   };
 
   snowfall = {
