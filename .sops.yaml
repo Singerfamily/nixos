@@ -1,13 +1,11 @@
 keys:
-  - &user age1sc69qpjhpt3s30p2wgssuvse9j6dhzl2e3p2xshq0yr4gqf3ys3qasx5yr
-  - &event-horizon age1hd39vex6s2sd742ahrqal0f9m0dvd6w0adura2aaeukqvjflmv8s92m2lx
+  - &esinger age1sc69qpjhpt3s30p2wgssuvse9j6dhzl2e3p2xshq0yr4gqf3ys3qasx5yr
   - &roger age1yg349q7wx42anzvhqncu3c0xuwvssv77rpx64a0zuqvn48zzdpwssjgnuu
-  - &event-horizon2 age15vcpw49v9djmtdz2ssq26rv5mg6el83znzzrvdqfh8ujdvv9rfas5g6lrf
+  - &event-horizon age15vcpw49v9djmtdz2ssq26rv5mg6el83znzzrvdqfh8ujdvv9rfas5g6lrf
 creation_rules:
   - path_regex: lib/secrets.yaml$
     key_groups:
     - age:
-      - *user
+      - *esinger
       - *event-horizon
       - *roger
-      - *event-horizon2
