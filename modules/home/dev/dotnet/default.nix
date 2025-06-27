@@ -34,6 +34,7 @@ with lib;
       home.packages = with pkgs; [
         (mkIf rider.enable jetbrains.rider)
         dotnet-sdk_9
+        dotnet-ef
         # dotnetCorePackages.dotnet_9.sdk
       ];
     };
