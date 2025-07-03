@@ -1,8 +1,10 @@
 # INFO: NixOS sops-nix module.
 
 {
-  config,
+  # config,
   lib,
+  # system,
+  # hostName,
   ...
 }:
 
