@@ -45,6 +45,7 @@ in
         extraArgs = "--keep-since 4d --keep 3";
       };
     };
+
   };
 
   snowfall = {
@@ -53,6 +54,9 @@ in
     };
     cli = {
       atuin = {
+        enable = true;
+      };
+      eza = {
         enable = true;
       };
     };
