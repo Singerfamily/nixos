@@ -1,4 +1,5 @@
-{lib, ...}: with lib;
+{ config, lib, ... }:
+with lib;
 {
   options.snowfall.cli.eza = {
     enable = mkOption {
@@ -14,6 +15,15 @@
       enableBashIntegration = true;
       enableZshIntegration = true;
       git = true;
+    };
+
+    programs.bash = {
+      enable = true;
+      initExtra = ''
+        if [ -f "${config.programs.eza.package}/share/bash-completion/completions/eza" ]; then
+          . "${config.programs.eza.package}/share/bash-completion/completions/eza"
+        fi
+      '';
     };
   };
 }

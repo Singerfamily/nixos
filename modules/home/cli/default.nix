@@ -22,6 +22,7 @@ with lib;
     programs = {
       htop.enable = true; # The well-known TUI process viewer.
       bottom.enable = true; # The cool new TUI process viewer.
+      btop.enable = true; # Another TUI process viewer, with a different design.
       direnv = {
         enable = true;
         nix-direnv.enable = true;
