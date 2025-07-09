@@ -53,13 +53,13 @@ in
       discord.enable = true;
     };
     cli = {
-      atuin = {
-        enable = true;
-      };
-      eza = {
-        enable = true;
-      };
+      atuin.enable = true;
+      # eza = {
+      #   enable = true;
+      # };
     };
+
+    games.minecraft.enable = true;
 
     user = {
       fullName = "Eric Singer";
