@@ -166,7 +166,7 @@
           #   };
           # }
           {
-            name = "org.kde.plasma.taskmanager";
+            name = "org.kde.plasma.icontasks";
           }
           "org.kde.plasma.panelspacer"
           {

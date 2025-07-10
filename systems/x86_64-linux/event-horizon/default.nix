@@ -85,6 +85,11 @@
   #   # };
   # };
 
+  fileSystems."/mnt/media" = {
+    device = "192.168.1.105:/mnt/stuff/media";
+    fsType = "nfs";
+  };
+
   disko.devices =
     let
       inherit (config.networking) hostName;
