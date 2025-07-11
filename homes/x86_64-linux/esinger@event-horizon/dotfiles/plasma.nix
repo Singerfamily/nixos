@@ -147,7 +147,7 @@
         floating = false;
         height = 34;
         lengthMode = "fill";
-        location = "top";
+        location = "bottom";
         opacity = "translucent";
         widgets = [
           "org.kde.plasma.kickoff"
@@ -170,17 +170,6 @@
           }
           "org.kde.plasma.panelspacer"
           {
-            name = "org.kde.plasma.digitalclock";
-            config = {
-              Appearance = {
-                dateDisplayFormat = "BesideTime";
-                dateFormat = "custom";
-                use24hFormat = 2;
-              };
-            };
-          }
-          "org.kde.plasma.panelspacer"
-          {
             systemTray = {
               items = {
                 showAll = false;
@@ -190,6 +179,16 @@
                   "org.kde.plasma.volume"
                   "org.kde.plasma.bluetooth"
                 ];
+              };
+            };
+          }
+          {
+            name = "org.kde.plasma.digitalclock";
+            config = {
+              Appearance = {
+                # dateDisplayFormat = "BesideTime";
+                # dateFormat = "custom";
+                use24hFormat = 2;
               };
             };
           }
@@ -201,7 +200,7 @@
         floating = false;
         height = 34;
         lengthMode = "fill";
-        location = "top";
+        location = "bottom";
         opacity = "translucent";
         widgets = [
           "org.kde.plasma.kickoff"
@@ -224,17 +223,6 @@
           # }
           "org.kde.plasma.panelspacer"
           {
-            name = "org.kde.plasma.digitalclock";
-            config = {
-              Appearance = {
-                dateDisplayFormat = "BesideTime";
-                dateFormat = "custom";
-                use24hFormat = 2;
-              };
-            };
-          }
-          "org.kde.plasma.panelspacer"
-          {
             systemTray = {
               items = {
                 showAll = false;
@@ -244,6 +232,16 @@
                   "org.kde.plasma.volume"
                   "org.kde.plasma.bluetooth"
                 ];
+              };
+            };
+          }
+          {
+            name = "org.kde.plasma.digitalclock";
+            config = {
+              Appearance = {
+                # dateDisplayFormat = "BesideTime";
+                # dateFormat = "custom";
+                use24hFormat = 2;
               };
             };
           }
@@ -251,11 +249,11 @@
 
         screen = 1;
       }
-            {
+      {
         floating = false;
         height = 34;
         lengthMode = "fill";
-        location = "top";
+        location = "bottom";
         opacity = "translucent";
         widgets = [
           "org.kde.plasma.kickoff"
@@ -278,17 +276,6 @@
           # }
           "org.kde.plasma.panelspacer"
           {
-            name = "org.kde.plasma.digitalclock";
-            config = {
-              Appearance = {
-                dateDisplayFormat = "BesideTime";
-                dateFormat = "custom";
-                use24hFormat = 2;
-              };
-            };
-          }
-          "org.kde.plasma.panelspacer"
-          {
             systemTray = {
               items = {
                 showAll = false;
@@ -298,6 +285,16 @@
                   "org.kde.plasma.volume"
                   "org.kde.plasma.bluetooth"
                 ];
+              };
+            };
+          }
+          {
+            name = "org.kde.plasma.digitalclock";
+            config = {
+              Appearance = {
+                # dateDisplayFormat = "BesideTime";
+                # dateFormat = "custom";
+                use24hFormat = 2;
               };
             };
           }
