@@ -133,6 +133,19 @@ with lib;
       };
     };
 
+    amd = {
+      enable = mkOption {
+        description = "Whether to support AMD graphics";
+        type = with types; bool;
+        default = false;
+      };
+      busID = mkOption {
+        description = "AMD dGPU PCI bus ID";
+        type = with types; nullOr str;
+        default = null;
+      };
+    };
+
     specialise = mkOption {
       description = "Whether to split iGPU/dGPU specialisations";
       type = with types; bool;
@@ -142,61 +155,17 @@ with lib;
 
   config =
     let
-      nvidiaPackage = config.hardware.nvidia.package;
-      nvidiaConfig = {
-        boot.blacklistedKernelModules = [ "nouveau" ];
-        services.xserver.videoDrivers = [ "nvidia" ];
-        hardware.nvidia = {
-          package = config.boot.kernelPackages.nvidiaPackages.latest;
-          modesetting.enable = true;
-          powerManagement = {
-            enable = false;
-            finegrained = false;
-          };
-          # enable the open source drivers if the package supports it
-          open = lib.mkOverride 990 (nvidiaPackage ? open && nvidiaPackage ? firmware);
-
-          gsp.enable = true;
-
-          prime = {
-            intelBusId = intel.busID;
-            nvidiaBusId = nvidia.busID;
-
-            offload = {
-              enable = true;
-              enableOffloadCmd = true;
-            };
-          };
-        };
-      };
       inherit (config.snowfall.hardware.gpu)
         core
         intel
         nvidia
-        specialise
+        amd
         ;
     in
     mkMerge [
       (mkIf core.enable {
-
         environment.variables = {
-          MESA_VK_DEVICE_SELECT_FORCE_DEFAULT_DEVICE = "1";
-          MESA_LOADER_DRIVER_OVERRIDE = "nvidia";
-
-          LIBVA_DRIVER_NAME = "nvidia";
           ELECTRON_OZONE_PLATFORM_HINT = "auto";
-          GBM_BACKEND = "nvidia-drm";
-          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-          NVD_BACKEND = "direct";
-
-          __NV_PRIME_RENDER_OFFLOAD = 1;
-          _NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
-          __VK_LAYER_NV_optimus = "NVIDIA_only";
-
-        };
-
-        environment.sessionVariables = {
-          VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
         };
 
         # Exclude `nvtop` from minimal systems.
@@ -225,8 +194,8 @@ with lib;
         ];
         hardware = {
           graphics = {
-            enable = true;
-            enable32Bit = true;
+            enable = mkDefault true;
+            enable32Bit = mkDefault true;
             extraPackages = with pkgs; [
               intel-media-driver
               vaapiIntel
@@ -237,50 +206,69 @@ with lib;
         };
       })
 
-      (mkIf (nvidia.enable && !specialise) nvidiaConfig)
+      (mkIf amd.enable {
+        services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
 
-      (mkIf (nvidia.enable && specialise) (mkMerge [
-        # Create a dGPU spec with the necessary drivers.
-        {
-          specialisation."dGPU".configuration = mkMerge [
-            {
-              system.nixos.label = "${config.networking.hostName}-dGPU";
-            }
-            nvidiaConfig
-          ];
-        }
+        hardware.graphics = {
+          enable = mkDefault true;
+          enable32Bit = mkDefault true;
+        };
 
-        # Disable the NVIDIA dGPU in the default specialisation.
-        #
-        # NOTE: Stolen from https://github.com/NixOS/nixos-hardware/blob/master/common/gpu/nvidia/disable.nix
-        (mkIf (config.specialisation != { }) {
-          boot = {
-            blacklistedKernelModules = [
-              "nouveau"
-              "nvidia"
-              "nvidia_drm"
-              "nvidia_modeset"
-            ];
+        hardware.amdgpu = {
+          initrd.enable = true;
+        };
+      })
 
-            extraModprobeConfig = ''
-              blacklist nouveau
-              options nouveau modeset=0
-            '';
+      (mkIf (nvidia.enable) {
+        boot.blacklistedKernelModules = [ "nouveau" ];
+        services.xserver.videoDrivers = [ "nvidia" ];
+
+        environment.variables = {
+          MESA_VK_DEVICE_SELECT_FORCE_DEFAULT_DEVICE = "1";
+          MESA_LOADER_DRIVER_OVERRIDE = "nvidia";
+
+          LIBVA_DRIVER_NAME = "nvidia";
+          ELECTRON_OZONE_PLATFORM_HINT = "auto";
+          GBM_BACKEND = "nvidia-drm";
+          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          NVD_BACKEND = "direct";
+
+          __NV_PRIME_RENDER_OFFLOAD = 1;
+          _NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+          __VK_LAYER_NV_optimus = "NVIDIA_only";
+
+        };
+
+        environment.sessionVariables = {
+          VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
+        };
+
+        hardware.nvidia =
+          let
+            nvidiaPackage = config.hardware.nvidia.package;
+          in
+          {
+            package = config.boot.kernelPackages.nvidiaPackages.latest;
+            modesetting.enable = true;
+            powerManagement = {
+              enable = false;
+              finegrained = false;
+            };
+            # enable the open source drivers if the package supports it
+            open = lib.mkOverride 990 (nvidiaPackage ? open && nvidiaPackage ? firmware);
+
+            gsp.enable = true;
+
+            prime = {
+              intelBusId = intel.busID;
+              nvidiaBusId = nvidia.busID;
+
+              offload = {
+                enable = true;
+                enableOffloadCmd = true;
+              };
+            };
           };
-
-          system.nixos.label = "${config.networking.hostName}-iGPU";
-          services.udev.extraRules = # python
-            ''
-              # Remove NVIDIA USB xHCI Host Controller devices, if present.
-              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
-              # Remove NVIDIA USB Type-C UCSI devices, if present.
-              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
-              # Remove NVIDIA Audio devices, if present.
-              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
-              # Remove NVIDIA VGA/3D controller devices.
-              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
-            '';
-        })
-      ]))
+      })
     ];
 }
