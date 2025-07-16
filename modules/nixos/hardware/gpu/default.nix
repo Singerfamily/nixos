@@ -96,7 +96,6 @@ with lib;
           vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
         };
         services.xserver.videoDrivers = [
-          "modesetting"
           "intel"
         ];
         hardware = {
@@ -114,7 +113,9 @@ with lib;
       })
 
       (mkIf amd.enable {
-        services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
+        services.xserver.videoDrivers = [
+          "amdgpu"
+        ];
 
         hardware.graphics = {
           enable = mkDefault true;
@@ -122,7 +123,9 @@ with lib;
         };
 
         hardware.amdgpu = {
-          initrd.enable = true;
+          initrd.enable = mkDefault true;
+          opencl.enable = mkDefault true;
+          amdvlk.enable = mkDefault true;
         };
       })
 

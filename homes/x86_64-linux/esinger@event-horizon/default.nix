@@ -76,6 +76,7 @@ in
       packages = [
         "com.microsoft.Edge"
         "com.spotify.Client"
+        "org.libreoffice.LibreOffice"
       ];
     };
   };
