@@ -27,9 +27,12 @@
           busID = "PCI:0:2:0";
         };
         nvidia = {
-          enable = true;
+          enable = false;
           busID = "PCI:1:0:0";
         };
+	amd = {
+	  enable = true;
+	};
       };
     };
 

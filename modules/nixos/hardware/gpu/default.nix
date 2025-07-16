@@ -168,20 +168,24 @@ with lib;
           ELECTRON_OZONE_PLATFORM_HINT = "auto";
         };
 
+        environment.systemPackages = [
+          nvtopPackages.full
+        ];
+
         # Exclude `nvtop` from minimal systems.
-        environment.systemPackages =
-          with pkgs;
-          (
-            if
-              !(builtins.elem config.networking.hostName [
-              ])
-            then
-              [ (nvtopPackages.intel.override { nvidia = true; }) ]
-            else
-              [
-                nvtopPackages.full
-              ]
-          );
+        # environment.systemPackages =
+        #   with pkgs;
+        #   (
+        #     if
+        #       !(builtins.elem config.networking.hostName [
+        #       ])
+        #     then
+        #       [ (nvtopPackages.intel.override { nvidia = nvidia.enable; }) ]
+        #     else
+        #       [
+        #         nvtopPackages.full
+        #       ]
+        #   );
       })
 
       (mkIf intel.enable {
