@@ -168,7 +168,7 @@ with lib;
           ELECTRON_OZONE_PLATFORM_HINT = "auto";
         };
 
-        environment.systemPackages = [
+        environment.systemPackages = with pkgs; [
           nvtopPackages.full
         ];
 
