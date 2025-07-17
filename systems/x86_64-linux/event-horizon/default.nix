@@ -101,7 +101,7 @@
       disk = {
         main = {
           type = "disk";
-          device = "/dev/nvme0n1";
+          device = "/dev/disk/by-id/nvme-CT1000P3SSD8_24234944EFA9";
           content = {
             type = "gpt";
             partitions = {
@@ -165,7 +165,7 @@
         };
         games = {
           type = "disk";
-          device = "/dev/sdb";
+          device = "/dev/disk/by-id/ata-Samsung_SSD_870_EVO_2TB_S6PNNM0TA16132B";
           content = {
             type = "gpt";
             partitions = {
@@ -199,42 +199,42 @@
             };
           };
         };
-        cold-storage = {
-          type = "disk";
-          device = "/dev/sda";
-          content = {
-            type = "gpt";
-            partitions = {
-              luks = {
-                size = "100%";
-                content = {
-                  type = "luks";
-                  name = "${lib.toUpper hostName}_COLD-STORAGE_LUKS";
-                  # disable settings.keyFile if you want to use interactive password entry
-                  #passwordFile = "/tmp/secret.key"; # Interactive
-                  settings = {
-                    allowDiscards = true;
-                    # keyFile = "/tmp/secret.key";
-                  };
-                  # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
-                  content = {
-                    type = "btrfs";
-                    extraArgs = [ "-f" ];
-                    subvolumes = {
-                      "/" = {
-                        mountpoint = "/mnt/cold-storage";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                    };
-                  };
-                };
-              };
-            };
-          };
-        };
+        # cold-storage = {
+        #   type = "disk";
+        #   device = "/dev/sda";
+        #   content = {
+        #     type = "gpt";
+        #     partitions = {
+        #       luks = {
+        #         size = "100%";
+        #         content = {
+        #           type = "luks";
+        #           name = "${lib.toUpper hostName}_COLD-STORAGE_LUKS";
+        #           # disable settings.keyFile if you want to use interactive password entry
+        #           #passwordFile = "/tmp/secret.key"; # Interactive
+        #           settings = {
+        #             allowDiscards = true;
+        #             # keyFile = "/tmp/secret.key";
+        #           };
+        #           # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
+        #           content = {
+        #             type = "btrfs";
+        #             extraArgs = [ "-f" ];
+        #             subvolumes = {
+        #               "/" = {
+        #                 mountpoint = "/mnt/cold-storage";
+        #                 mountOptions = [
+        #                   "compress=zstd"
+        #                   "noatime"
+        #                 ];
+        #               };
+        #             };
+        #           };
+        #         };
+        #       };
+        #     };
+        #   };
+        # };
       };
     };
 
