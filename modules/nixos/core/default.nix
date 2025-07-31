@@ -74,11 +74,6 @@ with lib;
           libraries = [ ];
         };
 
-        # nh = {
-        #   enable = true;
-        #   clean.enable = false;
-        #   flake = lib.snowfall.self;
-        # };
       };
 
       # Populate /usr/bin/ with symlinks to executables in system's $PATH.
