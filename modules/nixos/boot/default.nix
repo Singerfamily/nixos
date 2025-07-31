@@ -48,6 +48,8 @@ with lib;
           NetworkManager-wait-online.enable = false;
           plymouth-quit-wait.enable = false;
         };
+
+        systemd.emergencyAccess = config.users.users.root.hashedPassword;
       }
 
       # BIOS:
