@@ -89,7 +89,7 @@
   # };
 
   fileSystems."/mnt/media" = {
-    device = "192.168.1.105:/mnt/stuff/media";
+    device = "192.168.1.3:/mnt/stuff/media";
     fsType = "nfs";
   };
 
@@ -154,7 +154,7 @@
                       };
                       "/swap" = {
                         mountpoint = "/.swapvol";
-                        swap.swapfile.size = "20M";
+                        swap.swapfile.size = "32G";
                       };
                     };
                   };
