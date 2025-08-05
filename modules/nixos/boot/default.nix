@@ -49,7 +49,7 @@ with lib;
           plymouth-quit-wait.enable = false;
         };
 
-        systemd.emergencyAccess = config.users.users.root.hashedPassword;
+        # systemd.emergencyAccess = config.users.users.root.hashedPassword;
       }
 
       # BIOS:
