@@ -2,3 +2,4 @@
 *.nix linguist-vendored=false
 *.lock linguist-vendored=false
 *.lua linguist-vendored=false
+secrets/*.{yaml,json,ini,env} diff=sopsdiffer

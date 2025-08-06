@@ -25,7 +25,15 @@ in
       enable = true;
       userName = "LeaderbotX400";
       userEmail = "34589843+LeaderbotX400@users.noreply.github.com";
+      attributes = [
+        "secrets/*.{yaml,json,ini,env} diff=sopsdiffer"
+      ];
+
+      extraConfig = {
+        diff.sopsdiffer.textconv = "sops -d --config /dev/null";
+      };
     };
+
 
     vscode = {
       enable = true;
