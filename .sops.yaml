@@ -3,7 +3,7 @@ keys:
   - &roger age1yg349q7wx42anzvhqncu3c0xuwvssv77rpx64a0zuqvn48zzdpwssjgnuu
   - &event-horizon age15vcpw49v9djmtdz2ssq26rv5mg6el83znzzrvdqfh8ujdvv9rfas5g6lrf
 creation_rules:
-  - path_regex: lib/secrets.yaml$
+  - path_regex: secrets/*.yaml$
     key_groups:
     - age:
       - *esinger

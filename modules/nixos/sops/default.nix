@@ -12,7 +12,7 @@ with lib;
 {
   config = {
     sops = {
-      defaultSopsFile = mkDefault ../../../lib/secrets.yaml;
+      defaultSopsFile = mkDefault ../../../secrets/secrets.yaml;
       age = {
         sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
         # keyFile = "/sops/age/keys.txt";
