@@ -549,10 +549,10 @@
           screenGapRight = 3;
           screenGapTop = 3;
         };
-        Windows = {
-          DelayFocusInterval = 0;
-          FocusPolicy = "FocusFollowsMouse";
-        };
+        # Windows = {
+        #   DelayFocusInterval = 0;
+        #   FocusPolicy = "FocusFollowsMouse";
+        # };
       };
       spectaclerc = {
         Annotations.annotationToolType = 8;

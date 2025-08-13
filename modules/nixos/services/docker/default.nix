@@ -64,8 +64,16 @@ with lib;
       (mkIf (implementation == "docker" || implementation == "both") {
         virtualisation.docker = {
           enable = true;
+          rootless = {
+            enable = true;
+            setSocketVariable = true;
+          };
           autoPrune.enable = true;
-          daemon.settings.features.cdi = true;
+          daemon.settings = {
+            # userland-proxy = false;
+            # features.cdi = true;
+            # registry-mirrors = [ "https://cr.singerfamily.ca" ];
+          };
         };
         environment.systemPackages = with pkgs; [
           docker-compose # Docker CLI plugin to define and run multi-container applications with Docker.
