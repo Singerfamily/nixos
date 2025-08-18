@@ -22,24 +22,15 @@
     hardware = {
       bluetooth.enable = true;
       gpu = {
-        intel = {
-          enable = true;
-          busID = "PCI:0:2:0";
-        };
-        nvidia = {
-          enable = false;
-          busID = "PCI:1:0:0";
-        };
-	amd = {
-	  enable = true;
-	};
+        intel.enable = true;
+        amd.enable = true;
       };
     };
 
     apps = {
       steam.enable = true;
     };
-    
+
     qemu.enable = true;
   };
 
@@ -56,37 +47,7 @@
     variables = {
       NIXOS_OZONE_WL = "1";
     };
-    systemPackages = with pkgs; [
-      # nixd
-      # binutils
-      # htop
-      # nixfmt-rfc-style
-      # tpm2-tss
-      # nvtopPackages.full
-      # usbutils
-      # ethtool
-      # vscode
-
-      # deno
-    ];
   };
-
-  # services.openssh = {
-  #   enable = true;
-  #   openFirewall = true;
-  #   # settings = {
-  #   #   PermitRootLogin = "no";
-  #   #   PasswordAuthentication = "no";
-  #   #   PubkeyAuthentication = "yes";
-  #   #   ChallengeResponseAuthentication = "no";
-  #   #   UsePAM = "yes";
-  #   #   X11Forwarding = "yes";
-  #   #   AllowAgentForwarding = "yes";
-  #   #   AllowTcpForwarding = "yes";
-  #   #   PrintMotd = "no";
-  #   #   PrintLastLog = "yes";
-  #   # };
-  # };
 
   fileSystems."/mnt/media" = {
     device = "192.168.1.3:/mnt/stuff/media";
@@ -199,42 +160,6 @@
             };
           };
         };
-        # cold-storage = {
-        #   type = "disk";
-        #   device = "/dev/sda";
-        #   content = {
-        #     type = "gpt";
-        #     partitions = {
-        #       luks = {
-        #         size = "100%";
-        #         content = {
-        #           type = "luks";
-        #           name = "${lib.toUpper hostName}_COLD-STORAGE_LUKS";
-        #           # disable settings.keyFile if you want to use interactive password entry
-        #           #passwordFile = "/tmp/secret.key"; # Interactive
-        #           settings = {
-        #             allowDiscards = true;
-        #             # keyFile = "/tmp/secret.key";
-        #           };
-        #           # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
-        #           content = {
-        #             type = "btrfs";
-        #             extraArgs = [ "-f" ];
-        #             subvolumes = {
-        #               "/" = {
-        #                 mountpoint = "/mnt/cold-storage";
-        #                 mountOptions = [
-        #                   "compress=zstd"
-        #                   "noatime"
-        #                 ];
-        #               };
-        #             };
-        #           };
-        #         };
-        #       };
-        #     };
-        #   };
-        # };
       };
     };
 
