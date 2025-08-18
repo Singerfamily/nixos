@@ -31,7 +31,7 @@ with lib;
           ]
         ))
 
-        jetbrains.pycharm-community
+        # jetbrains.pycharm-community
 
         # LSP servers, formatters and linters
         black

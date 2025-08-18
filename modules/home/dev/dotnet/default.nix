@@ -10,13 +10,13 @@
 with lib;
 {
   options.snowfall.dev.dotnet = {
-    rider = {
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Enable JetBrains Rider for .NET development.";
-      };
-    };
+    # rider = {
+    #   enable = mkOption {
+    #     type = types.bool;
+    #     default = true;
+    #     description = "Enable JetBrains Rider for .NET development.";
+    #   };
+    # };
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -27,12 +27,12 @@ with lib;
     let
       inherit (config.snowfall.dev.dotnet)
         enable
-        rider
+        # rider
         ;
     in
     mkIf enable {
       home.packages = with pkgs; [
-        (mkIf rider.enable jetbrains.rider)
+        # (mkIf rider.enable jetbrains.rider)
         dotnet-sdk_9
         dotnet-ef
         # dotnetCorePackages.dotnet_9.sdk
