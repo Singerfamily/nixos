@@ -25,6 +25,7 @@
         intel.enable = true;
         amd.enable = true;
       };
+      cups.enable = true;
     };
 
     apps = {
