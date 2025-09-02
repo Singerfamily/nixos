@@ -130,6 +130,9 @@
     443
   ];
 
+
+  # DANGER - Do not Modify Below!
+
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "thunderbolt"
