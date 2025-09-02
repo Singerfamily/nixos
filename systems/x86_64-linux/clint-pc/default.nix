@@ -227,7 +227,7 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  # networking.hostId = "007f0200";
+  networking.hostId = "524d75a1";
 
   system.stateVersion = "24.11";
 }
