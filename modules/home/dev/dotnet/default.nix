@@ -31,11 +31,19 @@ with lib;
         ;
     in
     mkIf enable {
-      home.packages = with pkgs; [
-        # (mkIf rider.enable jetbrains.rider)
-        dotnet-sdk_9
-        dotnet-ef
-        # dotnetCorePackages.dotnet_9.sdk
-      ];
+      home =  let 
+        sdk = pkgs.dotnet-sdk_9;
+      in {
+        packages = with pkgs; [
+          # (mkIf rider.enable jetbrains.rider)
+          sdk
+          dotnet-ef
+        ];
+
+        sessionVariables = {
+          DOTNET_PATH = "${sdk}/bin/dotnet";
+          DOTNET_ROOT = "${sdk}/share/dotnet"
+        }
+      };
     };
 }
