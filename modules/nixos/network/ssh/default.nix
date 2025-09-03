@@ -59,7 +59,7 @@ with lib;
 
           # Basic hardening.
           settings = {
-            PasswordAuthentication = mkDefault false;
+            PasswordAuthentication = mkDefault true;
             PermitRootLogin = mkDefault "no";
             StreamLocalBindUnlink = mkDefault "yes";
           };
