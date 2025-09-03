@@ -2,6 +2,7 @@ keys:
   - &esinger age1sc69qpjhpt3s30p2wgssuvse9j6dhzl2e3p2xshq0yr4gqf3ys3qasx5yr
   - &roger age1yg349q7wx42anzvhqncu3c0xuwvssv77rpx64a0zuqvn48zzdpwssjgnuu
   - &event-horizon age15vcpw49v9djmtdz2ssq26rv5mg6el83znzzrvdqfh8ujdvv9rfas5g6lrf
+  - &clint-pc age1zs6w70k30lukgf802sage58md3y3lfpzc2e64gwp0ctumfc7jg7sq2fhe6
 creation_rules:
   - path_regex: secrets/*.yaml$
     key_groups:
@@ -9,3 +10,4 @@ creation_rules:
       - *esinger
       - *event-horizon
       - *roger
+      - *clint-pc
