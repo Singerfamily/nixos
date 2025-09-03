@@ -42,8 +42,8 @@ with lib;
 
         sessionVariables = {
           DOTNET_PATH = "${sdk}/bin/dotnet";
-          DOTNET_ROOT = "${sdk}/share/dotnet"
-        }
+          DOTNET_ROOT = "${sdk}/share/dotnet";
+        };
       };
     };
 }
