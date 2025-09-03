@@ -30,7 +30,7 @@ with lib;
     {
       # Set up sops-nix and decrypt the age key.
       sops = {
-        age = { inherit keyFile; };
+        age = mkIf config.snowfall.sops.inheritKeyFile { inherit keyFile; };
         defaultSopsFile = ../../../secrets/secrets.yaml;
         defaultSopsFormat = "yaml";
         secrets."keys/age".path = mkIf config.snowfall.sops.inheritKeyFile keyFile;
