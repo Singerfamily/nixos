@@ -25,12 +25,12 @@ with lib;
   config =
     let
       inherit (config.xdg) configHome;
-      keyFile = "${configHome}/sops/age/keys.txt";
+      # keyFile = "${configHome}/sops/age/keys.txt";
     in
     {
       # Set up sops-nix and decrypt the age key.
       sops = {
-        age = mkIf config.snowfall.sops.inheritKeyFile { inherit keyFile; };
+        age = config.sops.secrets."keys/age".path;
         defaultSopsFile = ../../../secrets/secrets.yaml;
         defaultSopsFormat = "yaml";
         secrets."keys/age".path = mkIf config.snowfall.sops.inheritKeyFile keyFile;
