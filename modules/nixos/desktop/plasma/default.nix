@@ -57,6 +57,7 @@ with lib;
           krdc
           krfb
           krdp
+          kdePackages.sddm-kcm
         ]);
     };
 }
