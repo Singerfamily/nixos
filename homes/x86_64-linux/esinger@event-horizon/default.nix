@@ -81,7 +81,7 @@ in
     flatpak = {
       enable = true;
       packages = [
-        # "com.microsoft.Edge"
+        "com.microsoft.Edge"
         "com.spotify.Client"
         "org.libreoffice.LibreOffice"
       ];
@@ -90,7 +90,7 @@ in
 
   home.packages = with pkgs; [
     jetbrains.datagrip
-    jetbrains.rider
-    microsoft-edge
+    # jetbrains.rider
+    # microsoft-edge
   ];
 }
