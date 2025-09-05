@@ -10,13 +10,6 @@
 with lib;
 {
   options.snowfall.dev.js = {
-    # webstorm = {
-    #   enable = mkOption {
-    #     type = types.bool;
-    #     default = true;
-    #     description = "Enable JetBrains WebStorm for JavaScript development.";
-    #   };
-    # };
     enable = mkOption {
       type = types.bool;
       default = false;
