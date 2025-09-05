@@ -32,7 +32,7 @@ with lib;
     in
     mkIf enable {
       home =  let 
-        sdk = pkgs.dotnet-sdk_9;
+        sdk = (with pkgs.dotnetCorePackages; combinePackages [ dotnet_9.sdk ]);
       in {
         packages = with pkgs; [
           # (mkIf rider.enable jetbrains.rider)

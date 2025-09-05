@@ -80,6 +80,11 @@ in
     };
   };
 
+  home.sessionVariables = {    
+    OPENOCD_PATH = "${pkgs.openocd}";
+    OPENOCD_SCRIPTS_PATH = "$OPENOCD_PATH/share/openocd/scripts";
+  };
+
   home.packages = with pkgs; [
 
     neovim
@@ -94,22 +99,22 @@ in
     jetbrains.pycharm-professional
     jetbrains.goland
 
-    android-studio
-    dotnet
+    android-studio    
     dapr-cli
-    python3
-    python312Packages.pyudev
+    # python3
+    # python312Packages.pyudev
     ruby
-
-    # embedded
-    platformio-core
-    (pkgs.python3.withPackages (ps: with ps; [ platformio ]))
-    stlink
-    openocd
-    gdb
+    #gdb # included in gcc-arm-embedded-13
     cmake
     gcc
-    stm32cubemx
+    gnumake
+
+    # embedded
+    # platformio-core
+    # (pkgs.python3.withPackages (ps: with ps; [ platformio ]))
+    stlink
+    openocd    
+    # stm32cubemx
     gcc-arm-embedded-13
   ];
 }

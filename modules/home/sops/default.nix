@@ -22,13 +22,13 @@ with lib;
   #   };
   # };
 
-  config = mkIf config.snowfall.sops.inheritKeyFile {
-    # Set up sops-nix and decrypt the age key.
-    sops = {
-      age = config.sops.secrets."keys/age".path;
-      defaultSopsFile = ../../../secrets/secrets.yaml;
-        defaultSopsFormat = "yaml";
-        # secrets."keys/age".path = mkIf config.snowfall.sops.inheritKeyFile keyFile;
-      };
-    };
+  # config = mkIf config.snowfall.sops.inheritKeyFile {
+  #   # Set up sops-nix and decrypt the age key.
+  #   sops = {
+  #     age = config.sops.secrets."keys/age".path;
+  #     defaultSopsFile = ../../../secrets/secrets.yaml;
+  #       defaultSopsFormat = "yaml";
+  #       # secrets."keys/age".path = mkIf config.snowfall.sops.inheritKeyFile keyFile;
+  #     };
+  #   };
 }

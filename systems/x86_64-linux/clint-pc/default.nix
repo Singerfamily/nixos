@@ -35,8 +35,23 @@
     net.ssh = {
       enable = true;
       server = true; # Allow SSH'ing into this machine
-    };
+    };   
   };
+
+  # environment =    
+  #   let
+  #     dotnet = (with pkgs.dotnetCorePackages; combinePackages [ dotnet_9.sdk ]);
+  #   in
+  #   {
+  #     sessionVariables = {
+  #       DOTNET_PATH = "${dotnet}/bin/dotnet";
+  #       DOTNET_ROOT = "${dotnet}/share/dotnet";
+  #     };
+
+  #     systemPackages = with pkgs; [
+  #       dotnet        
+  #     ];
+  #   }; 
 
 
   # DANGER - Do not Modify Below!
