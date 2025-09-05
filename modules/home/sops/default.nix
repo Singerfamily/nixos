@@ -18,14 +18,14 @@ with lib;
   #   # Whether to decrypt and use the Age key from lib/secrets.yaml.
   #   inheritKeyFile = mkOption {
   #     type = with types; bool;
-  #     default = true;
+  #     default = false;
   #   };
   # };
 
   # config = mkIf config.snowfall.sops.inheritKeyFile {
   #   # Set up sops-nix and decrypt the age key.
   #   sops = {
-  #     age = config.sops.secrets."keys/age".path;
+  #     # age = config.sops.secrets."keys/age".path;
   #     defaultSopsFile = ../../../secrets/secrets.yaml;
   #       defaultSopsFormat = "yaml";
   #       # secrets."keys/age".path = mkIf config.snowfall.sops.inheritKeyFile keyFile;
