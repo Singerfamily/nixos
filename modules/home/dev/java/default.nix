@@ -12,7 +12,7 @@ with lib;
   options.snowfall.dev.java = {
     enable = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
     };
   };
 

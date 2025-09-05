@@ -12,7 +12,7 @@ with lib;
   options.snowfall.dev.c = {
     enable = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
     };
 
     embedded = mkOption {
