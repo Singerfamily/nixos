@@ -24,14 +24,20 @@ with lib;
 
       inherit (config.snowfall) dev;
     in
-    mkIf enable {
-      home.packages =
-        with pkgs.jetbrains;
-        with dev;
-        [
-          (mkIf python.enable pycharm-community)
-          (mkIf js.enable webstorm)
-          (mkIf dotnet.enable rider)
-        ];
-    };
+    mkIf enable (
+      with dev;
+      {
+        home.packages =
+          with pkgs.jetbrains;
+          [
+            (mkIf python.enable pycharm-community)
+            (mkIf js.enable webstorm)
+            (mkIf dotnet.enable rider)
+            (mkIf rust.enable rust-rover)
+            (mkIf ruby.enable ruby-mine)
+            # (mkIf go.enable goland)
+            # (mkIf java.enable intellij-idea)
+          ];
+      }
+    );
 }
