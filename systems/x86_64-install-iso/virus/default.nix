@@ -26,6 +26,12 @@
 
   snowfall.net.ssh.server = true;
 
+  # services.openssh.hostKeys = [
+  #   {
+      
+  #   }
+  # ];
+
   # Use NetworkManager.
   networking.wireless.enable = false;
   networking.networkmanager.enable = lib.mkForce true;
