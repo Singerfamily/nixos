@@ -27,25 +27,30 @@ with lib;
       let
         inherit (config.snowfall.dev.c) embedded;
       in
-      with pkgs;
       mkMerge [
-        [
+        (with pkgs; [
           cmake
           gcc
           gnumake
 
-        ]
-
-        (mkIf (embedded == false) [
-          gdb # included by gcc-arm-embedded
         ])
 
-        (mkIf embedded [
-          stlink
-          openocd
-          platformio-core
-          gcc-arm-embedded
-        ])
+        (mkIf (embedded == false) (
+          with pkgs;
+          [
+            gdb # included by gcc-arm-embedded
+          ]
+        ))
+
+        (mkIf embedded (
+          with pkgs;
+          [
+            stlink
+            openocd
+            platformio-core
+            gcc-arm-embedded
+          ]
+        ))
       ];
   };
 }
