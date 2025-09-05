@@ -7,7 +7,7 @@
 with lib;
 
 {
-  options.aeon.dev.rust = {
+  options.snowfall.dev.rust = {
     enable = mkOption {
       description = "Whether to install a Rust toolchain";
       default = false;
@@ -38,7 +38,7 @@ with lib;
 
   config =
     let
-      inherit (config.aeon.dev.rust)
+      inherit (config.snowfall.dev.rust)
         enable
         type
         linker
@@ -48,7 +48,7 @@ with lib;
       {
         # Rust needs a `cc` linker.
         # Could just add a single C compiler, but let's just enable the entire module either way.
-        aeon.dev.c.enable = true;
+        snowfall.dev.c.enable = true;
 
         home.packages = mkMerge [
           # Common cargo/rust packages.

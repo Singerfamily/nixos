@@ -22,7 +22,7 @@ with lib;
       inherit (config.snowfall.games.minecraft)
         enable
         ;
-      # inherit (config.aeon.theme)
+      # inherit (config.snowfall.theme)
       #     ui
       #     code
       #     ;
@@ -69,7 +69,7 @@ with lib;
         #     '';
         # };
 
-        # persistence."${lib.aeon.persist}/home/${lib.aeon.user}" = {
+        # persistence."${lib.snowfall.persist}/home/${lib.snowfall.user}" = {
         #     directories = [ ".local/share/PrismLauncher" ];
         # };
       };
