@@ -6,10 +6,6 @@ let
   };
 in
 {
-  imports = [
-    ./dotfiles/plasma.nix
-  ];
-
   home.stateVersion = "24.11";
 
   home.shellAliases = {
@@ -50,11 +46,11 @@ in
       };
     };
 
-    # eza = {
-    #   enable = true;
-    #   git = true;
-    #   enableZshIntegration = true;
-    # };
+    eza = {
+      enable = true;
+      git = true;
+      enableZshIntegration = true;
+    };
 
     vscode = {
       enable = true;
@@ -66,51 +62,51 @@ in
       enable = true;
     };
 
-    nh = {
-      enable = true;
-      flake = "/home/esinger/projects/nixos";
-      clean = {
-        enable = true;
-        extraArgs = "--keep-since 4d --keep 3";
-      };
-    };
+    # nh = {
+    #   enable = true;
+    #   flake = "/home/esinger/projects/nixos";
+    #   clean = {
+    #     enable = true;
+    #     extraArgs = "--keep-since 4d --keep 3";
+    #   };
+    # };
   };
 
-  snowfall = {
-    apps = {
-      discord.enable = true;
-    };
-    cli = {
-      atuin.enable = true;
-      eza = {
-        enable = true;
-      };
-    };
+  # snowfall = {
+  #   apps = {
+  #     discord.enable = true;
+  #   };
+  #   cli = {
+  #     atuin.enable = true;
+  #     eza = {
+  #       enable = true;
+  #     };
+  #   };
 
-    games.minecraft.enable = true;
+  #   games.minecraft.enable = true;
 
-    user = {
-      fullName = "Eric Singer";
-      # email = "eric@singerfamily.ca";
-    };
+  #   user = {
+  #     fullName = "Eric Singer";
+  #     # email = "eric@singerfamily.ca";
+  #   };
 
-    dev = {
-      dotnet.enable = true;
-      js.enable = true;
-    };
-    flatpak = {
-      enable = true;
-      packages = [
-        "com.microsoft.Edge"
-        "com.spotify.Client"
-        "org.libreoffice.LibreOffice"
-      ];
-    };
-  };
+  #   dev = {
+  #     dotnet.enable = true;
+  #     js.enable = true;
+  #   };
+  #   flatpak = {
+  #     enable = true;
+  #     packages = [
+  #       "com.microsoft.Edge"
+  #       "com.spotify.Client"
+  #       "org.libreoffice.LibreOffice"
+  #     ];
+  #   };
+  # };
 
-  home.packages = with pkgs; [
-    jetbrains.datagrip
-    # jetbrains.rider
-    # microsoft-edge
-  ];
+  # home.packages = with pkgs; [
+  #   jetbrains.datagrip
+  #   # jetbrains.rider
+  #   # microsoft-edge
+  # ];
 }

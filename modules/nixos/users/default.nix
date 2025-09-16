@@ -55,20 +55,24 @@ with lib;
             }
 
             (mkIf (shell.default == "bash") {
+              programs.bash.enable = true;
               shell = pkgs.bash;
             })
 
             (mkIf (shell.default == "zsh") {
+              programs.zsh.enable = true;
               shell = pkgs.zsh;
               # programs.zsh.enable = true;
             })
 
             (mkIf (shell.default == "fish") {
+              programs.fish.enable = true;
               shell = pkgs.fish;
               # programs.fish.enable = true;
             })
 
             (mkIf (shell.default == "nushell") {
+              programs.nushell.enable = true;
               shell = pkgs.nushell;
             })
           ];
