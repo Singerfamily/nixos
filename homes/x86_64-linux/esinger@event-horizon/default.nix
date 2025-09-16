@@ -12,6 +12,19 @@ in
 
   home.stateVersion = "24.11";
 
+  home.shellAliases = lib.mkForce {
+    ls = "${pkgs.eza}/bin/eza --group-directories-first --icons --color=auto";
+    ll = "${pkgs.eza}/bin/eza -la --group-directories-first --icons --color=auto";
+    lla = "${pkgs.eza}/bin/eza -la --group-directories-first --icons --color=auto --all";
+    tree = "${pkgs.eza}/bin/eza --tree --level=3 --icons --color=auto";
+    grep = "rg";
+    cat = "bat";
+    df = "duf";
+    du = "dua";
+    rm = "srm -v";
+    pgrep = "pgrep -a"; # Show full command lines.
+  };
+
   programs = {
     zsh.plugins = [
       {
@@ -34,6 +47,11 @@ in
       };
     };
 
+    eza = {
+      enable = true;
+      git = true;
+      enableZshIntegration = true;
+    };
 
     vscode = {
       enable = true;
@@ -53,7 +71,6 @@ in
         extraArgs = "--keep-since 4d --keep 3";
       };
     };
-
   };
 
   snowfall = {
@@ -62,9 +79,9 @@ in
     };
     cli = {
       atuin.enable = true;
-      # eza = {
-      #   enable = true;
-      # };
+      eza = {
+        enable = true;
+      };
     };
 
     games.minecraft.enable = true;
@@ -81,7 +98,7 @@ in
     flatpak = {
       enable = true;
       packages = [
-        # "com.microsoft.Edge"
+        "com.microsoft.Edge"
         "com.spotify.Client"
         "org.libreoffice.LibreOffice"
       ];
@@ -90,7 +107,7 @@ in
 
   home.packages = with pkgs; [
     jetbrains.datagrip
-    jetbrains.rider
-    microsoft-edge
+    # jetbrains.rider
+    # microsoft-edge
   ];
 }

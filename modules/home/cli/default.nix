@@ -21,7 +21,7 @@ with lib;
   config = mkIf config.snowfall.cli.enable {
     programs = {
       htop.enable = true; # The well-known TUI process viewer.
-      bottom.enable = true; # The cool new TUI process viewer.
+      # bottom.enable = true; # The cool new TUI process viewer.
       btop.enable = true; # Another TUI process viewer, with a different design.
       direnv = {
         enable = true;
@@ -34,6 +34,7 @@ with lib;
       dua # View disk space usage and delete unwanted data.
       duf # Neat disk monitor.
       kondo # Disposal of build artifacts.
+      eza # A modern replacement for `ls`.
 
       # Networking.
       bandwhich # Bandwidth utilization tool.
@@ -47,7 +48,6 @@ with lib;
       # speedtest-rs # CLI internet speedtest tool in Rust.
 
       # Alternative implementations of the basic tools.
-      erdtree # Tree-like `ls` with a load of features.
       killall # Basically `pkill`.
       ripgrep # Oxidized `grep`.
       sd # A friendlier `sed`.

@@ -74,7 +74,7 @@ with lib;
       inherit (config.snowfall.net.dnscrypt-proxy) enable settings;
     in
     mkIf enable {
-      services.dnscrypt-proxy2 = {
+      services.dnscrypt-proxy = {
         enable = true;
         upstreamDefaults = true;
         inherit settings;
