@@ -90,7 +90,7 @@ in
   home.packages = with pkgs; [
 
     neovim
-    speedtest-cli
+    ookla-speedtest
     obs-studio
     talosctl
 
