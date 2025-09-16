@@ -52,9 +52,9 @@ in
       enableZshIntegration = true;
     };
 
-    vscode = {
-      enable = true;
-    };
+    # vscode = {
+    #   enable = true;
+    # };
 
     lazydocker.enable = true;
 
