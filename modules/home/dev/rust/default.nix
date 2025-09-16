@@ -91,7 +91,7 @@ with lib;
 
             # Invoke the LLVM tools shipped with the Rust toolchain.
             # https://github.com/rust-embedded/cargo-binutils
-            cargo-binutils
+            #cargo-binutils
 
             # Runs valgrind and collects its output in a helpful manner.
             # https://github.com/jfrimmel/cargo-valgrind

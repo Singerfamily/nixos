@@ -33,23 +33,23 @@
         pointSize = 10;
       };
       general = {
-        family = "MesloLGM Nerd Font Propo";
+        family = "Noto Sans";
         pointSize = 10;
       };
       menu = {
-        family = "MesloLGM Nerd Font Propo";
+        family = "Noto Sans";
         pointSize = 10;
       };
       small = {
-        family = "MesloLGM Nerd Font Propo";
+        family = "Noto Sans";
         pointSize = 8;
       };
       toolbar = {
-        family = "MesloLGM Nerd Font Propo";
+        family = "Noto Sans";
         pointSize = 10;
       };
       windowTitle = {
-        family = "MesloLGM Nerd Font Propo";
+        family = "Noto Sans";
         pointSize = 10;
       };
     };

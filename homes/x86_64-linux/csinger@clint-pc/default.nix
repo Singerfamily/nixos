@@ -68,6 +68,8 @@ in
     dev = {
       dotnet.enable = true;
       js.enable = true;
+      ruby.enable = true;
+      rust.enable = true;
     };
 
     flatpak = {
@@ -103,8 +105,8 @@ in
     dapr-cli
     # python3
     # python312Packages.pyudev
-    ruby
-    #gdb # included in gcc-arm-embedded-13
+    #ruby
+    gdb # included in gcc-arm-embedded-13
     cmake
     gcc
     gnumake
@@ -115,6 +117,15 @@ in
     stlink
     openocd    
     # stm32cubemx
-    gcc-arm-embedded-13
+    #gcc-arm-embedded-13
+
+    # winapps
+    dialog
+    curl
+    freerdp
+    git
+    iproute2
+    libnotify
+    nmap
   ];
 }

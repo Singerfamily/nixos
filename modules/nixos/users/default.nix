@@ -49,6 +49,8 @@ with lib;
                 "audio"
                 "networkmanager"
                 "builders"
+                "kvm"
+                "libvirtd"
               ];
 
               description = fullName;

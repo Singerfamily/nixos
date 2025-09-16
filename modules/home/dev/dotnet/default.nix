@@ -26,7 +26,7 @@ with lib;
     mkIf enable {
       home =
         let
-          sdk = (with pkgs.dotnetCorePackages; combinePackages [ dotnet_9.sdk ]);
+          sdk = (with pkgs.dotnetCorePackages; combinePackages [ sdk_9_0-bin ]);
         in
         {
           packages = with pkgs; [
