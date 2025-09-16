@@ -5,7 +5,7 @@ with lib;
     enable = mkOption {
       description = "Whether to enable eza, a modern replacement for ls";
       type = with types; bool;
-      default = false;
+      default = true;
     };
   };
 
@@ -13,7 +13,7 @@ with lib;
     home.packages = with pkgs; [
       eza
     ];
-
+    
     programs.eza = {
       enable = true;
       enableBashIntegration = true;

@@ -12,7 +12,7 @@ in
 
   home.stateVersion = "24.11";
 
-  home.shellAliases = {
+  home.shellAliases = lib.mkForce {
     ls = "${pkgs.eza}/bin/eza --group-directories-first --icons --color=auto";
     ll = "${pkgs.eza}/bin/eza -la --group-directories-first --icons --color=auto";
     lla = "${pkgs.eza}/bin/eza -la --group-directories-first --icons --color=auto --all";
@@ -26,16 +26,13 @@ in
   };
 
   programs = {
-    zsh = {
-      # enable = true;
-      plugins = [
-        {
-          name = "powerlevel10k-config";
-          src = lib.cleanSource dotfiles;
-          file = "p10k.zsh";
-        }
-      ];
-    };
+    zsh.plugins = [
+      {
+        name = "powerlevel10k-config";
+        src = lib.cleanSource dotfiles;
+        file = "p10k.zsh";
+      }
+    ];
 
     git = {
       enable = true;
