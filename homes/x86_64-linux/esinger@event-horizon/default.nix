@@ -34,11 +34,11 @@ in
       };
     };
 
-    eza = {
-      enable = true;
-      git = true;
-      enableZshIntegration = true;
-    };
+    # eza = {
+    #   enable = true;
+    #   git = true;
+    #   enableZshIntegration = true;
+    # };
 
     vscode = {
       enable = true;
@@ -59,6 +59,21 @@ in
       };
     };
 
+    zsh = {
+      enable = true;
+      shellAliases = {
+        ls = "eza --group-directories-first --icons --color=auto";
+        ll = "eza -la --group-directories-first --icons --color=auto";
+        lla = "eza -la --group-directories-first --icons --color=auto --all";
+        tree = "eza --tree --level=3 --icons --color=auto";
+        grep = "rg";
+        cat = "bat";
+        df = "duf";
+        du = "dua";
+        rm = "srm -v";
+        pgrep = "pgrep -a"; # Show full command lines.
+      };
+    };
   };
 
   snowfall = {
@@ -67,9 +82,9 @@ in
     };
     cli = {
       atuin.enable = true;
-      # eza = {
-      #   enable = true;
-      # };
+      eza = {
+        enable = true;
+      };
     };
 
     games.minecraft.enable = true;

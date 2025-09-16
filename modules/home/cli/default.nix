@@ -27,33 +27,6 @@ with lib;
         enable = true;
         nix-direnv.enable = true;
       };
-
-      bash.shellAliases = {
-        ls = "exa --group-directories-first --icons --color=auto";
-        ll = "exa -la --group-directories-first --icons --color=auto";
-        lla = "exa -la --group-directories-first --icons --color=auto --all";
-        tree = "exa --tree --level=3 --icons --color=auto";
-        grep = "rg";
-        cat = "bat";
-        df = "duf";
-        du = "dua";
-        rm = "srm -v";
-        pgrep = "pgrep -a"; # Show full command lines.
-      };
-
-      zsh.shellAliases = let 
-        ezaCommon = "--group-directories-first --icons --color=auto";
-      in {
-        ls = "exa ${ezaCommon}";
-        ll = "exa -la ${ezaCommon}";
-        lla = "exa -la --all ${ezaCommon}";
-        tree = "exa --tree --level=3 ${ezaCommon}";
-        grep = "rg";
-        cat = "bat";
-        df = "duf";
-        du = "dua";
-        pgrep = "pgrep -a"; # Show full command lines.
-      };
     };
 
     home.packages = with pkgs; [
@@ -61,6 +34,7 @@ with lib;
       dua # View disk space usage and delete unwanted data.
       duf # Neat disk monitor.
       kondo # Disposal of build artifacts.
+      eza # A modern replacement for `ls`.
 
       # Networking.
       bandwhich # Bandwidth utilization tool.
