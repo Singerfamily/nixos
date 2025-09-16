@@ -34,6 +34,11 @@ in
       };
     };
 
+    eza = {
+      enable = true;
+      git = true;
+      enableZshIntegration = true;
+    };
 
     vscode = {
       enable = true;

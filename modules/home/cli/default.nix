@@ -21,11 +21,38 @@ with lib;
   config = mkIf config.snowfall.cli.enable {
     programs = {
       htop.enable = true; # The well-known TUI process viewer.
-      bottom.enable = true; # The cool new TUI process viewer.
+      # bottom.enable = true; # The cool new TUI process viewer.
       btop.enable = true; # Another TUI process viewer, with a different design.
       direnv = {
         enable = true;
         nix-direnv.enable = true;
+      };
+
+      bash.shellAliases = {
+        ls = "exa --group-directories-first --icons --color=auto";
+        ll = "exa -la --group-directories-first --icons --color=auto";
+        lla = "exa -la --group-directories-first --icons --color=auto --all";
+        tree = "exa --tree --level=3 --icons --color=auto";
+        grep = "rg";
+        cat = "bat";
+        df = "duf";
+        du = "dua";
+        rm = "srm -v";
+        pgrep = "pgrep -a"; # Show full command lines.
+      };
+
+      zsh.shellAliases = let 
+        ezaCommon = "--group-directories-first --icons --color=auto";
+      in {
+        ls = "exa ${ezaCommon}";
+        ll = "exa -la ${ezaCommon}";
+        lla = "exa -la --all ${ezaCommon}";
+        tree = "exa --tree --level=3 ${ezaCommon}";
+        grep = "rg";
+        cat = "bat";
+        df = "duf";
+        du = "dua";
+        pgrep = "pgrep -a"; # Show full command lines.
       };
     };
 
@@ -47,7 +74,6 @@ with lib;
       # speedtest-rs # CLI internet speedtest tool in Rust.
 
       # Alternative implementations of the basic tools.
-      erdtree # Tree-like `ls` with a load of features.
       killall # Basically `pkill`.
       ripgrep # Oxidized `grep`.
       sd # A friendlier `sed`.

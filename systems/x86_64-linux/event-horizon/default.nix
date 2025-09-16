@@ -174,7 +174,6 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-
   networking.hostId = "edc49e33";
 
   system.stateVersion = "24.11";
