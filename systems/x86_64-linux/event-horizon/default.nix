@@ -14,7 +14,7 @@
 
     docker = {
       enable = true;
-      # implementation = "both";
+      implementation = "both";
     };
 
     flatpak.enable = true;
