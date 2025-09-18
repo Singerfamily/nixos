@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   dotfiles = builtins.path {
     path = ./dotfiles;
@@ -120,7 +125,7 @@ in
   };
 
   home.activation = {
-    genSshPubKey = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    genSshPubKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       run ${pkgs.openssh}/bin/ssh-keygen -y -f /home/${username}/.ssh/id_ed25519 > /home/${username}/.ssh/id_ed25519.pub
     '';
   };
