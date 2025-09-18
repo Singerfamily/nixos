@@ -6,7 +6,7 @@ let
   };
 in
 {
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 
   home.shellAliases = {
     ls = "${pkgs.eza}/bin/eza --group-directories-first --icons --color=auto";
@@ -23,7 +23,6 @@ in
 
   programs = {
     zsh = {
-      # enable = true;
       plugins = [
         {
           name = "powerlevel10k-config";
@@ -52,10 +51,6 @@ in
       enableZshIntegration = true;
     };
 
-    # vscode = {
-    #   enable = true;
-    # };
-
     lazydocker.enable = true;
 
     onedrive = {
@@ -71,42 +66,4 @@ in
       };
     };
   };
-
-  # snowfall = {
-  #   apps = {
-  #     discord.enable = true;
-  #   };
-  #   cli = {
-  #     atuin.enable = true;
-  #     eza = {
-  #       enable = true;
-  #     };
-  #   };
-
-  #   games.minecraft.enable = true;
-
-  #   user = {
-  #     fullName = "Eric Singer";
-  #     # email = "eric@singerfamily.ca";
-  #   };
-
-  #   dev = {
-  #     dotnet.enable = true;
-  #     js.enable = true;
-  #   };
-  #   flatpak = {
-  #     enable = true;
-  #     packages = [
-  #       "com.microsoft.Edge"
-  #       "com.spotify.Client"
-  #       "org.libreoffice.LibreOffice"
-  #     ];
-  #   };
-  # };
-
-  # home.packages = with pkgs; [
-  #   jetbrains.datagrip
-  #   # jetbrains.rider
-  #   # microsoft-edge
-  # ];
 }
