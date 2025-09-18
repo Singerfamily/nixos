@@ -62,14 +62,14 @@ in
       enable = true;
     };
 
-    # nh = {
-    #   enable = true;
-    #   flake = "/home/esinger/projects/nixos";
-    #   clean = {
-    #     enable = true;
-    #     extraArgs = "--keep-since 4d --keep 3";
-    #   };
-    # };
+    nh = {
+      enable = true;
+      flake = "/home/esinger/projects/nixos";
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 4d --keep 3";
+      };
+    };
   };
 
   # snowfall = {
