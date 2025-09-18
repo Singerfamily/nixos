@@ -1,9 +1,11 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
   dotfiles = builtins.path {
     path = ./dotfiles;
     name = "dotfiles";
   };
+
+  inherit (config.home) username;
 in
 {
   imports = [
@@ -103,6 +105,24 @@ in
         "org.libreoffice.LibreOffice"
       ];
     };
+  };
+
+  sops = {
+    secrets."ssh/${username}" = {
+      path = "/home/${username}/.ssh/id_ed25519";
+      mode = "0600";
+    };
+
+    secrets."keys/age" = {
+      path = "/home/${username}/.config/sops/age/keys.txt";
+      mode = "0600";
+    };
+  };
+
+  home.activation = {
+    genSshPubKey = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      run ${pkgs.openssh}/bin/ssh-keygen -y -f /home/${username}/.ssh/id_ed25519 > /home/${username}/.ssh/id_ed25519.pub
+    '';
   };
 
   home.packages = with pkgs; [
