@@ -30,7 +30,11 @@ with lib;
 
   config = mkIf config.snowfall.sops.enable {
     sops = {
-      age.sshKeyPaths = mkDefault [ "/etc/ssh/ssh_host_ed25519_key" ];
+      age.sshKeyPaths = mkDefault [ 
+        "/etc/ssh/ssh_host_ed25519_key" 
+        "/home/${config.home.username}/.ssh/id_ed25519" 
+        "/home/${config.home.username}/.ssh/id_ed25519.bak"
+      ];
       defaultSopsFile = ../../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
     };
