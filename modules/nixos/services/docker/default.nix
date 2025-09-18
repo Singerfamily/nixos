@@ -64,10 +64,10 @@ with lib;
       (mkIf (implementation == "docker" || implementation == "both") {
         virtualisation.docker = {
           enable = true;
-          rootless = {
-            enable = true;
-            setSocketVariable = true;
-          };
+          # rootless = {
+          #   enable = true;
+          #   setSocketVariable = true;
+          # };
           autoPrune.enable = true;
           daemon.settings = {
             # userland-proxy = false;

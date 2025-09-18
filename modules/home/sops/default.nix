@@ -23,18 +23,18 @@ with lib;
 
     enable = mkOption {
       type = with types; bool;
-      default = false;
+      default = true;
       description = "Enable sops-nix module to manage secrets.";
     };
   };
 
   config = mkIf config.snowfall.sops.enable {
-    # Set up sops-nix and decrypt the age key.
     sops = {
-      age = {
-        sshKeyPaths = [ "${home.homeDirectory}/.ssh/id_ed25519" ];
-        generateKey = true;
-      };
+      age.sshKeyPaths = mkDefault [ 
+        "/etc/ssh/ssh_host_ed25519_key" 
+        "/home/${config.home.username}/.ssh/id_ed25519" 
+        "/home/${config.home.username}/.ssh/id_ed25519.bak"
+      ];
       defaultSopsFile = ../../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
     };

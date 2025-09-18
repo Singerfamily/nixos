@@ -1,12 +1,19 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   dotfiles = builtins.path {
     path = ./dotfiles;
     name = "dotfiles";
   };
+
+  inherit (config.home) username;
 in
 {
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 
   home.shellAliases = {
     ls = "${pkgs.eza}/bin/eza --group-directories-first --icons --color=auto";
@@ -23,7 +30,6 @@ in
 
   programs = {
     zsh = {
-      # enable = true;
       plugins = [
         {
           name = "powerlevel10k-config";
@@ -52,61 +58,37 @@ in
       enableZshIntegration = true;
     };
 
-    # vscode = {
-    #   enable = true;
-    # };
-
     lazydocker.enable = true;
 
     onedrive = {
       enable = true;
     };
 
-    # nh = {
-    #   enable = true;
-    #   flake = "/home/esinger/projects/nixos";
-    #   clean = {
-    #     enable = true;
-    #     extraArgs = "--keep-since 4d --keep 3";
-    #   };
-    # };
+    nh = {
+      enable = true;
+      flake = "/home/esinger/projects/nixos";
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 4d --keep 3";
+      };
+    };
   };
 
-  # snowfall = {
-  #   apps = {
-  #     discord.enable = true;
-  #   };
-  #   cli = {
-  #     atuin.enable = true;
-  #     eza = {
-  #       enable = true;
-  #     };
-  #   };
+  sops = {
+    secrets."ssh/${username}" = {
+      path = "/home/${username}/.ssh/id_ed25519";
+      mode = "0600";
+    };
 
-  #   games.minecraft.enable = true;
+    secrets."keys/age" = {
+      path = "/home/${username}/.config/sops/age/keys.txt";
+      mode = "0600";
+    };
+  };
 
-  #   user = {
-  #     fullName = "Eric Singer";
-  #     # email = "eric@singerfamily.ca";
-  #   };
-
-  #   dev = {
-  #     dotnet.enable = true;
-  #     js.enable = true;
-  #   };
-  #   flatpak = {
-  #     enable = true;
-  #     packages = [
-  #       "com.microsoft.Edge"
-  #       "com.spotify.Client"
-  #       "org.libreoffice.LibreOffice"
-  #     ];
-  #   };
-  # };
-
-  # home.packages = with pkgs; [
-  #   jetbrains.datagrip
-  #   # jetbrains.rider
-  #   # microsoft-edge
-  # ];
+  home.activation = {
+    genSshPubKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run ${pkgs.openssh}/bin/ssh-keygen -y -f /home/${username}/.ssh/id_ed25519 > /home/${username}/.ssh/id_ed25519.pub
+    '';
+  };
 }
