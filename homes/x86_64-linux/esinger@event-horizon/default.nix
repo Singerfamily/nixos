@@ -28,7 +28,6 @@ in
     cat = "bat";
     df = "duf";
     du = "dua";
-    rm = "srm -v";
     pgrep = "pgrep -a"; # Show full command lines.
   };
 
@@ -101,6 +100,9 @@ in
     dev = {
       dotnet.enable = true;
       js.enable = true;
+
+      rust.enable = true;
+      go.enable = true;
     };
     flatpak = {
       enable = true;
@@ -132,6 +134,8 @@ in
 
   home.packages = with pkgs; [
     jetbrains.datagrip
+    jetbrains.rust-rover
+    jetbrains.goland
     # jetbrains.rider
     # microsoft-edge
   ];
