@@ -16,7 +16,7 @@
     # SECTION: Nix libraries.
     # Nix flake framework.
     snowfall-lib = {
-      url = "github:snowfallorg/lib";
+      url = "github:LeaderbotX400/snowfall-lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
