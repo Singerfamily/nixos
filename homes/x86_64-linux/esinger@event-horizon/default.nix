@@ -126,11 +126,11 @@ in
     };
   };
 
-  home.activation = {
-    genSshPubKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      run ${pkgs.openssh}/bin/ssh-keygen -y -f /home/${username}/.ssh/id_ed25519 > /home/${username}/.ssh/id_ed25519.pub
-    '';
-  };
+  # home.activation = {
+  #   genSshPubKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  #     run ${pkgs.openssh}/bin/ssh-keygen -y -f /home/${username}/.ssh/id_ed25519 > /home/${username}/.ssh/id_ed25519.pub
+  #   '';
+  # };
 
   home.packages = with pkgs; [
     jetbrains.datagrip

@@ -125,7 +125,7 @@ with lib;
         hardware.amdgpu = {
           initrd.enable = mkDefault true;
           opencl.enable = mkDefault true;
-          amdvlk.enable = mkDefault true;
+          # amdvlk.enable = mkDefault true;
         };
       })
 
