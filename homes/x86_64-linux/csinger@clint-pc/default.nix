@@ -127,5 +127,6 @@ in
     iproute2
     libnotify
     nmap
+    openssl
   ];
 }
