@@ -20,15 +20,14 @@ in
   home.stateVersion = "24.11";
 
   home.shellAliases = lib.mkForce {
-    ls = "${pkgs.eza}/bin/eza --group-directories-first --icons --color=auto";
-    ll = "${pkgs.eza}/bin/eza -la --group-directories-first --icons --color=auto";
-    lla = "${pkgs.eza}/bin/eza -la --group-directories-first --icons --color=auto --all";
-    tree = "${pkgs.eza}/bin/eza --tree --level=3 --icons --color=auto";
+    ls = "eza --group-directories-first --color=auto --hyperlink";
+    ll = "ls -la";
+    lla = "ls -la --all";
+    tree = "ls --tree --level=3";
     grep = "rg";
     cat = "bat";
     df = "duf";
     du = "dua";
-    rm = "srm -v";
     pgrep = "pgrep -a"; # Show full command lines.
   };
 
@@ -101,6 +100,9 @@ in
     dev = {
       dotnet.enable = true;
       js.enable = true;
+
+      rust.enable = true;
+      go.enable = true;
     };
     flatpak = {
       enable = true;
@@ -124,14 +126,16 @@ in
     };
   };
 
-  home.activation = {
-    genSshPubKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      run ${pkgs.openssh}/bin/ssh-keygen -y -f /home/${username}/.ssh/id_ed25519 > /home/${username}/.ssh/id_ed25519.pub
-    '';
-  };
+  # home.activation = {
+  #   genSshPubKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  #     run ${pkgs.openssh}/bin/ssh-keygen -y -f /home/${username}/.ssh/id_ed25519 > /home/${username}/.ssh/id_ed25519.pub
+  #   '';
+  # };
 
   home.packages = with pkgs; [
     jetbrains.datagrip
+    jetbrains.rust-rover
+    jetbrains.goland
     # jetbrains.rider
     # microsoft-edge
   ];

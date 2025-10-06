@@ -4,7 +4,7 @@
   inputs = {
     # SECTION: Core inputs.
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-    stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
@@ -16,7 +16,13 @@
     # SECTION: Nix libraries.
     # Nix flake framework.
     snowfall-lib = {
-      url = "github:snowfallorg/lib";
+      url = "github:LeaderbotX400/snowfall-lib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Nix User Repository - a collection of Nix packages and modules.
+    nur = {
+      url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -113,6 +119,7 @@
 
       # Overlays for Nixpkgs.
       overlays = with inputs; [
+        nur.overlays.default
       ];
 
       templates = {
