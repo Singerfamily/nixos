@@ -68,7 +68,7 @@ in
     dev = {
       dotnet.enable = true;
       js.enable = true;
-      ruby.enable = true;
+      #ruby.enable = true;
       rust.enable = true;
     };
 
@@ -97,7 +97,7 @@ in
 
     jetbrains.rider
     jetbrains.datagrip
-    jetbrains.ruby-mine
+    #jetbrains.ruby-mine
     jetbrains.rust-rover
     jetbrains.pycharm-professional
     jetbrains.goland
@@ -105,8 +105,7 @@ in
     android-studio    
     dapr-cli
     # python3
-    # python312Packages.pyudev
-    #ruby
+    # python312Packages.pyudev    
     gdb # included in gcc-arm-embedded-13
     cmake
     gcc
