@@ -93,6 +93,7 @@ in
     ookla-speedtest
     obs-studio
     talosctl
+    inkscape-with-extensions
 
     jetbrains.rider
     jetbrains.datagrip

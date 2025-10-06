@@ -1,3 +1,4 @@
 test.nix
 result
 .decrypted~*
+.secret*
