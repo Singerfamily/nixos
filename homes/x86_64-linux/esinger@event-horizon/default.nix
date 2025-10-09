@@ -103,6 +103,7 @@ in
 
       rust.enable = true;
       go.enable = true;
+      # python.enable = true;
     };
     flatpak = {
       enable = true;
@@ -136,6 +137,7 @@ in
     jetbrains.datagrip
     jetbrains.rust-rover
     jetbrains.goland
+    # jetbrains.pycharm-professional
     # jetbrains.rider
     # microsoft-edge
   ];
