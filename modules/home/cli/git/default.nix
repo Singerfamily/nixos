@@ -33,7 +33,7 @@ with lib;
       };
 
       lfs.enable = true;
-      difftastic.options.background = {
+      difftastic.background = {
         enable = true;
         background = "dark";
       };

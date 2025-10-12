@@ -38,6 +38,7 @@ with lib;
     environment.systemPackages = with pkgs; [
       protonup
       lutris
+      steamtinkerlaunch
     ];
   };
 }
