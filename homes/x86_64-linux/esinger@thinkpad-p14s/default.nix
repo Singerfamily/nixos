@@ -17,14 +17,13 @@ in
 
   home.shellAliases = {
     ls = "${pkgs.eza}/bin/eza --group-directories-first --icons --color=auto";
-    ll = "${pkgs.eza}/bin/eza -la --group-directories-first --icons --color=auto";
-    lla = "${pkgs.eza}/bin/eza -la --group-directories-first --icons --color=auto --all";
+    ll = "ls -al";
     tree = "${pkgs.eza}/bin/eza --tree --level=3 --icons --color=auto";
     grep = "rg";
-    cat = "bat";
-    df = "duf";
-    du = "dua";
-    rm = "srm -v";
+    cat = "${pkgs.bat}/bin/bat";
+    df = "${pkgs.duf}/bin/duf";
+    du = "${pkgs.dua}/bin/dua";
+    rm = "${pkgs.srm}/bin/srm -v";
     pgrep = "pgrep -a"; # Show full command lines.
   };
 
