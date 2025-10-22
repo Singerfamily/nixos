@@ -13,6 +13,13 @@ with lib;
     home.packages = with pkgs; [
       eza
     ];
+
+    home.shellAliases = {
+      ls = mkDefault "${pkgs.eza}/bin/eza --group-directories-first --color=auto --hyperlink";
+      ll = mkDefault "ls -la";
+      lla = mkDefault "ls -la --all";
+      tree = mkDefault "ls --tree --level=3";
+    };
     
     programs.eza = {
       enable = true;

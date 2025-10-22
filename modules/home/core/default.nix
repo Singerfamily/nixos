@@ -8,6 +8,10 @@
 
 with lib;
 {
+  # imports = [
+  #   (../../../homes/common + "/${config.home.username}")
+  # ];
+
   options = {
     snowfall.core.enable = mkOption {
       description = "Whether to enable core Home-manager options";
