@@ -1,6 +1,13 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }:
+
+with lib;
+{
   options.snowfall.flatpak = {
-    enable = lib.mkEnableOption "Flatpak support";
+    enable = mkOption{
+      type = types.bool;
+      default = false;
+      description = "Whether to enable Flatpak support.";
+    };
   };
   config = lib.mkIf config.snowfall.flatpak.enable {
     services.flatpak.enable = true;

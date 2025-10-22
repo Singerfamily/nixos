@@ -13,7 +13,7 @@ with lib;
     core.enable = mkOption {
       description = "Whether to add common GPU-related modules";
       type = with types; bool;
-      default = true;
+      default = config.snowfall.core.type != "server";
     };
 
     intel = {
