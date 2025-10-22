@@ -46,8 +46,8 @@ with lib;
         };
 
         users.users = snowfall.mapUsersToGroup {
-          group = "tss";
-          users = users;
+          groups = [ "tss" ];
+          inherit users;
         };
       })
     ];

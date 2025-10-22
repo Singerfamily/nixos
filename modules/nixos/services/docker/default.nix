@@ -44,8 +44,8 @@ with lib;
       {
         hardware.nvidia-container-toolkit.enable = config.snowfall.hardware.gpu.nvidia.enable;
         users.users = snowfall.mapUsersToGroup {
-          group = "docker";
-          users = users;
+          groups = [ "docker" ];
+          inherit users;
         };
 
         virtualisation.containers.enable = true;

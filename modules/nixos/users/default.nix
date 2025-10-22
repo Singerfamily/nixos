@@ -41,14 +41,19 @@ with lib;
               openssh.authorizedKeys.keys = [
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGWHFM4TnBtRI0YPjg3RNkh4axZ6fC/BrchvOh6r5aLj"
               ];
-              
-              extraGroups = [
-                "video"
-                "audio"
-                "networkmanager"
-                "builders"
-                "kvm"
-                "libvirtd"
+
+              extraGroups = mkMerge [
+                [
+                  "networkmanager"
+                  "builders"
+                  "kvm"
+                  "libvirtd"
+                ]
+
+                (mkIf config.services.pipewire.enable [
+                  "audio"
+                  "video"
+                ])
               ];
 
               description = fullName;
@@ -75,11 +80,11 @@ with lib;
     );
 
     # Enable global programs if any user uses the shell
-    programs = 
+    programs =
       let
-        hasShell = shellName: any (username:
-          config.home-manager.users.${username}.snowfall.cli.shell.default == shellName
-        ) users;
+        hasShell =
+          shellName:
+          any (username: config.home-manager.users.${username}.snowfall.cli.shell.default == shellName) users;
       in
       {
         zsh.enable = hasShell "zsh";
@@ -88,11 +93,12 @@ with lib;
       };
 
     sops.secrets = mkMerge (
-      map (username: {
+      users
+      |> map (username: {
         "passwords/${username}" = {
           neededForUsers = true;
         };
-      }) users
+      })
     );
   };
 }

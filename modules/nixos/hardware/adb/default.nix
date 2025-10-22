@@ -22,8 +22,8 @@ with lib;
     {
       programs.adb.enable = true;
       users.users = snowfall.mapUsersToGroup {
-        group = "adbusers";
-        users = users;
+        group = [ "adbusers" ];
+        inherit users;
       };
     }
   );

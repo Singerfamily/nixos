@@ -40,6 +40,18 @@ with lib;
       type = with types; bool;
       default = false;
     };
+
+    type = mkOption {
+      description = "The type of system being configured";
+      type =
+        with types;
+        enum [
+          "desktop"
+          "laptop"
+          "server"
+        ];
+      default = "desktop";
+    };
   };
 
   config =
