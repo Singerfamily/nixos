@@ -155,77 +155,22 @@
           opacity = "translucent";
           widgets = [
             "org.kde.plasma.kickoff"
-            # {
-            #   name = "org.dhruv8sh.kara";
-            #   config = {
-            #     general = {
-            #       # animationDuration = 0;
-            #       spacing = 3;
-            #       type = 1;
-            #     };
-            #     type1 = {
-            #       fixedLen = 3;
-            #       labelSource = 0;
-            #     };
-            #   };
-            # }
-            {
-              name = "org.kde.plasma.icontasks";
-            }
+            "org.kde.plasma.icontasks"
             "org.kde.plasma.panelspacer"
-            {
-              systemTray = {
-                items = {
-                  showAll = false;
-                  shown = [
-                    "org.kde.plasma.notifications"
-                    "org.kde.plasma.networkmanagement"
-                    "org.kde.plasma.volume"
-                    "org.kde.plasma.bluetooth"
-                  ];
-                };
-              };
-            }
-            {
-              name = "org.kde.plasma.digitalclock";
-              config = {
-                Appearance = {
-                  # dateDisplayFormat = "BesideTime";
-                  # dateFormat = "custom";
-                  use24hFormat = 2;
-                };
-              };
-            }
-          ];
-
-          screen = 0;
-        }
-        {
-          floating = false;
-          height = 34;
-          lengthMode = "fill";
-          location = "bottom";
-          opacity = "translucent";
-          widgets = [
-            "org.kde.plasma.kickoff"
             {
               name = "org.dhruv8sh.kara";
               config = {
-                general = {
-                  # animationDuration = 0;
-                  spacing = 3;
-                  type = 1;
-                };
-                type1 = {
-                  fixedLen = 3;
-                  labelSource = 0;
-                };
+                # general = {
+                #   # animationDuration = 0;
+                #   spacing = 3;
+                #   type = 1;
+                # };
+                # type1 = {
+                #   fixedLen = 3;
+                #   labelSource = 0;
+                # };
               };
             }
-            # {
-            #   name = "org.kde.plasma.taskmanager";
-            # }
-            "org.kde.plasma.panelspacer"
             {
               systemTray = {
                 items = {
@@ -251,61 +196,114 @@
             }
           ];
 
-          screen = 1;
+          screen = "all";
         }
-        {
-          floating = false;
-          height = 34;
-          lengthMode = "fill";
-          location = "bottom";
-          opacity = "translucent";
-          widgets = [
-            "org.kde.plasma.kickoff"
-            {
-              name = "org.dhruv8sh.kara";
-              config = {
-                general = {
-                  # animationDuration = 0;
-                  spacing = 3;
-                  type = 1;
-                };
-                type1 = {
-                  fixedLen = 3;
-                  labelSource = 0;
-                };
-              };
-            }
-            # {
-            #   name = "org.kde.plasma.taskmanager";
-            # }
-            "org.kde.plasma.panelspacer"
-            {
-              systemTray = {
-                items = {
-                  showAll = false;
-                  shown = [
-                    "org.kde.plasma.notifications"
-                    "org.kde.plasma.networkmanagement"
-                    "org.kde.plasma.volume"
-                    "org.kde.plasma.bluetooth"
-                  ];
-                };
-              };
-            }
-            {
-              name = "org.kde.plasma.digitalclock";
-              config = {
-                Appearance = {
-                  # dateDisplayFormat = "BesideTime";
-                  # dateFormat = "custom";
-                  use24hFormat = 2;
-                };
-              };
-            }
-          ];
+        # {
+        #   floating = false;
+        #   height = 34;
+        #   lengthMode = "fill";
+        #   location = "bottom";
+        #   opacity = "translucent";
+        #   widgets = [
+        #     "org.kde.plasma.kickoff"
+        #     {
+        #       name = "org.dhruv8sh.kara";
+        #       config = {
+        #         general = {
+        #           # animationDuration = 0;
+        #           spacing = 3;
+        #           type = 1;
+        #         };
+        #         type1 = {
+        #           fixedLen = 3;
+        #           labelSource = 0;
+        #         };
+        #       };
+        #     }
+        #     # {
+        #     #   name = "org.kde.plasma.taskmanager";
+        #     # }
+        #     "org.kde.plasma.panelspacer"
+        #     {
+        #       systemTray = {
+        #         items = {
+        #           showAll = false;
+        #           shown = [
+        #             "org.kde.plasma.notifications"
+        #             "org.kde.plasma.networkmanagement"
+        #             "org.kde.plasma.volume"
+        #             "org.kde.plasma.bluetooth"
+        #           ];
+        #         };
+        #       };
+        #     }
+        #     {
+        #       name = "org.kde.plasma.digitalclock";
+        #       config = {
+        #         Appearance = {
+        #           # dateDisplayFormat = "BesideTime";
+        #           # dateFormat = "custom";
+        #           use24hFormat = 2;
+        #         };
+        #       };
+        #     }
+        #   ];
 
-          screen = 2;
-        }
+        #   screen = 1;
+        # }
+        # {
+        #   floating = false;
+        #   height = 34;
+        #   lengthMode = "fill";
+        #   location = "bottom";
+        #   opacity = "translucent";
+        #   widgets = [
+        #     "org.kde.plasma.kickoff"
+        #     {
+        #       name = "org.dhruv8sh.kara";
+        #       config = {
+        #         general = {
+        #           # animationDuration = 0;
+        #           spacing = 3;
+        #           type = 1;
+        #         };
+        #         type1 = {
+        #           fixedLen = 3;
+        #           labelSource = 0;
+        #         };
+        #       };
+        #     }
+        #     # {
+        #     #   name = "org.kde.plasma.taskmanager";
+        #     # }
+        #     "org.kde.plasma.panelspacer"
+        #     {
+        #       systemTray = {
+        #         items = {
+        #           showAll = false;
+        #           shown = [
+        #             "org.kde.plasma.notifications"
+        #             "org.kde.plasma.networkmanagement"
+        #             "org.kde.plasma.volume"
+        #             "org.kde.plasma.bluetooth"
+        #           ];
+        #         };
+        #       };
+        #     }
+        #     {
+        #       name = "org.kde.plasma.digitalclock";
+        #       config = {
+        #         Appearance = {
+        #           # dateDisplayFormat = "BesideTime";
+        #           # dateFormat = "custom";
+        #           use24hFormat = 2;
+        #         };
+        #       };
+        #     }
+        #   ];
+
+        #   screen = 2;
+        # }
       ];
 
       powerdevil = {
