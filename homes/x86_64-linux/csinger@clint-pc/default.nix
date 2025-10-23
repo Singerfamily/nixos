@@ -85,6 +85,7 @@ in
   home.sessionVariables = {    
     OPENOCD_PATH = "${pkgs.openocd}";
     OPENOCD_SCRIPTS_PATH = "$OPENOCD_PATH/share/openocd/scripts";
+    SSL_CERT_DIR = "$HOME/.aspnet/dev-certs/trust:${pkgs.openssl}/etc/ssl/certs";
   };
 
   home.packages = with pkgs; [
@@ -94,6 +95,7 @@ in
     obs-studio
     talosctl
     inkscape-with-extensions
+    vlc
 
     jetbrains.rider
     jetbrains.datagrip
@@ -128,5 +130,6 @@ in
     libnotify
     nmap
     openssl
+    nss.tools
   ];
 }

@@ -24,7 +24,12 @@
     extraConfig = "pinentry-program ${pkgs.kwalletcli}/bin/pinentry-kwallet";
   };
 
-  programs.plasma = {
+  programs.plasma =
+    let
+      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Autumn/contents/images/2560x1440.jpg";
+    in
+    {
+    
     enable = true;
 
     fonts = {
@@ -80,7 +85,7 @@
     krunner.activateWhenTypingOnDesktop = false;
 
     kscreenlocker = {
-      # appearance.wallpaper = "${config.wallpaper}";
+      appearance.wallpaper = "${wallpaper}";
       autoLock = true;
       timeout = 10; # In minutes
     };
@@ -166,8 +171,7 @@
         lengthMode = "fill";
         location = "bottom";
         opacity = "translucent";
-        widgets = [                    
-          "org.kde.plasma.kickoff"
+        widgets = [ 
           {
             name = "org.dhruv8sh.kara";
             config = {
@@ -182,6 +186,11 @@
               };
             };
           }
+          "org.kde.plasma.panelspacer"                   
+          "org.kde.plasma.kickoff"
+          {
+            name = "org.kde.plasma.icontasks";
+          }          
           "org.kde.plasma.panelspacer"
           # {
           #   name = "org.kde.plasma.taskmanager";
@@ -293,7 +302,7 @@
       splashScreen.engine = "none";
       splashScreen.theme = "none";
       tooltipDelay = 1;
-      # wallpaper = "${config.wallpaper}";
+      wallpaper = "${wallpaper}";
     };
 
     configFile = {
