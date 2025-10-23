@@ -128,6 +128,8 @@
       alias = {
       };
 
+      outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
+
       # NOTE: An example for future self.
       # outputs-builder = channels: {
       #     topology = import inputs.nix-topology {
