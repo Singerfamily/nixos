@@ -3,7 +3,6 @@
 {
     config,
     lib,
-    pkgs,
     ...
 }:
 
@@ -20,7 +19,14 @@ with lib; {
     hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;
+
+      settings = {
+        General = {
+          Experimental = true;
+          JustWorksRepairing = "always";
+          MultiProfile = "multiple";
+        };
+      };
     };
-    # services.blueman.enable = true;
   };
 }
