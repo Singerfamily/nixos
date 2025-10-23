@@ -53,6 +53,12 @@ with lib;
         type = with types; nullOr str;
         default = null;
       };
+
+      rocm.enable = mkOption {
+        description = "Whether to enable ROCm support for AMD GPUs";
+        type = with types; bool;
+        default = false;
+      };
     };
   };
 
@@ -112,7 +118,7 @@ with lib;
         };
       })
 
-      (mkIf amd.enable {
+      (mkIf amd.enable {        
         services.xserver.videoDrivers = [
           "amdgpu"
         ];
@@ -127,6 +133,8 @@ with lib;
           opencl.enable = mkDefault true;
           # amdvlk.enable = mkDefault true;
         };
+
+        nixpkgs.config.rocmSupport = amd.rocm.enable;
       })
 
       (mkIf (nvidia.enable) {
