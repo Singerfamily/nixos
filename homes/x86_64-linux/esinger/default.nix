@@ -13,6 +13,13 @@ let
   inherit (config.home) username;
 in
 {
+  snowfall = {
+    user = {
+      fullName = "Eric Singer";
+      # email = "eric@singerfamily.ca";
+    };
+  };
+
   home.stateVersion = "25.05";
 
   home.shellAliases = lib.mkForce {
