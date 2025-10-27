@@ -39,6 +39,10 @@ with lib;
       protonup
       lutris
       steamtinkerlaunch
+      winetricks
+      protontricks
+      wine
+      wineWow64Packages.waylandFull
     ];
   };
 }

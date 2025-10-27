@@ -10,47 +10,12 @@
 # packages into your overlay. All other arguments for this function are flake inputs.
 
 {
-    channels,
-    ...
+  channels,
+  ...
 }:
 
 _final: _prev: {
-    # inherit (channels.unstable)
-        # atuin # BUG: Nix store collision...
-        # OVMF
-        # OVMFFull
-        # alacritty
-        # anytype
-        # binsider
-        # cargo-unfmt
-        # cargo-wizard
-        # direnv
-        # dua
-        # gitoxide
-        # glab
-        # helix
-        # helix-gpt
-        # hyprland
-        # hyprlandPlugins
-        # jujutsu
-        # kitty
-        # marksman
-        # matugen
-        # nh
-        # nix-direnv
-        # nushell
-        # pastel
-        # prettypst
-        # prismlauncher
-        # qemu
-        # rust-motd
-        # rustscan
-        # tailscale
-        # tracy
-        # uv
-        # vesktop
-        # wezterm
-        # ytdownloader
-        # zellij
-        # ;
+  inherit (channels.unstable)
+    tailscale
+    ;
 }
