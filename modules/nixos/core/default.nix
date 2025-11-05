@@ -65,7 +65,12 @@ with lib;
     in
     mkIf enable {
       # Set up root's password.
-      sops.secrets."passwords/root".neededForUsers = true;
+      sops.secrets."passwords/root" = {
+        neededForUsers = true;
+        owner = "root";
+        sopsFile = ../../../secrets/secrets.yaml;
+      };
+      
       users = {
         mutableUsers = mkDefault false;
         users.root = {

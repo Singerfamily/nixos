@@ -5,6 +5,11 @@ keys:
   - &clint-pc age1x7ylu5gq7gafg8evsdvuj0tdnkjv7f434dww4fvps5nn2ceyeeeqnz8e8t
 
 creation_rules:
+  - path_regex: secrets/*.yaml$
+    key_groups:
+      - age:
+          - *esinger
+
   - path_regex: secrets/users/esinger.yaml$
     key_groups:
       - age:
