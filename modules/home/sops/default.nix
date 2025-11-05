@@ -32,6 +32,7 @@ with lib;
         ];
       };
       defaultSopsFile = ../../../secrets/users + "/${config.home.username}.yaml";
+      # defaultSopsFile = ../../../secrets/users + "/${config.home.username}.yaml";
       defaultSopsFormat = "yaml";
     };
   };

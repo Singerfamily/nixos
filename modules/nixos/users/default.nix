@@ -96,9 +96,20 @@ with lib;
       users
       |> map (username: {
         "passwords/${username}" = {
+          key = "password";
           neededForUsers = true;
+          sopsFile = ../../../secrets/users + "/${username}.yaml";
         };
       })
     );
+
+    # sops.secrets = mkMerge (
+    #   users
+    #   |> map (username: {
+    #     "passwords/${username}" = {
+    #       neededForUsers = true;
+    #     };
+    #   })
+    # );
   };
 }

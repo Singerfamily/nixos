@@ -19,6 +19,13 @@
     name = "source";
   };
 
+  paths = {
+    secrets = builtins.path {
+      path = ../secrets/.;
+      name = "secrets";
+    };
+  };
+
   # Common Nix settings.
   #
   # Lives here because it's shared between NixOS and Home-manager.

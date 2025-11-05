@@ -1,10 +1,10 @@
 # INFO: NixOS sops-nix module.
 
 {
-  # config,
+  config,
   lib,
   # system,
-  # hostName,
+  # hostname,
   ...
 }:
 
@@ -12,7 +12,8 @@ with lib;
 {
   config = {
     sops = {
-      defaultSopsFile = mkDefault ../../../secrets/secrets.yaml;
+      defaultSopsFile = ../../../secrets/hosts + "/${config.networking.hostName}.yaml";
+      # defaultSopsFile = lib.path.secrets + "/hosts/${config.networking.hostName}.yaml";
       age = {
         sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
         # keyFile = "/sops/age/keys.txt";
