@@ -1,9 +1,11 @@
 keys:
-  - &user age1sc69qpjhpt3s30p2wgssuvse9j6dhzl2e3p2xshq0yr4gqf3ys3qasx5yr
+  # Users
+  - &esinger age13zzvn95e4tf5rjks5k624x3z30luwwgyp5xsmj250g7njp69au3smm4aw9
+
+  # Hosts
   - &roger age1yg349q7wx42anzvhqncu3c0xuwvssv77rpx64a0zuqvn48zzdpwssjgnuu
   - &event-horizon age15vcpw49v9djmtdz2ssq26rv5mg6el83znzzrvdqfh8ujdvv9rfas5g6lrf
   - &clint-pc age1x7ylu5gq7gafg8evsdvuj0tdnkjv7f434dww4fvps5nn2ceyeeeqnz8e8t
-  - &esinger age13zzvn95e4tf5rjks5k624x3z30luwwgyp5xsmj250g7njp69au3smm4aw9
 
 creation_rules:
   - path_regex: secrets/users/esinger.yaml$
@@ -22,8 +24,8 @@ creation_rules:
   - path_regex: secrets/secrets.yaml$
     key_groups:
       - age:
-          - *user
+          - *esinger
+
           - *event-horizon
           - *roger
           - *clint-pc
-          - *esinger
