@@ -19,7 +19,7 @@ in
       # email = "eric@singerfamily.ca";
     };
   };
-  
+
   home.stateVersion = "25.05";
 
   home.shellAliases = lib.mkForce {
@@ -74,13 +74,14 @@ in
     };
   };
 
-  home.file = {
-    ".ssh/id_ed25519.pub".source = "${dotfiles}/ssh/id_ed25519.pub";
-  };
-
   sops = {
-    secrets."ssh/${username}" = {
+    secrets."ssh/privateKey" = {
       path = "/home/${username}/.ssh/id_ed25519";
+      mode = "0600";
+    };
+
+    secrets."ssh/publicKey" = {
+      path = "/home/${username}/.ssh/id_ed25519.pub";
       mode = "0600";
     };
 

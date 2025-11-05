@@ -24,12 +24,14 @@ with lib;
 
   config = mkIf config.snowfall.sops.enable {
     sops = {
-      age.sshKeyPaths = mkDefault [ 
-        "/etc/ssh/ssh_host_ed25519_key" 
-        "/home/${config.home.username}/.ssh/id_ed25519" 
-        "/home/${config.home.username}/.ssh/id_ed25519.bak"
-      ];
-      defaultSopsFile = ../../../secrets/secrets/users + "${config.home.username}.yaml";
+      age = {
+        # keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+        # generateKey = true;
+        sshKeyPaths = mkDefault [
+          "/home/${config.home.username}/.ssh/id_ed25519"
+        ];
+      };
+      defaultSopsFile = ../../../secrets/users + "/${config.home.username}.yaml";
       defaultSopsFormat = "yaml";
     };
   };
