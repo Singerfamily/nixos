@@ -37,7 +37,7 @@ with lib;
         {
           ${username} = mkMerge [
             {
-              hashedPasswordFile = config.sops.secrets."passwords/${username}".path;
+              hashedPasswordFile = config.sops.secrets."${username}/password".path;
               openssh.authorizedKeys.keys = [
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGWHFM4TnBtRI0YPjg3RNkh4axZ6fC/BrchvOh6r5aLj"
               ];
@@ -95,10 +95,10 @@ with lib;
     sops.secrets = mkMerge (
       users
       |> map (username: {
-        "passwords/${username}" = {
+        "${username}/password" = {
           key = "password";
           neededForUsers = true;
-          sopsFile = ../../../secrets/users + "/${username}.yaml";
+          sopsFile = ../../../secrets/users + "/${username}.yaml"; # Needed since user passwords are stored in a separate sops file per user instead of the host one.
         };
       })
     );
