@@ -19,7 +19,7 @@ in
       # email = "eric@singerfamily.ca";
     };
   };
-
+  
   home.stateVersion = "25.05";
 
   home.shellAliases = lib.mkForce {
@@ -72,6 +72,10 @@ in
         extraArgs = "--keep-since 4d --keep 3";
       };
     };
+  };
+
+  home.file = {
+    ".ssh/id_ed25519.pub".source = "${dotfiles}/ssh/id_ed25519.pub";
   };
 
   sops = {

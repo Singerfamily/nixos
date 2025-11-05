@@ -15,12 +15,6 @@ with lib;
   imports = with inputs; [ sops-nix.homeManagerModules.sops ];
 
   options.snowfall.sops = {
-    # Whether to decrypt and use the Age key from lib/secrets.yaml.
-    # inheritKeyFile = mkOption {
-    #   type = with types; bool;
-    #   default = false;
-    # };
-
     enable = mkOption {
       type = with types; bool;
       default = true;
@@ -35,7 +29,7 @@ with lib;
         "/home/${config.home.username}/.ssh/id_ed25519" 
         "/home/${config.home.username}/.ssh/id_ed25519.bak"
       ];
-      defaultSopsFile = ../../../secrets/secrets.yaml;
+      defaultSopsFile = ../../../secrets/secrets/users + "${config.home.username}.yaml";
       defaultSopsFormat = "yaml";
     };
   };
