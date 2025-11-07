@@ -6,7 +6,7 @@
   pkgs,
   ...
 }:
-let 
+let
   cfg = config.snowfall.apps.steam;
 in
 
@@ -29,10 +29,35 @@ with lib;
     programs = {
       steam = {
         enable = true;
-        remotePlay.openFirewall = cfg.remotePlay; # Open ports in the firewall for Steam Remote Play
+        remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
         protontricks.enable = true;
       };
       gamemode.enable = true;
+    };
+
+    networking.firewall = {
+      allowedTCPPortRanges = [
+        {
+          from = 27015;
+          to = 27030;
+        }
+        {
+          from = 27036;
+          to = 27037;
+        }
+      ];
+
+      allowedUDPPorts = [
+        4380
+        27036
+      ];
+
+      allowedUDPPortRanges = [
+        {
+          from = 27000;
+          to = 27031;
+        }
+      ];
     };
 
     environment.systemPackages = with pkgs; [

@@ -19,9 +19,9 @@
   };
 
   snowfall = {
-    apps = {
-      discord.enable = true;
-    };
+    # apps = {
+    #   discord.enable = true;
+    # };
 
     dev = {
       dotnet.enable = true;
@@ -36,6 +36,7 @@
         "com.microsoft.Edge"
         "com.spotify.Client"
         "org.libreoffice.LibreOffice"
+        "dev.vencord.Vesktop"
       ];
     };
   };
