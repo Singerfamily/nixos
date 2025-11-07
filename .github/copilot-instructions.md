@@ -31,8 +31,8 @@ This is a NixOS configuration repository using flakes and the Snowfall Lib frame
 The repository uses Snowfall Lib with a custom namespace. All modules are prefixed with `custom.`:
 - `modules/nixos/` - System-level NixOS modules
 - `modules/home/` - Home-manager modules  
-- `systems/` - Host-specific configurations (workstation, vm)
-- `homes/` - User@host specific home configurations
+- `systems/<arch>/<hostname>` - Host-specific configurations (workstation, vm)
+- `homes/<arch>/<user>@<hostname>` - User@host specific home configurations
 
 ### Secret Management
 Uses SOPS with age encryption:
