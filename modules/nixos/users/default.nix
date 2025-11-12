@@ -5,18 +5,20 @@
   ...
 }:
 let
-  users = builtins.attrNames (config.home-manager.users or { });
+  # users = builtins.attrNames (config.snowfall.users or { });
+  inherit (config.snowfall) users;
 in
 with lib;
 
 {
-  options.snowfall.cli = {
-    enable = {
-      type = types.bool;
-      default = true;
-      description = "CLI support for Snowfall users";
+  options.snowfall = {
+    cli = {
+      enable = {
+        type = types.bool;
+        default = true;
+        description = "CLI support for Snowfall users";
+      };
     };
-
     users = mkOption {
       type = with types; listOf str;
       default = [ ];
