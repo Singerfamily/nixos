@@ -12,7 +12,7 @@
       # quiet = true; # Enable Plymouth and reduce TTY verbosity
     };
 
-    users = [ "esinger" ]
+    users = [ "esinger" ];
 
     docker = {
       enable = true;
