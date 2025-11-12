@@ -41,7 +41,7 @@ with lib;
             {
               hashedPasswordFile = config.sops.secrets."${username}/password".path;
               openssh.authorizedKeys.keys = [
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGWHFM4TnBtRI0YPjg3RNkh4axZ6fC/BrchvOh6r5aLj"
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIConMjdymJ8/2DplJAz/nsy2iqF/DHbWXH0yRm2jslQN"
               ];
 
               extraGroups = mkMerge [
