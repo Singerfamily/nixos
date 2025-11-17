@@ -6,7 +6,10 @@
 }:
 let
   # users = builtins.attrNames (config.snowfall.users or { });
-  inherit (config.snowfall) users;
+  # inherit (config.snowfallorg) users;
+  users = builtins.attrNames (
+    (config.snowfallorg.users or { }) |> lib.filterAttrs (_: user: user.create)
+  );
 in
 with lib;
 
@@ -18,11 +21,6 @@ with lib;
         default = true;
         description = "CLI support for Snowfall users";
       };
-    };
-    users = mkOption {
-      type = with types; listOf str;
-      default = [ ];
-      description = "List of users to enable CLI support for Snowfall.";
     };
   };
 
@@ -63,18 +61,22 @@ with lib;
 
             (mkIf (shell.default == "bash") {
               shell = pkgs.bash;
+              programs.bash.enable = true;
             })
 
             (mkIf (shell.default == "zsh") {
               shell = pkgs.zsh;
+              programs.zsh.enable = true;
             })
 
             (mkIf (shell.default == "fish") {
               shell = pkgs.fish;
+              programs.fish.enable = true;
             })
 
             (mkIf (shell.default == "nushell") {
               shell = pkgs.nushell;
+              programs.nushell.enable = true;
             })
           ];
         }
@@ -82,17 +84,17 @@ with lib;
     );
 
     # Enable global programs if any user uses the shell
-    programs =
-      let
-        hasShell =
-          shellName:
-          any (username: config.home-manager.users.${username}.snowfall.cli.shell.default == shellName) users;
-      in
-      {
-        zsh.enable = hasShell "zsh";
-        fish.enable = hasShell "fish";
-        # nushell.enable = hasShell "nushell";
-      };
+    # programs =
+    #   let
+    #     hasShell =
+    #       shellName:
+    #       any (username: config.home-manager.users.${username}.snowfall.cli.shell.default == shellName) users;
+    #   in
+    #   {
+    #     zsh.enable = hasShell "zsh";
+    #     fish.enable = hasShell "fish";
+    #     # nushell.enable = hasShell "nushell";
+    #   };
 
     sops.secrets = mkMerge (
       users
@@ -104,14 +106,5 @@ with lib;
         };
       })
     );
-
-    # sops.secrets = mkMerge (
-    #   users
-    #   |> map (username: {
-    #     "passwords/${username}" = {
-    #       neededForUsers = true;
-    #     };
-    #   })
-    # );
   };
 }
