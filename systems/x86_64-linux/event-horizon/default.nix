@@ -5,14 +5,16 @@
   ...
 }:
 {
-  snowfall = {
-    boot = {
-      type = "lanzaboote"; # Use UEFI bootloader
-      # encrypted = true; # Enable LUKS2 encryption
-      # quiet = true; # Enable Plymouth and reduce TTY verbosity
-    };
+  snowfallorg.users = {
+    "esinger".admin = true;
+  };
 
-    users = [ "esinger" ];
+  snowfall = {
+    # boot = {
+    #   type = "uefi"; # Use UEFI bootloader
+    #   # encrypted = true; # Enable LUKS2 encryption
+    #   # quiet = true; # Enable Plymouth and reduce TTY verbosity
+    # };
 
     docker = {
       enable = true;
@@ -167,15 +169,16 @@
     };
 
   boot.initrd.availableKernelModules = [
+    "nvme"
     "xhci_pci"
     "ahci"
-    "nvme"
     "usbhid"
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+
   networking.hostId = "edc49e33";
 
   system.stateVersion = "24.11";

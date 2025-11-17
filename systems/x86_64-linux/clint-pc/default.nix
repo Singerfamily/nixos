@@ -5,12 +5,14 @@
   ...
 }:
 {
+  snowfallorg.users = {
+    "csinger".admin = true;
+  };
+
   snowfall = {
     boot = {
       type = "uefi";
     };
-
-    users = [ "csinger" ];
 
     docker = {
       enable = true;
