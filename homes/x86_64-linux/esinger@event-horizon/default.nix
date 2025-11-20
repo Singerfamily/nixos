@@ -5,7 +5,7 @@
 {
   imports = [
     ./plasma.nix
-    ../esinger
+
   ];
 
   programs = {
@@ -37,6 +37,7 @@
         "com.spotify.Client"
         "org.libreoffice.LibreOffice"
         "dev.vencord.Vesktop"
+        "org.prismlauncher.PrismLauncher"
       ];
     };
   };
