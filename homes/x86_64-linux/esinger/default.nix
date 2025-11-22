@@ -17,56 +17,56 @@ in
 {
   snowfall = {
     user = {
-      fullName = mkDefault "Eric Singer";
-      # email = mkDefault  "eric@singerfamily.ca";
+      fullName = "Eric Singer";
+      # email =  "eric@singerfamily.ca";
     };
   };
 
   home.stateVersion = "25.05";
 
   home.shellAliases = {
-    ls = mkDefault "${pkgs.eza}/bin/eza --group-directories-first --color=auto --hyperlink";
-    ll = mkDefault "ls -la";
-    lla = mkDefault "ls -la --all";
-    tree = mkDefault "ls --tree --level=3";
-    grep = mkDefault "rg";
-    cat = mkDefault "bat";
-    df = mkDefault "duf";
-    du = mkDefault "dua";
-    pgrep = mkDefault "pgrep -a"; # Show full command lines.
-    dc = mkDefault "docker compose";
-    run = mkDefault "NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1";
+    ls = "${pkgs.eza}/bin/eza --group-directories-first --color=auto --hyperlink";
+    ll = "ls -la";
+    lla = "ls -la --all";
+    tree = "ls --tree --level=3";
+    grep = "rg";
+    cat = "bat";
+    df = "duf";
+    du = "dua";
+    pgrep = "pgrep -a"; # Show full command lines.
+    dc = "docker compose";
+    run = "NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1";
   };
 
   programs = {
-    zsh.plugins = mkDefault [
+    zsh.plugins = [
       {
-        name = mkDefault "powerlevel10k-config";
-        src = mkDefault lib.cleanSource dotfiles;
-        file = mkDefault "p10k.zsh";
+        name = "powerlevel10k-config";
+        src = lib.cleanSource dotfiles;
+        file = "p10k.zsh";
       }
     ];
 
     git = {
-      enable = mkDefault true;
-      userName = mkDefault "LeaderbotX400";
-      userEmail = mkDefault "34589843+LeaderbotX400@users.noreply.github.com";
-      attributes = mkDefault [
+      enable = true;
+      userName = "LeaderbotX400";
+      userEmail = "34589843+LeaderbotX400@users.noreply.github.com";
+      attributes = [
         "secrets/*.{yaml,json,ini,env} diff=sopsdiffer"
       ];
 
       extraConfig = {
-        diff.sopsdiffer.textconv = mkDefault "sops -d --config /dev/null";
+        diff.sopsdiffer.textconv = "sops -d --config /dev/null";
       };
     };
 
     eza = {
-      enable = mkDefault true;
-      git = mkDefault true;
-      enableZshIntegration = mkDefault true;
+      enable = true;
+      git = true;
+      enableZshIntegration = true;
     };
 
-    lazydocker.enable = mkDefault true;
+    lazydocker.enable = true;
 
     nh = {
       enable = true;
