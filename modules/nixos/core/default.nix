@@ -49,6 +49,7 @@ with lib;
           "desktop"
           "laptop"
           "server"
+          "thin"
         ];
       default = "desktop";
     };
@@ -70,7 +71,7 @@ with lib;
         owner = "root";
         sopsFile = ../../../secrets/secrets.yaml;
       };
-      
+
       users = {
         mutableUsers = mkDefault false;
         users.root = {
@@ -84,7 +85,7 @@ with lib;
       # Allow running unpatched dynamic binaries on NixOS.
       # See https://github.com/Mic92/nix-ld.
       programs = {
-        nix-ld = {
+        nix-ld = mkIf (!(builtins.elem type [ "thin" ])) {
           enable = true;
           # Libraries that automatically become available to all programs.
           # The default set includes common libraries.
