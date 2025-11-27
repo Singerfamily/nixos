@@ -8,15 +8,24 @@
 
 with lib;
 {
-  # imports = [
-  #   (../../../homes/common + "/${config.home.username}")
-  # ];
-
-  options = {
-    snowfall.core.enable = mkOption {
+  options.snowfall.core = {
+    enable = mkOption {
       description = "Whether to enable core Home-manager options";
       type = types.bool;
       default = true;
+    };
+
+    type = mkOption {
+      description = "The type of system being configured";
+      type =
+        with types;
+        enum [
+          "desktop"
+          "laptop"
+          "server"
+          "thin"
+        ];
+      default = "desktop";
     };
   };
 

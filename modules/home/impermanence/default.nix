@@ -7,10 +7,6 @@
 
 with builtins;
 with lib;
-
-let
-  users = attrNames (config.home-manager.users or { });
-in
 {
   imports = with inputs; [
     impermanence.nixosModules.home-manager.impermanence
