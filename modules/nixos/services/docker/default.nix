@@ -13,7 +13,7 @@ with lib;
     docker = {
       enable = mkOption {
         type = with types; bool;
-        default = false;
+        default = (builtins.elem config.snowfall.core.type [ "server" ]);
         description = "Whether to enable the Docker daemon";
       };
 

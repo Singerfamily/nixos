@@ -5,7 +5,7 @@ with lib;
     enable = mkOption {
       description = "Whether to enable eza, a modern replacement for ls";
       type = with types; bool;
-      default = true;
+      default = (builtins.elem config.snowfall.core.type [ "desktop" "laptop" ]);
     };
   };
 

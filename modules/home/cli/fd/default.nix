@@ -12,7 +12,7 @@ with lib;
   options.snowfall.cli.fd.enable = mkOption {
     description = "Whether to enable fd - simple, fast and user-friendly alternative to find";
     type = with types; bool;
-    default = true;
+    default = (builtins.elem config.snowfall.core.type [ "desktop" "laptop" ]);
   };
 
   config =

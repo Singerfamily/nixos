@@ -13,7 +13,7 @@ with lib;
     enable = mkOption {
       description = "Whether to enable `distrobox` - a tool to create and manage containerized development environments.";
       type = types.bool;
-      default = true;
+      default = (builtins.elem config.snowfall.core.type [ "desktop" "laptop" ]);
     };
   };
 

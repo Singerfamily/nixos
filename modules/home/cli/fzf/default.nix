@@ -22,7 +22,7 @@ with lib;
     enable = mkOption {
       description = "Whether to enable fzf, a general-purpose command-line fuzzy finder";
       type = with types; bool;
-      default = true;
+      default = (builtins.elem config.snowfall.core.type [ "desktop" "laptop" ]);
     };
   };
 
