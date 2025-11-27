@@ -54,16 +54,6 @@
     };
   };
 
-  system.autoUpgrade = {
-    enable = true;
-    flake = "/home/esinger/projects/nixos";
-    flags = [
-      "-L" # print build logs
-    ];
-    dates = "02:00";
-    randomizedDelaySec = "45min";
-  };
-
   fileSystems."/mnt/media" = {
     device = "192.168.1.3:/mnt/stuff/media";
     fsType = "nfs";
