@@ -20,7 +20,7 @@ with lib;
       enable = mkOption {
         description = "Whether to support Intel graphics";
         type = with types; bool;
-        default = true;
+        default = false;
       };
       busID = mkOption {
         description = "Intel iGPU PCI bus ID";

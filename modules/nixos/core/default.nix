@@ -85,7 +85,7 @@ with lib;
       # Allow running unpatched dynamic binaries on NixOS.
       # See https://github.com/Mic92/nix-ld.
       programs = {
-        nix-ld = mkIf (!(builtins.elem type [ "thin" ])) {
+        nix-ld = mkIf (!(builtins.elem config.snowfall.core.type [ "thin" ])) {
           enable = true;
           # Libraries that automatically become available to all programs.
           # The default set includes common libraries.

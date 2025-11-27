@@ -13,7 +13,7 @@ with lib;
     enable = mkOption {
       description = "Whether to enable PipeWire sound system";
       type = with types; bool;
-      default = config.snowfall.core.type != "server";
+      default = (!(builtins.elem config.snowfall.core.type [ "server" ]));
     };
   };
 

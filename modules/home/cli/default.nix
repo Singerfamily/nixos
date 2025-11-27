@@ -14,7 +14,12 @@ with lib;
     enable = mkOption {
       description = "Whether to enable core CLI functionality";
       type = with types; bool;
-      default = true;
+      default = (
+        builtins.elem config.snowfall.core.type [
+          "desktop"
+          "laptop"
+        ]
+      );
     };
   };
 
@@ -34,7 +39,6 @@ with lib;
       dua # View disk space usage and delete unwanted data.
       duf # Neat disk monitor.
       kondo # Disposal of build artifacts.
-      eza # A modern replacement for `ls`.
 
       # Networking.
       bandwhich # Bandwidth utilization tool.

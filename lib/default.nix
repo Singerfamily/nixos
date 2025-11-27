@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 {
 
   mapUsersToGroup = (
@@ -25,7 +25,6 @@
       name = "secrets";
     };
   };
-
   # Common Nix settings.
   #
   # Lives here because it's shared between NixOS and Home-manager.

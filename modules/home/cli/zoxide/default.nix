@@ -19,7 +19,12 @@ with lib;
     enable = mkOption {
       description = "Whether to enable zoxide, a smarter cd command";
       type = with types; bool;
-      default = true;
+      default = (
+        builtins.elem config.snowfall.core.type [
+          "desktop"
+          "laptop"
+        ]
+      );
     };
   };
 

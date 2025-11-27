@@ -5,7 +5,7 @@ with lib;
   options.snowfall.flatpak = {
     enable = mkOption{
       type = types.bool;
-      default = false;
+      default = (!(builtins.elem config.snowfall.core.type [ "server" "thin" ]));
       description = "Whether to enable Flatpak support.";
     };
   };

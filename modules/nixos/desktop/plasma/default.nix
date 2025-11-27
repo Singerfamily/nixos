@@ -16,7 +16,7 @@ with lib;
     enable = mkOption {
       description = "Whether to enable and configure plasma";
       type = with types; bool;
-      default = config.snowfall.core.type != "server";
+      default = (!(builtins.elem config.snowfall.core.type [ "server" "thin" ]));
     };
   };
 
