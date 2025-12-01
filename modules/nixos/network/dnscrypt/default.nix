@@ -12,7 +12,7 @@ with lib;
     enable = mkOption {
       description = "Whether to enable the dnscrypt-proxy2 service";
       type = types.bool;
-      default = true;
+      default = builtins.elem config.snowfall.core.type [ "laptop" ];
     };
 
     settings = mkOption {
