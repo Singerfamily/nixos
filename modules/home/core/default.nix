@@ -24,6 +24,7 @@ with lib;
           "laptop"
           "server"
           "thin"
+          "wsl"
         ];
       default = "desktop";
     };

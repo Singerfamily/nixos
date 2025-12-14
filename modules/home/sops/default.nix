@@ -28,7 +28,7 @@ with lib;
         # keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
         # generateKey = true;
         sshKeyPaths = mkDefault [
-          "/etc/ssh/ssh_host_ed25519_key"
+          (mkIf (config.snowfall.core.type != "wsl") "/etc/ssh/ssh_host_ed25519_key")
           "/home/${config.home.username}/.ssh/id_ed25519"
           "/home/${config.home.username}/.ssh/id_ed25519.bak"
         ];
