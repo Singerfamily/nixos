@@ -18,7 +18,6 @@ in
   snowfall = {
     user = {
       fullName = "Eric Singer";
-      # email =  "eric@singerfamily.ca";
     };
   };
 
