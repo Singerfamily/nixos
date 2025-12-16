@@ -12,7 +12,13 @@ with lib;
   options.snowfall.dev.core = {
     enable = mkOption {
       type = types.bool;
-      default = true;
+      default = (
+        builtins.elem config.snowfall.core.type [
+          "desktop"
+          "laptop"
+          "workstation"
+        ]
+      );
     };
   };
 

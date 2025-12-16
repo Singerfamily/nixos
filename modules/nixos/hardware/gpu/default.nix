@@ -13,7 +13,12 @@ with lib;
     core.enable = mkOption {
       description = "Whether to add common GPU-related modules";
       type = with types; bool;
-      default = config.snowfall.core.type != "server";
+      default = (
+        builtins.elem config.snowfall.core.type [
+          "desktop"
+          "laptop"
+        ]
+      );
     };
 
     intel = {
@@ -118,7 +123,7 @@ with lib;
         };
       })
 
-      (mkIf amd.enable {        
+      (mkIf amd.enable {
         services.xserver.videoDrivers = [
           "amdgpu"
         ];

@@ -18,7 +18,7 @@ with lib;
 
     server = mkOption {
       type = with types; nullOr bool;
-      default = (!(builtins.elem config.snowfall.core.type [ "server" ]));
+      default = true;
       description = "Whether allow SSH'ing into this machine (whether to run a server)";
     };
   };
@@ -59,7 +59,7 @@ with lib;
 
           # Basic hardening.
           settings = {
-            PasswordAuthentication = mkDefault true;
+            PasswordAuthentication = mkDefault false;
             PermitRootLogin = mkDefault "no";
             StreamLocalBindUnlink = mkDefault "yes";
           };

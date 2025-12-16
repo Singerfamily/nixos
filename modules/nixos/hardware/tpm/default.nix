@@ -13,7 +13,12 @@ with lib;
     # Whether to use TPM2 for secure boot.
     enable = mkOption {
       type = with types; bool;
-      default = true;
+      default = (
+        builtins.elem config.snowfall.core.type [
+          "desktop"
+          "laptop"
+        ]
+      );
     };
   };
 
