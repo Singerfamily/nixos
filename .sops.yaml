@@ -31,6 +31,12 @@ creation_rules:
           - *esinger
           - *event-horizon
 
+  - path_regex: secrets/services/caddy.yaml$
+    key_groups:
+      - age:
+          - *esinger
+          - *event-horizon
+
   - path_regex: secrets/secrets.yaml$
     key_groups:
       - age:
