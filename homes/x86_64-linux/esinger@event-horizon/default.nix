@@ -26,9 +26,12 @@
     dev = {
       dotnet.enable = true;
       js.enable = true;
+      java.enable = true;
 
       rust.enable = true;
       go.enable = true;
+
+      jetbrains.enable = true;
     };
     flatpak = {
       enable = true;

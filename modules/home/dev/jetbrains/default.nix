@@ -35,8 +35,8 @@ with lib;
             (mkIf dotnet.enable rider)
             (mkIf rust.enable rust-rover)
             (mkIf ruby.enable ruby-mine)
+            (mkIf java.enable idea)
             # (mkIf go.enable goland)
-            # (mkIf java.enable intellij-idea)
           ];
       }
     );
