@@ -23,8 +23,10 @@ in
 
     git = {
       enable = true;
-      userName = "clintsinger";
-      userEmail = "clint@singerfamily.ca";
+      settings.user = {
+        name = "clintsinger";
+        email = "clint@singerfamily.ca";
+      };
     };
 
     vscode = {
@@ -82,7 +84,7 @@ in
     };
   };
 
-  home.sessionVariables = {    
+  home.sessionVariables = {
     OPENOCD_PATH = "${pkgs.openocd}";
     OPENOCD_SCRIPTS_PATH = "$OPENOCD_PATH/share/openocd/scripts";
     SSL_CERT_DIR = "$HOME/.aspnet/dev-certs/trust:${pkgs.openssl}/etc/ssl/certs";
@@ -101,13 +103,13 @@ in
     jetbrains.datagrip
     #jetbrains.ruby-mine
     jetbrains.rust-rover
-    jetbrains.pycharm-professional
+    jetbrains.pycharm
     jetbrains.goland
 
-    android-studio    
+    android-studio
     dapr-cli
     # python3
-    # python312Packages.pyudev    
+    # python312Packages.pyudev
     gdb # included in gcc-arm-embedded-13
     cmake
     gcc
@@ -117,7 +119,7 @@ in
     # platformio-core
     # (pkgs.python3.withPackages (ps: with ps; [ platformio ]))
     stlink
-    openocd    
+    openocd
     # stm32cubemx
     #gcc-arm-embedded-13
 

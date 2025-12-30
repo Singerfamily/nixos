@@ -61,7 +61,7 @@ with lib;
     };
 
     environment.systemPackages = with pkgs; [
-      protonup
+      protonup-ng
       lutris
       steamtinkerlaunch
       winetricks

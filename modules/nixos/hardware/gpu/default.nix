@@ -104,7 +104,7 @@ with lib;
 
       (mkIf intel.enable {
         nixpkgs.config.packageOverrides = pkgs: {
-          vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+          vaapi = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
         };
         services.xserver.videoDrivers = [
           "intel"
@@ -115,8 +115,8 @@ with lib;
             enable32Bit = mkDefault true;
             extraPackages = with pkgs; [
               intel-media-driver
-              vaapiIntel
-              vaapiVdpau
+              intel-vaapi-driver
+              libva-vdpau-driver
               libvdpau-va-gl
             ];
           };

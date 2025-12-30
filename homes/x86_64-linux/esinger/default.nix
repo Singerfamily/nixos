@@ -21,20 +21,26 @@ in
     };
   };
 
-  home.stateVersion = "25.05";
+  home = {
+    stateVersion = "25.05";
 
-  home.shellAliases = {
-    ls = "${pkgs.eza}/bin/eza --group-directories-first --color=auto --hyperlink";
-    ll = "ls -la";
-    lla = "ls -la --all";
-    tree = "ls --tree --level=3";
-    grep = "rg";
-    cat = "bat";
-    df = "duf";
-    du = "dua";
-    pgrep = "pgrep -a"; # Show full command lines.
-    dc = "docker compose";
-    run = "NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1";
+    shellAliases = {
+      ls = "${pkgs.eza}/bin/eza --group-directories-first --color=auto --hyperlink";
+      ll = "ls -la";
+      lla = "ls -la --all";
+      tree = "ls --tree --level=3";
+      grep = "rg";
+      cat = "bat";
+      df = "duf";
+      du = "dua";
+      pgrep = "pgrep -a"; # Show full command lines.
+      dc = "docker compose";
+      run = "NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1";
+    };
+
+    packages = with pkgs; [
+      bitwarden-desktop
+    ];
   };
 
   programs = {
@@ -48,8 +54,10 @@ in
 
     git = {
       enable = true;
-      userName = "LeaderbotX400";
-      userEmail = "34589843+LeaderbotX400@users.noreply.github.com";
+      settings.user = {
+        name = "LeaderbotX400";
+        email = "34589843+LeaderbotX400@users.noreply.github.com";
+      };
       attributes = [
         "secrets/*.{yaml,json,ini,env} diff=sopsdiffer"
       ];

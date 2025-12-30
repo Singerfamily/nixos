@@ -30,7 +30,7 @@ with lib;
         home.packages =
           with pkgs.jetbrains;
           [
-            (mkIf python.enable pycharm-community)
+            (mkIf python.enable pycharm)
             (mkIf js.enable webstorm)
             (mkIf dotnet.enable rider)
             (mkIf rust.enable rust-rover)

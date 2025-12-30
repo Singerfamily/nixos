@@ -23,7 +23,7 @@ with lib;
       # userName = "<username>";
       # userEmail = "<hash>+<username>@users.noreply.github.com";
 
-      extraConfig = {
+      settings = {
         init.defaultBranch = "main";
         gpg.format = "ssh";
         commit.gpgSign = true;
@@ -33,10 +33,10 @@ with lib;
       };
 
       lfs.enable = true;
-      difftastic.background = {
-        enable = true;
-        background = "dark";
-      };
+      # difftastic.background = {
+      #   enable = true;
+      #   background = "dark";
+      # };
     };
 
     home.file.".ssh/allowed_signers".text = '''';
