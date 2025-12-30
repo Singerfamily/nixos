@@ -46,6 +46,9 @@
 
   services = {
     vscode-server.enable = true;
+    asusd = {
+      enable = true;
+    };
   };
 
   environment = {
@@ -58,6 +61,8 @@
     device = "192.168.1.3:/mnt/stuff/media";
     fsType = "nfs";
   };
+
+  hardware.facter.reportPath = ./facter.json;
 
   disko.devices =
     let
