@@ -46,9 +46,9 @@
 
   services = {
     vscode-server.enable = true;
-    asusd = {
-      enable = true;
-    };
+    # asusd = {
+    #   enable = true;
+    # };
   };
 
   environment = {
