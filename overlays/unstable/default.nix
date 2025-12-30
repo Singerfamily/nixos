@@ -16,6 +16,7 @@
 
 _final: _prev: {
   inherit (channels.unstable)
+    vscode
     tailscale
     jetbrains
     ;
