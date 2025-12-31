@@ -5,8 +5,8 @@
 **DO NOT MAKE ANY CHANGES without googling first. Every change has to be confirmed that it's actually correct.**
 
 Before making any Nix configuration changes, you MUST search:
-- **NixOS options**: https://search.nixos.org/options?channel=25.05&from=0&size=50&sort=relevance&type=packages&query=[your-search]
-- **Home Manager options**: https://home-manager-options.extranix.com/?release=release-25.05&query=[your-search]
+- **NixOS options**: https://search.nixos.org/options?channel=25.11&from=0&size=50&sort=relevance&type=packages&query=[your-search]
+- **Home Manager options**: https://home-manager-options.extranix.com/?release=release-25.11&query=[your-search]
 - **NixOS Wiki**: For additional context and examples
 
 If you cannot find the information needed, tell the user to google for you and paste the results.
