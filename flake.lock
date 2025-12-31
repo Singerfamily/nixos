@@ -362,21 +362,6 @@
         "type": "github"
       }
     },
-    "hardware": {
-      "locked": {
-        "lastModified": 1766568855,
-        "narHash": "sha256-UXVtN77D7pzKmzOotFTStgZBqpOcf8cO95FcupWp4Zo=",
-        "owner": "nixos",
-        "repo": "nixos-hardware",
-        "rev": "c5db9569ac9cc70929c268ac461f4003e3e5ca80",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixos-hardware",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -735,7 +720,6 @@
       "inputs": {
         "determinate": "determinate",
         "disko": "disko",
-        "hardware": "hardware",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
@@ -783,11 +767,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765860072,
-        "narHash": "sha256-ex/Fx+XKuv5U/pLJLaItDV1FQyvaiF9RrN89Z6R4wy4=",
+        "lastModified": 1767141227,
+        "narHash": "sha256-IwN1lvum4OLuGCdvQivlH/Gq1qwObweBV+Dlo5mhbL4=",
         "owner": "LeaderbotX400",
         "repo": "snowfall-lib",
-        "rev": "0a7e510ed0e2cadef1009d5f0d8cac23294bd483",
+        "rev": "7f6ee670ef0000708b469d1cf2d2bee3a967b9e1",
         "type": "github"
       },
       "original": {
