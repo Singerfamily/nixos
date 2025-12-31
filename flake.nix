@@ -75,9 +75,6 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # NixOS modules covering hardware quirks.
-    hardware.url = "github:nixos/nixos-hardware";
   };
 
   outputs =
