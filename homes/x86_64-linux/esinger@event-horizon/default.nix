@@ -48,5 +48,6 @@
     jetbrains.datagrip
     jetbrains.rust-rover
     jetbrains.goland
+    android-studio
   ];
 }
