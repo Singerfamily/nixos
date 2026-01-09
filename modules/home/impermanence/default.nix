@@ -8,9 +8,9 @@
 with builtins;
 with lib;
 {
-  imports = with inputs; [
-    impermanence.nixosModules.home-manager.impermanence
-  ];
+  # imports = with inputs; [
+  #   impermanence.nixosModules.home-manager.impermanence
+  # ];
 
   options.snowfall.impermanence = {
     enable = mkOption {

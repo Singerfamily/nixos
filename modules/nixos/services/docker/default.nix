@@ -66,7 +66,7 @@ with lib;
           enable = true;
           # rootless = {
           #   enable = true;
-          #   setSocketVariable = true;
+          #   # setSocketVariable = true;
           # };
           autoPrune.enable = true;
           daemon.settings = {
