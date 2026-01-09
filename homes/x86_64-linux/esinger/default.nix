@@ -62,7 +62,7 @@ in
         "secrets/*.{yaml,json,ini,env} diff=sopsdiffer"
       ];
 
-      extraConfig = {
+      settings = {
         diff.sopsdiffer.textconv = "sops -d --config /dev/null";
       };
     };
