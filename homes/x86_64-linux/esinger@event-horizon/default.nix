@@ -36,7 +36,7 @@
     flatpak = {
       enable = true;
       packages = [
-        "com.microsoft.Edge"
+        # "com.microsoft.Edge"
         "com.spotify.Client"
         "org.libreoffice.LibreOffice"
         "org.prismlauncher.PrismLauncher"
@@ -49,5 +49,6 @@
     jetbrains.rust-rover
     jetbrains.goland
     android-studio
+    microsoft-edge
   ];
 }
