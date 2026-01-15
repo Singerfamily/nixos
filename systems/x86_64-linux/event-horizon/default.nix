@@ -30,6 +30,7 @@
         amd.enable = true;
       };
       cups.enable = true;
+      adb.enable = true;
     };
 
     apps = {
