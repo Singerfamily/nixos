@@ -94,6 +94,7 @@ with lib;
           krfb
           krdp
           kdePackages.sddm-kcm
+          plasma-browser-integration
         ]);
     };
 }
