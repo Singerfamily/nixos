@@ -49,6 +49,7 @@ with lib;
             openocd
             platformio-core
             gcc-arm-embedded
+            esptool
           ]
         ))
       ];
