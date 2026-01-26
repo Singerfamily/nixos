@@ -27,7 +27,10 @@
       dotnet.enable = true;
       js.enable = true;
       java.enable = true;
-
+      c = {
+        enable = true;
+        embedded = true;
+      };
       rust.enable = true;
       go.enable = true;
 
