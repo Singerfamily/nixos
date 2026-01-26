@@ -36,6 +36,7 @@ with lib;
             (mkIf rust.enable rust-rover)
             (mkIf ruby.enable ruby-mine)
             (mkIf java.enable idea)
+            (mkIf c.enable clion)
             # (mkIf go.enable goland)
           ];
       }
