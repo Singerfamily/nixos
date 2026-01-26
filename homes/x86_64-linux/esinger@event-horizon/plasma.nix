@@ -61,7 +61,8 @@
         launch-edge = {
           name = "Launch Edge";
           key = "Meta+Shift+E";
-          command = "flatpak run --branch=stable --arch=x86_64 --command=/app/bin/edge --file-forwarding com.microsoft.Edge @@u %U @@";
+          # command = "flatpak run --branch=stable --arch=x86_64 --command=/app/bin/edge --file-forwarding com.microsoft.Edge @@u %U @@";
+          command = "${pkgs.microsoft-edge}/bin/microsoft-edge";
         };
       };
 
@@ -147,55 +148,60 @@
       overrideConfig = true;
 
       panels = [
+        # Windows-like panel at the bottom
         {
-          floating = false;
-          height = 34;
-          lengthMode = "fill";
           location = "bottom";
-          opacity = "translucent";
+          height = 36;
           widgets = [
-            "org.kde.plasma.kickoff"
-            "org.kde.plasma.icontasks"
+            # We can configure the widgets by adding the name and config
+            # attributes. For example to add the the kickoff widget and set the
+            # icon to "nix-snowflake-white" use the below configuration. This will
+            # add the "icon" key to the "General" group for the widget in
+            # ~/.config/plasma-org.kde.plasma.desktop-appletsrc.
+            {
+              name = "org.kde.plasma.kickoff";
+              config = {
+                General = {
+                  icon = "nix-snowflake-white";
+                  alphaSort = true;
+                };
+              };
+            }
+            {
+              iconTasks = {
+                launchers = [
+                  "applications:org.kde.konsole.desktop"
+                  "applications:org.kde.dolphin.desktop"
+                  "applications:microsoft-edge.desktop"
+                  "applications:code.desktop"
+                ];
+              };
+            }
             "org.kde.plasma.panelspacer"
             {
-              name = "org.dhruv8sh.kara";
-              config = {
-                # general = {
-                #   # animationDuration = 0;
-                #   spacing = 3;
-                #   type = 1;
-                # };
-                # type1 = {
-                #   fixedLen = 3;
-                #   labelSource = 0;
-                # };
+              systemTray.items = {
+                # We explicitly show bluetooth and battery
+                showAll = false;
+                shown = [
+                  # "org.kde.plasma.battery"
+                  "org.kde.plasma.volume"
+                  "org.kde.plasma.bluetooth"
+                ];
+                # And explicitly hide networkmanagement and volume
+                # hidden = [
+                #   "org.kde.plasma.networkmanagement"
+                #   # "org.kde.plasma.volume"
+                # ];
               };
             }
             {
-              systemTray = {
-                items = {
-                  showAll = false;
-                  shown = [
-                    "org.kde.plasma.notifications"
-                    "org.kde.plasma.networkmanagement"
-                    "org.kde.plasma.volume"
-                    "org.kde.plasma.bluetooth"
-                  ];
-                };
-              };
-            }
-            {
-              name = "org.kde.plasma.digitalclock";
-              config = {
-                Appearance = {
-                  # dateDisplayFormat = "BesideTime";
-                  # dateFormat = "custom";
-                  use24hFormat = 2;
-                };
+              digitalClock = {
+                calendar.firstDayOfWeek = "sunday";
+                time.format = "24h";
               };
             }
           ];
-
+          # hiding = "autohide";
           screen = "all";
         }
         # {
@@ -207,23 +213,24 @@
         #   widgets = [
         #     "org.kde.plasma.kickoff"
         #     {
+        #       name = "org.kde.plasma.icontasks";
+
+        #     }
+        #     "org.kde.plasma.panelspacer"
+        #     {
         #       name = "org.dhruv8sh.kara";
         #       config = {
-        #         general = {
-        #           # animationDuration = 0;
-        #           spacing = 3;
-        #           type = 1;
-        #         };
-        #         type1 = {
-        #           fixedLen = 3;
-        #           labelSource = 0;
-        #         };
+        #         # general = {
+        #         #   # animationDuration = 0;
+        #         #   spacing = 3;
+        #         #   type = 1;
+        #         # };
+        #         # type1 = {
+        #         #   fixedLen = 3;
+        #         #   labelSource = 0;
+        #         # };
         #       };
         #     }
-        #     # {
-        #     #   name = "org.kde.plasma.taskmanager";
-        #     # }
-        #     "org.kde.plasma.panelspacer"
         #     {
         #       systemTray = {
         #         items = {
@@ -249,61 +256,7 @@
         #     }
         #   ];
 
-        #   screen = 1;
-        # }
-        # {
-        #   floating = false;
-        #   height = 34;
-        #   lengthMode = "fill";
-        #   location = "bottom";
-        #   opacity = "translucent";
-        #   widgets = [
-        #     "org.kde.plasma.kickoff"
-        #     {
-        #       name = "org.dhruv8sh.kara";
-        #       config = {
-        #         general = {
-        #           # animationDuration = 0;
-        #           spacing = 3;
-        #           type = 1;
-        #         };
-        #         type1 = {
-        #           fixedLen = 3;
-        #           labelSource = 0;
-        #         };
-        #       };
-        #     }
-        #     # {
-        #     #   name = "org.kde.plasma.taskmanager";
-        #     # }
-        #     "org.kde.plasma.panelspacer"
-        #     {
-        #       systemTray = {
-        #         items = {
-        #           showAll = false;
-        #           shown = [
-        #             "org.kde.plasma.notifications"
-        #             "org.kde.plasma.networkmanagement"
-        #             "org.kde.plasma.volume"
-        #             "org.kde.plasma.bluetooth"
-        #           ];
-        #         };
-        #       };
-        #     }
-        #     {
-        #       name = "org.kde.plasma.digitalclock";
-        #       config = {
-        #         Appearance = {
-        #           # dateDisplayFormat = "BesideTime";
-        #           # dateFormat = "custom";
-        #           use24hFormat = 2;
-        #         };
-        #       };
-        #     }
-        #   ];
-
-        #   screen = 2;
-        # }
+        #   screen = "all";
       ];
 
       powerdevil = {
