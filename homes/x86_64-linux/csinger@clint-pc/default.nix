@@ -97,6 +97,7 @@ in
     talosctl
     inkscape-with-extensions
     vlc
+    remmina
 
     jetbrains.rider
     jetbrains.datagrip

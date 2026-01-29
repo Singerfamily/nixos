@@ -48,35 +48,6 @@
     # };
   };
 
-  # Trust .NET development certificates system-wide
-  security.pki.certificates = [
-    ''
-      -----BEGIN CERTIFICATE-----
-      MIID0zCCArugAwIBAgIJANev/yxgN20YMA0GCSqGSIb3DQEBCwUAMBQxEjAQBgNV
-      BAMTCWxvY2FsaG9zdDAeFw0yNjAxMjYyMzI2MDNaFw0yNzAxMjYyMzI2MDNaMBQx
-      EjAQBgNVBAMTCWxvY2FsaG9zdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
-      ggEBAMSt3Hcn5TRNxN3SZ+hjcq8EgmlOHIm20Wn+QHYU20Pae6GOwnGqaNf+GpjK
-      o7j8HFOiDC8qOV4/mpAzfdx0jOciRopawPIYoo77ez94tNZnppz3aguN9khPLxTZ
-      23TVCpgLudW2NR9geS2PWrOrvjn0EZ50+eoqgiAGTyjVlxJVi7xxXnOosnMbx1JH
-      eH9m05/FTjCLprKv2X6b9Sg+MHbSHTQUkffCUXaMpTcbXtb+Qtm72unsTdtS0yx6
-      NYaPiKdbui9BlVDpfsQ4ACScR7d4kU8YOZG0drOC2BUOzFMvATKPzuvv+Ojwq3/Z
-      lIpoM+MlgQ1aKHLsmpVIMomr500CAwEAAaOCASYwggEiMAwGA1UdEwEB/wQCMAAw
-      DgYDVR0PAQH/BAQDAgWgMBYGA1UdJQEB/wQMMAoGCCsGAQUFBwMBMIGABgNVHREB
-      Af8EdjB0gglsb2NhbGhvc3SCDyouZGV2LmxvY2FsaG9zdIIOKi5kZXYuaW50ZXJu
-      YWyCFGhvc3QuZG9ja2VyLmludGVybmFsghhob3N0LmNvbnRhaW5lcnMuaW50ZXJu
-      YWyHBH8AAAGHEAAAAAAAAAAAAAAAAAAAAAEwDwYKKwYBBAGCN1QBAQQBBjApBgNV
-      HQ4EIgQgvzXnZd1GZunTtRZo8Dx+ujeeDJyjyzQqQAw7EobZauYwKwYDVR0jBCQw
-      IoAgvzXnZd1GZunTtRZo8Dx+ujeeDJyjyzQqQAw7EobZauYwDQYJKoZIhvcNAQEL
-      BQADggEBAC1ZAwrz7zxMVMVj9aTFw9iu72zMV6YZFedAcw4IcAqjrEj9wFE8j2Wa
-      vmf+5b0gTUD5A8xXEuMjXsn3kxn9vYNnCv3himNJklgu5CuoYNjqzEjINeBXKQnh
-      Z3NR9ujlcR6mnCdcYjWekAXjWEl3DS7D1Y+ib4N56AzRCYsWJUJ3QS2LXftlcgqe
-      N2cOwZGw4iV4gymn+s/xhX7gTVx1WQIxswmVrNtTWuyoETcIPS/6BO9D6yUoFvHZ
-      nrCJMpm0P68j0Gpyc5uOf7JG8vJFlNsCDtHTEqCXM5SzQr7yGp0NRgW2PcTWBLLr
-      r6AG4vf8Byxdg4OYZAEDDFjHOA619R4=
-      -----END CERTIFICATE-----
-    ''
-  ];
-
   # environment =
   #   let
   #     dotnet = (with pkgs.dotnetCorePackages; combinePackages [ dotnet_9.sdk ]);
