@@ -69,7 +69,26 @@
   # };
 
   # For mount.cifs, required unless domain name resolution is not needed.
-  environment.systemPackages = [ pkgs.cifs-utils ];
+  # Trust ASP.NET Core development certificate
+  security.pki.certificateFiles = [
+    ./aspnetcore-dev-cert.crt
+  ];
+
+  environment.systemPackages = with pkgs; [
+    cifs-utils
+    jq
+    google-chrome
+    firefox
+    microsoft-edge
+  ];
+
+  xdg.mime.defaultApplications = {
+    "text/html" = "microsoft-edge.desktop";
+    "x-scheme-handler/http" = "microsoft-edge.desktop";
+    "x-scheme-handler/https" = "microsoft-edge.desktop";
+    "x-scheme-handler/about" = "microsoft-edge.desktop";
+    "x-scheme-handler/unknown" = "microsoft-edge.desktop";
+  };
   fileSystems."/mnt/backup" = {
     device = "//192.168.1.3/clint";
     fsType = "cifs";
