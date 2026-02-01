@@ -108,7 +108,7 @@ in
 
     android-studio
     dapr-cli
-    # python3
+    python3
     # python312Packages.pyudev
     gdb # included in gcc-arm-embedded-13
     cmake

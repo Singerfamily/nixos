@@ -334,35 +334,7 @@
             SecondOutlineThickness = 0;
             Size = 8;
           };
-
-          # Global tiling layouts (custom fancy zones templates)
-          "Tiling/14e560ef-3e76-53f0-9c18-93993dd4a407"."tiles" =
-            "{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.5},{\"height\":0.5}]}";
-          "Tiling/51f11455-87af-57f7-96a7-51a374450fbb"."tiles" =
-            "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.38703703703703790},{\"height\":0.6129629629629607}],\"width\":0.24479166666666644},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.3884259259259263},{\"height\":0.6115740740740727}],\"width\":0.4458333333333335},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.38796296296296295},{\"height\":0.6120370370370369}],\"width\":0.3093749999999995}]}";
-
-          # Per-desktop tiling layouts
-          "Tiling/Desktop_1/b7457132-3b86-487d-82e5-b12723e589c3"."tiles" =
-            "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":1},{\"width\":1}]}";
-          "Tiling/Desktop_1/d4f85966-0f6d-4e55-b0ed-2fabeec247f2"."tiles" =
-            "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.36527777777777826},{\"height\":0.6347222222222206}],\"width\":0.27994791666666713},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.3657407407407405},{\"height\":0.6342592592592595}],\"width\":0.4351562500000004},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.3662037037037038},{\"height\":0.6337962962962955}],\"width\":0.28489583333333246}]}";
-          "Tiling/Desktop_2/b7457132-3b86-487d-82e5-b12723e589c3"."tiles" =
-            "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":1},{\"width\":1}]}";
-          "Tiling/Desktop_2/d4f85966-0f6d-4e55-b0ed-2fabeec247f2"."tiles" =
-            "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.36527777777777826},{\"height\":0.6347222222222206}],\"width\":0.27994791666666713},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.3657407407407405},{\"height\":0.6342592592592595}],\"width\":0.4351562500000004},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.3662037037037038},{\"height\":0.6337962962962955}],\"width\":0.28489583333333246}]}";
-          "Tiling/Desktop_3/b7457132-3b86-487d-82e5-b12723e589c3"."tiles" =
-            "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":1},{\"width\":1}]}";
-          "Tiling/Desktop_3/d4f85966-0f6d-4e55-b0ed-2fabeec247f2"."tiles" =
-            "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.36527777777777826},{\"height\":0.6347222222222206}],\"width\":0.27994791666666713},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.3657407407407405},{\"height\":0.6342592592592595}],\"width\":0.4351562500000004},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.3662037037037038},{\"height\":0.6337962962962955}],\"width\":0.28489583333333246}]}";
-          "Tiling/Desktop_4/b7457132-3b86-487d-82e5-b12723e589c3"."tiles" =
-            "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":1},{\"width\":1}]}";
-          "Tiling/Desktop_4/d4f85966-0f6d-4e55-b0ed-2fabeec247f2"."tiles" =
-            "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.36527777777777826},{\"height\":0.6347222222222206}],\"width\":0.27994791666666713},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.3657407407407405},{\"height\":0.6342592592592595}],\"width\":0.4351562500000004},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.3662037037037038},{\"height\":0.6337962962962955}],\"width\":0.28489583333333246}]}";
-          "Tiling/Desktop_5/b7457132-3b86-487d-82e5-b12723e589c3"."tiles" =
-            "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":1},{\"width\":1}]}";
-          "Tiling/Desktop_5/d4f85966-0f6d-4e55-b0ed-2fabeec247f2"."tiles" =
-            "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.36527777777777826},{\"height\":0.6347222222222206}],\"width\":0.27994791666666713},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.3657407407407405},{\"height\":0.6342592592592595}],\"width\":0.4351562500000004},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.3662037037037038},{\"height\":0.6337962962962955}],\"width\":0.28489583333333246}]}";
-
+          
           "General"."FreeFloating" = true;
 
           # "Script-krohnkite" = {

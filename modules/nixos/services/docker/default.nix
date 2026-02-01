@@ -42,7 +42,10 @@ with lib;
     in
     mkIf enable (mkMerge [
       {
-        hardware.nvidia-container-toolkit.enable = config.snowfall.hardware.gpu.nvidia.enable;
+        hardware.nvidia-container-toolkit = {
+          enable = config.snowfall.hardware.gpu.nvidia.enable;
+          mount-nvidia-executables = config.snowfall.hardware.gpu.nvidia.enable;
+        };
         users.users = snowfall.mapUsersToGroup {
           groups = [ "docker" ];
           inherit users;
@@ -71,7 +74,8 @@ with lib;
           autoPrune.enable = true;
           daemon.settings = {
             # userland-proxy = false;
-            # features.cdi = true;
+            # Enable CDI (Container Device Interface) for GPU support
+            features.cdi = true;
             # registry-mirrors = [ "https://cr.singerfamily.ca" ];
           };
         };
