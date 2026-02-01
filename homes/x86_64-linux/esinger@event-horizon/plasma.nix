@@ -174,6 +174,8 @@
                   "applications:org.kde.dolphin.desktop"
                   "applications:microsoft-edge.desktop"
                   "applications:code.desktop"
+                  "applications:vesktop.desktop"
+                  "applications:steam.desktop"
                 ];
               };
             }
