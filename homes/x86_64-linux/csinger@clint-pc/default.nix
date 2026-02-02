@@ -91,6 +91,10 @@ in
 
   home.packages = with pkgs; [
 
+    gimp
+    davinci-resolve
+    slack
+
     neovim
     ookla-speedtest
     obs-studio

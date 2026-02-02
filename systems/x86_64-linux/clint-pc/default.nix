@@ -68,6 +68,13 @@
   #   fsType = "nfs";
   # };
 
+  # RDP server for remote desktop access
+  services.xrdp = {
+    enable = true;
+    defaultWindowManager = "startplasma-x11";
+    openFirewall = true;
+  };
+
   # For mount.cifs, required unless domain name resolution is not needed.
   # Trust ASP.NET Core development certificate
   security.pki.certificateFiles = [
