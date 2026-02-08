@@ -93,8 +93,17 @@ with lib;
           krdc
           krfb
           krdp
+          kpipewire
           kdePackages.sddm-kcm
           plasma-browser-integration
         ]);
+
+        networking.firewall.allowedTCPPorts = [ 3389 ];
+
+        xdg.portal = {
+          enable = true;
+          extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+          config.common.default = "kde";
+        };
     };
 }

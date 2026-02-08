@@ -62,12 +62,12 @@ with lib;
 
     environment.systemPackages = with pkgs; [
       protonup-ng
-      lutris
-      steamtinkerlaunch
-      winetricks
       protontricks
-      wine
-      wineWow64Packages.waylandFull
+      # steamtinkerlaunch
+      # lutris
+      # winetricks
+      # wine
+      # wineWow64Packages.waylandFull
     ];
   };
 }
