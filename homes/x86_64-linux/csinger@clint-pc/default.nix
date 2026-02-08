@@ -76,8 +76,7 @@ in
 
     flatpak = {
       enable = true;
-      packages = [
-        "com.microsoft.Edge"
+      packages = [        
         "com.spotify.Client"
         "org.libreoffice.LibreOffice"
       ];
