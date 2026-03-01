@@ -84,6 +84,7 @@
   environment.systemPackages = with pkgs; [
     cifs-utils
     jq
+    lsof
     google-chrome
     firefox
     microsoft-edge
@@ -97,7 +98,7 @@
     "x-scheme-handler/unknown" = "microsoft-edge.desktop";
   };
   fileSystems."/mnt/backup" = {
-    device = "//192.168.1.3/clint";
+    device = "//10.200.0.3/clint";
     fsType = "cifs";
     options =
       let

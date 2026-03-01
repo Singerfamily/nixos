@@ -22,6 +22,24 @@ with lib;
       inherit (config.snowfall.dev.dotnet)
         enable
         ;
+      aspireCli = pkgs.stdenvNoCC.mkDerivation {
+        pname = "aspire";
+        version = "13.1.2";
+        src = pkgs.fetchurl {
+          url = "https://ci.dot.net/public/aspire/13.1.2-preview.1.26125.13/aspire-cli-linux-x64-13.1.2.tar.gz";
+          hash = "sha256-cWCaQcZQqxYeSNpuHjiXD1ezLHCsJtOIlVIu5DRqNik=";
+        };
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+        sourceRoot = ".";
+        unpackCmd = "tar -xzf $curSrc";
+        installPhase = ''
+          runHook preInstall
+          install -Dm755 aspire $out/lib/aspire/aspire
+          makeWrapper $out/lib/aspire/aspire $out/bin/aspire \
+            --set DOTNET_SYSTEM_GLOBALIZATION_INVARIANT 1
+          runHook postInstall
+        '';
+      };
     in
     mkIf enable {
       home =
@@ -32,6 +50,7 @@ with lib;
           packages = with pkgs; [
             sdk
             dotnet-ef
+            aspireCli
             nss.tools
           ];
 
