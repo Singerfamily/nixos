@@ -24,17 +24,17 @@ with lib;
     in
     mkIf enable {
       home.packages = with pkgs; [
-        # Python itself.
+        # Python itself (black included here to avoid collision with standalone black)
         (python313.withPackages (
           ps: with ps; [
             python-lsp-server
+            black
           ]
         ))
 
         # jetbrains.pycharm-community
 
         # LSP servers, formatters and linters
-        black
         pyright
         ruff
         # ruff-lsp

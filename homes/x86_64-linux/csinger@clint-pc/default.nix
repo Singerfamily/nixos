@@ -70,6 +70,7 @@ in
     dev = {
       dotnet.enable = true;
       js.enable = true;
+      python.enable = true;
       #ruby.enable = true;
       rust.enable = true;
     };
@@ -111,7 +112,7 @@ in
 
     android-studio
     dapr-cli
-    python3
+    # python3 — now provided by snowfall.dev.python module
     # python312Packages.pyudev
     gdb # included in gcc-arm-embedded-13
     cmake
@@ -136,5 +137,15 @@ in
     nmap
     openssl
     nss.tools
+
+    # AI agent development & testing tools
+    gh                          # GitHub CLI for PR/issue workflows
+    python3Packages.pytest
+    ripgrep
+    tree
+    entr                        # Run commands when files change
+    watchexec                   # File watcher for auto-rebuild/test
+    httpie                      # HTTP client for API testing
+    wget
   ];
 }

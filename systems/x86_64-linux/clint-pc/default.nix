@@ -88,6 +88,10 @@
     google-chrome
     firefox
     microsoft-edge
+
+    # Playwright browsers (system-level, alongside other browsers)
+    playwright-driver.browsers
+    chromium
   ];
 
   xdg.mime.defaultApplications = {
@@ -153,6 +157,8 @@
   environment = {
     variables = {
       LIBVIRT_DEFAULT_URI = "qemu:///system";
+      PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
     };
   };
 
