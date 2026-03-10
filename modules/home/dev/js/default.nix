@@ -30,7 +30,6 @@ with lib;
 
         node2nix
         nodejs
-        deno
 
         nodePackages.pnpm
       ];
