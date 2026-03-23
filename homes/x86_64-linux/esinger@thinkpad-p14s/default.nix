@@ -1,6 +1,0 @@
-{
-  ...
-}:
-{
-  snowfall.core.type = "wsl";
-}
