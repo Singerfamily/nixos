@@ -98,7 +98,10 @@ with lib;
           plasma-browser-integration
         ]);
 
-        networking.firewall.allowedTCPPorts = [ 3389 ];
+        networking.firewall.allowedTCPPorts = [
+          3388 # KRDP Server (KDE RDP)
+          3389 # Standard RDP port
+        ];
 
         xdg.portal = {
           enable = true;

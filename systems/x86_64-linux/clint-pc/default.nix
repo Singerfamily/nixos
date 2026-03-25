@@ -9,6 +9,16 @@
     "csinger".admin = true;
   };
 
+  # Allow older SSH MACs for kasm workspaces compatibility
+  services.openssh.settings.Macs = [
+    "hmac-sha2-512-etm@openssh.com"
+    "hmac-sha2-256-etm@openssh.com"
+    "umac-128-etm@openssh.com"
+    "hmac-sha2-512"
+    "hmac-sha2-256"
+    "umac-128@openssh.com"
+  ];
+
   snowfall = {
     boot = {
       type = "uefi";
@@ -68,12 +78,32 @@
   #   fsType = "nfs";
   # };
 
-  # RDP server for remote desktop access
-  services.xrdp = {
+  # High-performance game/dev streaming (Moonlight client)
+  services.sunshine = {
     enable = true;
-    defaultWindowManager = "startplasma-x11";
+    autoStart = true;
+    capSysAdmin = true;
     openFirewall = true;
   };
+
+  # Ensure Sunshine can capture input devices
+  services.udev.extraRules = ''
+    KERNEL=="uinput", MODE="0660", GROUP="input", OPTIONS+="static_node=uinput"
+  '';
+
+  # GNOME Remote Desktop - Works with Wayland via Pipewire (doesn't require GNOME desktop)
+  services.gnome.gnome-remote-desktop.enable = true;
+  
+  # Required for GNOME Remote Desktop screen sharing (merges with Plasma's portal config)
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+  xdg.portal.config.common = {
+    # GNOME Remote Desktop requires GNOME portal for screencast
+    "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+    "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
+  };
+  
+  # Open RDP port
+  networking.firewall.allowedTCPPorts = [ 3389 ];
 
   # For mount.cifs, required unless domain name resolution is not needed.
   # Trust ASP.NET Core development certificate
@@ -83,6 +113,7 @@
 
   environment.systemPackages = with pkgs; [
     cifs-utils
+    claude-code
     jq
     lsof
     google-chrome
@@ -92,6 +123,16 @@
     # Playwright browsers (system-level, alongside other browsers)
     playwright-driver.browsers
     chromium
+
+    # Image/video processing tools
+    imagemagick
+    ffmpeg
+    pngquant
+    optipng
+    (python3.withPackages (ps: [ ps.pillow ]))
+
+    # Node.js (provides npx)
+    nodejs
   ];
 
   xdg.mime.defaultApplications = {
