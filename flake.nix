@@ -75,6 +75,8 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
   };
 
   outputs =
@@ -118,6 +120,7 @@
       # Overlays for Nixpkgs.
       overlays = with inputs; [
         nur.overlays.default
+        nix-cachyos-kernel.overlays.pinned
       ];
 
       templates = {

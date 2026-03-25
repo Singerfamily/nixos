@@ -8,7 +8,6 @@
   snowfallorg.users = {
     "esinger".admin = true;
   };
-
   snowfall = {
     # boot = {
     #   type = "uefi"; # Use UEFI bootloader
@@ -37,7 +36,9 @@
       steam.enable = true;
     };
 
-    qemu.enable = true;
+    # kernel.type = "cachy";
+
+    # qemu.enable = true;
   };
 
   programs = {
