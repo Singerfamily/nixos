@@ -31,6 +31,13 @@ creation_rules:
           - *esinger
           - *event-horizon
 
+  - path_regex: secrets/hosts/clint-pc.yaml$
+    key_groups:
+      - age:
+          - *esinger
+          - *csinger
+          - *clint-pc
+
   - path_regex: secrets/secrets.yaml$
     key_groups:
       - age:

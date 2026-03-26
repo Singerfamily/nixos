@@ -129,23 +129,13 @@ in
 
     # winapps
     dialog
-    curl
     freerdp
-    git
     iproute2
     libnotify
     nmap
     openssl
     nss.tools
 
-    # AI agent development & testing tools
-    gh                          # GitHub CLI for PR/issue workflows
     python3Packages.pytest
-    ripgrep
-    tree
-    entr                        # Run commands when files change
-    watchexec                   # File watcher for auto-rebuild/test
-    httpie                      # HTTP client for API testing
-    wget
   ];
 }

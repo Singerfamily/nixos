@@ -24,6 +24,8 @@
       type = "uefi";
     };
 
+    ai-tools.enable = true;
+
     docker = {
       enable = true;
     };
@@ -113,8 +115,6 @@
 
   environment.systemPackages = with pkgs; [
     cifs-utils
-    claude-code
-    jq
     lsof
     google-chrome
     firefox
