@@ -83,6 +83,10 @@ in
         extraArgs = "--keep-since 4d --keep 3";
       };
     };
+
+    claude-code = {
+      enable = true;
+    };
   };
 
   sops.secrets = {
