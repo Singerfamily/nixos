@@ -86,6 +86,16 @@ in
 
     claude-code = {
       enable = true;
+      mcpServers = {
+        "nixos" = {
+          "command" = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+          # "args" = [
+          #   "run"
+          #   ""
+          #   "--"
+          # ];
+        };
+      };
     };
   };
 
