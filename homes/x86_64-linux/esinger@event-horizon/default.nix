@@ -53,5 +53,6 @@
     jetbrains.goland
     android-studio
     microsoft-edge
+    uv
   ];
 }

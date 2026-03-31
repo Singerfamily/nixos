@@ -95,6 +95,15 @@ in
           #   "--"
           # ];
         };
+        "markitdown" = {
+          "command" = "docker";
+          "args" = [
+            "run"
+            "--rm"
+            "-i"
+            "mcp/markitdown:latest"
+          ];
+        };
       };
     };
   };
