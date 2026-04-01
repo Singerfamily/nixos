@@ -16,6 +16,9 @@
       url = "github:hercules-ci/flake-parts";
     };
 
+    flake-file.url = "github:vic/flake-file";
+
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

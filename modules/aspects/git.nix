@@ -1,7 +1,6 @@
-{ vic, ... }:
+{ den, ... }:
 {
-  vic.everywhere.includes = [ vic.git ];
-  git.homeManager =
+  den.aspects.git.homeManager =
     { pkgs, ... }:
     {
       home.packages = [ pkgs.difftastic ];
