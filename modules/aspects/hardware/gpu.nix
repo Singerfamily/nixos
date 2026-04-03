@@ -46,6 +46,12 @@
           package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.latest;
         };
         services.xserver.videoDrivers = [ "nvidia" ];
+
+        # Enable NVIDIA container toolkit for Docker GPU access
+        hardware.nvidia-container-toolkit = {
+          enable = true;
+          mount-nvidia-executables = true;
+        };
       };
   };
 }

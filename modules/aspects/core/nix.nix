@@ -2,7 +2,7 @@
 {
   # Smart nix defaults - applied to all hosts via den.default
   den.default = {
-    os = { lib, ... }: {
+    nixos = { lib, ... }: {
       nix.settings = {
         trusted-users = lib.mkDefault [ "root" "@wheel" ];
         experimental-features = lib.mkDefault [

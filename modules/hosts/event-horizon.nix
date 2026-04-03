@@ -1,23 +1,24 @@
 { den, inputs, ... }:
 {
-  den.hosts.x86_64-linux.event-horizon.users.esinger = { };
+  den.hosts.x86_64-linux.event-horizon.users.esinger = {};
 
   den.aspects.event-horizon = {
-    includes = [
-      den.aspects.gpu-amd
-      den.aspects.bluetooth
-      den.aspects.sound
-      den.aspects.plasma
-      den.aspects.docker
-      den.aspects.ssh
-      den.aspects.flatpak
-      den.aspects.steam
-      den.aspects.ai-tools
-      den.aspects.sops
+    includes = with (den.aspects); [
+      gpu-amd
+      bluetooth
+      sound
+      plasma
+      docker
+      ssh
+      flatpak
+      steam
+      ai-tools
+      tailscale
+      sops
     ];
 
     nixos =
-      { lib, pkgs, config, ... }:
+      { pkgs, ... }:
       {
         imports = [ inputs.disko.nixosModules.disko ];
 
@@ -126,9 +127,6 @@
 
         # Wayland for Electron apps
         environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-        # Sops host secrets
-        sops.secrets.root-password.sopsFile = lib.mkForce ../../secrets/hosts/event-horizon.yaml;
       };
   };
 }

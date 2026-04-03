@@ -4,11 +4,11 @@
     nixos.system.stateVersion = "25.11";
     homeManager.home.stateVersion = "25.11";
 
-    includes = [
-      den.provides.define-user
-      den.provides.hostname
-      den.provides.inputs'
-      den.provides.self'
+    includes = with (den.provides); [
+      define-user
+      hostname
+      inputs'
+      self'
     ];
   };
 

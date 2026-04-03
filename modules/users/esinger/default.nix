@@ -19,10 +19,16 @@
       den.aspects.dev-rust
       den.aspects.dev-go
       den.aspects.sops
+      den.aspects.determinate
     ];
 
     homeManager =
-      { pkgs, lib, config, ... }:
+      {
+        pkgs,
+        lib,
+        config,
+        ...
+      }:
       {
         programs.git.settings = {
           user.name = "LeaderbotX400";
@@ -32,14 +38,29 @@
 
         programs.nh = {
           enable = true;
-          flake = "/home/esinger/projects/nixos-new";
+          flake = "/home/esinger/projects/nixos";
           clean = {
             enable = true;
             extraArgs = "--keep-since 4d --keep 3";
           };
         };
 
+        programs.lazydocker.enable = true;
+
         home.packages = [ pkgs.bitwarden-desktop ];
+
+        # Claude Code MCP servers
+        home.file.".claude/claude_desktop_config.json".text = builtins.toJSON {
+          mcpServers = {
+            nixos = {
+              command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+            };
+            markitdown = {
+              command = "docker";
+              args = [ "run" "--rm" "-i" "mcp/markitdown:latest" ];
+            };
+          };
+        };
 
         home.shellAliases = {
           pgrep = "pgrep -a";
@@ -48,18 +69,26 @@
         };
 
         # Sops user secrets
-        sops.defaultSopsFile = lib.mkForce ../../../secrets/users/esinger.yaml;
-        sops.secrets = {
-          ssh-key = {
-            path = "${config.home.homeDirectory}/.ssh/id_ed25519";
+        sops.secrets =
+          let
+            home = config.home.homeDirectory;
+          in
+          {
+            "ssh/privateKey" = {
+              path = "${home}/.ssh/id_ed25519";
+              mode = "0600";
+            };
+
+            "ssh/publicKey" = {
+              path = "${home}/.ssh/id_ed25519.pub";
+              mode = "0600";
+            };
+
+            "keys/age" = {
+              path = "${home}/.config/sops/age/keys.txt";
+              mode = "0600";
+            };
           };
-          ssh-key-pub = {
-            path = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
-          };
-          age-keys = {
-            path = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
-          };
-        };
       };
 
     # event-horizon specific config for esinger
@@ -74,7 +103,7 @@
           jetbrains.datagrip
           jetbrains.rust-rover
           jetbrains.goland
-          android-studio
+          # android-studio
           microsoft-edge
           uv
         ];

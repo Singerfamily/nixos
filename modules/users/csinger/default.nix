@@ -17,11 +17,12 @@
       den.aspects.dev-python
       den.aspects.dev-rust
       den.aspects.dev-embedded
+      den.aspects.atuin
       den.aspects.sops
     ];
 
     homeManager =
-      { pkgs, lib, config, ... }:
+      { ... }:
       {
         programs.git.settings = {
           user.name = "clintsinger";
@@ -44,23 +45,13 @@
         };
 
         # Sops user secrets
-        sops.defaultSopsFile = lib.mkForce ../../../secrets/users/csinger.yaml;
         sops.secrets = {
-          ssh-key = {
-            path = "${config.home.homeDirectory}/.ssh/id_ed25519";
-          };
-          ssh-key-pub = {
-            path = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
-          };
-          age-keys = {
-            path = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
-          };
         };
       };
 
     # clint-pc specific config for csinger
     provides.clint-pc.homeManager =
-      { pkgs, lib, ... }:
+      { pkgs, ... }:
       let
         wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Autumn/contents/images/2560x1440.jpg";
       in
@@ -83,7 +74,27 @@
           speedtest-cli
           remmina
           nmap
+
+          # Kubernetes / infrastructure
+          talosctl
+          dapr-cli
+
+          # WinApps / Windows interop dependencies
+          dialog
+          freerdp
+          iproute2
+          libnotify
+          openssl
+          nss.tools
+
+          # Testing
+          python3Packages.pytest
         ];
+
+        home.sessionVariables = {
+          OPENOCD_PATH = "${pkgs.openocd}";
+          OPENOCD_SCRIPTS_PATH = "${pkgs.openocd}/share/openocd/scripts";
+        };
 
         # Plasma per-user config
         programs.plasma = {
@@ -239,10 +250,5 @@
           "org.libreoffice.LibreOffice"
         ];
       };
-
-    # thinkpad-p14s (WSL) - minimal config
-    provides.thinkpad-p14s.homeManager = { ... }: {
-      # WSL-only overrides go here
-    };
   };
 }

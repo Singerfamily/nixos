@@ -5,6 +5,7 @@
   den.aspects.thinkpad-p14s = {
     includes = [
       den.aspects.sops
+      den.aspects.determinate
     ];
 
     nixos =
