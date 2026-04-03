@@ -28,7 +28,7 @@
 
         # Language servers (used by agents for code intelligence)
         nil                                        # Nix LSP
-        nodePackages.typescript-language-server    # TypeScript LSP
+        # nodePackages.typescript-language-server    # TypeScript LSP
         omnisharp-roslyn                           # C# LSP
         pyright                                    # Python type checker / LSP
 
@@ -36,8 +36,8 @@
         trivy           # Container/code vulnerability scanner
         hadolint        # Dockerfile linter
         shellcheck      # Shell script linter
-        nodePackages.prettier
-        nodePackages.eslint
+        # nodePackages.prettier
+        # nodePackages.eslint
       ];
     };
 }
