@@ -33,7 +33,7 @@
 
     # Home-manager: import plasma-manager and set shared defaults
     homeManager = { lib, pkgs, ... }: {
-      imports = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
+      imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
 
       home.packages = with pkgs; [
         kde-rounded-corners

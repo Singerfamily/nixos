@@ -8,7 +8,6 @@
         home.packages = with pkgs; [
           nodejs
           pnpm
-          node2nix
         ];
       };
   };

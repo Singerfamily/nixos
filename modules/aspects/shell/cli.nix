@@ -52,6 +52,7 @@
 
       xdg.userDirs = {
         enable = lib.mkDefault true;
+        setSessionVariables = lib.mkDefault false;
         desktop = lib.mkDefault "$HOME/Desktop";
         documents = lib.mkDefault "$HOME/Documents";
         music = lib.mkDefault "$HOME/Music";
