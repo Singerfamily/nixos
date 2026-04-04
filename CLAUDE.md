@@ -71,7 +71,7 @@ Aspects are organized by domain under `modules/aspects/`:
 ### Secrets
 
 SOPS with age encryption. Keys in `.sops.yaml`. Structure:
-- `secrets/secrets.yaml` — Shared (root password)
+- `secrets/common.yaml` — Shared (root password)
 - `secrets/users/<user>.yaml` — Per-user SSH keys, age keys
 - `secrets/hosts/<host>.yaml` — Per-host secrets
 

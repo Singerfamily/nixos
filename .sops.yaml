@@ -31,7 +31,7 @@ creation_rules:
           - *esinger
           - *event-horizon
 
-  - path_regex: secrets/secrets.yaml$
+  - path_regex: secrets/common.yaml$
     key_groups:
       - age:
           - *esinger
