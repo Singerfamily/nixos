@@ -17,6 +17,7 @@
           enable = lib.mkDefault true;
           git = lib.mkDefault true;
           icons = lib.mkDefault "auto";
+          enableZshIntegration = lib.mkDefault true;
         };
         bat = {
           enable = lib.mkDefault true;
@@ -43,11 +44,14 @@
       ];
 
       home.shellAliases = {
-        ls = "eza";
+        ls = "eza --group-directories-first --color=auto";
         ll = "eza -l";
         lla = "eza -la";
-        tree = "eza --tree";
+        tree = "eza --tree --level=3";
         cat = "bat";
+        grep = "rg";
+        df = "duf";
+        du = "dua";
       };
 
       xdg.userDirs = {

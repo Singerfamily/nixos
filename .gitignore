@@ -2,3 +2,4 @@ test.nix
 result
 .decrypted~*
 .secret*
+.claude

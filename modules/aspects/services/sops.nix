@@ -15,7 +15,9 @@
         {
           imports = [ inputs.sops-nix.nixosModules.sops ];
           sops = {
-            defaultSopsFile = lib.mkDefault (secretsPath + "/hosts/${config.networking.hostName}.yaml");
+            # Default to common.yaml (accessible to all hosts).
+            # Host-specific secrets should override sopsFile per-secret.
+            defaultSopsFile = lib.mkDefault (secretsPath + "/common.yaml");
             age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
             secrets."passwords/root" = {
               neededForUsers = true;

@@ -22,6 +22,21 @@
       den.aspects.determinate
     ];
 
+    # NixOS-level: set user password from sops
+    nixos =
+      { config, ... }:
+      let
+        secretsPath = ../../../secrets;
+      in
+      {
+        sops.secrets."esinger/password" = {
+          key = "password";
+          neededForUsers = true;
+          sopsFile = secretsPath + "/users/esinger.yaml";
+        };
+        users.users.esinger.hashedPasswordFile = config.sops.secrets."esinger/password".path;
+      };
+
     homeManager =
       {
         pkgs,

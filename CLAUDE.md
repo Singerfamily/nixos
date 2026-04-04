@@ -71,9 +71,43 @@ Aspects are organized by domain under `modules/aspects/`:
 ### Secrets
 
 SOPS with age encryption. Keys in `.sops.yaml`. Structure:
-- `secrets/common.yaml` — Shared (root password)
-- `secrets/users/<user>.yaml` — Per-user SSH keys, age keys
-- `secrets/hosts/<host>.yaml` — Per-host secrets
+- `secrets/common.yaml` — Shared secrets (root password), accessible to all hosts
+- `secrets/users/<user>.yaml` — Per-user secrets (password, SSH keys, age keys)
+- `secrets/hosts/<host>.yaml` — Per-host secrets (host-specific services)
+
+**Sops nested key access**: Access nested YAML keys with `/` separators:
+`config.sops.secrets."<key1>/<key2>/..."`. This pattern extends infinitely for deeper nesting.
+The secret's `name` defaults to the full path (e.g., `"passwords/root"`) unless overridden with the `key` option.
+
+Example — a secret for `passwords/root` in YAML:
+
+```nix
+sops.secrets."passwords/root" = {
+  neededForUsers = true;
+  # key defaults to "passwords/root" (matches the secret name)
+  # sopsFile defaults to defaultSopsFile
+};
+# Resolved path: /run/secrets-for-users/passwords/root (when neededForUsers = true)
+# Otherwise: /run/secrets/passwords/root
+```
+
+To read a key with a different name than its YAML path, use `key`:
+
+```nix
+sops.secrets."esinger/password" = {
+  key = "password";           # reads top-level "password" key from the sopsFile
+  neededForUsers = true;
+  sopsFile = ./secrets/users/esinger.yaml;  # override which file to read from
+};
+```
+
+**Password wiring**: With `users.mutableUsers = false`, every user needs:
+
+1. A sops secret with `neededForUsers = true`
+2. `users.users.<name>.hashedPasswordFile = config.sops.secrets."<secret-name>".path`
+
+Root password comes from `common.yaml` (via the sops aspect). User passwords come from
+`secrets/users/<user>.yaml` (via each user aspect's `.nixos` section).
 
 ## Key Patterns
 

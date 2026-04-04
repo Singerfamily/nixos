@@ -18,7 +18,7 @@
     ];
 
     nixos =
-      { pkgs, ... }:
+      { lib, pkgs, ... }:
       {
         imports = [ inputs.disko.nixosModules.disko ];
 
@@ -56,6 +56,7 @@
                   content = {
                     type = "luks";
                     name = "EVENT-HORIZON_LUKS";
+                    settings.allowDiscards = true;
                     content = {
                       type = "btrfs";
                       extraArgs = [ "-f" ];
@@ -95,11 +96,12 @@
                   content = {
                     type = "luks";
                     name = "EVENT-HORIZON_GAMES_LUKS";
+                    settings.allowDiscards = true;
                     content = {
                       type = "btrfs";
                       extraArgs = [ "-f" ];
                       subvolumes = {
-                        "/games" = {
+                        "/" = {
                           mountpoint = "/mnt/games";
                           mountOptions = [ "compress=zstd" "noatime" ];
                         };

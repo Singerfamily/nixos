@@ -20,7 +20,7 @@
     ];
 
     nixos =
-      { pkgs, config, ... }:
+      { lib, pkgs, config, ... }:
       {
         # Hardware
         boot.initrd.availableKernelModules = [
