@@ -89,6 +89,13 @@ in
     OPENOCD_SCRIPTS_PATH = "$OPENOCD_PATH/share/openocd/scripts";
   };
 
+  home.activation.npmGlobalPackages = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    export PATH="${pkgs.nodejs_22}/bin:$PATH"
+    export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+    mkdir -p "$HOME/.npm-global"
+    ${pkgs.nodejs_22}/bin/npm install -g @composio/ao 2>/dev/null || true
+  '';
+
   home.packages = with pkgs; [
 
     gimp

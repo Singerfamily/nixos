@@ -60,6 +60,8 @@ with lib;
             # Point .NET to system certificate store
             SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
             DOTNET_SSL_DIRS = "${config.home.homeDirectory}/.aspnet/dev-certs/https:${pkgs.cacert}/etc/ssl/certs";
+            # ICU is needed by C# Dev Kit's bundled Roslyn language server
+            LD_LIBRARY_PATH = "${pkgs.icu}/lib";
           };
 
           activation.dotnetDevCerts = config.lib.dag.entryAfter [ "writeBoundary" ] ''

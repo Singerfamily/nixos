@@ -8,6 +8,9 @@
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
+    # Pinned nixpkgs for latest ollama (0.20.2)
+    nixpkgs-ollama.url = "github:nixos/nixpkgs/1266aa38aa83f9a7f266c205e2ea6db904525866";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       # url = "github:nix-community/home-manager";
@@ -121,6 +124,21 @@
       overlays = with inputs; [
         nur.overlays.default
         nix-cachyos-kernel.overlays.pinned
+        # Pull ollama 0.20.2 from pinned nixpkgs
+        (final: prev:
+          let
+            ollama-pkgs = import inputs.nixpkgs-ollama {
+              system = final.system;
+              config.allowUnfree = true;
+            };
+          in
+          {
+            ollama = ollama-pkgs.ollama;
+            ollama-cuda = ollama-pkgs.ollama-cuda;
+            ollama-rocm = ollama-pkgs.ollama-rocm;
+            ollama-vulkan = ollama-pkgs.ollama-vulkan;
+          }
+        )
       ];
 
       templates = {

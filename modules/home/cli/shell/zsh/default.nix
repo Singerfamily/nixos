@@ -25,6 +25,12 @@
           autosuggestion.enable = true;
           syntaxHighlighting.enable = true;
 
+          initExtra = ''
+            # npm global packages
+            export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+            export PATH="$HOME/.npm-global/bin:$PATH"
+          '';
+
           plugins = [
             {
               name = "powerlevel10k";

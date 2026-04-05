@@ -25,6 +25,7 @@
     };
 
     ai-tools.enable = true;
+    dev-tools.enable = true;
 
     docker = {
       enable = true;
@@ -79,6 +80,12 @@
   #   device = "192.168.1.3:/mnt/stuff/clint";
   #   fsType = "nfs";
   # };
+
+  # Ollama - local LLM inference with NVIDIA CUDA acceleration
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+  };
 
   # High-performance game/dev streaming (Moonlight client)
   services.sunshine = {
