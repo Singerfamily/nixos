@@ -20,6 +20,9 @@
       den.aspects.dev-go
       den.aspects.sops
       den.aspects.determinate
+      den.aspects.atuin
+      den.aspects.k9s
+      den.aspects.distrobox
     ];
 
     # NixOS-level: set user password from sops
@@ -34,7 +37,23 @@
           neededForUsers = true;
           sopsFile = secretsPath + "/users/esinger.yaml";
         };
-        users.users.esinger.hashedPasswordFile = config.sops.secrets."esinger/password".path;
+        users.users.esinger = {
+          hashedPasswordFile = config.sops.secrets."esinger/password".path;
+          extraGroups = [
+            "networkmanager"
+            "builders"
+            "kvm"
+            "libvirtd"
+            "audio"
+            "video"
+            "tss"
+            "docker"
+            "adbusers"
+          ];
+          openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIConMjdymJ8/2DplJAz/nsy2iqF/DHbWXH0yRm2jslQN"
+          ];
+        };
       };
 
     homeManager =

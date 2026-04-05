@@ -9,7 +9,9 @@
           "nix-command"
           "flakes"
           "pipe-operators"
+          "ca-derivations"
         ];
+        system-features = lib.mkDefault [ "kvm" "big-parallel" "nixos-test" ];
         warn-dirty = lib.mkDefault false;
         auto-optimise-store = lib.mkDefault true;
         substituters = lib.mkDefault [

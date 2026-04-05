@@ -24,6 +24,8 @@
         environment.systemPackages = with pkgs; [
           dive          # Explore each layer in a docker image
           docker-compose
+          podman-compose
+          podman-tui
         ];
 
       };

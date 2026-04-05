@@ -3,7 +3,19 @@
   den.aspects.git.homeManager =
     { pkgs, ... }:
     {
-      home.packages = [ pkgs.difftastic ];
+      home.packages = with pkgs; [
+        difftastic
+        git-filter-repo
+      ];
+
+      home.file.".ssh/allowed_signers".text = "";
+
+      programs.gh = {
+        enable = true;
+        settings.git_protocol = "ssh";
+        extensions = [ pkgs.gh-markdown-preview ];
+      };
+
       programs.git = {
         enable = true;
         signing.format = "ssh";
@@ -15,10 +27,15 @@
           # gitlab.user = "<USERNAME>";
           # core.editor = "vim";
 
+          commit.gpgSign = true;
+          tag.gpgSign = true;
+          user.signingKey = "~/.ssh/id_ed25519.pub";
+          gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
           init.defaultBranch = "main";
           pull.rebase = true;
           pager.difftool = true;
           diff.tool = "difftastic";
+          diff.sopsdiffer.textconv = "sops -d --config /dev/null";
           difftool.prompt = false;
           difftool.difftastic.cmd = "${pkgs.difftastic}/bin/difft $LOCAL $REMOTE";
           alias = {
@@ -54,6 +71,12 @@
           "CRUSH.md"
           "GEMINI.md"
           "CLAUDE.md"
+        ];
+        attributes = [
+          "secrets/*.yaml diff=sopsdiffer"
+          "secrets/*.json diff=sopsdiffer"
+          "secrets/*.ini diff=sopsdiffer"
+          "secrets/*.env diff=sopsdiffer"
         ];
         includes = [ ];
         lfs.enable = true;

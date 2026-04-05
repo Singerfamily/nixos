@@ -33,7 +33,22 @@
           neededForUsers = true;
           sopsFile = secretsPath + "/users/csinger.yaml";
         };
-        users.users.csinger.hashedPasswordFile = config.sops.secrets."csinger/password".path;
+        users.users.csinger = {
+          hashedPasswordFile = config.sops.secrets."csinger/password".path;
+          extraGroups = [
+            "networkmanager"
+            "builders"
+            "kvm"
+            "libvirtd"
+            "audio"
+            "video"
+            "tss"
+            "docker"
+          ];
+          openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIConMjdymJ8/2DplJAz/nsy2iqF/DHbWXH0yRm2jslQN"
+          ];
+        };
       };
 
     homeManager =

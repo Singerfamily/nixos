@@ -23,14 +23,21 @@
       {
         hardware.graphics.extraPackages = with pkgs; [
           intel-media-driver
+          intel-vaapi-driver
           libvdpau-va-gl
         ];
+        services.xserver.videoDrivers = lib.mkDefault [ "intel" ];
       };
   };
 
-  # AMD GPU sub-aspect (RADV is enabled by default)
+  # AMD GPU sub-aspect
   den.aspects.gpu-amd = {
     includes = [ den.aspects.gpu ];
+    nixos = { lib, ... }: {
+      hardware.amdgpu.initrd.enable = lib.mkDefault true;
+      hardware.amdgpu.opencl.enable = lib.mkDefault true;
+      services.xserver.videoDrivers = lib.mkDefault [ "amdgpu" ];
+    };
   };
 
   # NVIDIA GPU sub-aspect
@@ -43,9 +50,21 @@
           modesetting.enable = lib.mkDefault true;
           open = lib.mkDefault true;
           nvidiaSettings = lib.mkDefault true;
+          gsp.enable = lib.mkDefault true;
           package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.latest;
+          powerManagement.enable = lib.mkDefault false;
+          powerManagement.finegrained = lib.mkDefault false;
+          prime.offload.enable = lib.mkDefault true;
+          prime.offload.enableOffloadCmd = lib.mkDefault true;
         };
         services.xserver.videoDrivers = [ "nvidia" ];
+        boot.blacklistedKernelModules = [ "nouveau" ];
+
+        environment.sessionVariables = {
+          GBM_BACKEND = lib.mkDefault "nvidia-drm";
+          __GLX_VENDOR_LIBRARY_NAME = lib.mkDefault "nvidia";
+          NVD_BACKEND = lib.mkDefault "direct";
+        };
 
         # Enable NVIDIA container toolkit for Docker GPU access
         hardware.nvidia-container-toolkit = {

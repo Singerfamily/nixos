@@ -17,6 +17,9 @@
       den.aspects.tailscale
       den.aspects.sops
       den.aspects.determinate
+      den.aspects.compat
+      den.aspects.crypto
+      den.aspects.tpm
     ];
 
     nixos =

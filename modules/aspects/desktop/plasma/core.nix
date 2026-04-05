@@ -14,17 +14,30 @@
         xdg.portal = {
           enable = lib.mkDefault true;
           extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+          config.common.default = lib.mkDefault "kde";
         };
-        environment.systemPackages = with pkgs.kdePackages; [
-          discover
-          kaccounts-integration
-          plasma-browser-integration
-          plasma-disks
-          kalk
-          partitionmanager
-          kpipewire
-          sddm-kcm
-        ];
+        environment.systemPackages =
+          (with pkgs.kdePackages; [
+            discover
+            kaccounts-integration
+            kaccounts-providers
+            plasma-browser-integration
+            plasma-disks
+            kalk
+            partitionmanager
+            kpipewire
+            sddm-kcm
+            krdc
+            krfb
+            krdp
+          ])
+          ++ (with pkgs; [
+            aha
+            fwupd
+            vulkan-tools
+            wayland-utils
+            freerdp
+          ]);
         networking.firewall.allowedTCPPorts = [
           3388 # KRDP
           3389 # RDP

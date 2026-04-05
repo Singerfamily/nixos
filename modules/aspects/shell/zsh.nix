@@ -10,7 +10,7 @@
         syntaxHighlighting.enable = lib.mkDefault true;
         oh-my-zsh = {
           enable = lib.mkDefault true;
-          plugins = lib.mkDefault [ "git" ];
+          plugins = lib.mkDefault [ "git" "kubectl" ];
         };
         plugins = [
           {

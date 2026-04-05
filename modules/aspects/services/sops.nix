@@ -32,6 +32,7 @@
         {
           imports = [ inputs.sops-nix.homeManagerModules.sops ];
           sops = {
+            defaultSopsFormat = lib.mkDefault "yaml";
             defaultSopsFile = lib.mkDefault (secretsPath + "/users/${config.home.username}.yaml");
             age.sshKeyPaths = [
               "/etc/ssh/ssh_host_ed25519_key"

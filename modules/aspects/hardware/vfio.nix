@@ -1,0 +1,16 @@
+{ den, ... }:
+{
+  # VFIO PCI passthrough for GPU/device passthrough to VMs.
+  # To use: add den.aspects.vfio to host includes, then set
+  # pciIDs in the host's nixos config via boot.kernelParams.
+  den.aspects.vfio.nixos = { lib, ... }: {
+    boot.kernelParams = [ "intel_iommu=on" ];
+    boot.initrd.kernelModules = [
+      "vfio_pci"
+      "vfio"
+      "vfio_iommu_type1"
+    ];
+    hardware.graphics.enable = lib.mkDefault true;
+    virtualisation.spiceUSBRedirection.enable = lib.mkDefault true;
+  };
+}

@@ -15,6 +15,7 @@
         };
         # Prevent HDA crackling
         boot.extraModprobeConfig = lib.mkDefault "options snd_hda_intel power_save=0";
+        security.rtkit.enable = lib.mkDefault true;
         environment.systemPackages = [ pkgs.alsa-utils ];
       };
   };

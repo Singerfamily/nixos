@@ -15,6 +15,10 @@
       ai-tools
       tailscale
       sops
+      compat
+      crypto
+      tpm
+      adb
     ];
 
     nixos =
@@ -121,7 +125,6 @@
         };
         services.avahi.enable = false;
 
-        # Android tools
         environment.systemPackages = [ pkgs.android-tools ];
 
         # KDE Connect

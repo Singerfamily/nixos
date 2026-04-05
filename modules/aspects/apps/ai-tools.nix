@@ -8,7 +8,7 @@
         # AI coding agents
         claude-code
         opencode
-        # aider-chat
+        aider-chat
         gemini-cli
 
         # MCP & agent infrastructure
