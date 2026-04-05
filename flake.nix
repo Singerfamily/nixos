@@ -147,7 +147,7 @@
       alias = {
       };
 
-      outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
+      outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-tree; };
 
       # NOTE: An example for future self.
       # outputs-builder = channels: {

@@ -83,6 +83,29 @@ in
         extraArgs = "--keep-since 4d --keep 3";
       };
     };
+
+    claude-code = {
+      enable = true;
+      mcpServers = {
+        "nixos" = {
+          "command" = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+          # "args" = [
+          #   "run"
+          #   ""
+          #   "--"
+          # ];
+        };
+        "markitdown" = {
+          "command" = "docker";
+          "args" = [
+            "run"
+            "--rm"
+            "-i"
+            "mcp/markitdown:latest"
+          ];
+        };
+      };
+    };
   };
 
   sops.secrets = {
