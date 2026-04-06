@@ -1,4 +1,4 @@
-{ den, ... }:
+{ den, lib, ... }:
 {
   den.aspects.esinger = {
     includes = [
@@ -91,7 +91,12 @@
             };
             markitdown = {
               command = "docker";
-              args = [ "run" "--rm" "-i" "mcp/markitdown:latest" ];
+              args = [
+                "run"
+                "--rm"
+                "-i"
+                "mcp/markitdown:latest"
+              ];
             };
           };
         };

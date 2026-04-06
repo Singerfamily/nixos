@@ -4,35 +4,35 @@
   den.default.homeManager =
     { pkgs, lib, ... }:
     {
-      news.display = lib.mkDefault "silent";
+      news.display =  "silent";
 
       programs = {
-        home-manager.enable = lib.mkDefault true;
-        nix-index.enable = lib.mkDefault true;
-        htop.enable = lib.mkDefault true;
-        btop.enable = lib.mkDefault true;
+        home-manager.enable =  true;
+        nix-index.enable =  true;
+        htop.enable =  true;
+        btop.enable =  true;
         direnv = {
-          enable = lib.mkDefault true;
-          nix-direnv.enable = lib.mkDefault true;
+          enable =  true;
+          nix-direnv.enable =  true;
         };
         eza = {
-          enable = lib.mkDefault true;
-          git = lib.mkDefault true;
-          icons = lib.mkDefault "auto";
-          enableZshIntegration = lib.mkDefault true;
+          enable =  true;
+          git =  true;
+          icons =  "auto";
+          enableZshIntegration =  true;
         };
         bat = {
-          enable = lib.mkDefault true;
+          enable =  true;
           config = {
-            theme = lib.mkDefault "base16";
-            style = lib.mkDefault "plain,grid,numbers,changes,snip";
+            theme =  "base16";
+            style =  "plain,grid,numbers,changes,snip";
           };
         };
-        fd.enable = lib.mkDefault true;
-        ripgrep.enable = lib.mkDefault true;
+        fd.enable =  true;
+        ripgrep.enable =  true;
         zoxide = {
-          enable = lib.mkDefault true;
-          options = lib.mkDefault [ "--cmd cd" ];
+          enable =  true;
+          options =  [ "--cmd cd" ];
         };
       };
 
@@ -74,21 +74,21 @@
         du = "dua";
       };
 
-      systemd.user.startServices = lib.mkDefault "sd-switch";
+      systemd.user.startServices =  "sd-switch";
 
       xdg.userDirs = {
-        enable = lib.mkDefault true;
-        createDirectories = lib.mkDefault true;
-        setSessionVariables = lib.mkDefault false;
-        desktop = lib.mkDefault "$HOME/Desktop";
-        documents = lib.mkDefault "$HOME/Documents";
-        music = lib.mkDefault "$HOME/Music";
-        pictures = lib.mkDefault "$HOME/Images";
-        publicShare = lib.mkDefault null;
-        templates = lib.mkDefault null;
-        extraConfig.XDG_SCREENSHOTS_DIR = lib.mkDefault "$HOME/Images/Screenshots";
+        enable =  true;
+        createDirectories =  true;
+        setSessionVariables =  false;
+        desktop =  "$HOME/Desktop";
+        documents =  "$HOME/Documents";
+        music =  "$HOME/Music";
+        pictures =  "$HOME/Images";
+        publicShare =  null;
+        templates =  null;
+        extraConfig.XDG_SCREENSHOTS_DIR =  "$HOME/Images/Screenshots";
       };
-      xdg.mime.enable = lib.mkDefault true;
-      xdg.mimeApps.enable = lib.mkDefault true;
+      xdg.mime.enable =  true;
+      xdg.mimeApps.enable =  true;
     };
 }

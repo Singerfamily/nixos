@@ -8,11 +8,11 @@
       { lib, ... }:
       {
         imports = [ inputs.nix-flatpak.nixosModules.nix-flatpak ];
-        services.flatpak.enable = lib.mkDefault true;
-        xdg.portal.enable = lib.mkDefault true;
+        services.flatpak.enable =  true;
+        xdg.portal.enable =  true;
         # Spotify Local Discovery + Google Cast
-        networking.firewall.allowedTCPPorts = lib.mkDefault [ 57621 ];
-        networking.firewall.allowedUDPPorts = lib.mkDefault [ 5353 ];
+        networking.firewall.allowedTCPPorts =  [ 57621 ];
+        networking.firewall.allowedUDPPorts =  [ 5353 ];
       };
     homeManager = { ... }: {
       services.flatpak = {

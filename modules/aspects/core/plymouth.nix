@@ -1,10 +1,10 @@
 { den, ... }:
 {
   den.aspects.plymouth.nixos = { lib, ... }: {
-    boot.plymouth.enable = lib.mkDefault true;
-    boot.consoleLogLevel = lib.mkDefault 0;
-    boot.initrd.verbose = lib.mkDefault false;
-    boot.initrd.systemd.enable = lib.mkDefault true;
+    boot.plymouth.enable =  true;
+    boot.consoleLogLevel =  0;
+    boot.initrd.verbose =  false;
+    boot.initrd.systemd.enable =  true;
     boot.kernelParams = [
       "quiet"
       "splash"

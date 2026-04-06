@@ -3,12 +3,12 @@
   # Zapret DPI bypass tool. Disabled by default — add to host includes to enable.
   den.aspects.zapret.nixos = { lib, ... }: {
     services.zapret = {
-      enable = lib.mkDefault true;
-      params = lib.mkDefault [
+      enable =  true;
+      params =  [
         "--dpi-desync=fake,disorder"
         "--dpi-desync-ttl=3"
       ];
-      whitelist = lib.mkDefault [
+      whitelist =  [
         "discord.com"
         "element.io"
         "googlevideo.com"

@@ -4,11 +4,11 @@
     { lib, pkgs, ... }:
     {
       programs.steam = {
-        enable = lib.mkDefault true;
-        remotePlay.openFirewall = lib.mkDefault true;
-        protontricks.enable = lib.mkDefault true;
+        enable =  true;
+        remotePlay.openFirewall =  true;
+        protontricks.enable =  true;
       };
-      programs.gamemode.enable = lib.mkDefault true;
+      programs.gamemode.enable =  true;
       environment.systemPackages = with pkgs; [
         protonup-ng
       ];

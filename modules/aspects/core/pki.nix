@@ -1,7 +1,7 @@
 { den, ... }:
 {
   den.default.nixos = { lib, ... }: {
-    security.pki.certificates = lib.mkDefault [
+    security.pki.certificates =  [
       ''
         -----BEGIN CERTIFICATE-----
         MIIDtzCCAp+gAwIBAgIISCFzuoS7IyUwDQYJKoZIhvcNAQELBQAwQjEoMCYGA1UE

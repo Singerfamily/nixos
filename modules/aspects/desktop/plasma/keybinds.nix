@@ -32,9 +32,9 @@
         };
 
         spectacle.shortcuts = {
-          captureEntireDesktop = lib.mkDefault "Meta+Ctrl+S";
-          captureRectangularRegion = lib.mkDefault "Meta+Shift+S";
-          recordRegion = lib.mkDefault "Meta+Shift+R";
+          captureEntireDesktop =  "Meta+Ctrl+S";
+          captureRectangularRegion =  "Meta+Shift+S";
+          recordRegion =  "Meta+Shift+R";
         };
       };
     };

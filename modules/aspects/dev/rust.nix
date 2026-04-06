@@ -62,7 +62,7 @@
         ];
 
         # Configure cargo to use mold linker
-        home.file.".cargo/config.toml".text = lib.mkDefault ''
+        home.file.".cargo/config.toml".text =  ''
           [target.x86_64-unknown-linux-gnu]
           rustflags = ["-C", "link-arg=-fuse-ld=mold"]
         '';

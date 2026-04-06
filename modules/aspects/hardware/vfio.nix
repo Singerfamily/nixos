@@ -10,7 +10,7 @@
       "vfio"
       "vfio_iommu_type1"
     ];
-    hardware.graphics.enable = lib.mkDefault true;
-    virtualisation.spiceUSBRedirection.enable = lib.mkDefault true;
+    hardware.graphics.enable =  true;
+    virtualisation.spiceUSBRedirection.enable =  true;
   };
 }

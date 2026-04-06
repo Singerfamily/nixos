@@ -6,16 +6,16 @@
     homeManager = { lib, ... }: {
       programs.plasma.powerdevil = {
         AC = {
-          autoSuspend.action = lib.mkDefault "nothing";
-          dimDisplay.enable = lib.mkDefault false;
-          powerButtonAction = lib.mkDefault "shutDown";
-          turnOffDisplay.idleTimeout = lib.mkDefault 300;
+          autoSuspend.action =  "nothing";
+          dimDisplay.enable =  false;
+          powerButtonAction =  "shutDown";
+          turnOffDisplay.idleTimeout =  300;
         };
         battery = {
-          autoSuspend.action = lib.mkDefault "nothing";
-          dimDisplay.enable = lib.mkDefault true;
-          powerButtonAction = lib.mkDefault "shutDown";
-          turnOffDisplay.idleTimeout = lib.mkDefault 360;
+          autoSuspend.action =  "nothing";
+          dimDisplay.enable =  true;
+          powerButtonAction =  "shutDown";
+          turnOffDisplay.idleTimeout =  360;
         };
       };
     };

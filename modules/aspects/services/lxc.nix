@@ -6,7 +6,7 @@
   den.aspects.lxc.nixos =
     { lib, ... }:
     {
-      virtualisation.lxc.enable = lib.mkDefault true;
+      virtualisation.lxc.enable =  true;
 
       boot.kernelModules = [
         "br_netfilter"
@@ -23,8 +23,8 @@
     includes = [ den.aspects.lxc ];
     nixos = { lib, ... }: {
       virtualisation.lxd = {
-        enable = lib.mkDefault true;
-        recommendedSysctlSettings = lib.mkDefault true;
+        enable =  true;
+        recommendedSysctlSettings =  true;
       };
     };
   };
@@ -32,9 +32,9 @@
   den.aspects.incus = {
     includes = [ den.aspects.lxc ];
     nixos = { lib, ... }: {
-      virtualisation.incus.enable = lib.mkDefault true;
+      virtualisation.incus.enable =  true;
       networking = {
-        nftables.enable = lib.mkDefault true;
+        nftables.enable =  true;
         firewall.trustedInterfaces = [ "incusbr0" ];
       };
     };

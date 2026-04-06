@@ -6,11 +6,11 @@
     { pkgs, lib, ... }:
     {
       programs.zsh = {
-        autosuggestion.enable = lib.mkDefault true;
-        syntaxHighlighting.enable = lib.mkDefault true;
+        autosuggestion.enable =  true;
+        syntaxHighlighting.enable =  true;
         oh-my-zsh = {
-          enable = lib.mkDefault true;
-          plugins = lib.mkDefault [ "git" "kubectl" ];
+          enable =  true;
+          plugins =  [ "git" "kubectl" ];
         };
         plugins = [
           {

@@ -1,12 +1,16 @@
 { den, ... }:
 {
-  den.aspects.locale = {
-    os = { lib, ... }: {
-      time.timeZone = lib.mkDefault "America/Edmonton";
+  den.default.nixos =
+    { lib, ... }:
+    {
+      time.timeZone =  "America/Edmonton";
       i18n = {
-        defaultLocale = lib.mkDefault "en_CA.UTF-8";
-        supportedLocales = lib.mkDefault [ "en_CA.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
-        extraLocaleSettings = lib.mkDefault {
+        defaultLocale =  "en_CA.UTF-8";
+        supportedLocales =  [
+          "en_CA.UTF-8/UTF-8"
+          "en_US.UTF-8/UTF-8"
+        ];
+        extraLocaleSettings =  {
           LC_ADDRESS = "en_CA.UTF-8";
           LC_IDENTIFICATION = "en_CA.UTF-8";
           LC_MEASUREMENT = "en_CA.UTF-8";
@@ -19,5 +23,4 @@
         };
       };
     };
-  };
 }

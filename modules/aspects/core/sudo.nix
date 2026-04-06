@@ -1,7 +1,7 @@
 { den, ... }:
 {
   den.default.nixos = { lib, ... }: {
-    security.sudo.extraConfig = lib.mkDefault ''
+    security.sudo.extraConfig =  ''
       Defaults env_keep += "EDITOR"
     '';
   };

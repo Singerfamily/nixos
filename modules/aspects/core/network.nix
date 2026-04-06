@@ -1,11 +1,12 @@
 { den, ... }:
 {
-  den.aspects.network = {
-    nixos = { lib, pkgs, ... }: {
+  den.default.nixos =
+    { lib, pkgs, ... }:
+    {
       networking = {
-        networkmanager.enable = lib.mkDefault true;
-        firewall.enable = lib.mkDefault true;
-        useDHCP = lib.mkDefault true;
+        networkmanager.enable =  true;
+        firewall.enable =  true;
+        # useDHCP =  true;
       };
       environment.systemPackages = with pkgs; [
         dig
@@ -13,5 +14,4 @@
         iperf3
       ];
     };
-  };
 }

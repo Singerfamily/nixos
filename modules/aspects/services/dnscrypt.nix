@@ -2,8 +2,8 @@
 {
   den.aspects.dnscrypt.nixos = { lib, ... }: {
     services.dnscrypt-proxy2 = {
-      enable = lib.mkDefault true;
-      upstreamDefaults = lib.mkDefault true;
+      enable =  true;
+      upstreamDefaults =  true;
       settings = {
         ipv4_servers = true;
         ipv6_servers = true;

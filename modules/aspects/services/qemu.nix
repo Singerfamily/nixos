@@ -4,7 +4,7 @@
     nixos =
       { lib, pkgs, ... }:
       {
-        virtualisation.libvirtd.enable = lib.mkDefault true;
+        virtualisation.libvirtd.enable =  true;
         environment.systemPackages = with pkgs; [
           qemu
           virt-manager

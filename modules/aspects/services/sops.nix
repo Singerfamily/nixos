@@ -17,13 +17,13 @@
           sops = {
             # Default to common.yaml (accessible to all hosts).
             # Host-specific secrets should override sopsFile per-secret.
-            defaultSopsFile = lib.mkDefault (secretsPath + "/common.yaml");
+            defaultSopsFile =  (secretsPath + "/common.yaml");
             age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
             secrets."passwords/root" = {
               neededForUsers = true;
             };
           };
-          users.users.root.hashedPasswordFile = lib.mkDefault config.sops.secrets."passwords/root".path;
+          users.users.root.hashedPasswordFile =  config.sops.secrets."passwords/root".path;
         };
 
       # Home-manager: sops for user secrets (ssh keys, age key)
@@ -32,8 +32,8 @@
         {
           imports = [ inputs.sops-nix.homeManagerModules.sops ];
           sops = {
-            defaultSopsFormat = lib.mkDefault "yaml";
-            defaultSopsFile = lib.mkDefault (secretsPath + "/users/${config.home.username}.yaml");
+            defaultSopsFormat =  "yaml";
+            defaultSopsFile =  (secretsPath + "/users/${config.home.username}.yaml");
             age.sshKeyPaths = [
               "/etc/ssh/ssh_host_ed25519_key"
               "${config.home.homeDirectory}/.ssh/id_ed25519"

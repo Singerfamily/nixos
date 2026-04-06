@@ -5,17 +5,17 @@
       { lib, pkgs, ... }:
       {
         services.pipewire = {
-          enable = lib.mkDefault true;
-          audio.enable = lib.mkDefault true;
-          alsa.enable = lib.mkDefault true;
-          alsa.support32Bit = lib.mkDefault true;
-          pulse.enable = lib.mkDefault true;
-          jack.enable = lib.mkDefault true;
-          wireplumber.enable = lib.mkDefault true;
+          enable =  true;
+          audio.enable =  true;
+          alsa.enable =  true;
+          alsa.support32Bit =  true;
+          pulse.enable =  true;
+          jack.enable =  true;
+          wireplumber.enable =  true;
         };
         # Prevent HDA crackling
-        boot.extraModprobeConfig = lib.mkDefault "options snd_hda_intel power_save=0";
-        security.rtkit.enable = lib.mkDefault true;
+        boot.extraModprobeConfig =  "options snd_hda_intel power_save=0";
+        security.rtkit.enable =  true;
         environment.systemPackages = [ pkgs.alsa-utils ];
       };
   };

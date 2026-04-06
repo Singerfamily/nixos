@@ -6,8 +6,8 @@
   den.aspects.lanzaboote.nixos = { lib, pkgs, ... }: {
     imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
     boot.lanzaboote = {
-      enable = lib.mkDefault true;
-      pkiBundle = lib.mkDefault "/var/lib/sbctl";
+      enable =  true;
+      pkiBundle =  "/var/lib/sbctl";
     };
     # systemd-boot must be disabled when lanzaboote is active
     boot.loader.systemd-boot.enable = lib.mkForce false;

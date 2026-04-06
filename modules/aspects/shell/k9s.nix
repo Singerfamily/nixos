@@ -2,10 +2,10 @@
 {
   den.aspects.k9s.homeManager = { lib, ... }: {
     programs.k9s = {
-      enable = lib.mkDefault true;
+      enable =  true;
       settings.k9s.ui = {
-        headless = lib.mkDefault true;
-        logoless = lib.mkDefault true;
+        headless =  true;
+        logoless =  true;
       };
       hotKeys.hotKeys = {
         shift-1 = { shortCut = "Shift-1"; description = "Show pods"; command = "pods"; };

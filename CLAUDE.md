@@ -111,7 +111,6 @@ Root password comes from `common.yaml` (via the sops aspect). User passwords com
 
 ## Key Patterns
 
-- All defaults use `lib.mkDefault` so hosts/users can override.
 - The `nix-flatpak` home-manager module is imported globally in `den.default` (via `flatpak.nix`) so `services.flatpak.packages` works inside `provides.<host>.homeManager`.
 - Plasma config is split: shared settings (keybinds, kwin, power) are aspects; per-user settings (panels, wallpaper, fonts, input devices) live in user `provides.<host>`.
 - WSL hosts need `boot.loader.systemd-boot.enable = lib.mkForce false` to override the default boot aspect.

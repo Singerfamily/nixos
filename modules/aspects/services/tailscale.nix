@@ -6,7 +6,7 @@
       services.tailscale = {
         enable = true;
         openFirewall = true;
-        extraUpFlags = lib.mkDefault [
+        extraUpFlags =  [
           "--ssh"
           "--reset"
         ];

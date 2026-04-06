@@ -7,10 +7,10 @@
       { lib, pkgs, ... }:
       {
         hardware.graphics = {
-          enable = lib.mkDefault true;
-          enable32Bit = lib.mkDefault true;
+          enable =  true;
+          enable32Bit =  true;
         };
-        environment.sessionVariables.ELECTRON_OZONE_PLATFORM_HINT = lib.mkDefault "auto";
+        environment.sessionVariables.ELECTRON_OZONE_PLATFORM_HINT =  "auto";
         environment.systemPackages = [ pkgs.nvtopPackages.full ];
       };
   };
@@ -26,7 +26,7 @@
           intel-vaapi-driver
           libvdpau-va-gl
         ];
-        services.xserver.videoDrivers = lib.mkDefault [ "intel" ];
+        services.xserver.videoDrivers =  [ "intel" ];
       };
   };
 
@@ -34,9 +34,9 @@
   den.aspects.gpu-amd = {
     includes = [ den.aspects.gpu ];
     nixos = { lib, ... }: {
-      hardware.amdgpu.initrd.enable = lib.mkDefault true;
-      hardware.amdgpu.opencl.enable = lib.mkDefault true;
-      services.xserver.videoDrivers = lib.mkDefault [ "amdgpu" ];
+      hardware.amdgpu.initrd.enable =  true;
+      hardware.amdgpu.opencl.enable =  true;
+      services.xserver.videoDrivers =  [ "amdgpu" ];
     };
   };
 
@@ -47,24 +47,24 @@
       { lib, config, ... }:
       {
         hardware.nvidia = {
-          modesetting.enable = lib.mkDefault true;
-          open = lib.mkDefault true;
-          nvidiaSettings = lib.mkDefault true;
-          gsp.enable = lib.mkDefault true;
-          package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.latest;
-          powerManagement.enable = lib.mkDefault false;
-          powerManagement.finegrained = lib.mkDefault false;
+          modesetting.enable =  true;
+          open =  true;
+          nvidiaSettings =  true;
+          gsp.enable =  true;
+          package =  config.boot.kernelPackages.nvidiaPackages.latest;
+          powerManagement.enable =  false;
+          powerManagement.finegrained =  false;
           # PRIME mode configured per-host (offload vs sync)
-          # prime.offload.enable = lib.mkDefault true;
-          # prime.offload.enableOffloadCmd = lib.mkDefault true;
+          # prime.offload.enable =  true;
+          # prime.offload.enableOffloadCmd =  true;
         };
         services.xserver.videoDrivers = [ "nvidia" ];
         boot.blacklistedKernelModules = [ "nouveau" ];
 
         environment.sessionVariables = {
-          GBM_BACKEND = lib.mkDefault "nvidia-drm";
-          __GLX_VENDOR_LIBRARY_NAME = lib.mkDefault "nvidia";
-          NVD_BACKEND = lib.mkDefault "direct";
+          GBM_BACKEND =  "nvidia-drm";
+          __GLX_VENDOR_LIBRARY_NAME =  "nvidia";
+          NVD_BACKEND =  "direct";
         };
 
         # Enable NVIDIA container toolkit for Docker GPU access

@@ -5,16 +5,16 @@
     nixos =
       { lib, pkgs, ... }:
       {
-        services.desktopManager.plasma6.enable = lib.mkDefault true;
+        services.desktopManager.plasma6.enable =  true;
         services.displayManager.sddm = {
-          enable = lib.mkDefault true;
-          wayland.enable = lib.mkDefault true;
-          autoNumlock = lib.mkDefault true;
+          enable =  true;
+          wayland.enable =  true;
+          autoNumlock =  true;
         };
         xdg.portal = {
-          enable = lib.mkDefault true;
+          enable =  true;
           extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
-          config.common.default = lib.mkDefault "kde";
+          config.common.default =  "kde";
         };
         environment.systemPackages =
           (with pkgs.kdePackages; [
@@ -54,42 +54,42 @@
       ];
 
       programs.plasma = {
-        enable = lib.mkDefault true;
-        overrideConfig = lib.mkDefault true;
+        enable =  true;
+        overrideConfig =  true;
 
-        krunner.activateWhenTypingOnDesktop = lib.mkDefault false;
+        krunner.activateWhenTypingOnDesktop =  false;
 
         session = {
-          general.askForConfirmationOnLogout = lib.mkDefault false;
-          sessionRestore.restoreOpenApplicationsOnLogin = lib.mkDefault "startWithEmptySession";
+          general.askForConfirmationOnLogout =  false;
+          sessionRestore.restoreOpenApplicationsOnLogin =  "startWithEmptySession";
         };
 
         workspace = {
-          enableMiddleClickPaste = lib.mkDefault false;
-          clickItemTo = lib.mkDefault "select";
-          colorScheme = lib.mkDefault "BreezeDark";
-          splashScreen.engine = lib.mkDefault "none";
-          splashScreen.theme = lib.mkDefault "none";
-          tooltipDelay = lib.mkDefault 1;
+          enableMiddleClickPaste =  false;
+          clickItemTo =  "select";
+          colorScheme =  "BreezeDark";
+          splashScreen.engine =  "none";
+          splashScreen.theme =  "none";
+          tooltipDelay =  1;
         };
 
         configFile = {
-          klipperrc.General.MaxClipItems = lib.mkDefault 1000;
-          kiorc.Confirmations.ConfirmDelete = lib.mkDefault false;
+          klipperrc.General.MaxClipItems =  1000;
+          kiorc.Confirmations.ConfirmDelete =  false;
           spectaclerc = {
-            Annotations.annotationToolType = lib.mkDefault 8;
+            Annotations.annotationToolType =  8;
             General = {
-              launchAction = lib.mkDefault "DoNotTakeScreenshot";
-              showCaptureInstructions = lib.mkDefault false;
-              showMagnifier = lib.mkDefault "ShowMagnifierAlways";
+              launchAction =  "DoNotTakeScreenshot";
+              showCaptureInstructions =  false;
+              showMagnifier =  "ShowMagnifierAlways";
             };
-            ImageSave.imageCompressionQuality = lib.mkDefault 100;
+            ImageSave.imageCompressionQuality =  100;
           };
         };
 
         dataFile = {
-          "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" = lib.mkDefault 1;
-          "dolphin/view_properties/global/.directory"."Settings"."HiddenFilesShown" = lib.mkDefault true;
+          "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" =  1;
+          "dolphin/view_properties/global/.directory"."Settings"."HiddenFilesShown" =  true;
         };
       };
     };

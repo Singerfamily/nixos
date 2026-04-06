@@ -3,8 +3,8 @@
   den.aspects.bluetooth = {
     nixos = { lib, ... }: {
       hardware.bluetooth = {
-        enable = lib.mkDefault true;
-        powerOnBoot = lib.mkDefault true;
+        enable =  true;
+        powerOnBoot =  true;
         settings.General = {
           Experimental = true;
           JustWorksRepairing = "always";
