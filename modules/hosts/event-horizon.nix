@@ -1,6 +1,6 @@
 { den, inputs, ... }:
 {
-  den.hosts.x86_64-linux.event-horizon.users.esinger = {};
+  den.hosts.x86_64-linux.event-horizon.users.esinger = { };
 
   den.aspects.event-horizon = {
     includes = with (den.aspects); [
@@ -66,15 +66,24 @@
                       subvolumes = {
                         "/root" = {
                           mountpoint = "/";
-                          mountOptions = [ "compress=zstd" "noatime" ];
+                          mountOptions = [
+                            "compress=zstd"
+                            "noatime"
+                          ];
                         };
                         "/home" = {
                           mountpoint = "/home";
-                          mountOptions = [ "compress=zstd" "noatime" ];
+                          mountOptions = [
+                            "compress=zstd"
+                            "noatime"
+                          ];
                         };
                         "/nix" = {
                           mountpoint = "/nix";
-                          mountOptions = [ "compress=zstd" "noatime" ];
+                          mountOptions = [
+                            "compress=zstd"
+                            "noatime"
+                          ];
                         };
                         "/swap" = {
                           mountpoint = "/.swapvol";
@@ -106,7 +115,10 @@
                       subvolumes = {
                         "/" = {
                           mountpoint = "/mnt/games";
-                          mountOptions = [ "compress=zstd" "noatime" ];
+                          mountOptions = [
+                            "compress=zstd"
+                            "noatime"
+                          ];
                         };
                       };
                     };
@@ -124,7 +136,7 @@
         };
         services.avahi.enable = false;
 
-        environment.systemPackages = [ pkgs.android-tools ];
+        environment.systemPackages = with pkgs; [ android-tools ];
 
         # KDE Connect
         programs.kdeconnect.enable = true;

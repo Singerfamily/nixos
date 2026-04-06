@@ -3,23 +3,22 @@
   den.hosts.x86_64-linux.clint-pc.users.csinger = { };
 
   den.aspects.clint-pc = {
-    includes = [
-      den.aspects.gpu-intel
-      den.aspects.gpu-nvidia
-      den.aspects.bluetooth
-      den.aspects.sound
-      den.aspects.plasma
-      den.aspects.docker
-      den.aspects.ssh
-      den.aspects.flatpak
-      den.aspects.qemu
-      den.aspects.ai-tools
-      den.aspects.tailscale
-      den.aspects.sops
-      den.aspects.determinate
-      den.aspects.compat
-      den.aspects.crypto
-      den.aspects.tpm
+    includes =  with (den.aspects); [      gpu-intel
+      gpu-nvidia
+      bluetooth
+      sound
+      plasma
+      docker
+      ssh
+      flatpak
+      qemu
+      ai-tools
+      tailscale
+      sops
+      determinate
+      compat
+      crypto
+      tpm
     ];
 
     nixos =

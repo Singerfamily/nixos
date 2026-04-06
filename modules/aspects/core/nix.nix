@@ -1,7 +1,6 @@
 { den, ... }:
 {
-  # Smart nix defaults - applied to all hosts via den.default
-  den.default = {
+  den.aspects.nix = {
     nixos = { lib, ... }: {
       nix.settings = {
         trusted-users = lib.mkDefault [ "root" "@wheel" "@builders" ];
