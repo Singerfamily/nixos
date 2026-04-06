@@ -164,6 +164,36 @@
           '';
         };
 
+        # Generate ws config with the codex server profile
+        system.activationScripts.ws-config = {
+          deps = [ "setupSecrets" ];
+          text = ''
+            WS_DIR="/home/csinger/.config/ws"
+            mkdir -p "$WS_DIR"
+
+            OC_USER="$(tr -d '\n' < ${config.sops.secrets."opencode_server_username".path} 2>/dev/null || echo opencode)"
+            OC_PASS="$(tr -d '\n' < ${config.sops.secrets."opencode_server_password".path} 2>/dev/null || echo "")"
+
+            cat > "$WS_DIR/config.json" <<WSEOF
+            {
+              "servers": [
+                {"name": "codex", "url": "http://localhost:43102", "username": "$OC_USER", "password": "$OC_PASS", "default": true}
+              ]
+            }
+            WSEOF
+
+            chown -R csinger:users "$WS_DIR"
+            chmod 600 "$WS_DIR/config.json"
+          '';
+        };
+
+        # Install Claude skills from this repo on every rebuild
+        system.activationScripts.install-claude-skills = ''
+          SKILLS_DST="/home/csinger/.claude/skills"
+          mkdir -p "$SKILLS_DST"
+          chown -R csinger:users "/home/csinger/.claude"
+        '';
+
         systemd.services.opencode-codex =
           let
             envScript = pkgs.writeShellScript "opencode-codex-env" ''

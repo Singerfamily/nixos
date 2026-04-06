@@ -8,7 +8,8 @@
         # AI coding agents
         claude-code
         opencode
-        aider-chat
+        ollama-rocm
+        # aider-chat
         gemini-cli
 
         # MCP & agent infrastructure
@@ -25,10 +26,12 @@
         entr            # Run commands on file change
         difftastic      # Structural diff for better code diffs
         httpie          # Human-friendly HTTP client
+        curl            # URL transfer tool
+        wget            # Network downloader
 
         # Language servers (used by agents for code intelligence)
         nil                                        # Nix LSP
-        # nodePackages.typescript-language-server    # TypeScript LSP
+        nodePackages.typescript-language-server     # TypeScript LSP
         omnisharp-roslyn                           # C# LSP
         pyright                                    # Python type checker / LSP
 
@@ -36,8 +39,8 @@
         trivy           # Container/code vulnerability scanner
         hadolint        # Dockerfile linter
         shellcheck      # Shell script linter
-        # nodePackages.prettier
-        # nodePackages.eslint
+        nodePackages.prettier
+        nodePackages.eslint
       ];
     };
 }

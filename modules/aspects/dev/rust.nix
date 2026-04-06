@@ -56,7 +56,16 @@
           # Build tooling
           bacon              # Background rust code checker
           sccache            # Ccache with Cloud Storage
+
+          # Linker
+          mold               # Fast linker
         ];
+
+        # Configure cargo to use mold linker
+        home.file.".cargo/config.toml".text = lib.mkDefault ''
+          [target.x86_64-unknown-linux-gnu]
+          rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+        '';
       };
   };
 }

@@ -11,10 +11,10 @@
       );
 
       # Set NIX_PATH so legacy nix-shell / nix-env can find channels
-      nix.nixPath = lib.mkDefault [ "/etc/nix/path" ];
-      environment.etc = lib.mapAttrs' (name: value: {
-        name = "nix/path/${name}";
-        value.source = value.flake;
-      }) config.nix.registry;
+      # nix.nixPath = lib.mkDefault [ "/etc/nix/path" ];
+      # environment.etc = lib.mapAttrs' (name: value: {
+      #   name = "nix/path/${name}";
+      #   value.source = value.flake;
+      # }) config.nix.registry;
     };
 }

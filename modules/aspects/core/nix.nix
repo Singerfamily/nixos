@@ -4,7 +4,8 @@
   den.default = {
     nixos = { lib, ... }: {
       nix.settings = {
-        trusted-users = lib.mkDefault [ "root" "@wheel" ];
+        trusted-users = lib.mkDefault [ "root" "@wheel" "@builders" ];
+        allowed-users = lib.mkDefault [ "root" "@wheel" "@builders" ];
         experimental-features = lib.mkDefault [
           "nix-command"
           "flakes"

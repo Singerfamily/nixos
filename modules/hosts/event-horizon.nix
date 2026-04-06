@@ -18,7 +18,6 @@
       compat
       crypto
       tpm
-      adb
     ];
 
     nixos =

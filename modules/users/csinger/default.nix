@@ -19,6 +19,7 @@
       den.aspects.dev-embedded
       den.aspects.atuin
       den.aspects.sops
+      den.aspects.minecraft
     ];
 
     # NixOS-level: set user password from sops
@@ -279,6 +280,15 @@
           "com.spotify.Client"
           "org.libreoffice.LibreOffice"
         ];
+
+        # Default browser
+        xdg.mimeApps.defaultApplications = {
+          "text/html" = "microsoft-edge.desktop";
+          "x-scheme-handler/http" = "microsoft-edge.desktop";
+          "x-scheme-handler/https" = "microsoft-edge.desktop";
+          "x-scheme-handler/about" = "microsoft-edge.desktop";
+          "x-scheme-handler/unknown" = "microsoft-edge.desktop";
+        };
       };
   };
 }

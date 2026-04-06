@@ -25,6 +25,7 @@
           gdb
           gcc-arm-embedded-13
           platformio-core
+          esptool
         ];
       };
   };

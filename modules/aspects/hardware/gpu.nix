@@ -54,8 +54,9 @@
           package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.latest;
           powerManagement.enable = lib.mkDefault false;
           powerManagement.finegrained = lib.mkDefault false;
-          prime.offload.enable = lib.mkDefault true;
-          prime.offload.enableOffloadCmd = lib.mkDefault true;
+          # PRIME mode configured per-host (offload vs sync)
+          # prime.offload.enable = lib.mkDefault true;
+          # prime.offload.enableOffloadCmd = lib.mkDefault true;
         };
         services.xserver.videoDrivers = [ "nvidia" ];
         boot.blacklistedKernelModules = [ "nouveau" ];

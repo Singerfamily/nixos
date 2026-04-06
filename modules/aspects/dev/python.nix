@@ -6,7 +6,10 @@
       { pkgs, ... }:
       {
         home.packages = with pkgs; [
-          python313
+          (python313.withPackages (ps: [
+            ps.python-lsp-server
+            ps.black
+          ]))
           pyright
           ruff
           uv

@@ -10,28 +10,28 @@
 
           fonts = {
             fixedWidth = {
-              family = "JetBrainsMono Nerd Font Mono";
-              pointSize = 10;
+              family = lib.mkDefault "JetBrainsMono Nerd Font Mono";
+              pointSize = lib.mkDefault 10;
             };
             general = {
-              family = "JetBrainsMono Nerd Font";
-              pointSize = 10;
+              family = lib.mkDefault "JetBrainsMono Nerd Font";
+              pointSize = lib.mkDefault 10;
             };
             menu = {
-              family = "JetBrainsMono Nerd Font";
-              pointSize = 10;
+              family = lib.mkDefault "JetBrainsMono Nerd Font";
+              pointSize = lib.mkDefault 10;
             };
             small = {
-              family = "JetBrainsMono Nerd Font";
-              pointSize = 8;
+              family = lib.mkDefault "JetBrainsMono Nerd Font";
+              pointSize = lib.mkDefault 8;
             };
             toolbar = {
-              family = "JetBrainsMono Nerd Font";
-              pointSize = 10;
+              family = lib.mkDefault "JetBrainsMono Nerd Font";
+              pointSize = lib.mkDefault 10;
             };
             windowTitle = {
-              family = "JetBrainsMono Nerd Font";
-              pointSize = 10;
+              family = lib.mkDefault "JetBrainsMono Nerd Font";
+              pointSize = lib.mkDefault 10;
             };
           };
 
