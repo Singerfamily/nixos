@@ -2,7 +2,7 @@
 {
   den.aspects.fonts = {
     nixos = { pkgs, lib, ... }: {
-      fonts.packages = lib.mkDefault (with pkgs; [
+      fonts.packages = (with pkgs; [
         nerd-fonts.jetbrains-mono
         nerd-fonts.meslo-lg
       ]);
