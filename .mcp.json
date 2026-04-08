@@ -1,7 +1,12 @@
 {
   "mcpServers": {
     "nixos": {
-      "command": "mcp-nixos"
+      "command": "mcp-nixos",
+      "args": []
+    },
+    "nix-agent": {
+      "command": "nix-agent",
+      "args": []
     }
   }
 }

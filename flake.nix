@@ -28,7 +28,8 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    nix-agent.url = "github:JEFF7712/nix-agent";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
