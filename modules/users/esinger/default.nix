@@ -25,6 +25,11 @@
       den.aspects.distrobox
     ];
 
+    user = {
+      name = "esinger";
+      description = "Eric Singer";
+    };
+
     # NixOS-level: set user password from sops
     nixos =
       { config, ... }:
