@@ -7,11 +7,9 @@
         nix.settings = {
           trusted-users = [
             "@wheel"
-            "@builders"
           ];
           allowed-users = [
             "@wheel"
-            "@builders"
           ];
           experimental-features = [
             "nix-command"
