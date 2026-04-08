@@ -4,7 +4,7 @@
   den.aspects.kernel-zen.nixos =
     { pkgs, lib, ... }:
     {
-      boot.kernelPackages =  pkgs.linuxPackages_zen;
+      boot.kernelPackages = pkgs.linuxPackages_zen;
     };
 
   # CachyOS kernel aspect — use CachyOS kernel with custom substituters
@@ -16,8 +16,25 @@
         inputs.nix-cachyos-kernel.overlays.default
       ];
 
-      # Requires chaotic-nyx or cachyos-kernel flake input for pkgs.cachyosKernels
-      boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-zen4;
+      # boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-zen4;
+
+      boot.kernelPackages =
+        let
+          # helpers.nix provides a few utilities for building kernel with LTO.
+          # I haven't figured out a clean way to expose it in flakes.
+          helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" { };
+
+          kernel = inputs.nix-cachyos-kernel.packages.x86_64-linux.linux-cachyos-latest.override {
+            cpusched = "bore";
+            lto = "full";
+            processorOpt = "zen4";
+            hzTicks = "1000";
+            bbr3 = true;
+            autofdo = true;
+          };
+        in
+        helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor kernel);
+
       nix.settings = {
         substituters = [
           "https://attic.xuyh0120.win/lantian"
