@@ -89,6 +89,6 @@
         extraConfig.XDG_SCREENSHOTS_DIR =  "$HOME/Images/Screenshots";
       };
       xdg.mime.enable =  true;
-      xdg.mimeApps.enable =  true;
+      # xdg.mimeApps.enable =  true;
     };
 }
