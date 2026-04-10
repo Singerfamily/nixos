@@ -13,9 +13,11 @@
           inputs.nix-agent.nixosModules.default
         ];
 
+        programs.nix-agent.enable = true;
+
         environment.systemPackages = with pkgs; [
           mcp-nixos
-          inputs.nix-agent.packages.${system}.default
+          # inputs.nix-agent.packages.${system}.default
         ];
       };
     homeManager =
