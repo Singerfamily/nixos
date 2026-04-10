@@ -2,4 +2,5 @@ test.nix
 result
 .decrypted~*
 .secret*
-.claude
+.claude/**
+!.claude/settings.json

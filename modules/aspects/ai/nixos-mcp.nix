@@ -1,7 +1,5 @@
 {
-  den,
   inputs,
-  system,
   ...
 }:
 {
