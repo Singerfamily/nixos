@@ -11,13 +11,13 @@
       discord
       vscode
       onedrive
-      dev.nix
-      dev.dotnet
-      dev.js
-      dev.java
-      dev.c
-      dev.rust
-      dev.go
+      dev-nix
+      dev-dotnet
+      dev-js
+      dev-java
+      dev-c
+      dev-rust
+      dev-go
       sops
       determinate
       atuin

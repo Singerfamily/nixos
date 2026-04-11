@@ -1,7 +1,7 @@
 { den, ... }:
 {
-  den.aspects.dev.dotnet = {
-    includes = [ den.aspects.dev ];
+  den.aspects.dev-dotnet = {
+    includes = [ den.aspects.dev-common];
     homeManager =
       { pkgs, lib, config, ... }:
       let

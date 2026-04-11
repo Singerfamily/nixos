@@ -11,8 +11,10 @@
         environment.systemPackages = with pkgs; [
           bubblewrap
           socat
+          claude-code
         ];
       };
+
     homeManager =
       { pkgs, ... }:
       {
