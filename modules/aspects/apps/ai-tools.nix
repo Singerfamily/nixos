@@ -4,11 +4,8 @@
   den.aspects.ai-tools.nixos =
     { pkgs, ... }:
     {
-
-
       environment.systemPackages = with pkgs; [
         # AI coding agents
-        claude-code
         opencode
         ollama-rocm
         # aider-chat

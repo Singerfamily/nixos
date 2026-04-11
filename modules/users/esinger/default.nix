@@ -1,28 +1,28 @@
 { den, lib, ... }:
 {
   den.aspects.esinger = {
-    includes = [
+    includes = with den.aspects; [
       den.provides.primary-user
       (den.provides.user-shell "zsh")
-      den.aspects.zsh
-      den.aspects.fzf
-      den.aspects.git
-      den.aspects.plasma-full
-      den.aspects.discord
-      den.aspects.vscode
-      den.aspects.onedrive
-      den.aspects.dev-nix
-      den.aspects.dev-dotnet
-      den.aspects.dev-js
-      den.aspects.dev-java
-      den.aspects.dev-c
-      den.aspects.dev-rust
-      den.aspects.dev-go
-      den.aspects.sops
-      den.aspects.determinate
-      den.aspects.atuin
-      den.aspects.k9s
-      den.aspects.distrobox
+      zsh
+      fzf
+      git
+      plasma-full
+      discord
+      vscode
+      onedrive
+      dev.nix
+      dev.dotnet
+      dev.js
+      dev.java
+      dev.c
+      dev.rust
+      dev.go
+      sops
+      determinate
+      atuin
+      k9s
+      distrobox
     ];
 
     user = {

@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.dev-nix.homeManager =
+  den.aspects.dev.nix.homeManager =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [

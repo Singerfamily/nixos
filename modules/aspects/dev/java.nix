@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.dev-java = {
+  den.aspects.dev.java = {
     includes = [ den.aspects.dev ];
     homeManager =
       { pkgs, ... }:
