@@ -19,8 +19,6 @@
       compat
       crypto
       tpm
-
-      claude-code
     ];
 
     nixos =

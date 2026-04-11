@@ -4,6 +4,7 @@
     includes = with den.aspects; [
       den.provides.primary-user
       (den.provides.user-shell "zsh")
+
       zsh
       fzf
       git
@@ -23,6 +24,8 @@
       atuin
       k9s
       distrobox
+
+      claude-code
     ];
 
     user = {
@@ -88,28 +91,10 @@
 
         home.packages = [ pkgs.bitwarden-desktop ];
 
-        # Claude Code MCP servers
-        home.file.".claude/claude_desktop_config.json".text = builtins.toJSON {
-          mcpServers = {
-            nixos = {
-              command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
-            };
-            markitdown = {
-              command = "docker";
-              args = [
-                "run"
-                "--rm"
-                "-i"
-                "mcp/markitdown:latest"
-              ];
-            };
-          };
-        };
-
         home.shellAliases = {
           pgrep = "pgrep -a";
           dc = "docker compose";
-          run = "NIXPKGS_ALLOW_UNFREE=1 nix run";
+          run = "NIXPKGS_ALLOW_UNFREE=1 nix run --impure $1";
         };
 
         # Sops user secrets
