@@ -1,9 +1,11 @@
-{ inputs, ... }:
+{ inputs, den, ... }:
 {
   imports = [
     (inputs.flake-file.flakeModules.dendritic or { })
     (inputs.den.flakeModules.dendritic or { })
   ];
+
+  flake.den = den;
 
   flake-file.inputs = {
     darwin = {

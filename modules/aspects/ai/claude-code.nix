@@ -18,6 +18,11 @@
     homeManager =
       { pkgs, ... }:
       {
+
+        programs.git.ignores = [
+          ".claude/settings.local.json"
+        ];
+
         programs.claude-code = {
           enable = true;
           enableMcpIntegration = true;

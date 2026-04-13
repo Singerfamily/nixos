@@ -53,6 +53,7 @@
           ".direnv"
           ".envrc"
           ".envrc.local"
+          "**/*local*"
           ".env"
           ".env.local"
           ".jj"
@@ -68,9 +69,6 @@
           "*~"
           ".aider*"
           ".crush*"
-          "CRUSH.md"
-          "GEMINI.md"
-          "CLAUDE.md"
         ];
         attributes = [
           "secrets/*.yaml diff=sopsdiffer"
