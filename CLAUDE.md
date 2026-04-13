@@ -116,6 +116,7 @@ Root password comes from `common.yaml` (via the sops aspect). User passwords com
 - WSL hosts need `boot.loader.systemd-boot.enable = lib.mkForce false` to override the default boot aspect.
 - Use `programs.git.settings` (not the deprecated `extraConfig`) for git configuration.
 - `plasma-manager` uses `homeModules` (not the deprecated `homeManagerModules`).
+- Add tool-generated junk to `programs.git.ignores` in modules/aspects/git.nix
 
 ## Gotchas
 
