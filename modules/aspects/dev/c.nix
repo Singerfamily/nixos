@@ -1,7 +1,6 @@
-{ den, ... }:
+{ dev, ... }:
 {
-  den.aspects.dev-c = {
-    includes = [ den.aspects.dev-common];
+  dev.c = {
     homeManager =
       { pkgs, ... }:
       {
@@ -14,8 +13,8 @@
   };
 
   # Embedded sub-aspect for STM32/ARM development
-  den.aspects.dev-embedded = {
-    includes = [ den.aspects.dev-c ];
+  dev.embedded = {
+    includes = [ dev.c ];
     homeManager =
       { pkgs, ... }:
       {

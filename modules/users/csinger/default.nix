@@ -1,26 +1,29 @@
-{ den, ... }:
+{ den, dev, ... }:
 {
   den.aspects.csinger = {
-    includes = [
-      den.provides.primary-user
-      (den.provides.user-shell "zsh")
-      den.aspects.zsh
-      den.aspects.fzf
-      den.aspects.git
-      den.aspects.plasma-full
-      den.aspects.discord
-      den.aspects.vscode
-      den.aspects.onedrive
-      den.aspects.dev-nix
-      den.aspects.dev-dotnet
-      den.aspects.dev-js
-      den.aspects.dev-python
-      den.aspects.dev-rust
-      den.aspects.dev-embedded
-      den.aspects.atuin
-      den.aspects.sops
-      den.aspects.minecraft
-    ];
+    includes =
+      (with den.aspects; [
+        den.provides.primary-user
+        (den.provides.user-shell "zsh")
+        zsh
+        fzf
+        git
+        plasma-full
+        discord
+        vscode
+        onedrive
+        atuin
+        sops
+        minecraft
+      ])
+      ++ (with dev; [
+        nix
+        dotnet
+        js
+        python
+        rust
+        embedded
+      ]);
 
     # NixOS-level: set user password from sops
     nixos =

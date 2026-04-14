@@ -1,7 +1,5 @@
-{ den, ... }:
 {
-  den.aspects.dev-go = {
-    includes = [ den.aspects.dev-common];
+  dev.go = {
     homeManager =
       { pkgs, ... }:
       {

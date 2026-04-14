@@ -1,7 +1,5 @@
-{ den, ... }:
 {
-  den.aspects.dev-ruby = {
-    includes = [ den.aspects.dev-common];
+  dev.ruby = {
     homeManager =
       { pkgs, ... }:
       {

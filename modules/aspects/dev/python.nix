@@ -1,7 +1,5 @@
-{ den, ... }:
 {
-  den.aspects.dev-python = {
-    includes = [ den.aspects.dev-common];
+  dev.python = {
     homeManager =
       { pkgs, ... }:
       {

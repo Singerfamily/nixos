@@ -1,7 +1,5 @@
-{ den, ... }:
 {
-  den.aspects.dev-js = {
-    includes = [ den.aspects.dev-common];
+  dev.js = {
     homeManager =
       { pkgs, ... }:
       {

@@ -1,7 +1,5 @@
-{ den, ... }:
 {
-  den.aspects.dev-rust = {
-    includes = [ den.aspects.dev-common];
+  dev.rust = {
     homeManager =
       { pkgs, lib, ... }:
       {

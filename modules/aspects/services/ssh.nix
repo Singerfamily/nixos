@@ -5,21 +5,29 @@
       { lib, pkgs, ... }:
       {
         services.openssh = {
-          enable =  true;
+          enable = true;
           settings = {
-            PasswordAuthentication =  false;
-            PermitRootLogin =  "no";
-            StreamLocalBindUnlink =  "yes";
+            PasswordAuthentication = false;
+            PermitRootLogin = "no";
+            StreamLocalBindUnlink = "yes";
           };
         };
         programs.mosh = {
-          enable =  true;
-          withUtempter =  true;
+          enable = true;
+          withUtempter = true;
         };
+
+        programs.ssh = {
+          startAgent = true;
+        };
+
         environment.systemPackages = [ pkgs.sshfs ];
       };
-    homeManager = { lib, ... }: {
-      services.ssh-agent.enable =  true;
-    };
+    homeManager =
+      { lib, ... }:
+      {
+        programs.ssh.enable = true;
+        services.ssh-agent.enable = true;
+      };
   };
 }
