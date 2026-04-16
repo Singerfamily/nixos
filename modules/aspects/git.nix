@@ -20,24 +20,23 @@
         enable = true;
         signing.format = "ssh";
         settings = {
-          # TODO: move these to home-specific configs
-          # user.name = "<NAME>";
-          # user.email = "<EMAIL>";
-          # github.user = "<USERNAME>";
-          # gitlab.user = "<USERNAME>";
-          # core.editor = "vim";
-
           commit.gpgSign = true;
           tag.gpgSign = true;
           user.signingKey = "~/.ssh/id_ed25519.pub";
           gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+
           init.defaultBranch = "main";
+
           pull.rebase = true;
+          push.autoSetupRemote = true;
+
           pager.difftool = true;
+
           diff.tool = "difftastic";
           diff.sopsdiffer.textconv = "sops -d --config /dev/null";
           difftool.prompt = false;
           difftool.difftastic.cmd = "${pkgs.difftastic}/bin/difft $LOCAL $REMOTE";
+
           alias = {
             "dff" = "difftool";
             "fap" = "fetch --all -p";
@@ -46,6 +45,7 @@
             "recents" =
               "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'";
           };
+
         };
         ignores = [
           ".DS_Store"
