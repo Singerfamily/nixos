@@ -1,11 +1,11 @@
-{ den, ... }:
+_:
 {
   den.default.nixos =
-    { lib, pkgs, ... }:
+    { pkgs, ... }:
     {
       networking = {
-        networkmanager.enable =  true;
-        firewall.enable =  true;
+        networkmanager.enable = true;
+        firewall.enable = true;
         # useDHCP =  true;
       };
       environment.systemPackages = with pkgs; [

@@ -1,7 +1,6 @@
 {
   den,
   dev,
-  lib,
   ...
 }:
 {
@@ -75,7 +74,6 @@
     homeManager =
       {
         pkgs,
-        lib,
         config,
         ...
       }:
@@ -130,7 +128,7 @@
 
     # event-horizon specific config for esinger
     provides.event-horizon.homeManager =
-      { pkgs, lib, ... }:
+      { pkgs, ... }:
       let
         wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Kay/contents/images_dark/5120x2880.png";
       in

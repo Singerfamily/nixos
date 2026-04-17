@@ -1,7 +1,7 @@
 {
   dev.rust = {
     homeManager =
-      { pkgs, lib, ... }:
+      { pkgs, ... }:
       {
         home.packages = with pkgs; [
           rustup

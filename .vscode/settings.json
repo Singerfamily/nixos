@@ -23,11 +23,11 @@
         // By default there is no home-manager options completion, thus you can add this entry.
         "home-manager": {
           "expr": "(builtins.getFlake \"${workspaceFolder}\").homeConfigurations.\"esinger@event-horizon\".options"
-        },
+        }
         // "lib": {
         //   "expr": "(builtins.getFlake \"${workspaceFolder}\").outputs.nixosConfigurations.sandbox.lib"
         // }
-      },
+      }
       // Control the diagnostic system
       // "diagnostic": {
       //   "suppress": ["sema-extra-with"]

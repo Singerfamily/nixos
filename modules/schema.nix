@@ -11,6 +11,6 @@ with lib;
   };
 
   den.schema.user = {
-    config.classes =  [ "homeManager" ];
+    config.classes = [ "homeManager" ];
   };
 }

@@ -1,8 +1,8 @@
-{ den, ... }:
+_:
 {
   den.default = {
     nixos =
-      { lib, ... }:
+      _:
       {
         nix.settings = {
           trusted-users = [
@@ -34,15 +34,15 @@
           ];
         };
         nix.gc = {
-          automatic =  true;
-          options =  "--delete-older-than 14d";
+          automatic = true;
+          options = "--delete-older-than 14d";
         };
-        nixpkgs.config.allowUnfree =  true;
+        nixpkgs.config.allowUnfree = true;
       };
     homeManager =
-      { lib, ... }:
+      _:
       {
-        nixpkgs.config.allowUnfree =  true;
+        nixpkgs.config.allowUnfree = true;
       };
   };
 }

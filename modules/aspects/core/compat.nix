@@ -1,7 +1,9 @@
-{ den, ... }:
+_:
 {
-  den.aspects.compat.nixos = { lib, ... }: {
-    programs.nix-ld.enable =  true;
-    services.envfs.enable =  true;
-  };
+  den.aspects.compat.nixos =
+    _:
+    {
+      programs.nix-ld.enable = true;
+      services.envfs.enable = true;
+    };
 }

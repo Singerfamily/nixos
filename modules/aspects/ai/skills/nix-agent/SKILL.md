@@ -24,6 +24,7 @@ Do not use this skill for imperative package installs, writing secret payloads, 
 For direct NixOS MCP execution tasks, this skill takes precedence over generic brainstorming or planning workflows.
 
 If the user says things like:
+
 - `install X on NixOS`
 - `enable this option`
 - `patch my NixOS config`

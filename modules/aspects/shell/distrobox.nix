@@ -1,6 +1,8 @@
-{ den, ... }:
+_:
 {
-  den.aspects.distrobox.homeManager = { pkgs, lib, ... }: {
-    home.packages = [ pkgs.distrobox ];
-  };
+  den.aspects.distrobox.homeManager =
+    { pkgs, ... }:
+    {
+      home.packages = [ pkgs.distrobox ];
+    };
 }

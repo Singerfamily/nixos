@@ -3,7 +3,8 @@
   den.hosts.x86_64-linux.clint-pc.users.csinger = { };
 
   den.aspects.clint-pc = {
-    includes =  with (den.aspects); [      gpu-intel
+    includes = with den.aspects; [
+      gpu-intel
       gpu-nvidia
       bluetooth
       sound
@@ -19,10 +20,14 @@
       compat
       crypto
       tpm
+      sunshine
+      gnome-remote-desktop
+      opencode-server
+      samba-client
     ];
 
     nixos =
-      { lib, pkgs, config, ... }:
+      { pkgs, ... }:
       {
         # Hardware
         boot.initrd.availableKernelModules = [
@@ -69,28 +74,7 @@
           "hmac-sha2-512"
         ];
 
-        # Sunshine game streaming
-        services.sunshine = {
-          enable = true;
-          autoStart = true;
-          capSysAdmin = true;
-          openFirewall = true;
-        };
-
-        # Ensure Sunshine can capture input devices
-        services.udev.extraRules = ''
-          KERNEL=="uinput", MODE="0660", GROUP="input", OPTIONS+="static_node=uinput"
-        '';
-
-        # GNOME Remote Desktop — works with Wayland via Pipewire (no GNOME desktop needed)
-        services.gnome.gnome-remote-desktop.enable = true;
-        xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
-        xdg.portal.config.common = {
-          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
-          "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
-        };
-
-        # SMB mount
+        # SMB mount — tooling comes from samba-client aspect
         fileSystems."/mnt/backup" = {
           device = "//10.200.0.3/clint";
           fsType = "cifs";
@@ -103,12 +87,6 @@
             "credentials=/etc/nixos/.secret-smb"
           ];
         };
-
-        # Open RDP port
-        networking.firewall.allowedTCPPorts = [ 3389 ];
-
-        # Wayland
-        environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
         # Azure DevOps defaults for AI agents (az devops CLI reads these automatically)
         environment.variables = {
@@ -128,7 +106,6 @@
 
         # System packages
         environment.systemPackages = with pkgs; [
-          cifs-utils
           lsof
           google-chrome
           firefox
@@ -149,101 +126,12 @@
           nodejs
         ];
 
-        # OpenCode background server (Codex / OpenAI)
-        # Runs as csinger so it can access opencode's auth store
-        sops.secrets."opencode_server_username" = { };
-        sops.secrets."opencode_server_password" = { };
-
-        system.activationScripts.opencode-servers = {
-          text = ''
-            mkdir -p /etc/opencode/codex
-            cat > /etc/opencode/codex/opencode.json <<'OCEOF'
-            { "model": "openai/gpt-5.3-codex" }
-            OCEOF
-          '';
-        };
-
-        # Generate ws config with the codex server profile
-        system.activationScripts.ws-config = {
-          deps = [ "setupSecrets" ];
-          text = ''
-            WS_DIR="/home/csinger/.config/ws"
-            mkdir -p "$WS_DIR"
-
-            OC_USER="$(tr -d '\n' < ${config.sops.secrets."opencode_server_username".path} 2>/dev/null || echo opencode)"
-            OC_PASS="$(tr -d '\n' < ${config.sops.secrets."opencode_server_password".path} 2>/dev/null || echo "")"
-
-            cat > "$WS_DIR/config.json" <<WSEOF
-            {
-              "servers": [
-                {"name": "codex", "url": "http://localhost:43102", "username": "$OC_USER", "password": "$OC_PASS", "default": true}
-              ]
-            }
-            WSEOF
-
-            chown -R csinger:users "$WS_DIR"
-            chmod 600 "$WS_DIR/config.json"
-          '';
-        };
-
         # Install Claude skills from this repo on every rebuild
         system.activationScripts.install-claude-skills = ''
           SKILLS_DST="/home/csinger/.claude/skills"
           mkdir -p "$SKILLS_DST"
           chown -R csinger:users "/home/csinger/.claude"
         '';
-
-        systemd.services.opencode-codex =
-          let
-            envScript = pkgs.writeShellScript "opencode-codex-env" ''
-              for i in $(seq 1 30); do
-                [ -f ${config.sops.secrets."opencode_server_username".path} ] && break
-                sleep 1
-              done
-              {
-                echo "OPENCODE_SERVER_USERNAME=$(cat ${config.sops.secrets."opencode_server_username".path})"
-                echo "OPENCODE_SERVER_PASSWORD=$(cat ${config.sops.secrets."opencode_server_password".path})"
-              } > /run/opencode-codex.env
-              chmod 644 /run/opencode-codex.env
-            '';
-          in
-          {
-            description = "OpenCode server (codex)";
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
-            serviceConfig = {
-              ExecStartPre = "+" + envScript;
-              ExecStart = "${pkgs.opencode}/bin/opencode serve --hostname 127.0.0.1 --port 43102";
-              EnvironmentFile = "/run/opencode-codex.env";
-              Environment = [ "OPENCODE_CONFIG=/etc/opencode/codex/opencode.json" ];
-              User = "csinger";
-              Group = "users";
-              Restart = "always";
-              RestartSec = "5s";
-              StartLimitIntervalSec = 120;
-              StartLimitBurst = 10;
-              NoNewPrivileges = true;
-              PrivateTmp = true;
-            };
-          };
-
-        # Restart opencode periodically to pick up refreshed OAuth tokens
-        systemd.timers.opencode-codex-refresh = {
-          wantedBy = [ "timers.target" ];
-          timerConfig = {
-            OnBootSec = "6h";
-            OnUnitActiveSec = "6h";
-            Unit = "opencode-codex-refresh.service";
-          };
-        };
-
-        systemd.services.opencode-codex-refresh = {
-          description = "Restart opencode-codex to pick up fresh OAuth tokens";
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = "/run/current-system/sw/bin/systemctl restart opencode-codex.service";
-          };
-        };
       };
   };
 }

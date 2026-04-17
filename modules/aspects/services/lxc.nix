@@ -4,9 +4,9 @@
   # Disabled by default — add to host includes to enable.
   # For Incus, nftables is required and iptables firewall won't work.
   den.aspects.lxc.nixos =
-    { lib, ... }:
+    _:
     {
-      virtualisation.lxc.enable =  true;
+      virtualisation.lxc.enable = true;
 
       boot.kernelModules = [
         "br_netfilter"
@@ -21,22 +21,26 @@
 
   den.aspects.lxd = {
     includes = [ den.aspects.lxc ];
-    nixos = { lib, ... }: {
-      virtualisation.lxd = {
-        enable =  true;
-        recommendedSysctlSettings =  true;
+    nixos =
+      _:
+      {
+        virtualisation.lxd = {
+          enable = true;
+          recommendedSysctlSettings = true;
+        };
       };
-    };
   };
 
   den.aspects.incus = {
     includes = [ den.aspects.lxc ];
-    nixos = { lib, ... }: {
-      virtualisation.incus.enable =  true;
-      networking = {
-        nftables.enable =  true;
-        firewall.trustedInterfaces = [ "incusbr0" ];
+    nixos =
+      _:
+      {
+        virtualisation.incus.enable = true;
+        networking = {
+          nftables.enable = true;
+          firewall.trustedInterfaces = [ "incusbr0" ];
+        };
       };
-    };
   };
 }

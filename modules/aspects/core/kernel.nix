@@ -1,15 +1,15 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 {
   # Zen kernel aspect — use linuxPackages_zen
   den.aspects.kernel-zen.nixos =
-    { pkgs, lib, ... }:
+    { pkgs, ... }:
     {
       boot.kernelPackages = pkgs.linuxPackages_zen;
     };
 
   # CachyOS kernel aspect — use CachyOS kernel with custom substituters
   den.aspects.kernel-cachy.nixos =
-    { pkgs, lib, ... }:
+    { pkgs, ... }:
     {
 
       nixpkgs.overlays = [

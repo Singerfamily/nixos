@@ -1,4 +1,4 @@
-{ den, ... }:
+_:
 {
   # TODO: Add vscode-server input to flake-file.inputs in modules/dendritic.nix:
   #   vscode-server = {

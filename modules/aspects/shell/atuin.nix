@@ -1,7 +1,7 @@
-{ den, ... }:
+_:
 {
   den.aspects.atuin.homeManager =
-    { ... }:
+    _:
     {
       programs.atuin = {
         enable = true;

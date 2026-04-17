@@ -1,38 +1,38 @@
-{ den, ... }:
+_:
 {
   # Common CLI tools - included by default for all users
   den.default.homeManager =
-    { pkgs, lib, ... }:
+    { pkgs, ... }:
     {
-      news.display =  "silent";
+      news.display = "silent";
 
       programs = {
-        home-manager.enable =  true;
-        nix-index.enable =  true;
-        htop.enable =  true;
-        btop.enable =  true;
+        home-manager.enable = true;
+        nix-index.enable = true;
+        htop.enable = true;
+        btop.enable = true;
         direnv = {
-          enable =  true;
-          nix-direnv.enable =  true;
+          enable = true;
+          nix-direnv.enable = true;
         };
         eza = {
-          enable =  true;
-          git =  true;
-          icons =  "auto";
-          enableZshIntegration =  true;
+          enable = true;
+          git = true;
+          icons = "auto";
+          enableZshIntegration = true;
         };
         bat = {
-          enable =  true;
+          enable = true;
           config = {
-            theme =  "base16";
-            style =  "plain,grid,numbers,changes,snip";
+            theme = "base16";
+            style = "plain,grid,numbers,changes,snip";
           };
         };
-        fd.enable =  true;
-        ripgrep.enable =  true;
+        fd.enable = true;
+        ripgrep.enable = true;
         zoxide = {
-          enable =  true;
-          options =  [ "--cmd cd" ];
+          enable = true;
+          options = [ "--cmd cd" ];
         };
       };
 
@@ -74,21 +74,21 @@
         du = "dua";
       };
 
-      systemd.user.startServices =  "sd-switch";
+      systemd.user.startServices = "sd-switch";
 
       xdg.userDirs = {
-        enable =  true;
-        createDirectories =  true;
-        setSessionVariables =  false;
-        desktop =  "$HOME/Desktop";
-        documents =  "$HOME/Documents";
-        music =  "$HOME/Music";
-        pictures =  "$HOME/Images";
-        publicShare =  null;
-        templates =  null;
-        extraConfig.XDG_SCREENSHOTS_DIR =  "$HOME/Images/Screenshots";
+        enable = true;
+        createDirectories = true;
+        setSessionVariables = false;
+        desktop = "$HOME/Desktop";
+        documents = "$HOME/Documents";
+        music = "$HOME/Music";
+        pictures = "$HOME/Images";
+        publicShare = null;
+        templates = null;
+        extraConfig.XDG_SCREENSHOTS_DIR = "$HOME/Images/Screenshots";
       };
-      xdg.mime.enable =  true;
+      xdg.mime.enable = true;
       # xdg.mimeApps.enable =  true;
     };
 }

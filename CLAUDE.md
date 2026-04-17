@@ -47,15 +47,15 @@ This is a NixOS configuration flake using the **den** framework (`github:vic/den
 
 Aspects are organized by domain under `modules/aspects/`:
 
-| Directory | Purpose |
-|-----------|---------|
-| `core/` | System fundamentals: nix settings, locale, boot, network, fonts, users |
-| `hardware/` | GPU (amd/intel/nvidia), bluetooth, sound, firmware |
-| `services/` | docker, ssh, flatpak, qemu, sops |
-| `shell/` | zsh (powerlevel10k), common CLI tools, starship, fzf |
-| `dev/` | Language toolchains (rust, dotnet, js, python, go, java, c), jetbrains IDEs |
-| `apps/` | discord, steam, ai-tools, vscode, onedrive |
-| `desktop/plasma/` | Composable KDE Plasma aspects: core, keybinds, kwin, power, full (bundle) |
+| Directory         | Purpose                                                                     |
+| ----------------- | --------------------------------------------------------------------------- |
+| `core/`           | System fundamentals: nix settings, locale, boot, network, fonts, users      |
+| `hardware/`       | GPU (amd/intel/nvidia), bluetooth, sound, firmware                          |
+| `services/`       | docker, ssh, flatpak, qemu, sops                                            |
+| `shell/`          | zsh (powerlevel10k), common CLI tools, starship, fzf                        |
+| `dev/`            | Language toolchains (rust, dotnet, js, python, go, java, c), jetbrains IDEs |
+| `apps/`           | discord, steam, ai-tools, vscode, onedrive                                  |
+| `desktop/plasma/` | Composable KDE Plasma aspects: core, keybinds, kwin, power, full (bundle)   |
 
 ### Hosts
 
@@ -71,6 +71,7 @@ Aspects are organized by domain under `modules/aspects/`:
 ### Secrets
 
 SOPS with age encryption. Keys in `.sops.yaml`. Structure:
+
 - `secrets/common.yaml` — Shared secrets (root password), accessible to all hosts
 - `secrets/users/<user>.yaml` — Per-user secrets (password, SSH keys, age keys)
 - `secrets/hosts/<host>.yaml` — Per-host secrets (host-specific services)

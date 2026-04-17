@@ -1,4 +1,4 @@
-{ den, ... }:
+_:
 {
   # Impermanence support — btrfs root rollback on boot.
   # Disabled / commented out. Requires impermanence flake input and

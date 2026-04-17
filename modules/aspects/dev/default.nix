@@ -1,9 +1,7 @@
 { inputs, lib, ... }:
 let
   langs = lib.pipe (builtins.readDir ./.) [
-    (lib.filterAttrs (
-      n: t: t == "regular" && lib.hasSuffix ".nix" n && n != "default.nix"
-    ))
+    (lib.filterAttrs (n: t: t == "regular" && lib.hasSuffix ".nix" n && n != "default.nix"))
     builtins.attrNames
     (map (lib.removeSuffix ".nix"))
   ];

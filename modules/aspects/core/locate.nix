@@ -1,6 +1,8 @@
-{ den, ... }:
+_:
 {
-  den.default.nixos = { lib, ... }: {
-    services.locate.enable =  true;
-  };
+  den.default.nixos =
+    _:
+    {
+      services.locate.enable = true;
+    };
 }

@@ -1,16 +1,19 @@
-{ den, ... }:
+_:
 {
   # Zsh aspect - rich zsh config with powerlevel10k
   # Use via: den.aspects.<user>.includes = [ (den.provides.user-shell "zsh") den.aspects.zsh ];
   den.aspects.zsh.homeManager =
-    { pkgs, lib, ... }:
+    { pkgs, ... }:
     {
       programs.zsh = {
-        autosuggestion.enable =  true;
-        syntaxHighlighting.enable =  true;
+        autosuggestion.enable = true;
+        syntaxHighlighting.enable = true;
         oh-my-zsh = {
-          enable =  true;
-          plugins =  [ "git" "kubectl" ];
+          enable = true;
+          plugins = [
+            "git"
+            "kubectl"
+          ];
         };
         plugins = [
           {

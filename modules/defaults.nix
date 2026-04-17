@@ -1,18 +1,19 @@
 { lib, den, ... }:
 {
   den.default = {
-    nixos.system.stateVersion = "26.05";
+    nixos = {
+      system.stateVersion = "26.05";
+      environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    };
     homeManager.home.stateVersion = "26.05";
 
-    includes = (
-      with (den.provides);
+    includes = with den.provides;
       [
         define-user
         hostname
         inputs'
         self'
-      ]
-    );
+      ];
   };
 
   # enable hm by default

@@ -1,16 +1,16 @@
-{ den, ... }:
+_:
 {
   den.default.nixos =
-    { lib, ... }:
+    _:
     {
-      time.timeZone =  "America/Edmonton";
+      time.timeZone = "America/Edmonton";
       i18n = {
-        defaultLocale =  "en_CA.UTF-8";
-        supportedLocales =  [
+        defaultLocale = "en_CA.UTF-8";
+        supportedLocales = [
           "en_CA.UTF-8/UTF-8"
           "en_US.UTF-8/UTF-8"
         ];
-        extraLocaleSettings =  {
+        extraLocaleSettings = {
           LC_ADDRESS = "en_CA.UTF-8";
           LC_IDENTIFICATION = "en_CA.UTF-8";
           LC_MEASUREMENT = "en_CA.UTF-8";

@@ -1,10 +1,10 @@
-{ den, ... }:
+_:
 {
   den.aspects.qemu = {
     nixos =
-      { lib, pkgs, ... }:
+      { pkgs, ... }:
       {
-        virtualisation.libvirtd.enable =  true;
+        virtualisation.libvirtd.enable = true;
         environment.systemPackages = with pkgs; [
           qemu
           virt-manager

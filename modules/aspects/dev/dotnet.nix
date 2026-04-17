@@ -1,7 +1,7 @@
 {
   dev.dotnet = {
     homeManager =
-      { pkgs, lib, config, ... }:
+      { pkgs, config, ... }:
       let
         dotnet = pkgs.dotnet-sdk_10;
         aspireCli = pkgs.stdenvNoCC.mkDerivation {

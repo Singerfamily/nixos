@@ -1,7 +1,7 @@
-{ den, ... }:
+_:
 {
   den.aspects.vscode.homeManager =
-    { pkgs, ... }:
+    _:
     {
       programs.vscode.enable = true;
     };

@@ -1,12 +1,12 @@
-{ den, ... }:
+_:
 {
   den.aspects.tailscale.nixos =
-    { lib, ... }:
+    _:
     {
       services.tailscale = {
         enable = true;
         openFirewall = true;
-        extraUpFlags =  [
+        extraUpFlags = [
           "--ssh"
           "--reset"
         ];

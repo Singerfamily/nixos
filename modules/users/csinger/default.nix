@@ -56,7 +56,7 @@
       };
 
     homeManager =
-      { ... }:
+      _:
       {
         programs.git.settings = {
           user.name = "clintsinger";

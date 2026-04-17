@@ -1,18 +1,20 @@
-{ den, ... }:
+_:
 {
-  den.aspects.tpm.nixos = { pkgs, lib, ... }: {
-    environment.systemPackages = [ pkgs.tpm2-tools ];
-    boot.initrd = {
-      systemd = {
-        enable =  true;
-        tpm2.enable =  true;
+  den.aspects.tpm.nixos =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = [ pkgs.tpm2-tools ];
+      boot.initrd = {
+        systemd = {
+          enable = true;
+          tpm2.enable = true;
+        };
+        kernelModules = [ "tpm_crb" ];
+        availableKernelModules = [ "tpm_crb" ];
       };
-      kernelModules = [ "tpm_crb" ];
-      availableKernelModules = [ "tpm_crb" ];
+      security.tpm2 = {
+        enable = true;
+        tctiEnvironment.enable = true;
+      };
     };
-    security.tpm2 = {
-      enable =  true;
-      tctiEnvironment.enable =  true;
-    };
-  };
 }

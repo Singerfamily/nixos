@@ -1,8 +1,10 @@
-{ den, ... }:
+_:
 {
-  den.default.nixos = { lib, ... }: {
-    security.sudo.extraConfig =  ''
-      Defaults env_keep += "EDITOR"
-    '';
-  };
+  den.default.nixos =
+    _:
+    {
+      security.sudo.extraConfig = ''
+        Defaults env_keep += "EDITOR"
+      '';
+    };
 }

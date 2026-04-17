@@ -1,20 +1,20 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 {
   # Plasma desktop - NixOS-level setup (SDDM, packages, portals)
   den.aspects.plasma = {
     nixos =
-      { lib, pkgs, ... }:
+      { pkgs, ... }:
       {
-        services.desktopManager.plasma6.enable =  true;
+        services.desktopManager.plasma6.enable = true;
         services.displayManager.sddm = {
-          enable =  true;
-          wayland.enable =  true;
-          autoNumlock =  true;
+          enable = true;
+          wayland.enable = true;
+          autoNumlock = true;
         };
         xdg.portal = {
-          enable =  true;
+          enable = true;
           extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
-          config.common.default =  "kde";
+          config.common.default = "kde";
         };
         environment.systemPackages =
           (with pkgs.kdePackages; [
@@ -45,53 +45,55 @@
       };
 
     # Home-manager: import plasma-manager and set shared defaults
-    homeManager = { lib, pkgs, ... }: {
-      imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
+    homeManager =
+      { pkgs, ... }:
+      {
+        imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
 
-      home.packages = with pkgs; [
-        kde-rounded-corners
-        kdotool
-      ];
+        home.packages = with pkgs; [
+          kde-rounded-corners
+          kdotool
+        ];
 
-      programs.plasma = {
-        enable =  true;
-        overrideConfig =  true;
+        programs.plasma = {
+          enable = true;
+          overrideConfig = true;
 
-        krunner.activateWhenTypingOnDesktop =  false;
+          krunner.activateWhenTypingOnDesktop = false;
 
-        session = {
-          general.askForConfirmationOnLogout =  false;
-          sessionRestore.restoreOpenApplicationsOnLogin =  "startWithEmptySession";
-        };
+          session = {
+            general.askForConfirmationOnLogout = false;
+            sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
+          };
 
-        workspace = {
-          enableMiddleClickPaste =  false;
-          clickItemTo =  "select";
-          colorScheme =  "BreezeDark";
-          splashScreen.engine =  "none";
-          splashScreen.theme =  "none";
-          tooltipDelay =  1;
-        };
+          workspace = {
+            enableMiddleClickPaste = false;
+            clickItemTo = "select";
+            colorScheme = "BreezeDark";
+            splashScreen.engine = "none";
+            splashScreen.theme = "none";
+            tooltipDelay = 1;
+          };
 
-        configFile = {
-          klipperrc.General.MaxClipItems =  1000;
-          kiorc.Confirmations.ConfirmDelete =  false;
-          spectaclerc = {
-            Annotations.annotationToolType =  8;
-            General = {
-              launchAction =  "DoNotTakeScreenshot";
-              showCaptureInstructions =  false;
-              showMagnifier =  "ShowMagnifierAlways";
+          configFile = {
+            klipperrc.General.MaxClipItems = 1000;
+            kiorc.Confirmations.ConfirmDelete = false;
+            spectaclerc = {
+              Annotations.annotationToolType = 8;
+              General = {
+                launchAction = "DoNotTakeScreenshot";
+                showCaptureInstructions = false;
+                showMagnifier = "ShowMagnifierAlways";
+              };
+              ImageSave.imageCompressionQuality = 100;
             };
-            ImageSave.imageCompressionQuality =  100;
+          };
+
+          dataFile = {
+            "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" = 1;
+            "dolphin/view_properties/global/.directory"."Settings"."HiddenFilesShown" = true;
           };
         };
-
-        dataFile = {
-          "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" =  1;
-          "dolphin/view_properties/global/.directory"."Settings"."HiddenFilesShown" =  true;
-        };
       };
-    };
   };
 }

@@ -1,8 +1,8 @@
-{ den, ... }:
+_:
 {
   den.aspects.ssh = {
     nixos =
-      { lib, pkgs, ... }:
+      { pkgs, ... }:
       {
         services.openssh = {
           enable = true;
@@ -24,7 +24,7 @@
         environment.systemPackages = [ pkgs.sshfs ];
       };
     homeManager =
-      { lib, ... }:
+      _:
       {
         programs.ssh.enable = true;
         services.ssh-agent.enable = true;

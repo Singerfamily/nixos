@@ -1,4 +1,4 @@
-{ den, inputs, ... }:
+_:
 {
   # AI CLI tools aspect
   den.aspects.ai-tools.nixos =
