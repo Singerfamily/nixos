@@ -14,6 +14,9 @@
       flatpak
       qemu
       ai-tools
+      opencode
+      gemini-cli
+      ollama
       tailscale
       sops
       determinate

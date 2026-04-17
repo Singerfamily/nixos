@@ -1,16 +1,10 @@
 _:
 {
-  # AI CLI tools aspect
+  # Shared tooling that AI coding agents depend on
   den.aspects.ai-tools.nixos =
     { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
-        # AI coding agents
-        opencode
-        ollama-rocm
-        # aider-chat
-        gemini-cli
-
         # Tools AI agents depend on
         jq # JSON processing
         yq-go # YAML processing

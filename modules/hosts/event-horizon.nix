@@ -14,6 +14,9 @@
       flatpak
       steam
       ai-tools
+      opencode
+      gemini-cli
+      ollama
       tailscale
       sops
       compat
