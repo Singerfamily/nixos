@@ -119,6 +119,20 @@ Root password comes from `common.yaml` (via the sops aspect). User passwords com
 - `plasma-manager` uses `homeModules` (not the deprecated `homeManagerModules`).
 - Add tool-generated junk to `programs.git.ignores` in modules/aspects/git.nix
 
+## Off-Limits Files
+
+AI tools (Claude Code, Copilot, Cursor, OpenCode, etc.) must **never** read, write, modify, decrypt, or reformat the following:
+
+- `secrets/**` — SOPS-encrypted YAML. Reformatting breaks the MAC. Never run `sops -d` or inspect decrypted contents.
+- `.sops.yaml` — Age key configuration. Modifying this can lock out all secret access.
+- `**/*.key`, `**/*.pem`, `**/*.age` — Private key material.
+- `**/.env`, `**/.env.*` — Environment files that may contain credentials.
+- `**/.secret-*` — Host-local credential files (e.g., SMB credentials).
+- `**/age/keys.txt` — SOPS age decryption keys.
+- `.decrypted~*` — Temporary decrypted sops files created by IDE plugins. Treat as secrets.
+
+When referencing secrets in Nix code, only touch the `sops.secrets.<name>` declarations and `sopsFile` paths — never the encrypted file contents themselves.
+
 ## Gotchas
 
 - `users.mutableUsers = false` — all user passwords must come through sops.
