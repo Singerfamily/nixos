@@ -8,10 +8,10 @@
       { pkgs, ... }:
       {
         imports = [
-          inputs.nix-agent.nixosModules.default
+          # inputs.nix-agent.nixosModules.default
         ];
 
-        programs.nix-agent.enable = true;
+        # programs.nix-agent.enable = true;
 
         environment.systemPackages = with pkgs; [
           mcp-nixos
@@ -39,7 +39,7 @@
       };
   };
 
-  flake-file.inputs = {
-    nix-agent.url = "github:JEFF7712/nix-agent";
-  };
+  # flake-file.inputs = {
+  #   nix-agent.url = "github:JEFF7712/nix-agent";
+  # };
 }

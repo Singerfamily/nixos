@@ -29,98 +29,98 @@
 
           skillsDir = ./skills;
 
-          settings = {
-            hooks = {
-              PostToolUse = [
-                {
-                  hooks = [
-                    {
-                      command = "nix fmt $(${pkgs.jq}/bin/jq -r '.tool_input.file_path' &lt;&lt;&lt; '$CLAUDE_TOOL_INPUT')";
-                      type = "command";
-                    }
-                  ];
-                  matcher = "Edit|MultiEdit|Write";
-                }
-              ];
-              PreToolUse = [
-                {
-                  hooks = [
-                    {
-                      command = "echo 'Running command: $CLAUDE_TOOL_INPUT'";
-                      type = "command";
-                    }
-                  ];
-                  matcher = "Bash";
-                }
-              ];
-            };
+          # settings = {
+          #   hooks = {
+          #     PostToolUse = [
+          #       {
+          #         hooks = [
+          #           {
+          #             command = "nix fmt $(${pkgs.jq}/bin/jq -r '.tool_input.file_path' &lt;&lt;&lt; '$CLAUDE_TOOL_INPUT')";
+          #             type = "command";
+          #           }
+          #         ];
+          #         matcher = "Edit|MultiEdit|Write";
+          #       }
+          #     ];
+          #     PreToolUse = [
+          #       {
+          #         hooks = [
+          #           {
+          #             command = "echo 'Running command: $CLAUDE_TOOL_INPUT'";
+          #             type = "command";
+          #           }
+          #         ];
+          #         matcher = "Bash";
+          #       }
+          #     ];
+          #   };
 
-            autoMemoryEnabled = true;
-            autoDreamEnabled = true;
+          #   autoMemoryEnabled = true;
+          #   autoDreamEnabled = true;
 
-            model = "opus";
+          #   model = "opus";
 
-            permissions = {
-              additionalDirectories = [
-                "../docs/"
-              ];
-              allow = [
-                "Bash(git diff:*)"
-                "Edit"
-                "Bash(grep)"
-              ];
-              ask = [
-              ];
-              defaultMode = "acceptEdits";
-              deny = [
-                "Read(./.env)"
-                "Read(./secrets/**)"
-              ];
-            };
-            statusLine = {
-              command = ./statusline.sh;
-              type = "command";
-            };
-            theme = "dark";
+          #   permissions = {
+          #     additionalDirectories = [
+          #       "../docs/"
+          #     ];
+          #     allow = [
+          #       "Bash(git diff:*)"
+          #       "Edit"
+          #       "Bash(grep)"
+          #     ];
+          #     ask = [
+          #     ];
+          #     defaultMode = "acceptEdits";
+          #     deny = [
+          #       "Read(./.env)"
+          #       "Read(./secrets/**)"
+          #     ];
+          #   };
+          #   statusLine = {
+          #     command = ./statusline.sh;
+          #     type = "command";
+          #   };
+          #   theme = "dark";
 
-            alwaysThinkingEnabled = true;
+          #   alwaysThinkingEnabled = true;
 
-            voiceEnabled = true;
+          #   voiceEnabled = true;
 
-            autoConnectIde = true;
-            autoInstallIdeExtension = true;
+          #   autoConnectIde = true;
+          #   autoInstallIdeExtension = true;
 
-            worktree.symlinkDirectories = [
-              "node_modules"
-              ".cache"
-            ];
+          #   worktree.symlinkDirectories = [
+          #     "node_modules"
+          #     ".cache"
+          #   ];
 
-            sandbox = {
-              enabled = true;
-              autoAllowBashIfSandboxed = true;
-              excludedCommands = [
-                "docker *"
-                "podman *"
-              ];
-              filesystem = {
-                denyWrite = [
-                  "/nix"
-                  "/etc"
-                  "/usr/bin"
-                  "/boot"
-                ];
+          #   sandbox = {
+          #     enabled = true;
+          #     autoAllowBashIfSandboxed = true;
+          #     excludedCommands = [
+          #       "docker *"
+          #       "podman *"
+          #     ];
+          #     filesystem = {
+          #       denyWrite = [
+          #         "/nix"
+          #         "/etc"
+          #         "/usr/bin"
+          #         "/boot"
+          #       ];
 
-                denyRead = [
-                  "~/"
-                ];
+          #       denyRead = [
+          #         "~/"
+          #       ];
 
-                allowRead = [
-                  "."
-                  "~/.claude"
-                ];
-              };
-            };
-          };
+          #       allowRead = [
+          #         "."
+          #         "~/.claude"
+          #       ];
+          #     };
+          #   };
+          # };
         };
       };
   };
