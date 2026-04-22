@@ -4,19 +4,26 @@ let
 in
 {
   den.aspects.netbird.nixos =
-    { config, ... }:
+    { config, pkgs, ... }:
     {
-      sops.secrets."keys/netbird" = {
-        sopsFile = secretsPath + "/hosts/${config.networking.hostName}.yaml";
-      };
+      # sops.secrets."keys/netbird" = {
+      #   sopsFile = secretsPath + "/hosts/${config.networking.hostName}.yaml";
+      # };
 
-      services.netbird.clients.wt0 = {
-        login = {
-          enable = true;
-          setupKeyFile = config.sops.secrets."keys/netbird".path;
-          systemdDependencies = [ "sops-install-secrets.service" ];
+      services.netbird = {
+        enable = true;
+        ui.enable = true;
+        clients.wt0 = {
+          ui.enable = true;
+          port = 51820;
+          # login = {
+          #   enable = true;
+          #   setupKeyFile = config.sops.secrets."keys/netbird".path;
+          #   systemdDependencies = [ "sops-install-secrets.service" ];
+          # };
+          openFirewall = true;
+          openInternalFirewall = true;
         };
-        openFirewall = true;
       };
     };
 }
