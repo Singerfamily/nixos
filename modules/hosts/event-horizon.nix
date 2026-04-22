@@ -41,6 +41,27 @@
         boot.kernelModules = [ "kvm-amd" ];
         networking.hostId = "edc49e33";
 
+        # CUPS printing
+        services.printing = {
+          enable = true;
+          drivers = [ pkgs.hplipWithPlugin ];
+        };
+        services.avahi.enable = false;
+
+        environment = {
+          variables = {
+            # For OpenBAO
+            BAO_ADDR = "https://secrets.lan.singerfamily.ca";
+          };
+          systemPackages = with pkgs; [
+            android-tools
+            openbao
+          ];
+        };
+
+        # KDE Connect
+        programs.kdeconnect.enable = true;
+
         # Disko: primary NVMe with LUKS + Btrfs
         disko.devices.disk = {
           main = {
@@ -133,28 +154,6 @@
             };
           };
         };
-
-        # CUPS printing
-        services.printing = {
-          enable = true;
-          drivers = [ pkgs.hplipWithPlugin ];
-        };
-        services.avahi.enable = false;
-
-        environment = {
-          variables = {
-            # For OpenBAO
-            BAO_ADDR = "https://secrets.cleros.app";
-          };
-          systemPackages = with pkgs; [
-            android-tools
-            openbao
-          ];
-        };
-
-        # KDE Connect
-        programs.kdeconnect.enable = true;
-
       };
   };
 }
