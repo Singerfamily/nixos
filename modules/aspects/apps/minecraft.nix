@@ -4,9 +4,13 @@ _:
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
-        jdk17
-        prismlauncher
+        graalvmPackages.graalvm-ce
+        # prismlauncher # Bugged
         packwiz
       ];
+
+      services.flatpak.packages = [
+          "org.prismlauncher.PrismLauncher"
+        ];
     };
 }
