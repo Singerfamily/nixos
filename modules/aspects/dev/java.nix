@@ -4,7 +4,7 @@
       { pkgs, ... }:
       {
         home.packages = with pkgs; [
-          jdk
+          # jdk
           gradle
           maven
           google-java-format
