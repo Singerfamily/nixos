@@ -23,6 +23,8 @@
         k9s
         distrobox
 
+        minecraft
+
         claude-code
       ])
       ++ (with dev; [
@@ -64,6 +66,7 @@
             "tss"
             "docker"
             "adbusers"
+            "netbird-wt0"
           ];
           openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIConMjdymJ8/2DplJAz/nsy2iqF/DHbWXH0yRm2jslQN"
@@ -261,7 +264,6 @@
         services.flatpak.packages = [
           "com.spotify.Client"
           "org.libreoffice.LibreOffice"
-          "org.prismlauncher.PrismLauncher"
         ];
       };
   };
