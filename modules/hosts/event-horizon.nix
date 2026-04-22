@@ -18,6 +18,7 @@
       gemini-cli
       ollama
       tailscale
+      netbird
       sops
       compat
       crypto
@@ -25,7 +26,7 @@
     ];
 
     nixos =
-      { pkgs, ... }:
+      { config, pkgs, ... }:
       {
         imports = [ inputs.disko.nixosModules.disko ];
 
@@ -140,7 +141,16 @@
         };
         services.avahi.enable = false;
 
-        environment.systemPackages = with pkgs; [ android-tools ];
+        environment = {
+          variables = {
+            # For OpenBAO
+            BAO_ADDR = "https://secrets.cleros.app";
+          };
+          systemPackages = with pkgs; [
+            android-tools
+            openbao
+          ];
+        };
 
         # KDE Connect
         programs.kdeconnect.enable = true;
