@@ -14,7 +14,7 @@
         # programs.nix-agent.enable = true;
 
         environment.systemPackages = with pkgs; [
-          mcp-nixos
+          # mcp-nixos
           # inputs.nix-agent.packages.${system}.default
         ];
       };
@@ -25,15 +25,15 @@
           enable = true;
 
           servers = {
-            nixos = {
-              command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
-              args = [ ];
-            };
+            # nixos = {
+            #   command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+            #   args = [ ];
+            # };
 
-            nix-agent = {
-              command = "nix-agent";
-              args = [ ];
-            };
+            # nix-agent = {
+            #   command = "nix-agent";
+            #   args = [ ];
+            # };
           };
         };
       };

@@ -49,10 +49,6 @@
         services.avahi.enable = false;
 
         environment = {
-          variables = {
-            # For OpenBAO
-            BAO_ADDR = "https://secrets.lan.singerfamily.ca";
-          };
           systemPackages = with pkgs; [
             android-tools
             openbao

@@ -16,25 +16,19 @@
         plasma-full
         discord
         vscode
-        onedrive
         sops
         determinate
         atuin
-        k9s
         distrobox
 
+        # onedrive
+        # k9s
         minecraft
 
-        claude-code
+        # claude-code
       ])
       ++ (with dev; [
         nix
-        dotnet
-        js
-        java
-        c
-        rust
-        go
       ]);
 
     user = {
@@ -138,12 +132,11 @@
       {
         # Dev tools for this host
         home.packages = with pkgs; [
-          jetbrains.datagrip
-          jetbrains.rust-rover
-          jetbrains.goland
+          # jetbrains.datagrip
+          # jetbrains.rust-rover
+          # jetbrains.goland
           # android-studio
           microsoft-edge
-          uv
         ];
 
         # Plasma per-user config (panels, wallpaper, fonts, input)
