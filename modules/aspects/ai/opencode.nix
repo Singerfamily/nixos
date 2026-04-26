@@ -1,10 +1,6 @@
-{ den, ... }:
+_:
 {
   den.aspects.opencode = {
-    includes = with den.aspects; [
-      nixos-mcp
-    ];
-
     nixos =
       { pkgs, ... }:
       {
@@ -14,7 +10,7 @@
       };
 
     homeManager =
-      { pkgs, lib, ... }:
+      { pkgs, ... }:
       {
         # OpenCode reads config from ~/.config/opencode/opencode.json
         xdg.configFile."opencode/opencode.json".text = builtins.toJSON {

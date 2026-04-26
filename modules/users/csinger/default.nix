@@ -25,6 +25,11 @@
         embedded
       ]);
 
+    user = {
+      name = "csinger";
+      description = "Clint Singer";
+    };
+
     # NixOS-level: set user password from sops
     nixos =
       { config, ... }:
@@ -63,15 +68,6 @@
           user.email = "clint@singerfamily.ca";
         };
 
-        programs.nh = {
-          enable = true;
-          flake = "/etc/nixos";
-          clean = {
-            enable = true;
-            extraArgs = "--keep-since 4d --keep 3";
-          };
-        };
-
         home.shellAliases = {
           pgrep = "pgrep -a";
           dc = "docker compose";
@@ -90,6 +86,16 @@
         wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Autumn/contents/images/2560x1440.jpg";
       in
       {
+        # NixOS flake management for clint-pc
+        programs.nh = {
+          enable = true;
+          flake = "/home/csinger/projects/nixos-config";
+          clean = {
+            enable = true;
+            extraArgs = "--keep-since 4d --keep 3";
+          };
+        };
+
         home.packages = with pkgs; [
           kara
           jetbrains.rider
@@ -179,7 +185,7 @@
           kscreenlocker = {
             appearance.wallpaper = wallpaper;
             autoLock = true;
-            timeout = 10;
+            timeout = 10; # minutes; shorter for a shared/office environment
           };
 
           hotkeys.commands.launch-edge = {
@@ -291,6 +297,21 @@
           "x-scheme-handler/https" = "microsoft-edge.desktop";
           "x-scheme-handler/about" = "microsoft-edge.desktop";
           "x-scheme-handler/unknown" = "microsoft-edge.desktop";
+        };
+      };
+
+    # thinkpad-p14s (WSL) specific config for csinger
+    provides.thinkpad-p14s.homeManager =
+      _:
+      {
+        # NixOS flake management for thinkpad-p14s (minimal WSL config)
+        programs.nh = {
+          enable = true;
+          flake = "/home/csinger/nixos-config";
+          clean = {
+            enable = true;
+            extraArgs = "--keep-since 4d --keep 3";
+          };
         };
       };
   };

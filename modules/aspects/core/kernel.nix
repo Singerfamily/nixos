@@ -16,6 +16,8 @@
         inputs.nix-cachyos-kernel.overlays.default
       ];
 
+      # Alternative: pre-built binary (no custom options or module overrides).
+      # Current build uses the override below for full kernel config control.
       # boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-zen4;
 
       boot.kernelPackages =

@@ -23,6 +23,8 @@
       compat
       crypto
       tpm
+
+      vscode-server
     ];
 
     nixos =

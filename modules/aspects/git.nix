@@ -76,7 +76,7 @@ _:
           "secrets/*.ini diff=sopsdiffer"
           "secrets/*.env diff=sopsdiffer"
         ];
-        includes = [ ];
+        includes = [ ]; # standalone; no host-specific gitconfig includes needed
         lfs.enable = true;
       };
 

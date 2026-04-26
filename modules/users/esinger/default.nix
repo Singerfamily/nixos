@@ -21,11 +21,12 @@
         atuin
         distrobox
 
+        # Temporarily disabled — uncomment to re-enable:
         # onedrive
         # k9s
         minecraft
 
-        # claude-code
+        claude-code 
       ])
       ++ (with dev; [
         nix
@@ -81,15 +82,6 @@
           github.user = "LeaderbotX400";
         };
 
-        programs.nh = {
-          enable = true;
-          flake = "/home/esinger/projects/nixos";
-          clean = {
-            enable = true;
-            extraArgs = "--keep-since 4d --keep 3";
-          };
-        };
-
         programs.lazydocker.enable = true;
 
         home.packages = [ pkgs.bitwarden-desktop ];
@@ -97,7 +89,7 @@
         home.shellAliases = {
           pgrep = "pgrep -a";
           dc = "docker compose";
-          run = "NIXPKGS_ALLOW_UNFREE=1 nix run --impure $1";
+          run = "NIXPKGS_ALLOW_UNFREE=1 nix run --impure";
         };
 
         # Sops user secrets
@@ -130,6 +122,16 @@
         wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Kay/contents/images_dark/5120x2880.png";
       in
       {
+        # NixOS flake management for event-horizon
+        programs.nh = {
+          enable = true;
+          flake = "/home/esinger/projects/nixos";
+          clean = {
+            enable = true;
+            extraArgs = "--keep-since 4d --keep 3";
+          };
+        };
+
         # Dev tools for this host
         home.packages = with pkgs; [
           # jetbrains.datagrip
@@ -188,7 +190,7 @@
           kscreenlocker = {
             appearance.wallpaper = wallpaper;
             autoLock = true;
-            timeout = 15;
+            timeout = 15; # minutes; home desktop, longer idle acceptable
           };
 
           hotkeys.commands.launch-edge = {

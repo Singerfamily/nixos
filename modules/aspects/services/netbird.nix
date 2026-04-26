@@ -1,11 +1,12 @@
 _:
-let
-  secretsPath = ../../../secrets;
-in
 {
   den.aspects.netbird.nixos =
-    { config, pkgs, ... }:
+    { ... }:
     {
+      # Status: wt0 interface is active and UI is enabled. Automatic login via
+      # setup key is pending until "keys/netbird" is provisioned in
+      # secrets/hosts/<hostname>.yaml. To enable: provision the secret, then
+      # uncomment the sops.secrets block and the login block below.
       # sops.secrets."keys/netbird" = {
       #   sopsFile = secretsPath + "/hosts/${config.networking.hostName}.yaml";
       # };

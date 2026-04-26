@@ -1,0 +1,44 @@
+repos:
+  # Nix syntax validation
+  - repo: local
+    hooks:
+      - id: nix-validate
+        name: Validate Nix syntax
+        entry: bash -c 'for file in "$@"; do nix-instantiate --parse "$file" > /dev/null 2>&1 || exit 1; done' --
+        language: system
+        files: '\\.nix$'
+        pass_filenames: true
+
+      - id: check-nix-files-tracked
+        name: Check Nix files are git-tracked
+        entry: bash -c 'for file in $(find modules -name "*.nix" -type f 2>/dev/null); do git ls-files "$file" --error-unmatch > /dev/null 2>&1 || (echo "Untracked Nix file: $file (run: git add $file)" && exit 1); done'
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: no-encrypted-secret-commits
+        name: Check secrets are SOPS-encrypted
+        entry: bash -c 'while IFS= read -r file; do grep -q "^sops:" "$file" || (echo "ERROR: Not SOPS-encrypted: $file" && exit 1); done < <(find secrets -name "*.yaml" -type f 2>/dev/null)'
+        language: system
+        pass_filenames: false
+        always_run: true
+
+# Standard pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+        files: '\\.nix$|README\.md|\.md$'
+
+      - id: end-of-file-fixer
+        name: Fix end of file
+        files: '\\.nix$|README\.md|\.md$'
+
+      - id: check-yaml
+        name: Validate YAML
+        files: '\\.ya?ml$'
+        exclude: '^secrets/'
+
+      - id: check-merge-conflict
+        name: Check merge conflicts

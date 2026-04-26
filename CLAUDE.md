@@ -136,6 +136,6 @@ When referencing secrets in Nix code, only touch the `sops.secrets.<name>` decla
 ## Gotchas
 
 - `users.mutableUsers = false` — all user passwords must come through sops.
-- `import-tree` skips files prefixed with `_` (underscore).
+- `import-tree` skips files prefixed with `_` (underscore). To temporarily disable an aspect without deleting it, prefix the filename with `_` (e.g., `_my-feature.nix`) **and** remove it from any `includes` lists that reference it. The file stays tracked in git for future activation.
 - sops home-manager paths must be absolute (no `$HOME` — use `config.home.homeDirectory`).
 - When adding a new flake input: add to `flake-file.inputs` in `dendritic.nix`, then `nix run .#write-flake`.

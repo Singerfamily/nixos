@@ -1,9 +1,6 @@
-{ den, ... }:
+_:
 {
   den.aspects.claude-code = {
-    includes = with den.aspects; [
-      nixos-mcp
-    ];
 
     nixos =
       { pkgs, ... }:
@@ -16,9 +13,8 @@
       };
 
     homeManager =
-      { pkgs, ... }:
+      { ... }:
       {
-
         programs.git.ignores = [
           ".claude/settings.local.json"
         ];

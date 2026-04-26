@@ -27,6 +27,8 @@
       gnome-remote-desktop
       opencode-server
       samba-client
+
+      vscode-server
     ];
 
     nixos =
@@ -129,12 +131,6 @@
           nodejs
         ];
 
-        # Install Claude skills from this repo on every rebuild
-        system.activationScripts.install-claude-skills = ''
-          SKILLS_DST="/home/csinger/.claude/skills"
-          mkdir -p "$SKILLS_DST"
-          chown -R csinger:users "/home/csinger/.claude"
-        '';
       };
   };
 }

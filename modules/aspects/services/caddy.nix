@@ -6,6 +6,10 @@ _:
   den.aspects.caddy.nixos =
     { config, pkgs, ... }:
     {
+      # NOTE: This aspect is event-horizon-specific. The sopsFile path is hardcoded
+      # to event-horizon.yaml. Before including this on another host, move the
+      # sops.secrets block into a provides.<hostname>.nixos section with the
+      # correct host secrets file.
       sops.secrets."tokens/cloudflare" = {
         sopsFile = ../../../secrets/hosts/event-horizon.yaml;
         owner = config.services.caddy.user;

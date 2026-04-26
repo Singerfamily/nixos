@@ -1,10 +1,6 @@
-{ den, ... }:
+_:
 {
   den.aspects.gemini-cli = {
-    includes = with den.aspects; [
-      nixos-mcp
-    ];
-
     nixos =
       { pkgs, ... }:
       {
