@@ -23,8 +23,9 @@
       compat
       crypto
       tpm
-
       vscode-server
+
+      printing
     ];
 
     nixos =
@@ -44,8 +45,8 @@
         networking.hostId = "edc49e33";
         # networking.hosts."127.0.0.1" = [ "cleros.localhost" ];
 
-        # CUPS printing
-        services.printing = {
+        # CUPS printing via the printing aspect
+        den.printing = {
           enable = true;
           drivers = [ pkgs.hplipWithPlugin ];
         };
