@@ -124,21 +124,6 @@ Root password comes from `common.yaml` (via the sops aspect). User passwords com
 - `plasma-manager` uses `homeModules` (not the deprecated `homeManagerModules`).
 - Add tool-generated junk to `programs.git.ignores` in `modules/aspects/shell/git.nix`.
 
-### Multi-file host configuration
-
-Each non-trivial host lives in its own directory under `modules/hosts/<host>/`. Multiple files contribute slices to `den.aspects.<host>.nixos`, merged via NixOS module composition. A typical layout:
-
-```
-modules/hosts/<host>/
-  host.nix          # den.hosts.<arch>.<host> declaration + aspects/includes list
-  hardware.nix      # boot.initrd, kernel modules, hostId, hardware-specific options
-  filesystems.nix   # fileSystems / disko / swap
-  services.nix      # inline services and per-host option settings
-  packages.nix      # the small inline systemPackages tail
-```
-
-Only `host.nix` carries the `den.hosts.<arch>.<host>` declaration and the `includes` list. The other files just set `den.aspects.<host>.nixos = { ... }: { ... };` with their slice. Single-file hosts (e.g., `thinkpad-p14s.nix`) stay flat when they're small enough.
-
 ### Options-based aspects
 
 When an aspect encodes reusable structure with per-instance values, declare `options.den.<aspect>.*` inside `den.aspects.<x>.nixos` and let the consuming host set them. Examples currently in tree:
