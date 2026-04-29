@@ -4,8 +4,7 @@
 
   den.aspects.clint-pc = {
     includes = with den.aspects; [
-      gpu-intel
-      gpu-nvidia
+      gpu-nvidia-prime
       bluetooth
       sound
       plasma
@@ -69,8 +68,8 @@
           { device = "/dev/disk/by-uuid/9e72bc8a-7a48-4c4d-b180-6cd63a6aa1bd"; }
         ];
 
-        # NVIDIA PRIME for dual GPU
-        hardware.nvidia.prime = {
+        # NVIDIA PRIME bus IDs (consumed by gpu-nvidia-prime aspect).
+        den.gpuPrime = {
           intelBusId = "PCI:0:2:0";
           nvidiaBusId = "PCI:1:0:0";
         };

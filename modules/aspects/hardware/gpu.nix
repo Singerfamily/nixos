@@ -76,4 +76,33 @@
         };
       };
   };
+
+  # NVIDIA + Intel hybrid (PRIME) sub-aspect.
+  # Bundles gpu-intel and gpu-nvidia and exposes intelBusId/nvidiaBusId as
+  # per-instance options that the host must set.
+  den.aspects.gpu-nvidia-prime = {
+    includes = [
+      den.aspects.gpu-intel
+      den.aspects.gpu-nvidia
+    ];
+    nixos =
+      { config, lib, ... }:
+      {
+        options.den.gpuPrime = {
+          intelBusId = lib.mkOption {
+            type = lib.types.str;
+            example = "PCI:0:2:0";
+            description = "Intel iGPU PCI bus ID for hardware.nvidia.prime.";
+          };
+          nvidiaBusId = lib.mkOption {
+            type = lib.types.str;
+            example = "PCI:1:0:0";
+            description = "NVIDIA dGPU PCI bus ID for hardware.nvidia.prime.";
+          };
+        };
+        config.hardware.nvidia.prime = {
+          inherit (config.den.gpuPrime) intelBusId nvidiaBusId;
+        };
+      };
+  };
 }
