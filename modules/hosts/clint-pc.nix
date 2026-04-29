@@ -104,11 +104,6 @@
           LIBVIRT_DEFAULT_URI = "qemu:///system";
         };
 
-        # ASP.NET Core development certificate
-        security.pki.certificateFiles = [
-          ./aspnetcore-dev-cert.crt
-        ];
-
         # System packages
         environment.systemPackages = with pkgs; [
           lsof

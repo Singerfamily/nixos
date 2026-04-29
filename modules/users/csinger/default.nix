@@ -307,7 +307,7 @@
         # NixOS flake management for thinkpad-p14s (minimal WSL config)
         programs.nh = {
           enable = true;
-          flake = "/home/csinger/nixos-config";
+          flake = "/home/csinger/projects/nixos-config";
           clean = {
             enable = true;
             extraArgs = "--keep-since 4d --keep 3";
