@@ -6,7 +6,7 @@
   # Sops secrets management - NixOS level (host secrets + root password)
   den.aspects.sops =
     let
-      secretsPath = ../../../secrets;
+      secretsPath = ../../../../secrets;
     in
     {
       nixos =
