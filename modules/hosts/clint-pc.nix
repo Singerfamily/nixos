@@ -27,8 +27,12 @@
       gnome-remote-desktop
       opencode-server
       samba-client
-
       vscode-server
+
+      browsers
+      media-tools
+      playwright
+      azure-devops
     ];
 
     nixos =
@@ -93,36 +97,18 @@
           ];
         };
 
-        # Azure DevOps defaults for AI agents (az devops CLI reads these automatically)
-        environment.variables = {
-          AZURE_DEVOPS_ORG = "https://dev.azure.com/nueradev";
-          AZURE_DEVOPS_PROJECT = "ProjectVicious";
-          # Playwright — point to nix-managed browser binaries
-          PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
-          # libvirt default connection
-          LIBVIRT_DEFAULT_URI = "qemu:///system";
+        # Azure DevOps defaults consumed by the azure-devops aspect.
+        den.azureDevOps = {
+          organization = "https://dev.azure.com/nueradev";
+          project = "ProjectVicious";
         };
 
-        # System packages
+        # libvirt default connection (host-specific; left inline).
+        environment.variables.LIBVIRT_DEFAULT_URI = "qemu:///system";
+
+        # Generic system packages not covered by aspects.
         environment.systemPackages = with pkgs; [
           lsof
-          google-chrome
-          firefox
-          microsoft-edge
-
-          # Playwright browsers (system-level, alongside other browsers)
-          playwright-driver.browsers
-          chromium
-
-          # Image/video processing tools
-          imagemagick
-          ffmpeg
-          pngquant
-          optipng
-          (python3.withPackages (ps: [ ps.pillow ]))
-
-          # Node.js (provides npx)
           nodejs
         ];
 
