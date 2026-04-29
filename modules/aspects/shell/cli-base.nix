@@ -1,6 +1,6 @@
 _:
 {
-  # Common CLI tools - included by default for all users
+  # Default daily-driver CLI tooling — applied to every user via den.default.homeManager.
   den.default.homeManager =
     { pkgs, ... }:
     {
@@ -37,28 +37,14 @@ _:
       };
 
       home.packages = with pkgs; [
-        bandwhich
-        doggo
         dua
         duf
-        gping
-        kondo
-        killall
-        netdiscover
-        nmap
-        rustscan
         sd
+        killall
         srm
         unrar
         unzip
-        wakeonlan
         zip
-
-        # System information
-        file
-        pciutils
-        usbutils
-        smartmontools
       ];
 
       home.file.".fdignore".text = ".git/";
@@ -89,6 +75,5 @@ _:
         extraConfig.XDG_SCREENSHOTS_DIR = "$HOME/Images/Screenshots";
       };
       xdg.mime.enable = true;
-      # xdg.mimeApps.enable =  true;
     };
 }
