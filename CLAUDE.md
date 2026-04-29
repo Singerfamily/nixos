@@ -33,7 +33,7 @@ nix flake update
 
 ## Architecture
 
-This is a NixOS configuration flake using the **den** framework (`github:vic/den`) with `flake-parts` and `import-tree`. Every `.nix` file under `modules/` is automatically imported as a flake-parts module.
+This is a NixOS configuration flake using the **den** framework (`github:denful/den`) with `flake-parts` and `import-tree`. Every `.nix` file under `modules/` is automatically imported as a flake-parts module.
 
 ### Den Framework Concepts
 
