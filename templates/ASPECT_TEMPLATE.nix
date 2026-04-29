@@ -4,40 +4,40 @@
 # - Clear structure (includes, nixos, homeManager, provides)
 # - Single concern (one domain/feature)
 # - Documented purpose
-# - Parameterized for reuse
+# - Parameterized for reuse via Nix options
 #
 # Copy this template when creating a new aspect:
-# $ cp templates/ASPECT_TEMPLATE.nix modules/aspects/my-domain/my-feature.nix
+# $ scripts/new-aspect.sh <domain> <name>
+# or:
+# $ cp templates/ASPECT_TEMPLATE.nix modules/aspects/<domain>/<name>.nix
 #
 # Then:
-# 1. Update `den.aspects.my-feature` name
-# 2. Add to feature_includes if it's user-level (homeManager)
-# 3. Add to host_includes if it's system-level (nixos)
-# 4. Test: nix eval .#nixosConfigurations.<host>.config.system.stateVersion
+# 1. Update `den.aspects.my-feature` to match the filename.
+# 2. Reference it from a host (`den.aspects.<host>.includes`) or a user
+#    (`den.aspects.<user>.includes`) — every aspect needs a consumer.
+# 3. Test: nix flake check --no-build
 
 { den, ... }:
 {
-  # REQUIRED: The unique name for this aspect (must match filename)
-  # Used as: den.aspects.my-feature in includes lists
+  # REQUIRED: The unique name for this aspect (must match filename).
+  # Referenced as `den.aspects.my-feature` in includes lists.
   den.aspects.my-feature = {
-    # LIST: What other aspects does this depend on?
+    # What other aspects does this depend on?
     # Example: includes = with den.aspects; [ sops ssh git ];
-    # Circular includes are NOT allowed (flakes prevent them)
+    # Cycles are not allowed.
     includes = with den.aspects; [
-      # den.provides.primary-user,  # if you configure the primary user
-      # sops,                        # if you need secrets
+      # sops    # if the aspect uses secrets
+      # ssh     # if the aspect implies SSH server config
     ];
 
-    # (Optional) USER metadata: Only set if you want this aspect to define a new user
-    # Generally NOT needed unless you're adding a service account
+    # (Optional) USER metadata — only when the aspect defines a service account.
     # user = {
     #   name = "myservice";
     #   description = "My Service Account";
     # };
 
-    # (Optional) NIXOS-LEVEL configuration
-    # Use this for: system packages, services, boot, hardware, sops secrets
-    # This runs at the NixOS evaluation level
+    # (Optional) NIXOS-LEVEL configuration.
+    # Use for: system packages, services, boot, hardware, sops secrets.
     # Syntax: nixos = { config, lib, pkgs, ... }: { ... }
     nixos =
       {
@@ -47,14 +47,40 @@
         ...
       }:
       {
-        # Example: Install a system package
+        # Example: install a system package
         # environment.systemPackages = with pkgs; [ package ];
 
-        # Example: Enable a service
+        # Example: enable a service
         # services.my-service.enable = true;
 
-        # Example: Set an option
+        # Example: set an option
         # programs.git.enable = true;
+
+        # ── Options-based aspects ────────────────────────────────────
+        # When the aspect encodes reusable structure with per-instance
+        # values (e.g. a driver list, bus IDs, an org name), declare
+        # options.den.<aspect>.* and let consuming hosts set them.
+        #
+        # Pattern:
+        #
+        #   options.den.myFeature = {
+        #     enable = lib.mkEnableOption "my reusable feature";
+        #     target = lib.mkOption {
+        #       type = lib.types.str;
+        #       description = "Per-instance target value.";
+        #     };
+        #   };
+        #   config = lib.mkIf config.den.myFeature.enable {
+        #     services.my-feature = {
+        #       enable = true;
+        #       target = config.den.myFeature.target;
+        #     };
+        #   };
+        #
+        # Existing examples in tree:
+        #   services/user/printing.nix      — den.printing.{enable,drivers}
+        #   hardware/gpu.nix (gpu-nvidia-prime) — den.gpuPrime.{intelBusId,nvidiaBusId}
+        #   apps/azure-devops.nix           — den.azureDevOps.{organization,project}
       };
 
     # (Optional) HOME-MANAGER configuration (applied to all users on all hosts)

@@ -47,15 +47,20 @@ This is a NixOS configuration flake using the **den** framework (`github:vic/den
 
 Aspects are organized by domain under `modules/aspects/`:
 
-| Directory         | Purpose                                                                     |
-| ----------------- | --------------------------------------------------------------------------- |
-| `core/`           | System fundamentals: nix settings, locale, boot, network, fonts, users      |
-| `hardware/`       | GPU (amd/intel/nvidia), bluetooth, sound, firmware                          |
-| `services/`       | docker, ssh, flatpak, qemu, sops                                            |
-| `shell/`          | zsh (powerlevel10k), common CLI tools, starship, fzf                        |
-| `dev/`            | Language toolchains (rust, dotnet, js, python, go, java, c), jetbrains IDEs |
-| `apps/`           | discord, steam, ai-tools, vscode, onedrive                                  |
-| `desktop/plasma/` | Composable KDE Plasma aspects: core, keybinds, kwin, power, full (bundle)   |
+| Directory             | Purpose                                                                                                                        |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `core/`               | System fundamentals: nix settings, locale, boot, network, fonts, users                                                         |
+| `hardware/`           | Kernel selection, GPU (amd / intel / nvidia / nvidia-prime), bluetooth, sound, firmware, tpm, vfio                             |
+| `services/system/`    | System daemons: sops, ssh, docker, qemu, lxc                                                                                   |
+| `services/network/`   | Networking: tailscale, dnscrypt, zapret, netbird, samba-client                                                                 |
+| `services/user/`      | User-facing services: flatpak, opencode-server, sunshine, gnome-remote-desktop, vscode-server, printing                        |
+| `shell/`              | git, zsh, atuin, fzf, k9s, starship, distrobox, and the common CLI bundle (`cli-base.nix`, `cli-system.nix`, `cli-network.nix`) |
+| `dev/`                | Language toolchains (`dev/default.nix` is a factory; each `dev/<lang>.nix` becomes `dev.<lang>` and auto-includes `dev.common`) |
+| `apps/`               | Desktop apps and integrations: discord, steam, ai-tools, vscode, onedrive, browsers, media-tools, playwright, azure-devops, minecraft |
+| `desktop/plasma/`     | Composable KDE Plasma aspects: core, keybinds, kwin, power, full (bundle)                                                      |
+| `ai/`                 | AI tooling: claude-code, gemini-cli, opencode, ollama                                                                          |
+
+`import-tree` walks recursively, so deeper nesting works transparently — aspect names come from the filename, not the path. Moving a file between subdirectories doesn't rename the aspect.
 
 ### Hosts
 
@@ -112,12 +117,38 @@ Root password comes from `common.yaml` (via the sops aspect). User passwords com
 
 ## Key Patterns
 
-- The `nix-flatpak` home-manager module is imported globally in `den.default` (via `flatpak.nix`) so `services.flatpak.packages` works inside `provides.<host>.homeManager`.
+- The `nix-flatpak` home-manager module is imported globally in `den.default` (via `services/user/flatpak.nix`) so `services.flatpak.packages` works inside `provides.<host>.homeManager`.
 - Plasma config is split: shared settings (keybinds, kwin, power) are aspects; per-user settings (panels, wallpaper, fonts, input devices) live in user `provides.<host>`.
 - WSL hosts need `boot.loader.systemd-boot.enable = lib.mkForce false` to override the default boot aspect.
 - Use `programs.git.settings` (not the deprecated `extraConfig`) for git configuration.
 - `plasma-manager` uses `homeModules` (not the deprecated `homeManagerModules`).
-- Add tool-generated junk to `programs.git.ignores` in modules/aspects/git.nix
+- Add tool-generated junk to `programs.git.ignores` in `modules/aspects/shell/git.nix`.
+
+### Multi-file host configuration
+
+Each non-trivial host lives in its own directory under `modules/hosts/<host>/`. Multiple files contribute slices to `den.aspects.<host>.nixos`, merged via NixOS module composition. A typical layout:
+
+```
+modules/hosts/<host>/
+  host.nix          # den.hosts.<arch>.<host> declaration + aspects/includes list
+  hardware.nix      # boot.initrd, kernel modules, hostId, hardware-specific options
+  filesystems.nix   # fileSystems / disko / swap
+  services.nix      # inline services and per-host option settings
+  packages.nix      # the small inline systemPackages tail
+```
+
+Only `host.nix` carries the `den.hosts.<arch>.<host>` declaration and the `includes` list. The other files just set `den.aspects.<host>.nixos = { ... }: { ... };` with their slice. Single-file hosts (e.g., `thinkpad-p14s.nix`) stay flat when they're small enough.
+
+### Options-based aspects
+
+When an aspect encodes reusable structure with per-instance values, declare `options.den.<aspect>.*` inside `den.aspects.<x>.nixos` and let the consuming host set them. Examples currently in tree:
+
+- `services/user/printing.nix` — `den.printing.{enable, drivers}`; gates `services.printing` via `lib.mkIf`.
+- `hardware/gpu.nix` (`gpu-nvidia-prime`) — `den.gpuPrime.{intelBusId, nvidiaBusId}`.
+- `apps/azure-devops.nix` — `den.azureDevOps.{organization, project}`; sets env vars + adds `azure-cli`.
+- `services/user/opencode-server.nix` — `services.opencode-server.user`.
+
+Use this pattern when the structure is reusable but the values are inherently per-host. Don't use it for single-host one-offs that have no future consumer — those stay inline on the host (e.g., NVIDIA bus IDs in `clint-pc/hardware.nix`, SMB mount target in `clint-pc/filesystems.nix`).
 
 ## Off-Limits Files
 

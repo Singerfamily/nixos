@@ -18,7 +18,10 @@ NC='\033[0m'
 
 usage() {
     echo "Usage: $0 <domain> <name>"
-    echo "  domain  - subdirectory under modules/aspects/ (e.g. services, dev, apps)"
+    echo "  domain  - subdirectory under modules/aspects/, possibly nested"
+    echo "            (e.g. apps, dev, hardware, shell, ai,"
+    echo "            services/system, services/network, services/user,"
+    echo "            desktop/plasma)"
     echo "  name    - aspect name, must match the filename (e.g. my-feature)"
     exit 1
 }
