@@ -18,4 +18,10 @@
         boot.loader.systemd-boot.enable = lib.mkForce false;
       };
   };
+
+  flake-file.inputs.nixos-wsl = {
+    url = "github:nix-community/nixos-wsl";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.flake-compat.follows = "";
+  };
 }

@@ -4,11 +4,7 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
-    darwin = {
-      url = "github:nix-darwin/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    den.url = "github:vic/den";
+    den.url = "github:denful/den";
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     disko = {
       url = "github:nix-community/disko";

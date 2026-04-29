@@ -15,4 +15,9 @@
       boot.loader.systemd-boot.enable = lib.mkForce false;
       environment.systemPackages = [ pkgs.sbctl ];
     };
+
+  flake-file.inputs.lanzaboote = {
+    url = "github:nix-community/lanzaboote";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 }
