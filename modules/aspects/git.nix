@@ -6,6 +6,8 @@ _:
       home.packages = with pkgs; [
         difftastic
         git-filter-repo
+        forgejo-cli
+        forgejo-mcp
       ];
 
       home.file.".ssh/allowed_signers".text = "";

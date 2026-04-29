@@ -17,7 +17,7 @@
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -28,7 +28,6 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-agent.url = "github:JEFF7712/nix-agent";
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
     nixos-wsl = {
@@ -39,7 +38,6 @@
       };
     };
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
-    nixpkgs-lib.follows = "nixpkgs";
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs = {
@@ -53,6 +51,10 @@
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

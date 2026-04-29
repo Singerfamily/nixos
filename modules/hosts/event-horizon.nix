@@ -42,6 +42,7 @@
         ];
         boot.kernelModules = [ "kvm-amd" ];
         networking.hostId = "edc49e33";
+        # networking.hosts."127.0.0.1" = [ "cleros.localhost" ];
 
         # CUPS printing
         services.printing = {
