@@ -27,20 +27,27 @@ Do **not** include: generic best practices that apply to every project, obvious 
 ## Keep It Short and Focused
 More content ≠ better output. A bloated `CLAUDE.md` consumes context and dilutes the most important rules. If a rule isn't specific to this codebase, cut it. The file should be scannable, not exhaustive.
 
+## @filename — On-Demand File Imports
+`CLAUDE.md` supports `@filename` syntax to import external files at read time. Claude Code resolves these and injects the referenced file's content.
+
+Use this instead of inlining large reference material:
+```
+@docs/api-schema.md
+@docs/db-patterns.md
+```
+
+Prefer `@filename` over prose links like `"see ./docs/api-schema.md"` — the former actually loads the content; the latter is passive and easy to ignore.
+
 ## Refresh Regularly
 Update `CLAUDE.md` as the project evolves. Use the `/init` refresh to streamline and prune stale context. An outdated `CLAUDE.md` is worse than no file — it sends Claude down abandoned patterns.
 
 ## Version-Control CLAUDE.md
 Commit `CLAUDE.md` changes alongside the code changes that motivated them. This preserves the reasoning behind rules and lets future collaborators (or future Claude sessions) understand why constraints exist.
 
-## File Routing for Large Context
-Link `CLAUDE.md` to external reference files (e.g. architecture docs, API schemas) rather than inlining all content. This gives Claude access to additional context on demand without overloading tokens on every session.
+## Machine-Local Settings
+Use `.claude/settings.local.json` for settings that must not be committed: API keys, local binary paths, per-machine permissions, or personal workflow preferences. It is gitignored by default.
 
-Example entry in `CLAUDE.md`:
-```
-For full API schema, see: ./docs/api-schema.md
-For DB conventions, see: ./docs/db-patterns.md
-```
+Use `.claude/settings.json` (committed) for team-shared permissions and project-level defaults.
 
 ## Monorepo: Use Directory-Level Files
 Claude Code supports both root-level and subdirectory-level `CLAUDE.md` files:
@@ -48,4 +55,4 @@ Claude Code supports both root-level and subdirectory-level `CLAUDE.md` files:
 - `packages/frontend/CLAUDE.md`: frontend-specific rules
 - `packages/backend/CLAUDE.md`: backend-specific rules
 
-This prevents frontend and backend context from polluting each other in a monorepo setup.
+Claude Code loads `CLAUDE.md` from the repo root **and** from parent directories of the currently-open file. Subdirectory files are **additive** — they extend rather than replace the root file. Design them as narrowly scoped extensions, not self-contained replacements.

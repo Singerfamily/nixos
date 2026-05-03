@@ -3,7 +3,7 @@ name: context-management
 description: >
   Rules for managing Claude Code's context window efficiently. Apply these
   guidelines proactively throughout every session — not just when degradation
-  is visible. Covers /compact, /clear, ultrathink, effort levels, and MCP hygiene.
+  is visible. Covers /compact, /clear, TodoWrite, ultrathink, and MCP hygiene.
 ---
 
 # Context Management
@@ -16,9 +16,26 @@ A bloated context produces worse code. A collapsed context loses work. Stay in t
 - Target: compact when context usage hits ~60–70%, not when output quality degrades.
 - `/compact` replaces conversation history with a structured summary — it preserves intent but frees window space.
 
+## /compact vs /clear — Choose Deliberately
+`/compact` is for **continuing the same task** with less context overhead — it preserves task intent while freeing window space.
+
+Use `/clear` (or start a new session) when:
+- The next task is unrelated to the current one
+- Context rot is severe (see below)
+- You want a clean baseline without summary artifacts
+
+`/compact` is not a substitute for task separation. The precision lost in compaction accumulates — if the task changes, start fresh.
+
 ## /clear — Clean Slate Between Tasks
-- Use `/clear` when switching to a completely unrelated task or starting fresh work.
-- Unrelated task context bleeds into and degrades output — separate sessions are free, bad outputs are not.
+Use `/clear` when switching to a completely unrelated task or starting fresh work. Unrelated task context bleeds into and degrades output — separate sessions are free, bad outputs are not.
+
+## TodoWrite — Track Multi-Step Progress Within a Session
+Use the `TodoWrite` tool to decompose complex tasks into a tracked task list:
+- The list persists across `/compact` calls — survives summarization
+- Mark items complete immediately as each finishes — do not batch completions
+- Use for any task with three or more sequential steps
+
+A visible task list makes progress recoverable after compaction without relying on conversation history.
 
 ## Context Rot — Recognize It Early
 Symptoms of context rot:
@@ -33,19 +50,10 @@ Fix: `/compact` if context is salvageable; new session if rot is severe.
 - Use for: architecture decisions, complex debugging, algorithm design.
 - Do **not** use for: boilerplate, formatting, simple refactors — it wastes compute.
 
-## Effort Levels — Set Explicitly
-Claude Code has four effort levels: `low`, `medium`, `high`, `max`. State the desired level in your prompt when the default is likely wrong:
-- `low` — formatting fixes, trivial renames
-- `high`/`max` — novel algorithms, multi-file refactors, security-sensitive logic
-
 ## MCP Server Hygiene
 - Every enabled MCP server adds to context overhead on every request.
 - Disable MCP servers that aren't actively needed for the current task.
 - Lean MCP config = more context budget for actual code.
-
-## /btw — Add Context Without Breaking Flow
-- `/btw <message>` injects a note or clarification mid-task without consuming a full conversation turn.
-- Use it to steer Claude without interrupting ongoing work.
 
 ## Monitor Context Window Actively
 - Watch the context usage indicator in the UI — don't wait for quality to drop.

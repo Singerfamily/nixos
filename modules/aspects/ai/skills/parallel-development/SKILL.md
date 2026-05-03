@@ -27,6 +27,13 @@ Deploy sub-agents to handle parallel subtasks with isolated contexts. Sub-agents
 
 Each sub-agent gets a clean context scoped to its task — don't share cross-task context between them.
 
+## Agent Tool — Spawning Sub-Agents
+Use the `Agent` tool to spawn sub-agents. Key parameters:
+
+- `prompt` — fully self-contained; the sub-agent starts with no shared context from the parent session. Include all necessary context, constraints, and file paths.
+- `model` — specify the capability tier explicitly (see Cost Efficiency).
+- `isolation: "worktree"` — automatically creates an isolated git worktree for the sub-agent. The worktree is cleaned up if the agent makes no changes. Use this instead of manually running `git worktree add` when the sub-agent will make file changes.
+
 ## Operator Pattern — Coordinated Multi-Agent Work
 For large features, use a coordinating Claude instance as the **operator** and separate instances as **implementers**:
 - The operator breaks the feature into independent, parallelizable units
@@ -35,6 +42,14 @@ For large features, use a coordinating Claude instance as the **operator** and s
 - Implementers do not share context with each other — only with the operator
 
 The operator's job is coordination, not implementation. This mimics a technical lead managing a team.
+
+## Reviewing Parallel Results — Required Before Completion
+After parallel agents complete, their outputs must be reviewed before the task is considered done:
+- Read each agent's result output
+- Check for conflicts between agents (e.g. two agents editing the same file differently)
+- Integrate changes manually if needed — agents work in isolation and cannot resolve conflicts with each other
+
+Never report parallel work as complete without reviewing each agent's result.
 
 ## When NOT to Parallelize
 Parallel sessions are not always better. Avoid them when:
@@ -45,9 +60,9 @@ Parallel sessions are not always better. Avoid them when:
 Sequential sessions with clean `/clear` between tasks often outperform poorly-scoped parallel ones.
 
 ## Cost Efficiency — Right Model, Right Task
-Match model capability to task complexity:
-- **Haiku** — simple transformations, boilerplate, formatting, summarization
-- **Sonnet** — standard feature development, moderate complexity
-- **Opus** — architectural decisions, complex debugging, plan-mode reasoning
+In `Agent` tool calls, specify the model explicitly using the `model` parameter:
+- `model: "haiku"` — boilerplate, formatting, well-specified search tasks, summarization
+- `model: "sonnet"` — standard feature development, most implementation tasks
+- `model: "opus"` — architectural decisions, complex debugging, plan-mode reasoning
 
-Using Opus for every task is unnecessary and expensive. Using Haiku for architecture decisions produces poor results. Be deliberate.
+Specifying no `model` uses the session default — be deliberate when spawning sub-agents. Routing boilerplate to the smallest capable model and reserving the largest for reasoning-intensive tasks reduces cost without sacrificing output quality.

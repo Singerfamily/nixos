@@ -49,11 +49,27 @@ Do **not** start a generic brainstorming flow first unless the user is asking fo
 2. Call `plan_change(goal)`.
 3. If `requires_mcp_nixos=true`, stop local mutation and use `mcp-nixos` before continuing.
 4. Build a `PatchSet` and call `apply_patch_set(patch_set)`.
+   - **New files:** If `apply_patch_set` creates a new `.nix` file, run `git add <file>` before continuing. Nix flakes only evaluate git-tracked files — untracked files are silently ignored by `nix flake check`, producing false-clean results.
 5. If `apply_patch_set()` returns `status="approval_required"`, stop and report that approval is needed.
-6. Run `run_formatters(changed_files)`.
+6. Run `run_formatters(changed_files)`. The Nix formatter is `alejandra` (or `nixfmt-rfc-style` if the project uses it — check existing formatted files to determine which applies).
 7. Run `classify_change(changed_files)`.
 8. If `approval_required` is `true`, stop and report the reason.
 9. Only then call `apply_change(intent, changed_files, flake_uri)`.
+10. After `apply_change` completes, run `nix flake check --no-build` to confirm the configuration evaluates cleanly. If it fails, diagnose before reporting completion.
+
+## Flake Inputs — Do Not Edit flake.nix Directly
+
+`flake.nix` is auto-generated and will be overwritten. To add a new flake input:
+1. Add the input to `flake-file.inputs` in `modules/dendritic.nix`.
+2. Run `nix run .#write-flake` to regenerate `flake.nix`.
+
+Never edit `flake.nix` by hand.
+
+## Aspect Names — Derived from Filename
+
+Aspect names come from the `.nix` **filename**, not the directory path. The `import-tree` loader uses the filename (without extension) as the aspect identifier. Moving a file to a different directory does not rename the aspect — renaming the file does.
+
+Example: `modules/aspects/apps/discord.nix` → aspect name is `discord`, not `apps.discord`.
 
 ## Common Mistakes
 
@@ -64,6 +80,8 @@ Do **not** start a generic brainstorming flow first unless the user is asking fo
 - Ignoring `approval_required`.
 - Assuming `nix-agent` should do package discovery itself.
 - Writing secret material through patches.
+- Editing `flake.nix` directly instead of modifying `flake-file.inputs` in `dendritic.nix` and running `nix run .#write-flake`.
+- Creating a new `.nix` file without `git add` before `nix flake check`.
 
 ## Red Flags
 
@@ -81,7 +99,9 @@ User asks: `Use mcp-nixos and nix-agent together to install floorp on my NixOS s
 1. Query `mcp-nixos` for the correct Floorp package attribute.
 2. Call `plan_change("install floorp on NixOS")`.
 3. Patch the relevant NixOS file with `apply_patch_set(...)`.
-4. Run `run_formatters(changed_files)`.
-5. Run `classify_change(changed_files)`.
-6. If allowed, call `apply_change("install floorp", changed_files, flake_uri)`.
-7. Report the changed file and each tool result.
+4. If the patched file is new, run `git add <file>`.
+5. Run `run_formatters(changed_files)`.
+6. Run `classify_change(changed_files)`.
+7. If allowed, call `apply_change("install floorp", changed_files, flake_uri)`.
+8. Run `nix flake check --no-build` to verify clean evaluation.
+9. Report the changed file and each tool result.
