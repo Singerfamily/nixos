@@ -34,7 +34,7 @@ Set up completion hooks to receive alerts when long-running tasks finish. If a t
 ## Browser Tools — Use When Available
 Check the active tool list at the start of any task involving web content, UI, or network requests.
 
-If a browser MCP (Puppeteer, Playwright) is available:
+If a browser MCP (Claude-In-Chrome, Puppeteer, Playwright) is available:
 - Prefer browser MCP tools over bash-based alternatives for screenshots, DOM inspection, and network monitoring
 - Use it to open the dev server URL and render the actual UI rather than reasoning from source
 - Use it for web research that requires JavaScript execution or login-gated content
@@ -90,7 +90,7 @@ For well-defined integrations, calling API endpoints directly is often more toke
 - Reserve MCP servers for integrations that genuinely benefit from the protocol layer
 
 ## Chrome DevTools Integration
-If a browser control MCP (Puppeteer or Playwright) is configured, use it to interact with running web apps — inspect DOM state, read console errors, and validate runtime behavior. Use for:
+If a browser control MCP (Claude-In-Chrome, Puppeteer, Playwright) is configured, use it to interact with running web apps — inspect DOM state, read console errors, and validate runtime behavior. Use for:
 - Debugging rendering issues in live code
 - Verifying network request payloads
 - Testing interactions that are hard to express as unit tests
