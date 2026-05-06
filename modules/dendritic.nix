@@ -5,7 +5,7 @@
     (inputs.den.flakeModules.dendritic or { })
   ];
 
-  flake.den = den;
+  # flake.den = den;
 
   # Only foundational inputs live here. Anything aspect-specific belongs
   # in the aspect that consumes it (e.g. plasma-manager in
