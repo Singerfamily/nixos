@@ -10,6 +10,8 @@
         den.provides.primary-user
         (den.provides.user-shell "zsh")
 
+        devenv
+
         zsh
         fzf
         git
