@@ -6,6 +6,10 @@ _:
       home.packages = with pkgs; [
         devenv
       ];
+
+      programs.zsh.initContent = ''
+        eval "$(devenv hook zsh)"
+      '';
     };
 
   flake-file.inputs.devenv = {

@@ -91,7 +91,6 @@
 
         home.packages = with pkgs; [
           bitwarden-desktop
-          dotnet-runtime_10
         ];
 
         home.shellAliases = {
