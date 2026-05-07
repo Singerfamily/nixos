@@ -26,7 +26,7 @@
         # k9s
         minecraft
 
-        claude-code 
+        claude-code
       ])
       ++ (with dev; [
         nix
@@ -67,6 +67,9 @@
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIConMjdymJ8/2DplJAz/nsy2iqF/DHbWXH0yRm2jslQN"
           ];
         };
+
+        networking.firewall.allowedTCPPorts = [ 11000 ];
+        networking.firewall.allowedUDPPorts = [ 11000 ];
       };
 
     homeManager =
@@ -84,7 +87,10 @@
 
         programs.lazydocker.enable = true;
 
-        home.packages = [ pkgs.bitwarden-desktop ];
+        home.packages = with pkgs; [
+          bitwarden-desktop
+          dotnet-runtime_10
+        ];
 
         home.shellAliases = {
           pgrep = "pgrep -a";
@@ -260,6 +266,7 @@
           "com.spotify.Client"
           "org.libreoffice.LibreOffice"
         ];
+
       };
   };
 }
