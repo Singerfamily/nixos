@@ -106,89 +106,117 @@
           nodejs
         ];
 
-        disko.devices.disk = {
-          main = {
-            device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0T800569N_1";
-            # nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0T800537P
-            type = "disk";
-            content = {
-              type = "gpt";
-              partitions = {
-                ESP = {
-                  type = "EF00";
-                  size = "512M";
-                  content = {
-                    type = "filesystem";
-                    format = "vfat";
-                    mountpoint = "/boot";
-                    mountOptions = [ "umask=0077" ];
+        disko.devices = {
+          disk = {
+            disk1 = {
+              type = "disk";
+              device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0T800569N_1";
+              content = {
+                type = "gpt";
+                partitions = {
+                  boot = {
+                    size = "1M";
+                    type = "EF02"; # for grub MBR
+                  };
+                  mdadm = {
+                    size = "100%";
+                    content = {
+                      type = "mdraid";
+                      name = "raid0";
+                    };
                   };
                 };
-                luks = {
-                  size = "100%";
-                  content = {
-                    type = "luks";
-                    name = "EVENT-HORIZON_LUKS";
-                    settings.allowDiscards = true;
+              };
+            };
+            disk2 = {
+              type = "disk";
+              device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0T800537P";
+              content = {
+                type = "gpt";
+                partitions = {
+                  boot = {
+                    size = "1M";
+                    type = "EF02"; # for grub MBR
+                  };
+                  mdadm = {
+                    size = "100%";
                     content = {
-                      type = "btrfs";
-                      extraArgs = [ "-f" ];
-                      subvolumes = {
-                        "/root" = {
-                          mountpoint = "/";
-                          mountOptions = [
-                            "compress=zstd"
-                            "noatime"
-                          ];
-                        };
-                        "/home" = {
-                          mountpoint = "/home";
-                          mountOptions = [
-                            "compress=zstd"
-                            "noatime"
-                          ];
-                        };
-                        "/nix" = {
-                          mountpoint = "/nix";
-                          mountOptions = [
-                            "compress=zstd"
-                            "noatime"
-                          ];
-                        };
-                        "/swap" = {
-                          mountpoint = "/.swapvol";
-                          swap.swapfile.size = "32G";
-                        };
-                      };
+                      type = "mdraid";
+                      name = "raid0";
                     };
                   };
                 };
               };
             };
           };
-
-          games = {
-            device = "/dev/disk/by-id/ata-Samsung_SSD_870_EVO_2TB_S6PNNM0TA16132B";
-            type = "disk";
-            content = {
-              type = "gpt";
-              partitions = {
-                luks = {
-                  size = "100%";
-                  content = {
-                    type = "luks";
-                    name = "EVENT-HORIZON_GAMES_LUKS";
-                    settings.allowDiscards = true;
+          mdadm = {
+            raid0 = {
+              type = "mdadm";
+              level = 0;
+              content = {
+                type = "gpt";
+                partitions = {
+                  ESP = {
+                    priority = 1;
+                    name = "ESP";
+                    start = "1M";
+                    end = "128M";
+                    type = "EF00";
+                    content = {
+                      type = "filesystem";
+                      format = "vfat";
+                      mountpoint = "/boot";
+                      mountOptions = [ "umask=0077" ];
+                    };
+                  };
+                  root = {
+                    size = "100%";
                     content = {
                       type = "btrfs";
-                      extraArgs = [ "-f" ];
+                      extraArgs = [ "-f" ]; # Override existing partition
+                      # Subvolumes must set a mountpoint in order to be mounted,
+                      # unless their parent is mounted
                       subvolumes = {
-                        "/" = {
-                          mountpoint = "/mnt/games";
+                        # Subvolume name is different from mountpoint
+                        "/rootfs" = {
+                          mountpoint = "/";
                           mountOptions = [
                             "compress=zstd"
                             "noatime"
                           ];
+                        };
+                        # Subvolume name is the same as the mountpoint
+                        "/home" = {
+                          mountOptions = [
+                            "compress=zstd"
+                            "noatime"
+                          ];
+                          mountpoint = "/home";
+                        };
+                        # Parent is not mounted so the mountpoint must be set
+                        "/nix" = {
+                          mountOptions = [
+                            "compress=zstd"
+                            "noatime"
+                          ];
+                          mountpoint = "/nix";
+                        };
+                        # Subvolume for the swapfile
+                        "/swap" = {
+                          mountpoint = "/.swapvol";
+                          swap = {
+                            swapfile.size = "20M";
+                          };
+                        };
+                      };
+
+                      mountpoint = "/partition-root";
+                      swap = {
+                        swapfile = {
+                          size = "20M";
+                        };
+                        swapfile1 = {
+                          size = "20M";
                         };
                       };
                     };
