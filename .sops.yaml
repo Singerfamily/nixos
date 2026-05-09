@@ -3,7 +3,7 @@ keys:
   - &csinger age1uetucp7e67hl8j4pyu47ggv7a8569azgzlatlmleepftqenf7ewqth8pcn
 
   - &event-horizon age15vcpw49v9djmtdz2ssq26rv5mg6el83znzzrvdqfh8ujdvv9rfas5g6lrf
-  - &clint-pc age1x7ylu5gq7gafg8evsdvuj0tdnkjv7f434dww4fvps5nn2ceyeeeqnz8e8t
+  - &clint-pc age1am6w693mw45a85l9tzw0xarvdhkycpstw0wc3p3przwwnxlyq5jqpmx4mw
 
 creation_rules:
   # - path_regex: secrets/*.yaml$

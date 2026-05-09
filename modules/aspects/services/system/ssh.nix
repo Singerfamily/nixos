@@ -1,8 +1,8 @@
-_:
+{ den, ... }:
 {
   den.aspects.ssh = {
     nixos =
-      { pkgs, ... }:
+      { pkgs, config, ... }:
       {
         services.openssh = {
           enable = true;
@@ -11,6 +11,13 @@ _:
             PermitRootLogin = "no";
             StreamLocalBindUnlink = "yes";
           };
+
+          hostKeys = [
+            {
+              path = config.sops.secrets."ssh/private_key".path;
+              type = "ed25519";
+            }
+          ];
         };
         programs.mosh = {
           enable = true;
@@ -22,12 +29,16 @@ _:
         };
 
         environment.systemPackages = [ pkgs.sshfs ];
+
+        sops.secrets."ssh/private_key" = {
+          key = "password";
+          neededForUsers = true;
+          sopsFile = ../../../../secrets/hosts + "/${config.networking.hostName}.yaml";
+        };
       };
-    homeManager =
-      _:
-      {
-        programs.ssh.enable = true;
-        services.ssh-agent.enable = true;
-      };
+    homeManager = _: {
+      programs.ssh.enable = true;
+      services.ssh-agent.enable = true;
+    };
   };
 }

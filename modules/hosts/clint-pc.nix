@@ -1,4 +1,4 @@
-{ den, ... }:
+{ den, inputs, ... }:
 {
   den.hosts.x86_64-linux.clint-pc.users.csinger = { };
 
@@ -31,6 +31,8 @@
     nixos =
       { pkgs, ... }:
       {
+        imports = [ inputs.disko.nixosModules.disko ];
+
         # Hardware
         boot.initrd.availableKernelModules = [
           "vmd"
