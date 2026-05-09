@@ -10,22 +10,13 @@
       plasma
       docker
       ssh
-      flatpak
-      qemu
-      ai-tools
       tailscale
       sops
       determinate
       compat
       crypto
       tpm
-      samba-client
       vscode-server
-
-      browsers
-      media-tools
-      playwright
-      azure-devops
     ];
 
     nixos =
@@ -43,6 +34,8 @@
           "usb_storage"
           "usbhid"
           "sd_mod"
+          "dm-raid"
+          "dm-mirror"
         ];
         boot.kernelModules = [ "kvm-intel" ];
         boot.extraModprobeConfig = "options kvm_intel nested=1";
@@ -108,126 +101,116 @@
           nodejs
         ];
 
-        disko.devices = {
-          disk = {
-            disk1 = {
-              type = "disk";
-              device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0T800569N_1";
-              content = {
-                type = "gpt";
-                partitions = {
-                  boot = {
-                    size = "1M";
-                    type = "EF02"; # for grub MBR
-                  };
-                  mdadm = {
-                    size = "100%";
-                    content = {
-                      type = "mdraid";
-                      name = "raid0";
+        disko.devices =
+          let
+            disks = [
+              "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0T800569N_1"
+              "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0T800537P"
+            ];
+          in
+          {
+            disk = {
+              disk1 = {
+                type = "disk";
+                device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0T800569N_1";
+                content = {
+                  type = "gpt";
+                  partitions = {
+                    BOOT = {
+                      size = "512M";
+                      type = "EF02"; # for grub MBR
                     };
-                  };
-                };
-              };
-            };
-            disk2 = {
-              type = "disk";
-              device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0T800537P";
-              content = {
-                type = "gpt";
-                partitions = {
-                  boot = {
-                    size = "1M";
-                    type = "EF02"; # for grub MBR
-                  };
-                  mdadm = {
-                    size = "100%";
-                    content = {
-                      type = "mdraid";
-                      name = "raid0";
-                    };
-                  };
-                };
-              };
-            };
-          };
-          mdadm = {
-            raid0 = {
-              type = "mdadm";
-              level = 0;
-              content = {
-                type = "gpt";
-                partitions = {
-                  ESP = {
-                    priority = 1;
-                    name = "ESP";
-                    start = "1M";
-                    end = "128M";
-                    type = "EF00";
-                    content = {
-                      type = "filesystem";
-                      format = "vfat";
-                      mountpoint = "/boot";
-                      mountOptions = [ "umask=0077" ];
-                    };
-                  };
-                  root = {
-                    size = "100%";
-                    content = {
-                      type = "btrfs";
-                      extraArgs = [ "-f" ]; # Override existing partition
-                      # Subvolumes must set a mountpoint in order to be mounted,
-                      # unless their parent is mounted
-                      subvolumes = {
-                        # Subvolume name is different from mountpoint
-                        "/rootfs" = {
-                          mountpoint = "/";
-                          mountOptions = [
-                            "compress=zstd"
-                            "noatime"
-                          ];
-                        };
-                        # Subvolume name is the same as the mountpoint
-                        "/home" = {
-                          mountOptions = [
-                            "compress=zstd"
-                            "noatime"
-                          ];
-                          mountpoint = "/home";
-                        };
-                        # Parent is not mounted so the mountpoint must be set
-                        "/nix" = {
-                          mountOptions = [
-                            "compress=zstd"
-                            "noatime"
-                          ];
-                          mountpoint = "/nix";
-                        };
-                        # Subvolume for the swapfile
-                        "/swap" = {
-                          mountpoint = "/.swapvol";
-                          swap = {
-                            swapfile.size = "20M";
-                          };
-                        };
+                    ESP = {
+                      size = "500M";
+                      type = "EF00";
+                      content = {
+                        type = "mdraid";
+                        name = "boot";
                       };
-
-                      mountpoint = "/partition-root";
-                      swap = {
-                        swapfile = {
-                          size = "20M";
-                        };
-                        swapfile1 = {
-                          size = "20M";
-                        };
+                    };
+                    mdadm = {
+                      size = "100%";
+                      content = {
+                        type = "mdraid";
+                        name = "raid0";
+                      };
+                    };
+                  };
+                };
+              };
+              disk2 = {
+                type = "disk";
+                device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0T800537P";
+                content = {
+                  type = "gpt";
+                  partitions = {
+                    BOOT = {
+                      size = "512M";
+                      type = "EF02"; # for grub MBR
+                    };
+                    ESP = {
+                      size = "500M";
+                      type = "EF00";
+                      content = {
+                        type = "mdraid";
+                        name = "boot";
+                      };
+                    };
+                    mdadm = {
+                      size = "100%";
+                      content = {
+                        type = "mdraid";
+                        name = "raid0";
                       };
                     };
                   };
                 };
               };
             };
+            mdadm = {
+              boot = {
+                type = "mdadm";
+                level = 1; # Use RAID 1 for boot (mirrored)
+                metadata = "1.0"; # Critical for bootability [1](#3-0)
+                content = {
+                  type = "filesystem";
+                  format = "vfat";
+                  mountpoint = "/boot";
+                  mountOptions = [ "umask=0077" ];
+                };
+              };
+              raid0 = {
+                type = "mdadm";
+                level = 0; # RAID 0 for striping [2](#3-1)
+                content = {
+                  type = "btrfs";
+                  subvolumes = {
+                    "/root" = {
+                      mountpoint = "/";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/home" = {
+                      mountpoint = "/home";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                  };
+                };
+              };
+            };
           };
-        };
       };
   };
 }
