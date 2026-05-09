@@ -3,9 +3,9 @@
   den.hosts.x86_64-linux.thinkpad-p14s.users.csinger = { };
 
   den.aspects.thinkpad-p14s = {
-    includes = [
-      den.aspects.sops
-      den.aspects.determinate
+    includes = with den.aspects;[
+      sops
+      determinate
     ];
 
     nixos =

@@ -12,12 +12,12 @@
             StreamLocalBindUnlink = "yes";
           };
 
-          hostKeys = [
-            {
-              path = config.sops.secrets."ssh/private_key".path;
-              type = "ed25519";
-            }
-          ];
+          # hostKeys = [
+          #   {
+          #     path = config.sops.secrets."ssh/private_key".path;
+          #     type = "ed25519";
+          #   }
+          # ];
         };
         programs.mosh = {
           enable = true;
@@ -30,10 +30,10 @@
 
         environment.systemPackages = [ pkgs.sshfs ];
 
-        sops.secrets."ssh/private_key" = {
-          neededForUsers = true;
-          sopsFile = ../../../../secrets/hosts + "/${config.networking.hostName}.yaml";
-        };
+        # sops.secrets."ssh/private_key" = {
+        #   neededForUsers = true;
+        #   sopsFile = ../../../../secrets/hosts + "/${config.networking.hostName}.yaml";
+        # };
       };
     homeManager = _: {
       programs.ssh.enable = true;

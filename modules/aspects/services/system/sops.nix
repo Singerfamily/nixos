@@ -17,7 +17,11 @@
             # Default to common.yaml (accessible to all hosts).
             # Host-specific secrets should override sopsFile per-secret.
             defaultSopsFile = secretsPath + "/common.yaml";
-            age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+            age.sshKeyPaths = [ 
+              "/etc/ssh/ssh_host_ed25519_key"
+              # config.sops.secrets."ssh/private_key".path
+            ];
+            
             secrets."passwords/root" = {
               neededForUsers = true;
             };

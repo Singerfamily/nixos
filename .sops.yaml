@@ -4,7 +4,6 @@ keys:
 
   - &event-horizon age15vcpw49v9djmtdz2ssq26rv5mg6el83znzzrvdqfh8ujdvv9rfas5g6lrf
   - &clint-pc age1am6w693mw45a85l9tzw0xarvdhkycpstw0wc3p3przwwnxlyq5jqpmx4mw
-
 creation_rules:
   # - path_regex: secrets/*.yaml$
   #   key_groups:
@@ -30,6 +29,14 @@ creation_rules:
       - age:
           - *esinger
           - *event-horizon
+
+  - path_regex: secrets/hosts/clint-pc.yaml$
+    key_groups:
+      - age:
+          - *esinger
+          - *event-horizon
+          - *csinger
+          - *clint-pc
 
   - path_regex: secrets/common.yaml$
     key_groups:

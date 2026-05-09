@@ -9,12 +9,12 @@
         fzf
         git
         plasma-full
-        discord
+        # discord
         vscode
-        onedrive
-        atuin
+        # onedrive
+        # atuin
         sops
-        minecraft
+        # minecraft
       ])
       ++ (with dev; [
         nix
@@ -22,7 +22,7 @@
         js
         python
         rust
-        embedded
+        # embedded
       ]);
 
     user = {
@@ -44,6 +44,7 @@
         };
         users.users.csinger = {
           hashedPasswordFile = config.sops.secrets."csinger/password".path;
+          # hashedPassword = "$y$j9T$qZwqsKFYiOApNGRb2wE1v1$YpWIj2vcojrFYQk2fknJNtNPVYn9b2U4V1UIk50L/O6";
           extraGroups = [
             "networkmanager"
             "builders"
@@ -60,24 +61,22 @@
         };
       };
 
-    homeManager =
-      _:
-      {
-        programs.git.settings = {
-          user.name = "clintsinger";
-          user.email = "clint@singerfamily.ca";
-        };
-
-        home.shellAliases = {
-          pgrep = "pgrep -a";
-          dc = "docker compose";
-          run = "NIXPKGS_ALLOW_UNFREE=1 nix run";
-        };
-
-        # Sops user secrets
-        sops.secrets = {
-        };
+    homeManager = _: {
+      programs.git.settings = {
+        user.name = "clintsinger";
+        user.email = "clint@singerfamily.ca";
       };
+
+      home.shellAliases = {
+        pgrep = "pgrep -a";
+        dc = "docker compose";
+        run = "NIXPKGS_ALLOW_UNFREE=1 nix run";
+      };
+
+      # Sops user secrets
+      sops.secrets = {
+      };
+    };
 
     # clint-pc specific config for csinger
     provides.clint-pc.homeManager =
@@ -301,18 +300,16 @@
       };
 
     # thinkpad-p14s (WSL) specific config for csinger
-    provides.thinkpad-p14s.homeManager =
-      _:
-      {
-        # NixOS flake management for thinkpad-p14s (minimal WSL config)
-        programs.nh = {
+    provides.thinkpad-p14s.homeManager = _: {
+      # NixOS flake management for thinkpad-p14s (minimal WSL config)
+      programs.nh = {
+        enable = true;
+        flake = "/home/csinger/projects/nixos-config";
+        clean = {
           enable = true;
-          flake = "/home/csinger/projects/nixos-config";
-          clean = {
-            enable = true;
-            extraArgs = "--keep-since 4d --keep 3";
-          };
+          extraArgs = "--keep-since 4d --keep 3";
         };
       };
+    };
   };
 }
