@@ -31,7 +31,6 @@
         environment.systemPackages = [ pkgs.sshfs ];
 
         sops.secrets."ssh/private_key" = {
-          key = "password";
           neededForUsers = true;
           sopsFile = ../../../../secrets/hosts + "/${config.networking.hostName}.yaml";
         };
