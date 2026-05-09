@@ -88,7 +88,7 @@
         # NixOS flake management for clint-pc
         programs.nh = {
           enable = true;
-          flake = "/home/csinger/projects/nixos-config";
+          flake = "/home/csinger/projects/nixos";
           clean = {
             enable = true;
             extraArgs = "--keep-since 4d --keep 3";
@@ -128,6 +128,9 @@
 
           # Testing
           python3Packages.pytest
+
+          # Base
+          microsoft-edge
         ];
 
         home.sessionVariables = {
@@ -298,18 +301,5 @@
           "x-scheme-handler/unknown" = "microsoft-edge.desktop";
         };
       };
-
-    # thinkpad-p14s (WSL) specific config for csinger
-    provides.thinkpad-p14s.homeManager = _: {
-      # NixOS flake management for thinkpad-p14s (minimal WSL config)
-      programs.nh = {
-        enable = true;
-        flake = "/home/csinger/projects/nixos-config";
-        clean = {
-          enable = true;
-          extraArgs = "--keep-since 4d --keep 3";
-        };
-      };
-    };
   };
 }
