@@ -88,7 +88,7 @@
         # NixOS flake management for clint-pc
         programs.nh = {
           enable = true;
-          flake = "/home/csinger/projects/nixos";
+          flake = "/home/csinger/Projects/nixos";
           clean = {
             enable = true;
             extraArgs = "--keep-since 4d --keep 3";
