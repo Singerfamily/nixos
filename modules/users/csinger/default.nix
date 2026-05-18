@@ -9,12 +9,15 @@
         fzf
         git
         plasma-full
+        browsers
+        playwright
         # discord
         vscode
         # onedrive
         # atuin
         sops
         # minecraft
+        claude-code
       ])
       ++ (with dev; [
         nix
@@ -61,22 +64,34 @@
         };
       };
 
-    homeManager = _: {
-      programs.git.settings = {
-        user.name = "clintsinger";
-        user.email = "clint@singerfamily.ca";
-      };
+    homeManager =
+      { lib, ... }:
+      {
+        programs.git.settings = {
+          user.name = "clintsinger";
+          user.email = "clint@singerfamily.ca";
+        };
 
-      home.shellAliases = {
-        pgrep = "pgrep -a";
-        dc = "docker compose";
-        run = "NIXPKGS_ALLOW_UNFREE=1 nix run";
-      };
+        home.shellAliases = {
+          pgrep = "pgrep -a";
+          dc = "docker compose";
+          run = "NIXPKGS_ALLOW_UNFREE=1 nix run";
+        };
 
-      # Sops user secrets
-      sops.secrets = {
+        xdg.userDirs = {
+          desktop = lib.mkForce "$HOME/desktop";
+          documents = lib.mkForce "$HOME/documents";
+          download = lib.mkForce "$HOME/downloads";
+          music = lib.mkForce "$HOME/music";
+          pictures = lib.mkForce "$HOME/pictures";
+          videos = lib.mkForce "$HOME/videos";
+          extraConfig.XDG_SCREENSHOTS_DIR = lib.mkForce "$HOME/pictures/screenshots";
+        };
+
+        # Sops user secrets
+        sops.secrets = {
+        };
       };
-    };
 
     # clint-pc specific config for csinger
     provides.clint-pc.homeManager =
@@ -88,7 +103,7 @@
         # NixOS flake management for clint-pc
         programs.nh = {
           enable = true;
-          flake = "/home/csinger/Projects/nixos";
+          flake = "/home/csinger/projects/nixos";
           clean = {
             enable = true;
             extraArgs = "--keep-since 4d --keep 3";
@@ -97,11 +112,6 @@
 
         home.packages = with pkgs; [
           kara
-          jetbrains.rider
-          jetbrains.datagrip
-          jetbrains.rust-rover
-          jetbrains.pycharm
-          jetbrains.goland
           android-studio
           gimp
           davinci-resolve
@@ -131,6 +141,9 @@
 
           # Base
           microsoft-edge
+
+          # Media
+          spotify
         ];
 
         home.sessionVariables = {
@@ -288,7 +301,6 @@
 
         # Flatpak packages
         services.flatpak.packages = [
-          "com.spotify.Client"
           "org.libreoffice.LibreOffice"
         ];
 

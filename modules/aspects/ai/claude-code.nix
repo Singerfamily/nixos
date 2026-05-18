@@ -12,19 +12,17 @@ _:
         ];
       };
 
-    homeManager =
-      { ... }:
-      {
-        programs.git.ignores = [
-          ".claude/settings.local.json"
-        ];
+    homeManager = _: {
+      programs.git.ignores = [
+        ".claude/settings.local.json"
+      ];
 
-        programs.claude-code = {
-          enable = true;
-          enableMcpIntegration = true;
+      programs.claude-code = {
+        enable = true;
+        enableMcpIntegration = true;
 
-          skills = ./skills;
-        };
+        skills = ./skills;
       };
+    };
   };
 }

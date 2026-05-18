@@ -17,8 +17,15 @@
           installPhase = ''
             runHook preInstall
             install -Dm755 aspire $out/lib/aspire/aspire
+            # The aspire CLI spawns child processes (notably the Aspire
+            # Dashboard) that call CultureInfo.GetCultureInfo("en"). On NixOS
+            # there is no system libicu on a default search path, so we expose
+            # nixpkgs `icu` via LD_LIBRARY_PATH on the wrapper. Setting
+            # DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 here (the old behaviour)
+            # silently breaks the Dashboard because invariant mode forbids any
+            # named culture lookup.
             makeWrapper $out/lib/aspire/aspire $out/bin/aspire \
-              --set DOTNET_SYSTEM_GLOBALIZATION_INVARIANT 1
+              --prefix LD_LIBRARY_PATH : "${pkgs.icu}/lib"
             runHook postInstall
           '';
         };
