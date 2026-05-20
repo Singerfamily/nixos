@@ -2,7 +2,5 @@
 {
   flake-file.inputs.determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
-  imports = [
-    inputs.determinate.flakeModule
-  ];
+  den.default.nixos.imports = [ inputs.determinate.nixosModules.default ];
 }
