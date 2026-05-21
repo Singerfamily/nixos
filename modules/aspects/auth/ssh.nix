@@ -6,7 +6,7 @@ _: {
   # The initial signed cert is injected at install time alongside the host key
   # (see scripts/deploy.sh) so sshd always has a valid HostCertificate to load;
   # the OpenBao agent re-signs it before expiry and reloads sshd.
-  den.aspects.ssh = _: {
+  den.aspects.ssh = {
     nixos =
       { pkgs, ... }:
       {

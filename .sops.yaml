@@ -4,6 +4,7 @@ keys:
 
   - &event-horizon age15vcpw49v9djmtdz2ssq26rv5mg6el83znzzrvdqfh8ujdvv9rfas5g6lrf
   - &clint-pc age1am6w693mw45a85l9tzw0xarvdhkycpstw0wc3p3przwwnxlyq5jqpmx4mw
+  - &nebula age1ynlp5lnxxyhq8jkqnt6x9g2f2xr99r24p0gd03paucgktzgjwa2qzq4fum
 creation_rules:
   # Bootstrap secrets are needed by every managed host's sops-nix at activation
   # time, so every host's age key (derived from its SSH host key) is a recipient,
@@ -15,3 +16,4 @@ creation_rules:
           - *csinger
           - *event-horizon
           - *clint-pc
+          - *nebula

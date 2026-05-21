@@ -7,6 +7,7 @@
       openbao-agent
       ssh
       sssd
+      ldap-home
       recovery-account
       authentik-ldap-outpost
     ];

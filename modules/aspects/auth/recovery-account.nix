@@ -4,7 +4,7 @@ _: {
   # the sops-provisioned root password as the recovery path of last resort.
   #
   # Requires the `passwords/recovery` sops secret — see modules/secrets/sops.nix.
-  den.aspects.recovery-account = _: {
+  den.aspects.recovery-account = {
     nixos =
       { config, ... }:
       {

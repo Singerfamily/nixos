@@ -8,7 +8,7 @@ _: {
   #
   # This is the "OpenBao Host CA" root generated in the pki/ mount. If the
   # Authentik LDAP cert chains to a different CA, add that PEM to the list too.
-  den.aspects.openbao-ca = _: {
+  den.aspects.openbao-ca = {
     nixos = _: {
       security.pki.certificates = [
         ''

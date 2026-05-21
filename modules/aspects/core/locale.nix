@@ -1,7 +1,7 @@
-{ ... }:
+_:
 {
   den.default.nixos =
-    { ... }:
+    _:
     {
       time.timeZone = "America/Edmonton";
       i18n = {

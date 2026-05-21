@@ -19,7 +19,7 @@ _: {
   #
   # TODO before deploy: pin `image` to the tag matching the Authentik server
   # version (e.g. ghcr.io/goauthentik/ldap:2026.2.0).
-  den.aspects.authentik-ldap-outpost = _: {
+  den.aspects.authentik-ldap-outpost = {
     nixos = _: {
       virtualisation.oci-containers = {
         backend = "docker";
