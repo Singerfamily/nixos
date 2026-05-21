@@ -1,5 +1,4 @@
-_:
-{
+_: {
   # OpenSSH server. The host presents a certificate signed by the OpenBao SSH
   # CA — clients trust the CA via a `@cert-authority` known_hosts line instead
   # of pinning per-host keys.
@@ -7,7 +6,7 @@ _:
   # The initial signed cert is injected at install time alongside the host key
   # (see scripts/deploy.sh) so sshd always has a valid HostCertificate to load;
   # the OpenBao agent re-signs it before expiry and reloads sshd.
-  den.aspects.ssh = {
+  den.aspects.ssh = _: {
     nixos =
       { pkgs, ... }:
       {
@@ -36,7 +35,17 @@ _:
           enable = true;
           withUtempter = true;
         };
-        programs.ssh.startAgent = true;
+
+        # Trust host certificates signed by the OpenBao SSH CA, so connecting
+        # to any *.singerfamily.ca host validates without per-host key pinning.
+        programs.ssh = {
+          startAgent = true;
+          knownHosts.openbao-ssh-ca = {
+            certAuthority = true;
+            extraHostNames = [ "*.singerfamily.ca" ];
+            publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOf3s08dcLS8oWm9C425yyknQi8S9NtoJ6A9mK+U+Z5I";
+          };
+        };
 
         environment.systemPackages = [ pkgs.sshfs ];
       };

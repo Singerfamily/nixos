@@ -1,5 +1,4 @@
-_:
-{
+_: {
   # System login via Authentik's LDAP outpost. SSSD caches credentials, so a
   # host that has logged a user in once keeps working offline. PAM tries the
   # (locked, password-less) local account first, then falls through to SSSD.
@@ -10,45 +9,47 @@ _:
   #
   # TODO before deploy: replace the ldap_uri / ldap_search_base /
   # ldap_default_bind_dn placeholders with the real Authentik LDAP values.
-  den.aspects.sssd = {
-    nixos =
-      _:
-      {
-        services.sssd = {
-          enable = true;
-          config = ''
-            [sssd]
-            services = nss, pam
-            domains = singerfamily
+  den.aspects.sssd = _: {
+    nixos = _: {
+      services.sssd = {
+        enable = true;
+        config = ''
+          [sssd]
+          services = nss, pam
+          domains = singerfamily
 
-            [nss]
+          [nss]
 
-            [pam]
+          [pam]
 
-            [domain/singerfamily]
-            id_provider = ldap
-            auth_provider = ldap
+          [domain/singerfamily]
+          id_provider = ldap
+          auth_provider = ldap
 
-            # TODO: real Authentik LDAP outpost hostname.
-            ldap_uri = ldaps://auth.singerfamily.ca
-            # TODO: real directory base DN.
-            ldap_search_base = dc=singerfamily,dc=ca
-            # TODO: real SSSD service-account bind DN.
-            ldap_default_bind_dn = cn=sssd,ou=users,dc=singerfamily,dc=ca
-            ldap_default_authtok_type = password
+          # Local Authentik LDAP outpost (see authentik-ldap-outpost.nix).
+          # Loopback only — LDAP never leaves the host, so no TLS is needed.
+          ldap_uri = ldap://localhost:3389
+          # TODO: real directory base DN.
+          ldap_search_base = dc=singerfamily,dc=ca
+          # TODO: real SSSD service-account bind DN.
+          ldap_default_bind_dn = cn=sssd,ou=users,dc=singerfamily,dc=ca
+          ldap_default_authtok_type = password
 
-            # TLS to the outpost validated against the OpenBao-issued CA.
-            ldap_tls_reqcert = demand
-            ldap_tls_cacert = /etc/openbao/tls/ca.crt
+          # Offline-safe logins.
+          cache_credentials = true
 
-            # Offline-safe logins.
-            cache_credentials = true
-
-            # Do not pull the whole directory. Users and their homes are
-            # declared in the flake; a user must already be known to the host.
-            enumerate = false
-          '';
-        };
+          # Do not pull the whole directory. Users and their homes are
+          # declared in the flake; a user must already be known to the host.
+          enumerate = false
+        '';
       };
+
+      # Prefer the local outpost to be up first. Soft ordering only — SSSD's
+      # credential cache must still let logins through if the outpost is down.
+      systemd.services.sssd = {
+        after = [ "docker-authentik-ldap.service" ];
+        wants = [ "docker-authentik-ldap.service" ];
+      };
+    };
   };
 }

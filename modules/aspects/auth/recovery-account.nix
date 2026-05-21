@@ -1,11 +1,10 @@
-_:
-{
+_: {
   # Local-only break-glass administrator. Never backed by SSSD/LDAP, so it
   # still works when OpenBao *and* Authentik are both unreachable. Paired with
   # the sops-provisioned root password as the recovery path of last resort.
   #
   # Requires the `passwords/recovery` sops secret — see modules/secrets/sops.nix.
-  den.aspects.recovery-account = {
+  den.aspects.recovery-account = _: {
     nixos =
       { config, ... }:
       {

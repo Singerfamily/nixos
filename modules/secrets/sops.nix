@@ -13,7 +13,7 @@
   #   passwords:
   #     root: <hashed password>
   #     recovery: <hashed password>   # add via `sops modules/secrets/sops/bootstrap.yaml`
-  den.aspects.sops = {
+  den.aspects.sops = _: {
     nixos =
       { config, ... }:
       {
