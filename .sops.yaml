@@ -5,10 +5,13 @@ keys:
   - &event-horizon age15vcpw49v9djmtdz2ssq26rv5mg6el83znzzrvdqfh8ujdvv9rfas5g6lrf
   - &clint-pc age1am6w693mw45a85l9tzw0xarvdhkycpstw0wc3p3przwwnxlyq5jqpmx4mw
 creation_rules:
-  - path_regex: modules/secrets/sops/common.yaml$
+  # Bootstrap secrets are needed by every managed host's sops-nix at activation
+  # time, so every host's age key (derived from its SSH host key) is a recipient,
+  # alongside both human admins for editing.
+  - path_regex: modules/secrets/sops/bootstrap.yaml$
     key_groups:
       - age:
           - *esinger
-          - *event-horizon
           - *csinger
+          - *event-horizon
           - *clint-pc
