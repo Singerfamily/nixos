@@ -2,7 +2,7 @@
 {
   den.default = {
     nixos =
-      { lib, ... }:
+      { lib, pkgs, ... }:
       {
         nix.registry =
           let
