@@ -4,7 +4,7 @@
 
   den.aspects.clint-pc = {
     includes = with den.aspects; [
-      # Update with ported aspects as needed.
+      profile-desktop
     ];
 
     nixos =

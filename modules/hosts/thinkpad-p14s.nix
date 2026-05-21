@@ -4,7 +4,7 @@
 
   den.aspects.thinkpad-p14s = {
     includes = with den.aspects; [
-      # Update with ported aspects as needed.
+      profile-wsl
     ];
 
     nixos =

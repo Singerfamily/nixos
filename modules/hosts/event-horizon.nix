@@ -4,20 +4,15 @@
 
   den.aspects.event-horizon = {
     includes = with den.aspects; [
-      sops
-      openbao-agent
-      openbao-ca
-      ssh
-      sssd
-      recovery-account
-      containers
-      authentik-ldap-outpost
+      profile-desktop
     ];
 
     nixos =
       { pkgs, ... }:
       {
         imports = [ inputs.disko.nixosModules.disko ];
+
+        boot.loader.limine.enable = true;
 
         # Hardware
         boot.initrd.availableKernelModules = [

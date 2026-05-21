@@ -1,6 +1,6 @@
 { ... }:
 {
-  den.aspects.containers = impl: {
+  den.aspects.docker = {
     nixos =
       { ... }:
       {
