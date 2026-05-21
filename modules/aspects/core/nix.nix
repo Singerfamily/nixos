@@ -1,9 +1,15 @@
-{ ... }:
+{ inputs, lib, ... }:
 {
   den.default = {
     nixos =
-      { ... }:
+      { lib, ... }:
       {
+        nix.registry =
+          let
+            flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+          in
+          lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+
         nix.settings = {
           trusted-users = [
             "@wheel"

@@ -24,4 +24,6 @@
     inputs' # System scoped inputs
     self' # System scoped self
   ];
+
+  flake.den = den;  # remove after debugging
 }
