@@ -12,11 +12,11 @@ NC='\033[0m'
 echo "Installing pre-commit hooks..."
 
 # Check if pre-commit is installed
-if ! command -v pre-commit &> /dev/null; then
-    echo -e "${YELLOW}pre-commit not found${NC}"
-    echo "Enter the devshell first: nix develop"
-    echo "pre-commit is included in the devshell packages."
-    exit 1
+if ! command -v pre-commit &>/dev/null; then
+  echo -e "${YELLOW}pre-commit not found${NC}"
+  echo "Enter the devshell first: nix develop"
+  echo "pre-commit is included in the devshell packages."
+  exit 1
 fi
 
 # Install the hooks

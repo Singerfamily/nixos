@@ -7,11 +7,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Singer family NixOS configuration — three machines, two users, one flake. Built on the
 [den framework](https://github.com/denful/den) layered over flake-parts + import-tree.
 
-| Host | Hardware | User | Profile |
-|---|---|---|---|
-| `event-horizon` | AMD desktop, LUKS+Btrfs dual-disk | esinger | desktop |
-| `clint-pc` | Intel + NVIDIA hybrid, Sunshine streaming | csinger | desktop |
-| `thinkpad-p14s` | WSL (nixos-wsl), minimal | csinger | wsl |
+| Host            | Hardware                                  | User    | Profile |
+| --------------- | ----------------------------------------- | ------- | ------- |
+| `event-horizon` | AMD desktop, LUKS+Btrfs dual-disk         | esinger | desktop |
+| `clint-pc`      | Intel + NVIDIA hybrid, Sunshine streaming | csinger | desktop |
+| `thinkpad-p14s` | WSL (nixos-wsl), minimal                  | csinger | wsl     |
 
 ## Commands
 
@@ -42,6 +42,7 @@ desktop feature). Example: `modules/aspects/services/docker.nix`. Aspects are wi
 through den's host-aspects and mutual-provider batteries.
 
 Layout under `modules/`:
+
 - `aspects/` — feature units (`services/`, etc.)
 - `hosts/` — per-machine config; declares `den.hosts.<system>.<host>.users.<user>`
 - `users/` — per-user config; declares `den.aspects.<user>` with den user batteries

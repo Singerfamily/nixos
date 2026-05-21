@@ -81,4 +81,34 @@
         };
       };
   };
+
+  # NVIDIA PRIME hybrid aspect (Intel iGPU + NVIDIA dGPU offload)
+  den.aspects.gpu-nvidia-prime = {
+    includes = [
+      den.aspects.gpu-nvidia
+      den.aspects.gpu-intel
+    ];
+    nixos =
+      { lib, config, ... }:
+      {
+        options.den.gpuPrime = {
+          intelBusId = lib.mkOption {
+            type = lib.types.str;
+            description = "Intel iGPU PCI bus ID, e.g. PCI:0:2:0";
+          };
+          nvidiaBusId = lib.mkOption {
+            type = lib.types.str;
+            description = "NVIDIA dGPU PCI bus ID, e.g. PCI:1:0:0";
+          };
+        };
+        config = {
+          hardware.nvidia.prime = {
+            offload.enable = true;
+            offload.enableOffloadCmd = true;
+            intelBusId = config.den.gpuPrime.intelBusId;
+            nvidiaBusId = config.den.gpuPrime.nvidiaBusId;
+          };
+        };
+      };
+  };
 }

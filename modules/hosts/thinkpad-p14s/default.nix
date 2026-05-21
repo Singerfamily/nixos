@@ -8,7 +8,7 @@
     ];
 
     nixos =
-      { lib, ... }:
+      { ... }:
       {
         imports = [ inputs.nixos-wsl.nixosModules.default ];
         wsl.enable = true;

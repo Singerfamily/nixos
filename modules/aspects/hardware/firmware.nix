@@ -1,6 +1,6 @@
 _: {
   den.default.nixos =
-    { lib, config, ... }:
+    { config, ... }:
     {
       hardware.enableAllFirmware = true;
       hardware.cpu.amd.updateMicrocode = builtins.elem "kvm-amd" config.boot.kernelModules;

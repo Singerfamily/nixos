@@ -1,8 +1,8 @@
-{ inputs, lib, ... }:
+{ inputs, ... }:
 {
   den.default = {
     nixos =
-      { lib, pkgs, ... }:
+      { lib, ... }:
       {
         nix.registry =
           let
@@ -46,7 +46,7 @@
         nixpkgs.config.allowUnfree = true;
       };
     homeManager =
-      { ... }:
+      _:
       {
         nixpkgs.config.allowUnfree = true;
       };

@@ -1,14 +1,14 @@
 { den, inputs, ... }:
 {
-  den.aspects.esinger = {
+  den.aspects.csinger = {
     includes = [
       den.batteries.primary-user
       (den.batteries.user-shell "zsh")
     ];
 
     user = {
-      name = "esinger";
-      description = "Eric Singer";
+      name = "csinger";
+      description = "Clint Singer";
     };
 
     nixos =

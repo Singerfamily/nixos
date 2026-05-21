@@ -12,7 +12,7 @@
           turnOffDisplay.idleTimeout = 300;
         };
         battery = {
-          autoSuspend.action = "suspend";
+          autoSuspend.action = "sleep";
           dimDisplay.enable = true;
           powerButtonAction = "shutDown";
           turnOffDisplay.idleTimeout = 360;

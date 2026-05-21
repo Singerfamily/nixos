@@ -1,8 +1,8 @@
-{ ... }:
+_:
 {
   den.aspects.docker = {
     nixos =
-      { ... }:
+      _:
       {
         virtualisation.docker = {
           enable = true;

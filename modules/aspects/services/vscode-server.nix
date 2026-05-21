@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   flake-file.inputs.vscode-server.url = "github:nix-community/nixos-vscode-server";
-  
+
   den.aspects.vscode-server.nixos =
     { pkgs, ... }:
     {
