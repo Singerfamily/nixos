@@ -11,13 +11,42 @@
       description = "Eric Singer";
     };
 
-    provides.event-horizon.homeManager =
+    nixos =
       { pkgs, ... }:
-      let
-        wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Kay/contents/images_dark/5120x2880.png";
-      in
       {
+        fonts.packages = with pkgs; [
+          nerd-fonts.jetbrains-mono
+        ];
 
+        fonts.fontconfig.defaultFonts = {
+          serif = [ "JetBrainsMono Nerd Font" ];
+          sansSerif = [ "JetBrainsMono Nerd Font" ];
+          monospace = [ "JetBrainsMono Nerd Font Mono" ];
+        };
       };
+
+    homeManager = {
+      programs.plasma = {
+        fonts =
+          let
+            font = {
+              family = "JetBrainsMono Nerd Font";
+              pointSize = 10;
+            };
+          in
+          {
+            general = font;
+            menu = font;
+            toolbar = font;
+            windowTitle = font;
+            fixedWidth = font // {
+              family = "JetBrainsMono Nerd Font Mono";
+            };
+            small = font // {
+              pointSize = 8;
+            };
+          };
+      };
+    };
   };
 }
