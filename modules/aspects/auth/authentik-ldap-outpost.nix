@@ -18,13 +18,13 @@ _: {
   # so it never enters the Nix store.
   #
   # TODO before deploy: pin `image` to the tag matching the Authentik server
-  # version (e.g. ghcr.io/goauthentik/ldap:2026.2.0).
+  # version (e.g. ghcr.io/goauthentik/ldap:2026.5.0).
   den.aspects.authentik-ldap-outpost = {
     nixos = _: {
       virtualisation.oci-containers = {
         backend = "docker";
         containers.authentik-ldap = {
-          image = "ghcr.io/goauthentik/ldap:2026.2";
+          image = "ghcr.io/goauthentik/ldap:2026.5";
           environment = {
             AUTHENTIK_HOST = "https://auth.singerfamily.ca";
             AUTHENTIK_INSECURE = "false";
