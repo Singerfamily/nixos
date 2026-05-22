@@ -1,5 +1,4 @@
-_:
-{
+_: {
   den.aspects.clint-pc.nixos =
     { pkgs, ... }:
     {
@@ -29,9 +28,6 @@ _:
 
       environment.variables.LIBVIRT_DEFAULT_URI = "qemu:///system";
 
-      environment.systemPackages = with pkgs; [
-        lsof
-        nodejs
-      ];
+      environment.systemPackages = [ pkgs.lsof ];
     };
 }

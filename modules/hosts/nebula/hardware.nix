@@ -1,7 +1,5 @@
 _: {
   den.aspects.nebula.nixos = _: {
-    networking.hostName = "nebula";
-
     boot.loader.grub = {
       enable = true;
       efiSupport = false;

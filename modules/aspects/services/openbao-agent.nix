@@ -45,8 +45,8 @@ _: {
         # the agent starts. /run/* is tmpfs (recreated every boot).
         systemd.tmpfiles.rules = [
           "d /run/authentik-ldap 0700 root root -"
-          "d /var/lib/sssd      0711 root root -"
-          "d /var/lib/sssd/conf.d 0700 root root -"
+          "d /var/lib/sssd 0711 root root -"
+          "d /etc/sssd/conf.d 0700 root root -"
           "d /var/lib/openbao-agent 0700 root root -"
           "f /etc/nix/access-tokens.conf 0600 root root -"
         ];
@@ -107,7 +107,7 @@ _: {
                 destination = "/etc/ssh/ssh_host_ed25519_key-cert.pub";
                 perms = "0644";
                 error_on_missing_key = false;
-                command = "${pkgs.systemd}/bin/systemctl reload sshd.service";
+                command = "${pkgs.systemd}/bin/systemctl try-reload-or-restart sshd.service";
                 contents = ''{{ with secret "ssh/sign/host" (printf "public_key=%s" (file "/etc/ssh/ssh_host_ed25519_key.pub")) "cert_type=host" "valid_principals=${sshPrincipal}" }}{{ .Data.signed_key }}{{ end }}'';
               }
               # SSSD LDAP bind credentials, dropped into conf.d so the secret
@@ -121,11 +121,11 @@ _: {
                 error_on_missing_key = false;
                 command = "${pkgs.systemd}/bin/systemctl try-reload-or-restart sssd.service";
                 contents = ''
-                  {{ with secret "secret/data/authentik/ldap-service-account" }}
+                  {{- with secret "secret/data/authentik/ldap-service-account" -}}
                   [domain/singerfamily]
                   ldap_default_bind_dn = cn={{ .Data.data.username }},ou=users,dc=ldap,dc=goauthentik,dc=io
                   ldap_default_authtok = {{ .Data.data.password }}
-                  {{ end }}
+                  {{- end -}}
                 '';
               }
               # Authentik LDAP outpost token, as an env-file for the outpost

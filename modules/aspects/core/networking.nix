@@ -1,6 +1,6 @@
 _: {
   den.quirks.firewall = {
-    description = "Firewall port declarations. Both TCP and UDP ports are supported, and the aspect will flatten them into a single list for the NixOS firewall module. The aspect does not support port ranges or other more complex firewall rules; if those are needed, the aspect can be disabled and the user can configure the firewall directly in their NixOS configuration.";
+    description = "Firewall port declarations. Each entry may set `ports` (opened on both TCP and UDP), `tcpPorts` (TCP only), and/or `udpPorts` (UDP only); the aspect flattens these into the NixOS firewall lists. Port ranges and other complex rules are not supported; if those are needed, disable the aspect and configure networking.firewall directly in the NixOS configuration.";
   };
 
   den.aspects.networking = {
@@ -11,8 +11,8 @@ _: {
 
         networking.firewall = {
           enable = true;
-          allowedTCPPorts = lib.concatMap (f: f.ports or [ ]) firewall;
-          allowedUDPPorts = lib.concatMap (f: f.ports or [ ]) firewall;
+          allowedTCPPorts = lib.concatMap (f: (f.ports or [ ]) ++ (f.tcpPorts or [ ])) firewall;
+          allowedUDPPorts = lib.concatMap (f: (f.ports or [ ]) ++ (f.udpPorts or [ ])) firewall;
         };
       };
   };

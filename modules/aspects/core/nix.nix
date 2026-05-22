@@ -14,6 +14,10 @@
           trusted-users = [
             "@wheel"
           ];
+          # Daemon access is limited to wheel (both family users are members;
+          # root is always allowed). No service account currently needs the
+          # daemon — if one ever does, add it to a group and append `@<group>`
+          # here rather than widening this to `*`.
           allowed-users = [
             "@wheel"
           ];
@@ -41,14 +45,13 @@
         };
         nix.gc = {
           automatic = true;
+          dates = "weekly";
           options = "--delete-older-than 14d";
         };
         nixpkgs.config.allowUnfree = true;
       };
-    homeManager =
-      _:
-      {
-        nixpkgs.config.allowUnfree = true;
-      };
+    homeManager = _: {
+      nixpkgs.config.allowUnfree = true;
+    };
   };
 }

@@ -26,30 +26,36 @@
         };
       };
 
-    homeManager = {
-      imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
+    homeManager =
+      { pkgs, ... }:
+      {
+        imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
 
-      programs.plasma = {
-        fonts =
-          let
-            font = {
-              family = "JetBrainsMono Nerd Font";
-              pointSize = 10;
+        home.packages = with pkgs; [
+          nodejs
+        ];
+
+        programs.plasma = {
+          fonts =
+            let
+              font = {
+                family = "JetBrainsMono Nerd Font";
+                pointSize = 10;
+              };
+            in
+            {
+              general = font;
+              menu = font;
+              toolbar = font;
+              windowTitle = font;
+              fixedWidth = font // {
+                family = "JetBrainsMono Nerd Font Mono";
+              };
+              small = font // {
+                pointSize = 8;
+              };
             };
-          in
-          {
-            general = font;
-            menu = font;
-            toolbar = font;
-            windowTitle = font;
-            fixedWidth = font // {
-              family = "JetBrainsMono Nerd Font Mono";
-            };
-            small = font // {
-              pointSize = 8;
-            };
-          };
+        };
       };
-    };
   };
 }

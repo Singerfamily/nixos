@@ -1,5 +1,4 @@
-_:
-{
+_: {
   den.aspects.sunshine = {
     nixos =
       { pkgs, ... }:
@@ -7,6 +6,8 @@ _:
         services.sunshine = {
           enable = true;
           autoStart = true;
+          # CAP_SYS_ADMIN: required for Sunshine's virtual-display / KMS
+          # capture path.
           capSysAdmin = true;
           openFirewall = true;
         };

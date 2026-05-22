@@ -3,19 +3,18 @@
   # GPU aspect - included by hosts that need graphics acceleration
   # Each host should specify which GPU packages they need via provides
   den.aspects.gpu = {
-    nixos =
-      { pkgs, ... }:
-      {
-        hardware.graphics = {
-          enable = true;
-          enable32Bit = true;
-        };
-        environment.sessionVariables.ELECTRON_OZONE_PLATFORM_HINT = "auto";
-        environment.systemPackages = [ pkgs.nvtopPackages.full ];
+    nixos = _: {
+      hardware.graphics = {
+        enable = true;
+        enable32Bit = true;
       };
+      environment.sessionVariables.ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      # nvtop is installed per-GPU-vendor by the sub-aspects below.
+    };
   };
 
-  # Intel GPU sub-aspect
+  # Intel GPU sub-aspect. No nvtop here: in this fleet Intel is always the
+  # iGPU half of a PRIME pair, and the discrete sub-aspect ships nvtop.
   den.aspects.gpu-intel = {
     includes = [ den.aspects.gpu ];
     nixos =
@@ -33,25 +32,28 @@
   # AMD GPU sub-aspect
   den.aspects.gpu-amd = {
     includes = [ den.aspects.gpu ];
-    nixos = _: {
-      hardware.amdgpu = {
-        initrd.enable = true;
-        opencl.enable = true;
-        zluda.enable = true;
-      };
+    nixos =
+      { pkgs, ... }:
+      {
+        hardware.amdgpu = {
+          initrd.enable = true;
+          opencl.enable = true;
+        };
 
-      boot.initrd.kernelModules = [ "amdgpu" ];
-      boot.kernelModules = [ "amdgpu" ];
-      services.xserver.videoDrivers = [ "amdgpu" ];
-      boot.blacklistedKernelModules = [ "radeon" ];
-    };
+        boot.initrd.kernelModules = [ "amdgpu" ];
+        boot.kernelModules = [ "amdgpu" ];
+        services.xserver.videoDrivers = [ "amdgpu" ];
+        boot.blacklistedKernelModules = [ "radeon" ];
+
+        environment.systemPackages = [ pkgs.nvtopPackages.amd ];
+      };
   };
 
   # NVIDIA GPU sub-aspect
   den.aspects.gpu-nvidia = {
     includes = [ den.aspects.gpu ];
     nixos =
-      { config, ... }:
+      { config, pkgs, ... }:
       {
         hardware.nvidia = {
           modesetting.enable = true;
@@ -61,12 +63,12 @@
           package = config.boot.kernelPackages.nvidiaPackages.latest;
           powerManagement.enable = false;
           powerManagement.finegrained = false;
-          # PRIME mode configured per-host (offload vs sync)
-          # prime.offload.enable =  true;
-          # prime.offload.enableOffloadCmd =  true;
+          # PRIME bus IDs are configured per-host by gpu-nvidia-prime.
         };
         services.xserver.videoDrivers = [ "nvidia" ];
         boot.blacklistedKernelModules = [ "nouveau" ];
+
+        environment.systemPackages = [ pkgs.nvtopPackages.nvidia ];
 
         environment.sessionVariables = {
           GBM_BACKEND = "nvidia-drm";

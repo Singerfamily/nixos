@@ -1,8 +1,5 @@
 _: {
   den.aspects.event-horizon.nixos = _: {
-    # boot.loader.systemd-boot.enable = true;
-    # boot.loader.efi.canTouchEfiVariables = true;
-
     boot.loader.limine.enable = true;
 
     boot.initrd.availableKernelModules = [
@@ -13,6 +10,5 @@ _: {
       "sd_mod"
     ];
     boot.kernelModules = [ "kvm-amd" ];
-    networking.hostId = "edc49e33";
   };
 }

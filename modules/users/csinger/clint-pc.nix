@@ -1,5 +1,4 @@
-_:
-{
+_: {
   den.aspects.clint.provides.clint-pc.homeManager =
     { pkgs, ... }:
     let
@@ -16,9 +15,7 @@ _:
       };
     };
 
-  den.aspects.clint.provides.clint-pc.nixos =
-    _:
-    {
-      users.users.clint.extraGroups = [ "libvirtd" ];
-    };
+  den.aspects.clint.provides.clint-pc.nixos = _: {
+    users.users.clint.extraGroups = [ "libvirtd" ];
+  };
 }

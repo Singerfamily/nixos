@@ -12,6 +12,7 @@
       docker
       vscode-server
       kdeconnect
+      determinate
     ];
   };
 }

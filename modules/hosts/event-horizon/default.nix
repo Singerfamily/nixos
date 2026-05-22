@@ -7,7 +7,6 @@
     profile-managed
     gpu-amd
     steam
-    kdeconnect
     adb
   ];
 }

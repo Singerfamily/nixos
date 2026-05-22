@@ -8,6 +8,9 @@ _: {
     nixos =
       { config, ... }:
       {
+        # System-wide: all accounts are declared in the flake, none mutable at
+        # runtime. Required so the recovery account's hashedPasswordFile (and
+        # root's, see modules/secrets/sops.nix) is authoritative.
         users.mutableUsers = false;
 
         users.users.recovery = {
