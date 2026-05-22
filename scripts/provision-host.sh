@@ -24,10 +24,13 @@
 # Auth: uses an existing `bao` token if one is present; otherwise falls back
 # to an interactive `bao login -method=oidc` (browser flow).
 #
+# All `bao` calls target the `nixos` namespace (scripts/openbao-bootstrap.sh
+# stands it up — run that once before provisioning the first host).
+#
 # Requires:
 #   - `bao` CLI able to authenticate against secrets.singerfamily.ca (a token,
-#     or OIDC login) with permission to manage policies and auth/approle
-#     roles, write ssh/sign/host, and read pki/cert/ca.
+#     or OIDC login) with the `provision` policy on the `nixos` namespace —
+#     manage policies and auth/approle roles, write ssh/sign/host.
 #   - A working sops setup locally — the running user's age key must already
 #     be a recipient of bootstrap.yaml (eric / clint).
 #   - `ssh-to-age`, `sops`, `jq` on PATH (all in nixpkgs).
@@ -37,7 +40,6 @@
 #   ssh_host_ed25519_key.pub        host public key
 #   ssh_host_ed25519_key-cert.pub   SSH host cert signed by ssh/roles/host
 #   role_id / secret_id             AppRole credentials for the `host` role
-#   ca.crt                          OpenBao PKI root CA
 #
 # Usage:
 #   scripts/provision-host.sh <hostname>            # writes to /tmp/deploy-seed
@@ -54,7 +56,8 @@ PRINCIPAL="${HOST}.singerfamily.ca"
 ROLE="host-${HOST}"
 SEED="${SEED:-/tmp/deploy-seed}"
 BAO_ADDR="${BAO_ADDR:-https://secrets.singerfamily.ca}"
-export BAO_ADDR
+BAO_NAMESPACE="${BAO_NAMESPACE:-nixos}"
+export BAO_ADDR BAO_NAMESPACE
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 SOPS_YAML="${REPO_ROOT}/.sops.yaml"
@@ -135,7 +138,8 @@ fi
 sops updatekeys -y "$BOOTSTRAP_YAML"
 
 # --- 3. Ensure OpenBao server-side config -----------------------------------
-# AppRole auth method (OIDC is assumed already configured for operator login).
+# AppRole auth method — normally already enabled by scripts/openbao-bootstrap.sh;
+# this is a fallback if the namespace was set up by hand.
 if ! bao auth list -format=json | jq -e '."approle/"' >/dev/null 2>&1; then
   echo "enabling approle auth method"
   bao auth enable approle
@@ -184,15 +188,8 @@ bao write -field=signed_key ssh/sign/host \
 bao read -field=role_id "auth/approle/role/${ROLE}/role-id" >"$SEED/role_id"
 bao write -field=secret_id -f "auth/approle/role/${ROLE}/secret-id" >"$SEED/secret_id"
 
-# OpenBao PKI root CA — used by the agent to verify the OpenBao server's
-# TLS cert. (Traefik also presents a publicly-trusted cert, so this is
-# defense-in-depth; ca_cert is configured in modules/aspects/services/
-# openbao-agent.nix.)
-bao read -field=certificate pki/cert/ca >"$SEED/ca.crt"
-
 chmod 600 "$SEED/secret_id" "$SEED/role_id" "$SEED/ssh_host_ed25519_key"
-chmod 644 "$SEED/ca.crt" \
-  "$SEED/ssh_host_ed25519_key.pub" "$SEED/ssh_host_ed25519_key-cert.pub"
+chmod 644 "$SEED/ssh_host_ed25519_key.pub" "$SEED/ssh_host_ed25519_key-cert.pub"
 
 cat <<EOF
 

@@ -56,12 +56,16 @@ _: {
 
           settings = {
             # One-way TLS to OpenBao — Traefik terminates with a publicly-
-            # trusted cert (Let's Encrypt). No ca_cert: rely on the system
-            # CA bundle (security.pki.*). If we ever bypass Traefik and hit
-            # OpenBao's internal listener directly, set ca_cert = ca.crt
-            # from the install-time seed.
+            # trusted cert (Let's Encrypt), so no ca_cert: rely on the system
+            # CA bundle (security.pki.*).
+            #
+            # `namespace` scopes every request to the flake's own `nixos`
+            # namespace on the shared server — the AppRole role, the SSH CA,
+            # and the KV secrets the templates below read all live there
+            # (see scripts/openbao-bootstrap.sh).
             vault = {
               address = "https://secrets.singerfamily.ca";
+              namespace = "nixos";
             };
 
             # AppRole login. role_id + secret_id are seeded by
@@ -71,9 +75,16 @@ _: {
             # re-provisioning. To rotate after a suspected leak, run
             # scripts/rotate-host-creds.sh — it destroys the old secret_ids
             # server-side and re-delivers fresh credentials to this path.
+            #
+            # `namespace` is set on the method itself: auto_auth does NOT
+            # inherit `vault.namespace` for the login request, so without
+            # this the login hits the root namespace and fails. Once
+            # authenticated here, the token carries the namespace and the
+            # templates below resolve within it.
             auto_auth = {
               method = {
                 type = "approle";
+                namespace = "nixos";
                 config = {
                   role_id_file_path = "${approleDir}/role_id";
                   secret_id_file_path = "${approleDir}/secret_id";

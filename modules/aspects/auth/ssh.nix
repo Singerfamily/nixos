@@ -1,24 +1,37 @@
 _: {
-  # OpenSSH server. The host presents a certificate signed by the OpenBao SSH
-  # CA — clients trust the CA via a `@cert-authority` known_hosts line instead
-  # of pinning per-host keys.
+  # OpenSSH server, fully certificate-based — one OpenBao SSH CA signs both
+  # ends:
+  #   • Host certs — the host presents a cert; clients trust the CA via a
+  #     `@cert-authority` known_hosts line instead of pinning per-host keys.
+  #     The initial cert is injected at install time alongside the host key
+  #     (see scripts/deploy.sh); the OpenBao agent re-signs it before expiry
+  #     and reloads sshd.
+  #   • User certs — sshd trusts the same CA via `TrustedUserCAKeys`, so users
+  #     log in with a short-lived cert from `scripts/ssh-user-cert.sh` instead
+  #     of a password. Password auth is disabled.
   #
-  # The initial signed cert is injected at install time alongside the host key
-  # (see scripts/deploy.sh) so sshd always has a valid HostCertificate to load;
-  # the OpenBao agent re-signs it before expiry and reloads sshd.
+  # The CA lives in the flake's `nixos` OpenBao namespace
+  # (see scripts/openbao-bootstrap.sh). Its public key is not secret.
   den.aspects.ssh = {
     nixos =
       { pkgs, ... }:
+      let
+        openbaoSshCa = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKIEB6G2xmiF6bhn5fAWhHNVCzMi4N7DojaWZ2XOrQpV";
+      in
       {
+        # CA public key on disk so sshd can trust user certs signed by it.
+        environment.etc."ssh/openbao-ca.pub".text = "${openbaoSshCa}\n";
+
         services.openssh = {
           enable = true;
           settings = {
-            PasswordAuthentication = true;
+            PasswordAuthentication = false;
             PermitRootLogin = "no";
             StreamLocalBindUnlink = "yes";
           };
           extraConfig = ''
             HostCertificate /etc/ssh/ssh_host_ed25519_key-cert.pub
+            TrustedUserCAKeys /etc/ssh/openbao-ca.pub
           '';
         };
 
@@ -43,7 +56,7 @@ _: {
           knownHosts.openbao-ssh-ca = {
             certAuthority = true;
             extraHostNames = [ "*.singerfamily.ca" ];
-            publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOf3s08dcLS8oWm9C425yyknQi8S9NtoJ6A9mK+U+Z5I";
+            publicKey = openbaoSshCa;
           };
         };
 

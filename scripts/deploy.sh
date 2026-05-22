@@ -10,7 +10,6 @@
 #   /etc/ssh/ssh_host_ed25519_key-cert.pub   initial SSH host cert (OpenBao SSH CA)
 #   /etc/openbao/approle/role_id             AppRole role_id (per-host role)
 #   /etc/openbao/approle/secret_id           AppRole secret_id (per-host role)
-#   /etc/openbao/tls/ca.crt                  OpenBao PKI CA bundle
 #
 # Stage these under $SEED (default /tmp/deploy-seed) before running. The OpenBao
 # agent rotates its own tokens at runtime; this is bootstrap only — see
@@ -37,10 +36,6 @@ install -m644 "$SEED/ssh_host_ed25519_key-cert.pub" "$temp/etc/ssh/ssh_host_ed25
 install -d -m700 "$temp/etc/openbao/approle"
 install -m600 "$SEED/role_id" "$temp/etc/openbao/approle/role_id"
 install -m600 "$SEED/secret_id" "$temp/etc/openbao/approle/secret_id"
-
-# --- OpenBao server TLS trust -----------------------------------------------
-install -d -m755 "$temp/etc/openbao/tls"
-install -m644 "$SEED/ca.crt" "$temp/etc/openbao/tls/ca.crt"
 
 ssh-keygen -R "$HOST"
 ssh-copy-id -o StrictHostKeyChecking=accept-new "root@$HOST"

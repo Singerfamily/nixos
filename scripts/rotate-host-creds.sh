@@ -39,7 +39,8 @@ HOST=$1
 TARGET="${2:-root@${HOST}.singerfamily.ca}"
 ROLE="host-${HOST}"
 BAO_ADDR="${BAO_ADDR:-https://secrets.singerfamily.ca}"
-export BAO_ADDR
+BAO_NAMESPACE="${BAO_NAMESPACE:-nixos}"
+export BAO_ADDR BAO_NAMESPACE
 
 # Use an existing token if valid; otherwise fall back to OIDC (browser flow).
 if ! bao token lookup >/dev/null 2>&1; then

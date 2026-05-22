@@ -3,7 +3,6 @@
   den.aspects.profile-managed = {
     includes = with den.aspects; [
       sops
-      openbao-ca
       openbao-cli
       openbao-agent
       ssh
