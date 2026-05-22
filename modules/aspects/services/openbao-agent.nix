@@ -1,9 +1,11 @@
 _: {
   # OpenBao Agent — the on-device bridge to OpenBao (secrets.singerfamily.ca).
   #
-  # Authenticates via AppRole. role_id + secret_id are injected at install
-  # time (see scripts/deploy.sh) into /etc/openbao/approle/. The agent reads
-  # both, logs in, then renders runtime secrets to disk:
+  # Authenticates via AppRole against a per-host role (host-<hostname>).
+  # role_id + secret_id are injected at install time (see scripts/deploy.sh)
+  # into /etc/openbao/approle/, and can be rotated on a live host after a
+  # suspected leak with scripts/rotate-host-creds.sh. The agent reads both,
+  # logs in, then renders runtime secrets to disk:
   #   • SSH host certificate, re-signed by the OpenBao SSH CA
   #   • the SSSD LDAP bind credentials, as an /etc/sssd/conf.d snippet
   #   • the Authentik LDAP outpost token, as a container env-file
@@ -66,8 +68,9 @@ _: {
             # scripts/deploy.sh from scripts/provision-host.sh output.
             # remove_secret_id_file_after_reading=false keeps the secret_id
             # on disk so the agent can re-login after a restart without
-            # re-provisioning. If we ever rotate secret_ids on a schedule,
-            # flip this to true and use a wrapped delivery flow.
+            # re-provisioning. To rotate after a suspected leak, run
+            # scripts/rotate-host-creds.sh — it destroys the old secret_ids
+            # server-side and re-delivers fresh credentials to this path.
             auto_auth = {
               method = {
                 type = "approle";

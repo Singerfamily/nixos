@@ -8,8 +8,8 @@
 #   /etc/ssh/ssh_host_ed25519_key            host private key (sops age identity)
 #   /etc/ssh/ssh_host_ed25519_key.pub        host public key
 #   /etc/ssh/ssh_host_ed25519_key-cert.pub   initial SSH host cert (OpenBao SSH CA)
-#   /etc/openbao/approle/role_id             AppRole role_id for the `host` role
-#   /etc/openbao/approle/secret_id           AppRole secret_id (one per host)
+#   /etc/openbao/approle/role_id             AppRole role_id (per-host role)
+#   /etc/openbao/approle/secret_id           AppRole secret_id (per-host role)
 #   /etc/openbao/tls/ca.crt                  OpenBao PKI CA bundle
 #
 # Stage these under $SEED (default /tmp/deploy-seed) before running. The OpenBao

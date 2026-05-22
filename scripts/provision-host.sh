@@ -11,13 +11,23 @@
 #      .sops.yaml + re-encrypt modules/secrets/sops/bootstrap.yaml so the new
 #      host is a decryption recipient. THIS REWRITES TRACKED FILES — commit
 #      them before deploying so the flake build sees the updated recipients.
-#   3. Mint runtime credentials from OpenBao (SSH host cert + AppRole
-#      secret_id) into $SEED for scripts/deploy.sh to ship via --extra-files.
+#   3. Ensure the OpenBao server-side config exists (approle auth method,
+#      the shared `host` policy, and a per-host `host-<hostname>` AppRole
+#      role) — created/updated idempotently every run.
+#   4. Mint runtime credentials from OpenBao (SSH host cert + AppRole
+#      role_id/secret_id) into $SEED for scripts/deploy.sh to ship via
+#      --extra-files.
+#
+# Each host gets its own AppRole role so a leaked credential can be revoked
+# in isolation — see scripts/rotate-host-creds.sh.
+#
+# Auth: uses an existing `bao` token if one is present; otherwise falls back
+# to an interactive `bao login -method=oidc` (browser flow).
 #
 # Requires:
-#   - `bao` CLI authenticated against secrets.singerfamily.ca with permission
-#     to write ssh/sign/host, read auth/approle/role/host/role-id, and write
-#     auth/approle/role/host/secret-id, read pki/cert/ca.
+#   - `bao` CLI able to authenticate against secrets.singerfamily.ca (a token,
+#     or OIDC login) with permission to manage policies and auth/approle
+#     roles, write ssh/sign/host, and read pki/cert/ca.
 #   - A working sops setup locally — the running user's age key must already
 #     be a recipient of bootstrap.yaml (eric / clint).
 #   - `ssh-to-age`, `sops`, `jq` on PATH (all in nixpkgs).
@@ -41,6 +51,7 @@ fi
 
 HOST=$1
 PRINCIPAL="${HOST}.singerfamily.ca"
+ROLE="host-${HOST}"
 SEED="${SEED:-/tmp/deploy-seed}"
 BAO_ADDR="${BAO_ADDR:-https://secrets.singerfamily.ca}"
 export BAO_ADDR
@@ -49,10 +60,10 @@ REPO_ROOT=$(git rev-parse --show-toplevel)
 SOPS_YAML="${REPO_ROOT}/.sops.yaml"
 BOOTSTRAP_YAML="${REPO_ROOT}/modules/secrets/sops/bootstrap.yaml"
 
+# Use an existing token if valid; otherwise fall back to OIDC (browser flow).
 if ! bao token lookup >/dev/null 2>&1; then
-  echo "bao CLI is not authenticated against $BAO_ADDR" >&2
-  echo 'run `bao login` (or set BAO_TOKEN) and retry' >&2
-  exit 1
+  echo "bao CLI not authenticated against $BAO_ADDR — logging in via OIDC" >&2
+  bao login -method=oidc -no-print
 fi
 
 install -d -m700 "$SEED"
@@ -123,7 +134,43 @@ fi
 # recipient (so their age key can decrypt the existing payload).
 sops updatekeys -y "$BOOTSTRAP_YAML"
 
-# --- 3. OpenBao runtime credentials -----------------------------------------
+# --- 3. Ensure OpenBao server-side config -----------------------------------
+# AppRole auth method (OIDC is assumed already configured for operator login).
+if ! bao auth list -format=json | jq -e '."approle/"' >/dev/null 2>&1; then
+  echo "enabling approle auth method"
+  bao auth enable approle
+fi
+
+# Shared `host` policy — the capability set every managed host's agent needs.
+# Written every run so it stays in sync with the agent's templates
+# (see modules/aspects/services/openbao-agent.nix).
+bao policy write host - <<'POLICY'
+# SSH host certificate signing.
+path "ssh/sign/host" {
+  capabilities = ["create", "update"]
+}
+# Runtime secrets rendered by the OpenBao agent.
+path "secret/data/authentik/ldap-service-account" {
+  capabilities = ["read"]
+}
+path "secret/data/authentik/ldap-outpost-token" {
+  capabilities = ["read"]
+}
+path "secret/data/hosts/github-flake-token" {
+  capabilities = ["read"]
+}
+POLICY
+
+# Per-host AppRole role. One role per host so a leaked credential can be
+# revoked in isolation (scripts/rotate-host-creds.sh) without touching other
+# hosts. secret_id has no TTL or use limit: the agent keeps it on disk and
+# re-logs in after every reboot.
+bao write "auth/approle/role/${ROLE}" \
+  token_policies=host \
+  secret_id_ttl=0 \
+  secret_id_num_uses=0
+
+# --- 4. OpenBao runtime credentials -----------------------------------------
 # SSH host cert (signed by the OpenBao SSH CA, valid for ssh/roles/host).
 bao write -field=signed_key ssh/sign/host \
   public_key=@"$SEED/ssh_host_ed25519_key.pub" \
@@ -131,12 +178,11 @@ bao write -field=signed_key ssh/sign/host \
   valid_principals="${PRINCIPAL}" \
   >"$SEED/ssh_host_ed25519_key-cert.pub"
 
-# AppRole credentials for the `host` role. role_id is stable per role and
-# safe to fetch on every run; secret_id is freshly minted (one-time-use
-# unless the role's secret_id_num_uses > 1) and dropped into the seed for
-# scripts/deploy.sh to ship.
-bao read -field=role_id auth/approle/role/host/role-id >"$SEED/role_id"
-bao write -field=secret_id -f auth/approle/role/host/secret-id >"$SEED/secret_id"
+# AppRole credentials for the per-host role. role_id is stable per role and
+# safe to fetch on every run; secret_id is freshly minted and dropped into
+# the seed for scripts/deploy.sh to ship.
+bao read -field=role_id "auth/approle/role/${ROLE}/role-id" >"$SEED/role_id"
+bao write -field=secret_id -f "auth/approle/role/${ROLE}/secret-id" >"$SEED/secret_id"
 
 # OpenBao PKI root CA — used by the agent to verify the OpenBao server's
 # TLS cert. (Traefik also presents a publicly-trusted cert, so this is
