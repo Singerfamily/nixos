@@ -1,6 +1,6 @@
 { den, inputs, ... }:
 {
-  den.hosts.x86_64-linux.thinkpad-p14s.users.esinger = { };
+  den.hosts.x86_64-linux.thinkpad-p14s.users.eric = { };
 
   den.aspects.thinkpad-p14s = {
     includes = with den.aspects; [

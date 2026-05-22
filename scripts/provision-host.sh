@@ -19,7 +19,7 @@
 #     to write ssh/sign/host, read auth/approle/role/host/role-id, and write
 #     auth/approle/role/host/secret-id, read pki/cert/ca.
 #   - A working sops setup locally — the running user's age key must already
-#     be a recipient of bootstrap.yaml (esinger / csinger).
+#     be a recipient of bootstrap.yaml (eric / clint).
 #   - `ssh-to-age`, `sops`, `jq` on PATH (all in nixpkgs).
 #
 # Produces under $SEED (default /tmp/deploy-seed):

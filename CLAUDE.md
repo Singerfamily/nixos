@@ -9,9 +9,9 @@ Singer family NixOS configuration — three machines, two users, one flake. Buil
 
 | Host            | Hardware                                  | User    | Profile |
 | --------------- | ----------------------------------------- | ------- | ------- |
-| `event-horizon` | AMD desktop, LUKS+Btrfs dual-disk         | esinger | desktop |
-| `clint-pc`      | Intel + NVIDIA hybrid, Sunshine streaming | csinger | desktop |
-| `thinkpad-p14s` | WSL (nixos-wsl), minimal                  | csinger | wsl     |
+| `event-horizon` | AMD desktop, LUKS+Btrfs dual-disk         | eric | desktop |
+| `clint-pc`      | Intel + NVIDIA hybrid, Sunshine streaming | clint | desktop |
+| `thinkpad-p14s` | WSL (nixos-wsl), minimal                  | clint | wsl     |
 
 ## Commands
 

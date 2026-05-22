@@ -1,6 +1,6 @@
 _:
 {
-  den.aspects.csinger.provides.clint-pc.homeManager =
+  den.aspects.clint.provides.clint-pc.homeManager =
     { pkgs, ... }:
     let
       wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Next/contents/images_dark/5120x2880.png";
@@ -16,9 +16,9 @@ _:
       };
     };
 
-  den.aspects.csinger.provides.clint-pc.nixos =
+  den.aspects.clint.provides.clint-pc.nixos =
     _:
     {
-      users.users.csinger.extraGroups = [ "libvirtd" ];
+      users.users.clint.extraGroups = [ "libvirtd" ];
     };
 }

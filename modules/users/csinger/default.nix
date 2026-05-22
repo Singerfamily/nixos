@@ -1,14 +1,14 @@
 { den, inputs, ... }:
 {
-  den.homes.x86_64-linux.csinger = { };
-  den.aspects.csinger = {
+  den.homes.x86_64-linux.clint = { };
+  den.aspects.clint = {
     includes = [
       den.batteries.primary-user
       (den.batteries.user-shell "zsh")
     ];
 
     user = {
-      name = "csinger";
+      name = "clint";
       description = "Clint Singer";
     };
 

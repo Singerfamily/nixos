@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.hosts.x86_64-linux.clint-pc.users.csinger = { };
+  den.hosts.x86_64-linux.clint-pc.users.clint = { };
 
   den.aspects.clint-pc = {
     includes = with den.aspects; [
