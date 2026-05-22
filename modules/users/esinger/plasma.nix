@@ -1,6 +1,6 @@
 _:
 {
-  den.aspects.esinger.provides.event-horizon.homeManager =
+  den.homes.x86_64-linux."esinger@event-horizon".homeManager =
     { pkgs, ... }:
     let
       wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Kay/contents/images_dark/5120x2880.png";
