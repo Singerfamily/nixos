@@ -1,79 +1,38 @@
 # Home provisioning for LDAP/Authentik-backed users on managed hosts.
 #
 # An LDAP user is unknown at build time, so home-manager's NixOS module
-# (which is keyed to a build-time username) can never manage them. Instead
-# we build STANDALONE home-manager closures — one per "portable" user, baked
-# into the system closure — and activate the matching one at session start.
+# (keyed to a build-time username) can never manage them. Instead we reuse
+# the flake's own standalone home configs: every den user that declares
+# `den.homes.<arch>.<name>` is exported as `homeConfigurations.<name>` (and
+# an activatable `packages.<arch>.<name>`, runnable via `nix run .#<name>`).
 #
-# A portable user is any directory under hm/users/. Each contributes:
-#   hm/users/<name>/shell.nix     always applied (shell-only, headless-safe)
-#   hm/users/<name>/desktop.nix   applied only on graphical hosts (optional)
-# plus the shared hm/base/{shell,desktop}.nix layers. Headless hosts (servers,
-# WSL) never pull the desktop layer or import plasma-manager — shell only.
+# Each home's activationPackage is baked into the system closure as
+# /etc/ldap-hm/<name>; the matching one is activated at session start. A
+# username with no corresponding den home is simply skipped.
 #
 # Activation runs as a systemd USER service ordered before the graphical
-# session, so Plasma waits for the known-state home to be written. It is
-# wired with `Wants` (via wantedBy), not `Requires` — a failed or slow
-# activation logs and is skipped, never blocking login (fail-open + timeout).
-{ inputs, lib, ... }:
+# session, so Plasma waits for the home to be written. It is wired with
+# `Wants` (via wantedBy), not `Requires` — a failed or slow activation logs
+# and is skipped, never blocking login (fail-open + timeout).
+{ self, ... }:
 let
-  portableUsers = builtins.attrNames (
-    lib.filterAttrs (_: t: t == "directory") (builtins.readDir ../../../hm/users)
-  );
+  # Portable users = every standalone home the flake exports. Sourced
+  # straight from den — the home config IS the den user aspect.
+  homes = self.homeConfigurations or { };
+  portableUsers = builtins.attrNames homes;
 in
 {
   den.aspects.ldap-home = {
     nixos =
-      {
-        pkgs,
-        config,
-        lib,
-        ...
-      }:
+      { pkgs, config, lib, ... }:
       let
-        graphical = config.services.desktopManager.plasma6.enable or false;
-
-        # Build the standalone HM activation package for one portable user,
-        # composing only the layers valid for this host's class.
-        mkActivation =
-          username:
-          let
-            userDir = ../../../hm/users + "/${username}";
-            desktopFile = userDir + "/desktop.nix";
-            shellLayers = [
-              {
-                home.username = username;
-                home.homeDirectory = "/home/${username}";
-                home.stateVersion = "26.05";
-              }
-              ../../../hm/base/shell.nix
-              (userDir + "/shell.nix")
-            ];
-            # On a graphical host every portable user gets the base Plasma
-            # known-state; a per-user desktop.nix is layered on if present.
-            # Headless hosts get none of this — plasma-manager is never even
-            # imported there.
-            desktopLayers = lib.optionals graphical (
-              [
-                inputs.plasma-manager.homeModules.plasma-manager
-                ../../../hm/base/desktop.nix
-              ]
-              ++ lib.optional (builtins.pathExists desktopFile) desktopFile
-            );
-          in
-          (inputs.home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            modules = shellLayers ++ desktopLayers;
-          }).activationPackage;
-
         # Session-start activation. Acts ONLY on pure-LDAP users: someone who
         # has logged in but has NO local /etc/passwd entry. Local/declared
         # accounts (their HM is owned by the NixOS home-manager module) are
-        # skipped, as are users with no portable config. The /etc/passwd test
-        # is deliberate — `getent -s sss` cannot load the SSSD NSS plugin from
-        # inside a systemd user service, so service-mode lookups are unusable
-        # here; absence from /etc/passwd is the reliable "this is an LDAP user"
-        # signal.
+        # skipped, as are users with no exported home. The /etc/passwd test
+        # is deliberate — `getent -s sss` cannot load the SSSD NSS plugin
+        # from inside a systemd user service, so absence from /etc/passwd is
+        # the reliable "this is an LDAP user" signal.
         activateScript = pkgs.writeShellScript "ldap-home-activate" ''
           set -u
           user=$(${pkgs.coreutils}/bin/id -un) || exit 0
@@ -109,11 +68,11 @@ in
           sddm.makeHomeDir = true;
         };
 
-        # One built HM generation per portable user — on-disk, offline.
+        # One exported home generation per portable user — on-disk, offline.
         environment.etc = builtins.listToAttrs (
           map (u: {
             name = "ldap-hm/${u}";
-            value.source = mkActivation u;
+            value.source = homes.${u}.activationPackage;
           }) portableUsers
         );
 

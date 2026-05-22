@@ -1,5 +1,6 @@
 { den, inputs, ... }:
 {
+  den.homes.x86_64-linux.csinger = { };
   den.aspects.csinger = {
     includes = [
       den.batteries.primary-user

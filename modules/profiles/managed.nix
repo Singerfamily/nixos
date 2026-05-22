@@ -8,6 +8,7 @@
       ssh
       sssd
       ldap-home
+      auto-update
       recovery-account
       authentik-ldap-outpost
     ];

@@ -28,6 +28,17 @@ _: {
       {
         environment.systemPackages = [ pkgs.openbao ];
 
+        # Pull the GitHub flake-deploy token in via `!include`, so the token
+        # itself never enters the world-readable Nix store. The file is
+        # rendered by the OpenBao agent (template below); tmpfiles seeds an
+        # empty file first so `!include` succeeds before the first render
+        # (and on hosts where OpenBao is unreachable). Flake fetches happen
+        # client-side, so each `nix`/`nixos-rebuild` invocation re-reads it —
+        # no nix-daemon restart needed.
+        nix.extraOptions = ''
+          !include /etc/nix/access-tokens.conf
+        '';
+
         # Ensure destination directories for template renders exist before
         # the agent starts. /run/* is tmpfs (recreated every boot).
         systemd.tmpfiles.rules = [
@@ -35,6 +46,7 @@ _: {
           "d /var/lib/sssd      0711 root root -"
           "d /var/lib/sssd/conf.d 0700 root root -"
           "d /var/lib/openbao-agent 0700 root root -"
+          "f /etc/nix/access-tokens.conf 0600 root root -"
         ];
 
         services.vault-agent.instances.openbao = {
@@ -110,6 +122,16 @@ _: {
                 error_on_missing_key = false;
                 command = "${pkgs.systemd}/bin/systemctl try-restart docker-authentik-ldap.service";
                 contents = ''AUTHENTIK_TOKEN={{ with secret "secret/data/authentik/ldap-outpost-token" }}{{ .Data.data.token }}{{ end }}'';
+              }
+              # GitHub flake-deploy token, as a nix.conf fragment `!include`d
+              # by every nix invocation (see nix.extraOptions above). Lets
+              # `update` and the weekly auto-upgrade fetch the private
+              # singerfamily/nixos flake.
+              {
+                destination = "/etc/nix/access-tokens.conf";
+                perms = "0600";
+                error_on_missing_key = false;
+                contents = ''access-tokens = github.com={{ with secret "secret/data/hosts/github-flake-token" }}{{ .Data.data.token }}{{ end }}'';
               }
             ];
           };
