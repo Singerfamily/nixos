@@ -153,7 +153,7 @@ bao policy write host - <<'POLICY'
 path "ssh/sign/host" {
   capabilities = ["create", "update"]
 }
-# Runtime secrets rendered by the OpenBao agent.
+# Fixed system secrets rendered by the agent (SSSD, Authentik, GitHub token).
 path "secret/data/authentik/ldap-service-account" {
   capabilities = ["read"]
 }
@@ -161,6 +161,15 @@ path "secret/data/authentik/ldap-outpost-token" {
   capabilities = ["read"]
 }
 path "secret/data/hosts/github-flake-token" {
+  capabilities = ["read"]
+}
+# Declarative secrets via openbao.secrets / home-manager openbao.secrets.
+# system secrets live under secret/data/system/, user secrets under
+# secret/data/users/<username>/.
+path "secret/data/system/*" {
+  capabilities = ["read"]
+}
+path "secret/data/users/*" {
   capabilities = ["read"]
 }
 POLICY

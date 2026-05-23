@@ -5,6 +5,7 @@
       sops
       openbao-cli
       openbao-agent
+      openbao-secrets
       ssh
       sssd
       ldap-home
