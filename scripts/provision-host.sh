@@ -172,6 +172,11 @@ path "secret/data/system/*" {
 path "secret/data/users/*" {
   capabilities = ["read"]
 }
+# Host-agent user cert signing (ssh/roles/user-host).
+# Scoping is enforced by AuthorizedPrincipalsFile on the accepting host.
+path "ssh/sign/user-host" {
+  capabilities = ["create", "update"]
+}
 POLICY
 
 # Per-host AppRole role. One role per host so a leaked credential can be

@@ -77,6 +77,27 @@ bao write ssh/roles/host - >/dev/null <<'JSON'
 }
 JSON
 
+# User certificate role (host-agent path) — the host's AppRole calls this to
+# sign short-lived user certs for users declared on the host. allowed_users="*"
+# because per-host scoping is enforced on the accepting side via
+# AuthorizedPrincipalsFile (see modules/aspects/auth/ssh.nix).
+bao write ssh/roles/user-host - >/dev/null <<'JSON'
+{
+  "key_type": "ca",
+  "allow_user_certificates": true,
+  "allow_host_certificates": false,
+  "allowed_users": "*",
+  "allow_empty_principals": false,
+  "default_extensions": {
+    "permit-pty": "",
+    "permit-port-forwarding": "",
+    "permit-agent-forwarding": ""
+  },
+  "ttl": "12h",
+  "max_ttl": "12h"
+}
+JSON
+
 # --- KV v2 store ------------------------------------------------------------
 if ! secret_enabled secret; then
   echo "enabling secret kv-v2 store"
