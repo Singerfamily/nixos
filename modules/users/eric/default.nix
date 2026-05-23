@@ -1,10 +1,21 @@
-{ den, inputs, ... }:
+{
+  den,
+  inputs,
+  lib,
+  ...
+}:
 {
   den.homes.x86_64-linux.eric = { };
+
   den.aspects.eric = {
-    includes = [
-      den.batteries.primary-user
-      (den.batteries.user-shell "zsh")
+    includes = lib.mkMerge [
+      (with den.aspects; [
+        devenv
+      ])
+      (with den.batteries; [
+        primary-user
+        (user-shell "zsh")
+      ])
     ];
 
     user = {
@@ -36,12 +47,9 @@
         programs = {
           home-manager.enable = true;
           nix-index.enable = true;
-          htop.enable = true;
+
           btop.enable = true;
-          direnv = {
-            enable = true;
-            nix-direnv.enable = true;
-          };
+
           eza = {
             enable = true;
             git = true;
@@ -120,75 +128,7 @@
           extensions = [ pkgs.gh-markdown-preview ];
         };
 
-        programs.git = {
-          enable = true;
-          signing.format = "ssh";
-          settings = {
-            commit.gpgSign = true;
-            tag.gpgSign = true;
-            user.signingKey = "~/.ssh/id_ed25519.pub";
-            gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
-
-            init.defaultBranch = "main";
-
-            pull.rebase = true;
-            push.autoSetupRemote = true;
-
-            pager.difftool = true;
-
-            diff.tool = "difftastic";
-            diff.sopsdiffer.textconv = "sops -d --config /dev/null";
-            difftool.prompt = false;
-            difftool.difftastic.cmd = "${pkgs.difftastic}/bin/difft $LOCAL $REMOTE";
-
-            alias = {
-              "dff" = "difftool";
-              "fap" = "fetch --all -p";
-              "rm-merged" =
-                "for-each-ref --format '%(refname:short)' refs/heads | grep -vE '^(main|master)$' | xargs git branch -D";
-              "recents" =
-                "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'";
-            };
-
-          };
-          ignores = [
-            ".DS_Store"
-            "*.swp"
-            ".direnv"
-            ".envrc"
-            ".envrc.local"
-            "**/*local*"
-            ".env"
-            ".env.local"
-            ".jj"
-            "devshell.toml"
-            ".tool-versions"
-            "/.github/chatmodes"
-            "/.github/instructions"
-            "*.key"
-            "target"
-            "result"
-            "out"
-            "old"
-            "*~"
-            ".aider*"
-            ".crush*"
-          ];
-          attributes = [
-            "secrets/*.yaml diff=sopsdiffer"
-            "secrets/*.json diff=sopsdiffer"
-            "secrets/*.ini diff=sopsdiffer"
-            "secrets/*.env diff=sopsdiffer"
-          ];
-          includes = [ ]; # standalone; no host-specific gitconfig includes needed
-          lfs.enable = true;
-        };
-
-        programs.delta.enable = true;
-        programs.delta.options = {
-          line-numbers = true;
-          side-by-side = false;
-        };
+        programs.git.enable = true;
 
         home.file.".fdignore".text = ".git/";
 

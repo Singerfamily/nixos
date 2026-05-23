@@ -5,6 +5,16 @@ _: {
       wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Kay/contents/images_dark/5120x2880.png";
     in
     {
+      home.packages = with pkgs; [
+        graalvmPackages.graalvm-ce
+        # prismlauncher # Bugged
+        packwiz
+      ];
+
+      services.flatpak.packages = [
+        "org.prismlauncher.PrismLauncher"
+      ];
+
       programs.plasma = {
         workspace.wallpaper = wallpaper;
 
