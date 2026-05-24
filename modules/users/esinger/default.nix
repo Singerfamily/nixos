@@ -81,10 +81,28 @@
         ...
       }:
       {
+        programs.git-credential-oauth.enable = true;
         programs.git.settings = {
-          user.name = "LeaderbotX400";
-          user.email = "34589843+LeaderbotX400@users.noreply.github.com";
-          github.user = "LeaderbotX400";
+          user.name = "eric";
+          user.email = "eric@git.s10y.ca";
+
+          credential = {
+            helper = "cache --timeout 21600"; # 6 hours
+            "https://forgejo.singerfamily.ca" = {
+              helper = "oauth";
+            };
+            "https://git.singerfamily.ca" = {
+              helper = "oauth";
+            };
+            "https://git.s10y.ca" = {
+              helper = "oauth";
+            };
+          };
+
+          github = {
+            user = "LeaderbotX400";
+            email = "34589843+LeaderbotX400@users.noreply.github.com";
+          };
         };
 
         programs.lazydocker.enable = true;
