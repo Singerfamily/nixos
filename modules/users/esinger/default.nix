@@ -84,10 +84,10 @@
         programs.git-credential-oauth.enable = true;
         programs.git.settings = {
           user.name = "eric";
-          user.email = "eric@git.s10y.ca";
+          user.email = "eric@singerfamily.ca";
 
           credential = {
-            helper = "cache --timeout 21600"; # 6 hours
+            helper = [ "cache --timeout 21600" ]; # 6 hours
             "https://forgejo.singerfamily.ca" = {
               helper = "oauth";
             };
