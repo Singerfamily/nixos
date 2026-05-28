@@ -49,6 +49,14 @@
 
         # Filesystems
 
+        services.ollama = {
+          enable = true;
+          loadModels = [
+            "gemma4:31b"
+          ];
+          openFirewall = true;
+        };
+
         # KASM compatibility — relaxed SSH MACs.
         services.openssh.settings.Macs = [
           "hmac-sha2-256-etm@openssh.com"
