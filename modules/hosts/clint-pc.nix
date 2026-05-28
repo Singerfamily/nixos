@@ -17,6 +17,7 @@
       crypto
       tpm
       vscode-server
+      ollama-proxy
     ];
 
     nixos =
@@ -54,7 +55,13 @@
           loadModels = [
             "gemma4:31b"
           ];
-          openFirewall = true;
+        };
+
+        # Bearer-token auth + network exposure for ollama (ollama-proxy aspect).
+        # The API key lives in secrets/hosts/clint-pc.yaml under "ollama/api-key".
+        den.ollamaProxy.enable = true;
+        sops.secrets."ollama/api-key" = {
+          sopsFile = ../../secrets/hosts/clint-pc.yaml;
         };
 
         # KASM compatibility — relaxed SSH MACs.
