@@ -52,9 +52,16 @@
 
         services.ollama = {
           enable = true;
+          package = pkgs.ollama-cuda;
           loadModels = [
             "gemma4:31b"
+            "gemma4:26b"
           ];
+          environmentVariables = {
+            OLLAMA_FLASH_ATTENTION = "1";
+            OLLAMA_CONTEXT_LENGTH = "262144";
+            OLLAMA_KV_CACHE_TYPE = "q8_0";
+          };
         };
 
         # Bearer-token auth + network exposure for ollama (ollama-proxy aspect).
