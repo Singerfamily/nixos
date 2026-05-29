@@ -75,14 +75,14 @@
               # `namespace` scopes every request to the flake's own `nixos`
               # namespace on the shared server — the AppRole role, the SSH CA,
               # and the KV secrets the templates below read all live there
-              # (see scripts/openbao-bootstrap.sh).
+              # (see scripts/deploy.sh --bootstrap).
               vault = {
                 address = "https://secrets.singerfamily.ca";
                 namespace = "nixos";
               };
 
-              # AppRole login. role_id + secret_id are seeded by
-              # scripts/deploy.sh from scripts/provision-host.sh output.
+              # AppRole login. role_id + secret_id are seeded by the
+              # provision phase of scripts/deploy.sh.
               # remove_secret_id_file_after_reading=false keeps the secret_id
               # on disk so the agent can re-login after a restart without
               # re-provisioning. To rotate after a suspected leak, run

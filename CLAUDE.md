@@ -23,7 +23,8 @@ nix fmt                            # treefmt: nixfmt + statix + deadnix + shfmt 
 sudo nixos-rebuild switch --flake .#$(hostname)
 nh os switch .                     # alternative deploy (nh, from devshell)
 scripts/setup-hooks.sh             # install git hooks once after cloning
-scripts/deploy.sh <host> <flake-attr>  # remote install via nixos-anywhere
+scripts/deploy.sh --bootstrap      # one-time: stand up the `nixos` OpenBao namespace
+scripts/deploy.sh <host> <host-ip> # provision creds + sops + AppRole, commit, install via nixos-anywhere
 ```
 
 ## Architecture

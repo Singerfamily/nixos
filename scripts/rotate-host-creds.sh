@@ -12,7 +12,7 @@
 #      restart the OpenBao agent so it re-authenticates immediately.
 #
 # The host's per-host role (host-<hostname>) must already exist — run
-# scripts/provision-host.sh first for a brand-new host. Because this only
+# scripts/deploy.sh first for a brand-new host. Because this only
 # touches AppRole credentials, the host stays up; no redeploy is needed.
 #
 # Auth: uses an existing `bao` token if one is present; otherwise falls back
@@ -49,7 +49,7 @@ if ! bao token lookup >/dev/null 2>&1; then
 fi
 
 if ! bao read "auth/approle/role/${ROLE}" >/dev/null 2>&1; then
-  echo "role ${ROLE} does not exist — run scripts/provision-host.sh ${HOST} first" >&2
+  echo "role ${ROLE} does not exist — run scripts/deploy.sh ${HOST} <ip> first" >&2
   exit 1
 fi
 

@@ -20,7 +20,7 @@
   # exclude a user from a machine they shouldn't reach).
   #
   # The CA lives in the flake's `nixos` OpenBao namespace
-  # (see scripts/openbao-bootstrap.sh). Its public key is not secret.
+  # (see scripts/deploy.sh --bootstrap). Its public key is not secret.
   den.aspects.ssh = {
     nixos =
       { pkgs, config, lib, ... }:
@@ -116,7 +116,7 @@
           # Vault-agent templates: sign a 12h user cert for each opted-in user
           # and write it directly to their ~/.ssh/ cert slot. The AppRole
           # credential is permitted to call ssh/sign/user-host
-          # (see scripts/provision-host.sh host policy).
+          # (see the host policy in scripts/deploy.sh).
           # Scoping is enforced server-side by AuthorizedPrincipalsFile above —
           # a host that doesn't list a principal won't accept the cert.
           openbao.extraTemplates = lib.mapAttrsToList (username: hmCfg: {
