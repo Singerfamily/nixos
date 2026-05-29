@@ -109,6 +109,8 @@
 
         home.packages = with pkgs; [
           bitwarden-desktop
+          bun
+          nodejs
         ];
 
         home.shellAliases = {
