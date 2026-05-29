@@ -72,6 +72,9 @@
         };
 
         home.packages = with pkgs; [
+          microsoft-edge
+
+          # Utils
           dua
           duf
           sd
