@@ -19,6 +19,11 @@ _: {
           extraGroups = [ "wheel" ];
           hashedPasswordFile = config.sops.secrets."passwords/recovery".path;
         };
+
+        # Keep the break-glass account out of the SDDM user list. Merges with
+        # the Users section set by the plasma aspect; harmless on hosts without
+        # SDDM since the option simply goes unused.
+        services.displayManager.sddm.settings.Users.HideUsers = "recovery";
       };
   };
 }
