@@ -160,6 +160,10 @@ path "secret/data/authentik/ldap-service-account" {
 path "secret/data/authentik/ldap-outpost-token" {
   capabilities = ["read"]
 }
+# OIDC device-code login client credentials (opt-in oidc-login aspect).
+path "secret/data/authentik/oidc-pam" {
+  capabilities = ["read"]
+}
 path "secret/data/hosts/github-flake-token" {
   capabilities = ["read"]
 }
