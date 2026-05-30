@@ -44,11 +44,14 @@
         programs.ssh.enableDefaultConfig = false;
 
         # Forgejo SSH over 443 (TLS-wrapped, routed by SNI)
-        programs.ssh.settings."forgejo.singerfamily.ca git.s10y.ca s10y.ca" = {
-          HostName = "fj-ssh.singerfamily.ca";
-          Port = 443;
-          User = "git";
-          ProxyCommand = "${pkgs.openssl}/bin/openssl s_client -connect %h:%p -quiet 2>/dev/null";
+        programs.ssh.settings = {
+          "forgejo.singerfamily.ca git.s10y.ca s10y.ca" = {
+            HostName = "fj-ssh.singerfamily.ca";
+            Port = 443;
+            User = "git";
+            ProxyCommand = "${pkgs.openssl}/bin/openssl s_client -connect %h:%p -quiet 2>/dev/null";
+            IdentityFile = "~/.ssh/id_ed25519";
+          };
         };
       };
   };
