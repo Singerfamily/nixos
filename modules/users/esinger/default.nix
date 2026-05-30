@@ -4,6 +4,9 @@
   ...
 }:
 {
+
+  den.homes.x86_64-linux.esinger = { };
+
   den.aspects.esinger = {
     includes =
       (with den.aspects; [
@@ -15,6 +18,7 @@
         zsh
         fzf
         git
+        ssh
         plasma-full
         discord
         vscode

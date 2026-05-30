@@ -4,7 +4,6 @@
 
   den.aspects.event-horizon = {
     includes = with den.aspects; [
-      kernel-cachy
       gpu-amd
       bluetooth
       sound

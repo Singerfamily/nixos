@@ -35,9 +35,21 @@
         #   sopsFile = ../../../../secrets/hosts + "/${config.networking.hostName}.yaml";
         # };
       };
-    homeManager = _: {
-      programs.ssh.enable = true;
-      services.ssh-agent.enable = true;
-    };
+    homeManager =
+      { pkgs, ... }:
+      {
+        programs.ssh.enable = true;
+        services.ssh-agent.enable = true;
+
+        programs.ssh.enableDefaultConfig = false;
+
+        # Forgejo SSH over 443 (TLS-wrapped, routed by SNI)
+        programs.ssh.settings."forgejo.singerfamily.ca git.s10y.ca s10y.ca" = {
+          HostName = "fj-ssh.singerfamily.ca";
+          Port = 443;
+          User = "git";
+          ProxyCommand = "${pkgs.openssl}/bin/openssl s_client -connect %h:%p -quiet 2>/dev/null";
+        };
+      };
   };
 }

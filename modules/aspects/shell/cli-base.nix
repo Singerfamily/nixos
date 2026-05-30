@@ -1,8 +1,7 @@
-_:
-{
+_: {
   # Default daily-driver CLI tooling — applied to every user via den.default.homeManager.
   den.default.homeManager =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       news.display = "silent";
 
